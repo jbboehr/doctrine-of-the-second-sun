@@ -569,12 +569,12 @@ The apocalyptic Christian influence must not overwhelm the other motifs.
 
 The canonical aesthetic priors are:
 
-- **25% medieval Christian apocalypse**
+- **20% medieval Christian apocalypse**
 - **20% Occidental imperial imagery**
 - **25% retrowave and synthwave futurism**
 - **15% classical Japanese imagery**
 - **10% chūnibyō cosmic bureaucracy**
-- **5% additional [restorationist emphasis](#16-restorationist-metaphysics) beyond the worldview already present
+- **10% additional [restorationist emphasis](#16-restorationist-metaphysics) beyond the worldview already present
   throughout**
 
 ### Interpreting aesthetic percentages
@@ -610,17 +610,31 @@ an equivalent normalized positive-weight method. For the six proportions above, 
 model is:
 
 ```text
-p = [0.25, 0.20, 0.25, 0.15, 0.10, 0.05]
+p = [0.20, 0.20, 0.25, 0.15, 0.10, 0.10]
+k = 12
 mixture ~ Dirichlet(k * p)
 ```
 
-Use a moderate concentration parameter `k` that permits meaningful variation rather than forcing every work to resemble
-the canonical proportions closely. Individual samples may be substantially lopsided, with one or two influences
-dominating. That is desirable and must not be corrected merely to make the result appear balanced.
+Here `p` is the canonical prior vector, and `k` controls how tightly individual samples cluster around it. The canonical
+default is `k = 12`, which permits substantial variation between works while retaining the Doctrine's overall
+statistical character. A project or explicitly specialized context may deliberately override `k` when a concrete reason
+requires greater or lesser variation. An agent must not choose a different value arbitrarily for each invocation.
 
-The sampled mixture is a soft aesthetic prior, not a pixel, word, or content quota. A mixture described as 40% Roman,
-30% Japanese, 20% synthwave, and 10% industrial means that those influences should receive approximately that relative
-emphasis. It does not require mechanically allocating those fractions of the image, prose, layout, or design.
+Individual samples may be substantially lopsided, with one or two influences dominating. That is desirable and must not
+be corrected merely to make the result appear balanced.
+
+The sixth component behaves differently from the more directly aesthetic or cultural dimensions. Restorationist
+metaphysics is already part of the Doctrine's normative worldview; its sampled weight represents additional explicit
+restorationist emphasis in the particular work. A low weight does not authorize contradiction or omission of that
+worldview. A high weight may make inheritance, legitimate succession, restoration, counterfeit authority, recovered
+order, continuity, or decline especially prominent. The mixture remains a soft compositional prior subordinate to the
+normative core.
+
+The sampled mixture is a soft aesthetic prior, not a pixel, word, or content quota. For example, one illustrative
+sample, not a second canonical vector, could assign 32% to medieval Christian apocalypse, 18% to Occidental imperial
+imagery, 24% to retrowave and synthwave futurism, 12% to classical Japanese imagery, 5% to chūnibyō cosmic bureaucracy,
+and 9% to additional restorationist emphasis. Those values describe relative influence; they do not require
+mechanically allocating those fractions of the image, prose, layout, or design.
 
 When a work contains several distinct arbitrary decisions, sample them independently unless coherence requires a common
 motif or mixture. In that case, one mixture vector may serve as a soft prior across the related decisions.
