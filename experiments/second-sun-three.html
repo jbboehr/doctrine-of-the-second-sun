@@ -1607,8 +1607,9 @@ server.<span class="token-function">listen</span>(config.http.port);</code></pre
             vNormalObject = normalize(normal);
             float turbulence = fbm(normal * 3.4 + vec3(uTime * 0.055, -uTime * 0.036, uTime * 0.024));
             float pulse = sin(uTime * 0.82 + normal.y * 8.0) * 0.018;
-            float unstableSurface = mix(0.38, 1.0, uAssembly);
-            vec3 displaced = position + normal * ((turbulence - 0.48) * 0.3 + pulse) * unstableSurface;
+            float unstableSurface = mix(1.78, 1.0, uAssembly);
+            vec3 displaced = position + normal *
+              ((turbulence - 0.48) * 0.3 * unstableSurface + pulse * (0.62 + uAssembly * 0.38));
             vPositionObject = displaced;
             gl_Position = projectionMatrix * modelViewMatrix * vec4(displaced, 1.0);
           }
@@ -1627,9 +1628,26 @@ server.<span class="token-function">listen</span>(config.http.port);</code></pre
             float formationField = broad * 0.58 + cells * 0.42;
             float formationFlicker = sin(n.x * 17.0 + n.y * 11.0 + uTime * 0.9) * 0.035 * (1.0 - uAssembly);
             float threshold = mix(0.71, 0.28, uAssembly);
-            float islands = smoothstep(threshold - 0.055, threshold + 0.06, formationField + formationFlicker);
-            float cohesion = smoothstep(0.68, 0.96, uAssembly);
-            float surfaceMask = mix(islands, 1.0, cohesion);
+            float islandSignal = formationField + formationFlicker;
+            float islands = smoothstep(threshold - 0.055, threshold + 0.06, islandSignal);
+            float ignitionSiteSignal = max(
+              dot(n, normalize(vec3(-0.56, 0.42, 0.72))),
+              max(
+                dot(n, normalize(vec3(0.61, 0.12, 0.78))),
+                dot(n, normalize(vec3(0.08, -0.67, 0.74)))
+              )
+            ) + (broad - 0.5) * 0.42 + (cells - 0.5) * 0.16;
+            float ignitionSiteThreshold = mix(0.975, -0.26, smoothstep(0.04, 0.86, uAssembly));
+            float ignitionSites = smoothstep(
+              ignitionSiteThreshold - 0.065,
+              ignitionSiteThreshold + 0.065,
+              ignitionSiteSignal
+            );
+            float cohesion = smoothstep(0.7, 0.96, uAssembly);
+            float surfaceMask = mix(max(islands, ignitionSites), 1.0, cohesion);
+            float islandFront = 1.0 - smoothstep(0.018, 0.085, abs(islandSignal - threshold));
+            float ignitionFront = 1.0 - smoothstep(0.015, 0.075, abs(ignitionSiteSignal - ignitionSiteThreshold));
+            float frontier = max(islandFront * 0.58, ignitionFront) * (1.0 - cohesion);
             float filaments = smoothstep(0.48, 0.73, abs(broad - cells * 0.56));
             float facing = max(0.0, dot(n, normalize(vec3(-0.38, 0.5, 1.0))));
             float limb = pow(1.0 - max(0.0, n.z), 1.7);
@@ -1637,15 +1655,23 @@ server.<span class="token-function">listen</span>(config.http.port);</code></pre
             vec3 orange = vec3(1.0, 0.20, 0.025);
             vec3 amber = vec3(1.0, 0.64, 0.10);
             vec3 whiteHot = vec3(1.0, 0.96, 0.66);
-            vec3 color = mix(crimson, orange, smoothstep(0.18, 0.62, broad));
-            color = mix(color, amber, smoothstep(0.42, 0.86, cells + facing * 0.35));
-            color = mix(color, whiteHot, smoothstep(0.68, 1.16, broad + cells * 0.52 + facing * 0.28));
-            color += filaments * vec3(0.55, 0.09, 0.015);
-            color = mix(color, crimson * 0.72, limb * 0.63);
+            vec3 proto = mix(vec3(0.19, 0.001, 0.045), vec3(0.49, 0.012, 0.026), broad);
+            proto += cells * vec3(0.09, 0.003, 0.035);
+            vec3 fire = mix(crimson, orange, smoothstep(0.18, 0.62, broad));
+            fire = mix(fire, amber, smoothstep(0.42, 0.86, cells + facing * 0.35));
+            fire = mix(fire, whiteHot, smoothstep(0.68, 1.16, broad + cells * 0.52 + facing * 0.28));
+            fire += filaments * vec3(0.55, 0.09, 0.015);
+            fire = mix(fire, crimson * 0.72, limb * 0.63);
+            vec3 firstFire = mix(crimson * 0.94, orange, smoothstep(0.26, 0.78, broad + cells * 0.24));
+            fire = mix(firstFire, fire, smoothstep(0.18, 0.58, uAssembly));
+            vec3 color = mix(proto, fire, surfaceMask);
             color = mix(color, whiteHot, (1.0 - cohesion) * islands * 0.16);
-            float alpha = uIgnition * surfaceMask * (0.93 + facing * 0.07);
+            color = mix(color, whiteHot * 1.16, frontier * 0.88);
+            float stellarPresence = smoothstep(0.005, 0.2, uAssembly);
+            float alpha = stellarPresence * mix(0.62, 1.0, max(surfaceMask, frontier * 0.82)) *
+              (0.93 + facing * 0.07);
             if (alpha < 0.012) discard;
-            gl_FragColor = vec4(color * (0.52 + uIgnition * 0.92), alpha);
+            gl_FragColor = vec4(color * (0.84 + uIgnition * 0.62), alpha);
           }
         `,
       });
@@ -2003,9 +2029,9 @@ server.<span class="token-function">listen</span>(config.http.port);</code></pre
       ignitionShell.material.uniforms.uPulse.value = shellPulse;
 
       const starScale =
-        0.46 +
-        smoothstep(0.14, 0.57, progress) * 0.38 +
-        smoothstep(0.57, 0.86, progress) * 0.16;
+        0.7 +
+        smoothstep(0.08, 0.42, progress) * 0.14 +
+        smoothstep(0.55, 0.86, progress) * 0.16;
       star.scale.setScalar(starScale);
       atmosphere.scale.setScalar(THREE.MathUtils.lerp(0.54, 1, ignition));
       corona.scale.setScalar(THREE.MathUtils.lerp(0.48, 1, ignition));
