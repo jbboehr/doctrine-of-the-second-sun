@@ -30,6 +30,87 @@ legitimacy and imitation, order and disorder.
 
 ---
 
+## Authority and normative core
+
+### How to read this guide
+
+This guide has three levels of authority:
+
+- **The normative core and canonical definitions** state what conformity requires. They establish the Doctrine's
+  purpose, worldview, identity, boundaries, and exact values.
+- **Application guidance** explains how to apply those requirements in ordinary cases. Direct prohibitions and
+  requirements remain binding applications of the core; words such as _usually_, _prefer_, _may_, and _suitable_
+  identify deliberate room for judgment.
+- **Examples, diagnostics, failure modes, and illustrative passages** make the guidance easier to interpret and apply.
+  They remain important steering material, but they do not independently create requirements or override a rule.
+
+An example establishes that a treatment can be valid; it does not make every feature of that example mandatory. A
+diagnostic identifies a pattern worth reviewing; it does not automatically reject an otherwise conforming work unless
+the guide separately states the underlying requirement.
+
+When two passages appear to conflict, interpret them in this order:
+
+1. the normative core and explicit canonical definitions;
+2. foundational and general rules over narrow application guidance;
+3. established project-specific identity and constraints where the Doctrine permits variation;
+4. examples, diagnostics, failure modes, and other illustrative material.
+
+A consuming repository remains authoritative for matters this guide explicitly delegates, such as source coverage,
+citation syntax, and local verification. Such policy may select among variations the Doctrine permits, but it should not
+silently redefine the Doctrine's foundational meaning.
+
+### Normative core
+
+A conforming use of the Doctrine must preserve these load-bearing rules:
+
+- Literary Doctrine belongs in canonical or logion material. Ordinary project documentation must remain technically
+  accurate, and conventional technical terminology takes precedence over aesthetic presentation. When Doctrine is
+  embedded in source code, the [coding guide](DOCTRINE-CODING-GUIDE.md) governs this boundary.
+- Logia belong to one coherent, sincere scripture with an objective metaphysical order. Stable distinctions among
+  origin and imitation, recognition and appearance, inheritance and appropriation, measure and arbitrariness, boundary
+  and dissolution, and lawful transformation and replacement must remain meaningful.
+- Artificial things are not inherently false, but they may not conceal their origin or appoint themselves as the source
+  of the order by which they are judged. Preservation, restoration, mercy, creation, and lawful increase remain
+  answerable to continuity, truth, obligation, and consequence.
+- The four books share one canon, and compositional movements may mix freely. A book supplies canonical emphasis rather
+  than a rigid literary genre.
+- A logion must remain original, intelligible, internally coherent, grammatically controlled, and convincing when
+  detached from the declaration or project location that bears it. It must not become programming allegory,
+  recognizable biblical imitation, parody, generic genre prose, or random motif accumulation.
+- Substantial logia must maintain a clear hierarchy among their motifs. The primary-motif guidance defines the normal
+  application and its scope; mystery may conceal part of the machinery, but it must not erase the passage's doctrinal
+  force.
+- Semantic and contextual fitness, established project identity, and other applicable constraints take precedence over
+  arbitrary aesthetic selection. When a remaining choice is intentionally stochastic, use the canonical sampling
+  priors and actual system entropy rather than manual balancing or model intuition.
+- Images derived from the Doctrine must preserve the source passage's doctrinal meaning. Image-specific requirements,
+  including mandatory visual anchors and visual sampling priors, are defined by the
+  [image guide](DOCTRINE-IMAGE-GUIDE.md).
+
+The following locations are the single sources of truth for exact normative names, values, and definitions. Later
+restatements, checklists, and examples refer back to them rather than defining alternatives.
+
+- **Central worldview:** [Central doctrinal worldview](#1-central-doctrinal-worldview).
+- **Foundational distinctions:** [Philosophical posture](#2-philosophical-posture).
+- **Movements and canonical book names:**
+  [Scriptural unity and compositional movements](#3-scriptural-unity-and-compositional-movements).
+- **Length range and its non-metrical status:** [Length and development](#4-length-and-development).
+- **Literary aesthetic weights and entropy rules:** [Aesthetic balance](#7-aesthetic-balance).
+- **Meaning of _restorationist metaphysics_:**
+  [Restorationist metaphysics](#16-restorationist-metaphysics).
+- **Canonical independence:** [Canonical independence](#canonical-independence).
+- **Primary-motif rule:** [Mystery and restraint](#mystery-and-restraint).
+- **Prohibited tendencies and the originality boundary:** [Prohibited tendencies](#24-prohibited-tendencies) and
+  [Originality](#25-originality).
+- **Visual requirements and visual weights:** [Doctrine image guide](DOCTRINE-IMAGE-GUIDE.md).
+
+An agent can produce a valid but comparatively plain result by following this core and the canonical definitions linked
+above. Those definitions retain normative authority where they appear. Their surrounding application guidance, imagery,
+examples, diagnostics, and variation make the result richer and more recognizably Second Sun without independently
+redefining validity.
+
+---
+
 ## 1. Central doctrinal worldview
 
 The quotations should sound as though they derive from one lost doctrinal corpus.
@@ -220,12 +301,8 @@ the strength or reach of the order it received. It must appear as fulfillment ra
 
 ### Canonical books
 
-The Doctrine of the Second Sun contains four fictional books within one canon:
-
-- **OSD — Ordinances of the Synthetic Dawn**;
-- **RAS — Revelation of the Artificial Sun**;
-- **AWC — Acts of the Western Court**;
-- **SFA — Scholia of the Fifth Archive**.
+The Doctrine of the Second Sun contains four fictional books within one canon. Their codes and canonical names are
+defined by the four subsections below.
 
 All four books share one cosmology, doctrinal worldview, and scriptural voice. Their names indicate differences in
 emphasis and canonical function, not rigid literary genres. A verse in any book may combine Pronouncement, Sign, Vision,
@@ -1202,7 +1279,8 @@ Across a substantial body of logia:
 
 As a loose diagnostic rather than a quota:
 
-- most logia should contain two or three movements;
+- substantial logia should normally follow the movement-count guidance in
+  [Scriptural unity and compositional movements](#3-scriptural-unity-and-compositional-movements);
 - fewer than half should begin with a first-person vision;
 - a substantial majority should contain some form of Pronouncement, Injunction, or Interpretation;
 - no movement should become a mandatory ingredient in every verse.
@@ -1790,7 +1868,9 @@ Before accepting a quotation, verify that:
 3. Its imagery carries or enlarges that proposition rather than merely decorating it.
 4. It sounds like part of the same lost doctrine as the surrounding corpus.
 5. It reads as one passage of scripture rather than as a performance of a named literary category.
-6. Where appropriate, it combines two or three compositional movements without exposing their seams.
+6. Where appropriate, it combines movements according to
+   [Scriptural unity and compositional movements](#3-scriptural-unity-and-compositional-movements) without exposing
+   their seams.
 7. It does not default to first-person vision merely because apocalyptic imagery is available.
 8. Its cadence can support recitation, preservation, command, remembrance, lament, praise, blessing, or judgment without
    closely imitating real scripture.
