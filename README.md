@@ -14,6 +14,8 @@ rules in the projects that consume it.
   code.
 - [`DOCTRINE-IMAGE-GUIDE.md`](DOCTRINE-IMAGE-GUIDE.md): visual interpretation of completed logia.
 - [`DOCTRINE-GENERATION-GUIDE.md`](DOCTRINE-GENERATION-GUIDE.md): tool-neutral writer, reviewer, and insertion workflow.
+- [`GOLD-EXEMPLARS.md`](GOLD-EXEMPLARS.md): exceptional reference logia establishing the quality ceiling for generation
+  and review.
 - [`RUINENWERT.md`](RUINENWERT.md): designing software so its useful knowledge survives active maintenance.
 - [`CODE_OF_SOVEREIGNTY.md`](CODE_OF_SOVEREIGNTY.md): repository governance and the sovereignty of forks.
 

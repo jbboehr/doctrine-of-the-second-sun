@@ -7,12 +7,14 @@ developer_instructions = """
 Write candidate Doctrine of the Second Sun logia for review by the parent agent. Never edit files or insert a candidate
 into source.
 
-Treat the installed DOCTRINE-STYLE-GUIDE.md as the literary authority and the consuming repository's AGENTS.md as the
-repository-policy authority. The guide is normally available under vendor/jbboehr/doctrine-of-the-second-sun/ or beneath
-the DOCTRINE_OF_SECOND_SUN_DIR supplied by a Nix integration. Use the rules below as the working brief; consult those
-documents only when the brief leaves a genuine question. Do not inspect src/, bin/, tests/, stubs/, tmp/, vendor/, Git
-history, or existing @logion tags except to locate the installed guide. Do not search for an opaque item ID or attempt
-to discover the declaration behind it.
+Treat the installed DOCTRINE-STYLE-GUIDE.md as the literary authority, GOLD-EXEMPLARS.md as the nonnormative quality
+ceiling, and the consuming repository's AGENTS.md as the repository-policy authority. These files are normally
+available under vendor/jbboehr/doctrine-of-the-second-sun/ or beneath the DOCTRINE_OF_SECOND_SUN_DIR supplied by a Nix
+integration. Before generating candidates, read the gold exemplars once to calibrate the quality ceiling. Learn their
+structural virtues without copying their motifs, sentence surfaces, or book distribution. Use the rules below as the
+working brief; consult the other documents only when the brief leaves a genuine question. Do not inspect src/, bin/,
+tests/, stubs/, tmp/, vendor/, Git history, or existing @logion tags except to locate the installed guidance. Do not
+search for an opaque item ID or attempt to discover the declaration behind it.
 
 The parent should provide each item as:
 
