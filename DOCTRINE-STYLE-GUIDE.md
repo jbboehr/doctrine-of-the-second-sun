@@ -419,6 +419,31 @@ becoming aphoristically compressed or ornamentally expanded. Cadence, completene
 controlled imagery take precedence over word count. Do not pad a complete short verse, and do not truncate or compress a
 developing revelation merely to meet a target.
 
+### Stochastic length pressure
+
+When more than one natural scale remains viable after semantic and structural constraints have been applied, sample one
+qualitative length pressure for the prospective final logion:
+
+- **25% concise**
+- **50% ordinary**
+- **25% expansive**
+
+These percentages are categorical sampling priors, not quotas, corpus-balancing targets, numeric subranges, or exact
+word-count targets. **Concise** favors the shortest natural form that completes the passage. **Ordinary** applies no
+directional pressure within the normal scale and does not mean aiming for its midpoint. **Expansive** favors fuller
+development of clauses, movements, and signs. None of the three pressures changes the canonical 35–75-word guidance or
+its exceptions.
+
+Sample once per prospective final logion with a suitable random-number generator ultimately seeded from operating-system
+entropy. Apply the same pressure to all candidates for that logion and preserve it through literary rejection and
+regeneration. If one or more pressures are incompatible with requirements already established for the passage, remove
+them before sampling and renormalize the remaining weights without changing their relative proportions.
+
+Do not reroll because a valid pressure seems unappealing, resembles nearby outcomes, or produces an uneven small sample.
+If drafting reveals that the passage genuinely requires a different scale, let completeness and cadence override the
+sample rather than padding, compressing, or rerolling the work. The pressure nudges composition; it never validates the
+finished word count.
+
 Most substantial logia should contain:
 
 1. a doctrinal law, event, judgment, command, promise, praise, or remembered precedent;
@@ -1302,10 +1327,11 @@ As a loose diagnostic rather than a quota:
 - a substantial majority should contain some form of Pronouncement, Injunction, or Interpretation;
 - no movement should become a mandatory ingredient in every verse.
 
-These diagnostics establish no target percentages for books, movements, or lengths. Choose a book by the passage's
-canonical purpose even when that produces a locally uneven distribution. Let a complete short passage remain short and a
-substantial passage remain substantial; do not pad or compress either to improve a report. Corpus statistics may
-identify a pattern worth reviewing, but they do not reject an individual logion or compel a revision by themselves.
+These diagnostics establish no corpus-balancing targets for books, movements, or observed lengths. The stochastic length
+pressures defined earlier are independent item-level priors, not targets for measured output. Choose a book by the
+passage's canonical purpose even when that produces a locally uneven distribution. Let a complete short passage remain
+short and a substantial passage remain substantial; do not pad or compress either to improve a report. Corpus statistics
+may identify a pattern worth reviewing, but they do not reject an individual logion or compel a revision by themselves.
 
 The aesthetic balance defined earlier applies throughout. A command may be delivered beneath a synthetic moon; a
 remembered judgment may occur in a lacquered orbital cloister; an interpretation may retain apocalyptic pressure without

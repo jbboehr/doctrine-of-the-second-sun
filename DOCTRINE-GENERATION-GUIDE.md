@@ -36,6 +36,12 @@ are diagnostic rather than quotas. They may prompt inspection, but they do not o
 
 ### 3. Generate candidates
 
+Before drafting, establish one item-level length pressure according to the canonical procedure in
+[Length and development](DOCTRINE-STYLE-GUIDE.md#4-length-and-development). The orchestrating agent or human should
+normally sample and retain it. If the writer must sample because no pressure was supplied, the writer reports the result
+so it can remain fixed. Apply that pressure softly to all three candidates for the opaque item and preserve it when a
+rejected set is regenerated. Do not expose it to the literary reviewer as a selection criterion.
+
 Produce three materially different candidates for each opaque item. Each candidate should:
 
 - stand independently as a passage from the canon;
@@ -43,10 +49,11 @@ Produce three materially different candidates for each opaque item. Each candida
 - possess a concrete and visually memorable primary motif;
 - combine compositional movements naturally;
 - use controlled scriptural cadence and coherent archaism where appropriate;
+- honor the item-level length pressure without padding, compression, or mechanical word-count optimization;
 - differ from its companions in motif, movement, sentence shape, and doctrinal pressure;
 - avoid direct technical language and generalized implementation allegory.
 
-The writer does not allocate chapter or verse numbers and does not recommend a winner.
+The writer reports the item-level length pressure but does not allocate chapter or verse numbers or recommend a winner.
 
 ### 4. Review without code
 
