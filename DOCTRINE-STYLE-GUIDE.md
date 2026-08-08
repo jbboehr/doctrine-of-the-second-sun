@@ -408,13 +408,16 @@ books, codes, or abbreviations merely to satisfy this guide.
 
 ## 4. Length and development
 
-Substantial logia commonly fall around **40–60 words**.
+Substantial logia commonly fall around **35–75 words**.
 
 Short foundational pronouncements, injunctions, interpretations, and compressed scholia may remain below that range.
-Visions, remembrances, and mixed passages may extend beyond it when their syntax and imagery remain controlled.
+Visions, remembrances, and mixed passages may extend beyond it when their structure genuinely requires more room and
+their syntax and imagery remain controlled.
 
-These ranges are guidance, not metrical law. Do not pad a complete short verse, and do not truncate a developing
-revelation merely to meet a target.
+This range is guidance, not metrical law. Prefer the shortest length at which the passage completes its movement without
+becoming aphoristically compressed or ornamentally expanded. Cadence, completeness, doctrinal consequence, and
+controlled imagery take precedence over word count. Do not pad a complete short verse, and do not truncate or compress a
+developing revelation merely to meet a target.
 
 Most substantial logia should contain:
 
