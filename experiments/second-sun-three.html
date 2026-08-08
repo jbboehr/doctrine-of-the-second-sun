@@ -803,6 +803,8 @@ server.<span class="token-function">listen</span>(config.http.port);</code></pre
     let hydrogen;
     let feederField;
     let star;
+    let protoField;
+    let ignitionShell;
     let atmosphere;
     let corona;
     let gravityWell;
@@ -1415,6 +1417,128 @@ server.<span class="token-function">listen</span>(config.http.port);</code></pre
       }
     `;
 
+    function buildProtoFragments() {
+      const count = viewport.narrow ? 38 : viewport.compact ? 52 : 76;
+      const geometry = new THREE.IcosahedronGeometry(0.13, 1);
+      const material = new THREE.MeshBasicMaterial({
+        color: 0xffffff,
+        transparent: true,
+        opacity: 0.68,
+        depthWrite: false,
+        depthTest: false,
+        blending: THREE.AdditiveBlending,
+      });
+      const mesh = new THREE.InstancedMesh(geometry, material, count);
+      mesh.instanceMatrix.setUsage(THREE.DynamicDrawUsage);
+      mesh.frustumCulled = false;
+      mesh.renderOrder = 7;
+      const palette = [0xff234f, 0xff5338, 0xff8530, 0xffb04a, 0x55d8d3];
+      const records = [];
+
+      for (let index = 0; index < count; index += 1) {
+        const finalAngle = random() * Math.PI * 2;
+        const turns = 1.15 + random() * 2.25;
+        const targetY = gaussian(0.68);
+        const targetRadius = Math.sqrt(Math.max(0.38, 2.42 - targetY * targetY));
+        const color = new THREE.Color(palette[index % palette.length]);
+        color.offsetHSL(gaussian(0.008), gaussian(0.02), gaussian(0.035));
+        records.push({
+          startAngle: finalAngle - turns * Math.PI * 2,
+          finalAngle,
+          turns,
+          startRadius: 3.8 + random() * 7.2,
+          targetRadius,
+          startY: gaussian(2.5),
+          targetY,
+          delay: random(),
+          scale: 0.44 + random() * 0.9,
+          stretchX: 0.62 + random() * 1.35,
+          stretchY: 0.48 + random() * 0.94,
+          stretchZ: 0.58 + random() * 1.18,
+          phase: random() * Math.PI * 2,
+          spin: gaussian(1.3),
+        });
+        mesh.setColorAt(index, color);
+      }
+      if (mesh.instanceColor) mesh.instanceColor.needsUpdate = true;
+      solarAnchor.add(mesh);
+
+      const shellMaterial = new THREE.ShaderMaterial({
+        transparent: true,
+        depthWrite: false,
+        depthTest: false,
+        side: THREE.DoubleSide,
+        blending: THREE.AdditiveBlending,
+        uniforms: {
+          uTime: { value: 0 },
+          uPulse: { value: 0 },
+        },
+        vertexShader: `
+          varying vec3 vNormalView;
+          varying vec3 vNormalObject;
+          void main() {
+            vNormalView = normalize(normalMatrix * normal);
+            vNormalObject = normalize(normal);
+            gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+          }
+        `,
+        fragmentShader: `
+          uniform float uTime;
+          uniform float uPulse;
+          varying vec3 vNormalView;
+          varying vec3 vNormalObject;
+          void main() {
+            float rim = pow(1.0 - abs(vNormalView.z), 2.2);
+            float fracture =
+              sin(vNormalObject.y * 18.0 + uTime * 1.7) * 0.34 +
+              sin(vNormalObject.x * 27.0 - uTime * 1.1) * 0.2 + 0.46;
+            float veins = smoothstep(0.45, 0.78, fracture);
+            vec3 rose = vec3(1.0, 0.03, 0.27);
+            vec3 gold = vec3(1.0, 0.67, 0.12);
+            vec3 color = mix(rose, gold, rim + veins * 0.35);
+            float alpha = uPulse * (rim * 0.36 + veins * 0.065);
+            gl_FragColor = vec4(color, alpha);
+          }
+        `,
+      });
+      ignitionShell = new THREE.Mesh(new THREE.SphereGeometry(1.92, 56, 36), shellMaterial);
+      ignitionShell.renderOrder = 9;
+      solarAnchor.add(ignitionShell);
+      protoField = { mesh, material, records };
+    }
+
+    function updateProtoFragments(progress, time, moving) {
+      const dummy = updateProtoFragments.dummy || (updateProtoFragments.dummy = new THREE.Object3D());
+      protoField.records.forEach((record, index) => {
+        const start = 0.08 + record.delay * 0.19;
+        const end = 0.61 + record.delay * 0.16;
+        const local = clamp01((progress - start) / (end - start));
+        if (!moving || local <= 0 || local >= 1) {
+          dummy.scale.setScalar(0);
+        } else {
+          const eased = smoothstep(0, 1, local);
+          const radius = THREE.MathUtils.lerp(record.startRadius, record.targetRadius, Math.pow(eased, 0.72));
+          const angle = record.startAngle + record.turns * Math.PI * 2 * eased + time * 0.055 * (1 - eased);
+          const y = THREE.MathUtils.lerp(record.startY, record.targetY, smoothstep(0.04, 0.94, eased));
+          dummy.position.set(Math.cos(angle) * radius, y, Math.sin(angle) * radius);
+          dummy.rotation.set(
+            record.phase + time * record.spin * 0.42,
+            time * 0.31 + local * 4.2,
+            record.phase - time * record.spin * 0.27,
+          );
+          const arrival = 1 - smoothstep(0.72, 1, local);
+          const emergence = smoothstep(0, 0.12, local);
+          const compression = 0.72 + smoothstep(0.35, 0.82, local) * 0.58;
+          const flicker = 0.76 + Math.sin(time * 7.2 + record.phase) * 0.24;
+          const size = record.scale * emergence * arrival * compression * flicker;
+          dummy.scale.set(size * record.stretchX, size * record.stretchY, size * record.stretchZ);
+        }
+        dummy.updateMatrix();
+        protoField.mesh.setMatrixAt(index, dummy.matrix);
+      });
+      protoField.mesh.instanceMatrix.needsUpdate = true;
+    }
+
     function buildStar() {
       const gravityMaterial = new THREE.ShaderMaterial({
         transparent: true,
@@ -1459,6 +1583,8 @@ server.<span class="token-function">listen</span>(config.http.port);</code></pre
       gravityWell.renderOrder = 4;
       solarAnchor.add(gravityWell);
 
+      buildProtoFragments();
+
       const geometry = new THREE.IcosahedronGeometry(1.72, viewport.compact ? 5 : 6);
       const material = new THREE.ShaderMaterial({
         transparent: true,
@@ -1468,10 +1594,12 @@ server.<span class="token-function">listen</span>(config.http.port);</code></pre
         uniforms: {
           uTime: { value: 0 },
           uIgnition: { value: 0 },
+          uAssembly: { value: 0 },
         },
         vertexShader: `
           uniform float uTime;
           uniform float uIgnition;
+          uniform float uAssembly;
           varying vec3 vNormalObject;
           varying vec3 vPositionObject;
           ${noiseGlsl}
@@ -1479,7 +1607,8 @@ server.<span class="token-function">listen</span>(config.http.port);</code></pre
             vNormalObject = normalize(normal);
             float turbulence = fbm(normal * 3.4 + vec3(uTime * 0.055, -uTime * 0.036, uTime * 0.024));
             float pulse = sin(uTime * 0.82 + normal.y * 8.0) * 0.018;
-            vec3 displaced = position + normal * ((turbulence - 0.48) * 0.22 + pulse) * uIgnition;
+            float unstableSurface = mix(0.38, 1.0, uAssembly);
+            vec3 displaced = position + normal * ((turbulence - 0.48) * 0.3 + pulse) * unstableSurface;
             vPositionObject = displaced;
             gl_Position = projectionMatrix * modelViewMatrix * vec4(displaced, 1.0);
           }
@@ -1487,6 +1616,7 @@ server.<span class="token-function">listen</span>(config.http.port);</code></pre
         fragmentShader: `
           uniform float uTime;
           uniform float uIgnition;
+          uniform float uAssembly;
           varying vec3 vNormalObject;
           varying vec3 vPositionObject;
           ${noiseGlsl}
@@ -1494,6 +1624,12 @@ server.<span class="token-function">listen</span>(config.http.port);</code></pre
             vec3 n = normalize(vNormalObject);
             float broad = fbm(n * 4.2 + vec3(uTime * 0.07, 0.0, -uTime * 0.045));
             float cells = fbm(n * 11.0 - vec3(0.0, uTime * 0.11, uTime * 0.04));
+            float formationField = broad * 0.58 + cells * 0.42;
+            float formationFlicker = sin(n.x * 17.0 + n.y * 11.0 + uTime * 0.9) * 0.035 * (1.0 - uAssembly);
+            float threshold = mix(0.71, 0.28, uAssembly);
+            float islands = smoothstep(threshold - 0.055, threshold + 0.06, formationField + formationFlicker);
+            float cohesion = smoothstep(0.68, 0.96, uAssembly);
+            float surfaceMask = mix(islands, 1.0, cohesion);
             float filaments = smoothstep(0.48, 0.73, abs(broad - cells * 0.56));
             float facing = max(0.0, dot(n, normalize(vec3(-0.38, 0.5, 1.0))));
             float limb = pow(1.0 - max(0.0, n.z), 1.7);
@@ -1506,7 +1642,9 @@ server.<span class="token-function">listen</span>(config.http.port);</code></pre
             color = mix(color, whiteHot, smoothstep(0.68, 1.16, broad + cells * 0.52 + facing * 0.28));
             color += filaments * vec3(0.55, 0.09, 0.015);
             color = mix(color, crimson * 0.72, limb * 0.63);
-            float alpha = uIgnition * (0.93 + facing * 0.07);
+            color = mix(color, whiteHot, (1.0 - cohesion) * islands * 0.16);
+            float alpha = uIgnition * surfaceMask * (0.93 + facing * 0.07);
+            if (alpha < 0.012) discard;
             gl_FragColor = vec4(color * (0.52 + uIgnition * 0.92), alpha);
           }
         `,
@@ -1828,13 +1966,18 @@ server.<span class="token-function">listen</span>(config.http.port);</code></pre
 
     function applyVisuals(progress, elapsedSeconds, moving = true) {
       const collapse = smoothstep(0, 1, progress);
-      const ignition = smoothstep(0.28, 0.82, progress);
+      const ignition = smoothstep(0.2, 0.8, progress);
+      const assembly = smoothstep(0.14, 0.84, progress);
       const protostar = smoothstep(0.1, 0.43, progress) * 0.22 + ignition * 0.78;
       const focus = smoothstep(0.05, 0.28, progress) * (1 - smoothstep(0.48, 0.82, progress));
       const registryAlpha = smoothstep(0.48, 0.86, progress);
       const consequenceAlpha = smoothstep(0.36, 0.68, progress);
       const feederPresence = moving ? smoothstep(0.08, 0.4, progress) : 0;
       const settledCloudAlpha = 0.52 * (1 - smoothstep(0.72, 1, progress) * 0.48);
+      const shellPhase = clamp01((progress - 0.47) / 0.31);
+      const shellPulse = moving && shellPhase > 0 && shellPhase < 1
+        ? Math.pow(Math.sin(shellPhase * Math.PI), 1.35)
+        : 0;
       const time = moving ? elapsedSeconds : 18.4;
 
       hydrogen.material.uniforms.uTime.value = time;
@@ -1850,19 +1993,29 @@ server.<span class="token-function">listen</span>(config.http.port);</code></pre
       });
       star.material.uniforms.uTime.value = time;
       star.material.uniforms.uIgnition.value = ignition;
+      star.material.uniforms.uAssembly.value = assembly;
       atmosphere.material.uniforms.uIgnition.value = ignition;
       corona.material.uniforms.uTime.value = time;
       corona.material.uniforms.uIgnition.value = protostar;
       gravityWell.material.uniforms.uTime.value = time;
       gravityWell.material.uniforms.uFocus.value = focus;
+      ignitionShell.material.uniforms.uTime.value = time;
+      ignitionShell.material.uniforms.uPulse.value = shellPulse;
 
-      const starScale = THREE.MathUtils.lerp(0.16, 1, smoothstep(0.34, 0.79, progress));
+      const starScale =
+        0.46 +
+        smoothstep(0.14, 0.57, progress) * 0.38 +
+        smoothstep(0.57, 0.86, progress) * 0.16;
       star.scale.setScalar(starScale);
-      atmosphere.scale.setScalar(THREE.MathUtils.lerp(0.34, 1, ignition));
+      atmosphere.scale.setScalar(THREE.MathUtils.lerp(0.54, 1, ignition));
       corona.scale.setScalar(THREE.MathUtils.lerp(0.48, 1, ignition));
+      ignitionShell.scale.setScalar(0.68 + shellPhase * 1.28);
+      ignitionShell.rotation.y = time * 0.13;
+      ignitionShell.rotation.z = -time * 0.07;
       star.rotation.y = time * 0.055;
       star.rotation.x = Math.sin(time * 0.08) * 0.09;
       accretionGroup.rotation.y = time * 0.018;
+      updateProtoFragments(progress, time, moving);
 
       filamentMaterials.forEach((material, index) => {
         material.uniforms.uTime.value = time;
