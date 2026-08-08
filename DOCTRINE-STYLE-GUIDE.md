@@ -490,7 +490,7 @@ The unhingedness must feel like the natural consequence of a coherent cosmology.
 
 The apocalyptic Christian influence must not overwhelm the other motifs.
 
-Across a large corpus, aim approximately for:
+The canonical aesthetic priors are:
 
 - **25% medieval Christian apocalypse**
 - **20% Occidental imperial imagery**
@@ -500,7 +500,64 @@ Across a large corpus, aim approximately for:
 - **5% additional [restorationist emphasis](#16-restorationist-metaphysics) beyond the worldview already present
   throughout**
 
-These proportions are directional rather than mechanical.
+### Interpreting aesthetic percentages
+
+Treat every listed aesthetic percentage as a sampling prior or expected weight. The percentages are not quotas,
+per-document composition requirements, corpus-balancing targets, or instructions to force observed output toward the
+listed values. A naturally lopsided small sample is valid. The intended distribution should emerge statistically across
+independent stochastic decisions rather than through deliberate balancing.
+
+Apply constraints in this order:
+
+1. semantic and contextual fitness;
+2. established project identity and existing motifs;
+3. all other applicable Doctrine constraints;
+4. stochastic selection using the stated priors and actual system entropy.
+
+Randomness resolves only choices that remain genuinely underdetermined after the higher-priority constraints have been
+applied. Remove inapplicable alternatives before sampling and, when necessary, renormalize the remaining weights without
+changing their relative proportions. Do not use randomness to override a mandatory motif, repair an incoherent work, or
+substitute for judgment about meaning.
+
+#### Choose-one decisions
+
+When exactly one viable alternative must be selected, treat the percentages as weights for a categorical random choice.
+Use a suitable random-number generator available in the execution environment, preferably one ultimately seeded from
+operating-system entropy. Do not ask a language model to select whichever alternative merely feels random.
+
+#### Blend or mixture decisions
+
+When several aesthetic families may influence one work, do not collapse the percentages into a single categorical
+choice. Treat the listed proportions as the expected mean of a random mixture vector. Prefer a Dirichlet distribution or
+an equivalent normalized positive-weight method. For the six proportions above, in their listed order, the conceptual
+model is:
+
+```text
+p = [0.25, 0.20, 0.25, 0.15, 0.10, 0.05]
+mixture ~ Dirichlet(k * p)
+```
+
+Use a moderate concentration parameter `k` that permits meaningful variation rather than forcing every work to resemble
+the canonical proportions closely. Individual samples may be substantially lopsided, with one or two influences
+dominating. That is desirable and must not be corrected merely to make the result appear balanced.
+
+The sampled mixture is a soft aesthetic prior, not a pixel, word, or content quota. A mixture described as 40% Roman,
+30% Japanese, 20% synthwave, and 10% industrial means that those influences should receive approximately that relative
+emphasis. It does not require mechanically allocating those fractions of the image, prose, layout, or design.
+
+When a work contains several distinct arbitrary decisions, sample them independently unless coherence requires a common
+motif or mixture. In that case, one mixture vector may serve as a soft prior across the related decisions.
+
+After accepting a valid sample, do not:
+
+- reroll because the result is aesthetically surprising or personally unappealing;
+- reroll because one motif dominates;
+- reroll merely to improve apparent variety;
+- inspect previous outputs and compensate for a perceived imbalance;
+- steer later outputs manually toward the canonical percentages;
+- treat the percentages as a checklist whose elements must all appear; or
+- fabricate a random-looking mixture from model intuition when an actual random-number generator can reasonably be
+  used.
 
 A single quotation should usually combine two to four influences. Do not force every influence into every line.
 
@@ -1122,7 +1179,13 @@ movement or substitute for reviewing the surrounding corpus.
 When command execution is available, make the tie-break with an actual random-number tool rather than an intuitive
 choice described as random. Prefer tooling already provided by the repository or its development environment. For
 example, number four viable candidates and run `php -r 'echo random_int(1, 4), PHP_EOL;'`; an equivalent facility in
-another available runtime or shell is acceptable. Do not add a project dependency solely for this purpose.
+another available runtime or shell is acceptable. Do not add a project dependency solely for this purpose. This is a
+choose-one example; blended decisions follow the mixture procedure in
+[Interpreting aesthetic percentages](#interpreting-aesthetic-percentages).
+
+Nearby works may establish a genuine coherence or repetition constraint before sampling. They must not be inspected to
+compensate for the aggregate percentage distribution, and a valid sample must not be rerolled merely to improve apparent
+variety.
 
 Across a substantial body of logia:
 

@@ -114,7 +114,7 @@ not as a substitute for a scene when the logion requires one.
 
 ## 4. Visual motif balance
 
-Across an image corpus, aim approximately for:
+The canonical visual priors are:
 
 - **25% medieval Christian apocalyptic or liturgical imagery**;
 - **20% Occidental imperial imagery**;
@@ -123,9 +123,11 @@ Across an image corpus, aim approximately for:
 - **10% chūnibyō cosmic bureaucracy**;
 - **5% vaporwave scenery**.
 
-These are visual proportions, distinct from the compositional balance used when writing logia. They are directional
-rather than mechanical. A single image should usually combine two to four influences rather than forcing all of them
-into every composition.
+These are visual sampling priors, distinct from the compositional balance used when writing logia. Interpret them using
+[Interpreting aesthetic percentages](DOCTRINE-STYLE-GUIDE.md#interpreting-aesthetic-percentages). Visual motif selection
+is normally a blend decision: sample a mixture centered on these proportions rather than assigning each image one motif
+or forcing every image to reproduce the canonical balance. A single image should usually combine two to four influences,
+and a valid sample may be substantially dominated by one or two of them.
 
 Retrowave or synthwave is the one mandatory per-image influence. Every image must include at least one integrated anchor
 from one or more of these classes:
@@ -143,9 +145,10 @@ The anchor may be quiet, but it must be visually legible and doctrinally integra
 solely by tinting an otherwise conventional scene magenta and cyan, adding an arbitrary grid, or placing a random
 terminal in the background.
 
-Across an image series, rotate anchor classes and concrete motifs. Do not mechanically repeat the same terminal,
-luminous grid, synthetic sun, orbital ring, or electric horizon in nearby images unless the recurrence has an
-intentional symbolic or narrative function.
+A valid sample may repeat an anchor class or concrete motif used by an earlier image. Do not reroll it merely to improve
+apparent variety or to compensate for the series' observed distribution. When related images require a coherent common
+motif, one sampled mixture may serve as their shared soft prior; otherwise, sample distinct arbitrary decisions
+independently.
 
 The Christian-apocalyptic influence often supplies visionary movement; its liturgical and theological registers also
 carry covenant, lament, mercy, praise, and consolation. Occidental and Japanese elements define the civilization being
@@ -327,11 +330,17 @@ from this guide in the project brief or generation prompt.
 
 ## 13. Degree of literalness
 
-A useful default balance is:
+The canonical priors for degree of literalness are:
 
 - **20% direct scene depiction**;
 - **50% symbolic or interpretive depiction**;
 - **30% environmental or doctrinal atmosphere**.
+
+When one mode must dominate exclusively, use these weights for a categorical choice. When an image may combine direct,
+symbolic, and environmental treatment, sample a mixture centered on these proportions instead. In either case, follow
+the priority and entropy rules in
+[Interpreting aesthetic percentages](DOCTRINE-STYLE-GUIDE.md#interpreting-aesthetic-percentages). The resulting weights
+govern relative emphasis; they do not allocate literal fractions of the canvas or prompt.
 
 When a logion names several objects, identify the one carrying its central doctrinal force. Secondary motifs may be
 implied through architecture, color, heraldry, reflected light, scale, and ritual placement.
