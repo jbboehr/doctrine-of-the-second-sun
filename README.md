@@ -16,6 +16,8 @@ rules in the projects that consume it.
 - [`DOCTRINE-GENERATION-GUIDE.md`](DOCTRINE-GENERATION-GUIDE.md): tool-neutral writer, reviewer, and insertion workflow.
 - [`DOCTRINE-GOLD-EXEMPLARS.md`](DOCTRINE-GOLD-EXEMPLARS.md): exceptional reference logia establishing the quality
   ceiling for generation and review.
+- [`INTEGRATION-GUIDE.md`](INTEGRATION-GUIDE.md): adopting the portable guides in a consuming repository for humans and
+  coding agents.
 - [`RUINENWERT.md`](RUINENWERT.md): designing software so its useful knowledge survives active maintenance.
 - [`CODE_OF_SOVEREIGNTY.md`](CODE_OF_SOVEREIGNTY.md): repository governance and the sovereignty of forks.
 
@@ -36,7 +38,8 @@ vendor/jbboehr/doctrine-of-the-second-sun/
 ```
 
 Consuming projects should keep their own `AGENTS.md` or equivalent policy for source scope, tag syntax, citation
-allocation, asset locations, and verification commands.
+allocation, asset locations, and verification commands. See the [integration guide](INTEGRATION-GUIDE.md) for the full
+adoption workflow and a local-policy template.
 
 ## Nix
 
