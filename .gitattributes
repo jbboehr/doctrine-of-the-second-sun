@@ -1,0 +1,6 @@
+* text=auto eol=lf
+
+/.git* export-ignore
+/flake.lock export-ignore
+/flake.nix export-ignore
+/result* export-ignore

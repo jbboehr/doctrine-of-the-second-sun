@@ -1,0 +1,30 @@
+{
+    "name": "jbboehr/doctrine-of-the-second-sun",
+    "description": "Portable doctrine, visual, coding, and software-stewardship guides",
+    "type": "library",
+    "license": "CC-BY-SA-4.0",
+    "authors": [
+        {
+            "name": "John Boehr",
+            "email": "jbboehr@mailbox.org"
+        }
+    ],
+    "keywords": [
+        "documentation",
+        "doctrine",
+        "software-maintenance",
+        "writing"
+    ],
+    "support": {
+        "issues": "https://github.com/jbboehr/doctrine-of-the-second-sun/issues",
+        "source": "https://github.com/jbboehr/doctrine-of-the-second-sun"
+    },
+    "archive": {
+        "exclude": [
+            "/.git*",
+            "/flake.lock",
+            "/flake.nix",
+            "/result*"
+        ]
+    }
+}
