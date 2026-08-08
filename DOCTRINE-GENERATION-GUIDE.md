@@ -95,11 +95,13 @@ Run the repository's formatter and relevant checks. Confirm that:
 Use small batches. Before continuing, review each batch for repeated openings, motifs, verdicts, sentence structures,
 book misuse, and accidental implementation relevance. A batch that passes mechanically may still fail as a corpus.
 
-The [gold exemplars](GOLD-EXEMPLARS.md) establish the quality ceiling for generation and review. Learn from their
-cadence, doctrinal consequence, motif hierarchy, book suitability, controlled mystery, originality, and endings; do not
-copy their surface motifs or treat their book distribution as a quota. The positive and revision examples in the
-[style guide](DOCTRINE-STYLE-GUIDE.md) provide broader supporting guidance. Nearby source logia may help detect
-repetition but must not become templates or silently lower the gold standard.
+The [gold exemplars](DOCTRINE-GOLD-EXEMPLARS.md) establish the quality ceiling for generation and review. Learn from
+their cadence, doctrinal consequence, motif hierarchy, book suitability, controlled mystery, originality, and endings;
+do not copy their surface motifs or recurring narrative skeletons, and do not treat their book distribution as a quota.
+In particular, do not turn an inherited or damaged object, patient preservation or ritual repair, miraculous recognition
+or restoration, and a resulting institutional custom into a reusable plot whose furniture merely changes. The positive
+and revision examples in the [style guide](DOCTRINE-STYLE-GUIDE.md) provide broader supporting guidance. Nearby source
+logia may help detect repetition but must not become templates or silently lower the gold standard.
 
 ## Portable Fallback
 
