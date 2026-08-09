@@ -804,6 +804,7 @@ server.<span class="token-function">listen</span>(config.http.port);</code></pre
     let feederField;
     let innerDiskField;
     let star;
+    let protoVolume;
     let accretionKnots;
     let protoField;
     let ignitionShell;
@@ -821,6 +822,7 @@ server.<span class="token-function">listen</span>(config.http.port);</code></pre
     let viewport = { width: 1, height: 1, worldWidth: 1, worldHeight: 1, compact: false, narrow: false };
 
     const random = mulberry32(0x5ec0da7a);
+    const volumeCameraLocal = new THREE.Vector3();
 
     function mulberry32(seed) {
       return function next() {
@@ -1883,6 +1885,160 @@ server.<span class="token-function">listen</span>(config.http.port);</code></pre
       protoField.mesh.instanceMatrix.needsUpdate = true;
     }
 
+    function buildProtoVolume() {
+      const material = new THREE.ShaderMaterial({
+        transparent: true,
+        depthWrite: false,
+        depthTest: true,
+        side: THREE.FrontSide,
+        blending: THREE.NormalBlending,
+        uniforms: {
+          uTime: { value: 0 },
+          uPresence: { value: 0 },
+          uDensity: { value: 0 },
+          uMass: { value: 0 },
+          uIgnition: { value: 0 },
+          uImpacts: { value: new THREE.Vector4() },
+          uCameraLocal: { value: new THREE.Vector3(0, 0, 10) },
+        },
+        vertexShader: `
+          varying vec3 vLocalPosition;
+          void main() {
+            vLocalPosition = position;
+            gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+          }
+        `,
+        fragmentShader: `
+          uniform float uTime;
+          uniform float uPresence;
+          uniform float uDensity;
+          uniform float uMass;
+          uniform float uIgnition;
+          uniform vec4 uImpacts;
+          uniform vec3 uCameraLocal;
+          varying vec3 vLocalPosition;
+          ${noiseGlsl}
+
+          const float VOLUME_RADIUS = 1.84;
+
+          mat2 rotate2(float angle) {
+            float sine = sin(angle);
+            float cosine = cos(angle);
+            return mat2(cosine, -sine, sine, cosine);
+          }
+
+          vec3 gasSample(vec3 point) {
+            float radius = length(point) / VOLUME_RADIUS;
+            vec3 direction = normalize(point + vec3(0.0001));
+            vec3 folded = point;
+            folded.xz = rotate2(
+              uTime * (0.075 + (1.0 - radius) * 0.11) + (1.0 - radius) * 2.15
+            ) * folded.xz;
+
+            vec3 drift = vec3(uTime * 0.045, -uTime * 0.028, uTime * 0.036);
+            float billow = noise3(folded * 1.42 + drift);
+            float cells = noise3(folded * 3.25 - drift * 1.7 + vec3(8.2, 3.7, 1.4));
+            float threads = noise3(folded * 7.1 + drift * 2.2 + vec3(2.4, 9.1, 5.6));
+            float turbulence = billow * 0.57 + cells * 0.3 + threads * 0.13;
+
+            float breathing = sin(direction.y * 8.0 + direction.x * 5.0 + uTime * 0.7) * 0.025;
+            float raggedEdge = 0.74 + billow * 0.23 + cells * 0.07 + breathing;
+            float boundary = 1.0 - smoothstep(raggedEdge, raggedEdge + 0.13, radius);
+            float core = 1.0 - smoothstep(0.08, 0.82, radius);
+            float knotThreshold = mix(0.66, 0.43, uMass);
+            float knots = smoothstep(knotThreshold, knotThreshold + 0.16, turbulence + core * 0.2);
+            float cavities = smoothstep(0.08, 0.34, abs(cells - billow));
+
+            vec4 impactAlignment = vec4(
+              max(0.0, dot(direction, normalize(vec3(-0.72, 0.18, 0.67)))),
+              max(0.0, dot(direction, normalize(vec3(0.58, 0.42, 0.69)))),
+              max(0.0, dot(direction, normalize(vec3(0.15, -0.72, 0.68)))),
+              max(0.0, dot(direction, normalize(vec3(0.75, -0.22, 0.62))))
+            );
+            float impact = dot(uImpacts, pow(impactAlignment, vec4(12.0))) *
+              smoothstep(0.34, 0.8, radius);
+
+            float ignitionSignal = max(
+              dot(direction, normalize(vec3(-0.56, 0.42, 0.72))),
+              max(
+                dot(direction, normalize(vec3(0.61, 0.12, 0.78))),
+                dot(direction, normalize(vec3(0.08, -0.67, 0.74)))
+              )
+            ) + (billow - 0.5) * 0.48;
+            float ignitionSites = smoothstep(mix(1.05, 0.08, uIgnition), 1.1, ignitionSignal);
+
+            float density = boundary * (
+              0.055 + knots * (0.62 + uMass * 0.4) + core * (0.19 + uMass * 0.66)
+            );
+            density *= 0.58 + cavities * 0.42;
+            density += impact * boundary * 0.72;
+            float heat = clamp(
+              core * (0.24 + uMass * 0.84) +
+              knots * 0.18 + ignitionSites * (0.38 + uIgnition * 0.82) + impact * 0.92,
+              0.0,
+              1.45
+            );
+            return vec3(max(0.0, density), heat, billow);
+          }
+
+          void main() {
+            vec3 rayOrigin = uCameraLocal;
+            vec3 rayDirection = normalize(vLocalPosition - rayOrigin);
+            float projection = dot(rayOrigin, rayDirection);
+            float discriminant = projection * projection -
+              (dot(rayOrigin, rayOrigin) - VOLUME_RADIUS * VOLUME_RADIUS);
+            if (discriminant <= 0.0 || uPresence <= 0.001) discard;
+
+            float root = sqrt(discriminant);
+            float entry = max(0.0, -projection - root);
+            float exit = -projection + root;
+            float segment = max(0.0, exit - entry);
+            float stepLength = segment / 26.0;
+            float jitter = fract(sin(dot(gl_FragCoord.xy, vec2(12.9898, 78.233))) * 43758.5453);
+            vec3 accumulated = vec3(0.0);
+            float transmittance = 1.0;
+
+            for (int index = 0; index < 26; index++) {
+              float distanceAlongRay = entry + (float(index) + jitter) * stepLength;
+              vec3 point = rayOrigin + rayDirection * distanceAlongRay;
+              vec3 gas = gasSample(point);
+              float extinction = gas.x * uDensity * stepLength * 1.34;
+              float sampleAlpha = 1.0 - exp(-extinction);
+              float radius = length(point) / VOLUME_RADIUS;
+              float outer = smoothstep(0.28, 0.92, radius);
+              vec3 coldGas = mix(
+                vec3(0.025, 0.4, 0.54),
+                vec3(0.72, 0.012, 0.16),
+                gas.z
+              );
+              vec3 ember = mix(vec3(0.9, 0.018, 0.055), vec3(1.0, 0.29, 0.025), gas.y);
+              vec3 whiteHot = vec3(1.0, 0.88, 0.48);
+              vec3 color = mix(coldGas, ember, smoothstep(0.12, 0.66, gas.y));
+              color = mix(color, whiteHot, smoothstep(0.74, 1.35, gas.y));
+              color += outer * vec3(0.025, 0.012, 0.055);
+              float emissive = 0.86 + gas.y * 1.34 + uIgnition * 0.28;
+              accumulated += transmittance * color * sampleAlpha * emissive;
+              transmittance *= 1.0 - sampleAlpha;
+              if (transmittance < 0.025) break;
+            }
+
+            float alpha = (1.0 - transmittance) * uPresence;
+            if (alpha < 0.008) discard;
+            vec3 color = accumulated / max(0.035, 1.0 - transmittance);
+            gl_FragColor = vec4(color, alpha);
+          }
+        `,
+      });
+
+      protoVolume = new THREE.Mesh(
+        new THREE.SphereGeometry(1.84, viewport.compact ? 40 : 56, viewport.compact ? 28 : 40),
+        material,
+      );
+      protoVolume.frustumCulled = false;
+      protoVolume.renderOrder = 7;
+      solarAnchor.add(protoVolume);
+    }
+
     function buildStar() {
       const gravityMaterial = new THREE.ShaderMaterial({
         transparent: true,
@@ -1929,6 +2085,7 @@ server.<span class="token-function">listen</span>(config.http.port);</code></pre
 
       buildAccretionKnots();
       buildProtoFragments();
+      buildProtoVolume();
 
       const geometry = new THREE.IcosahedronGeometry(1.72, viewport.compact ? 5 : 6);
       const material = new THREE.ShaderMaterial({
@@ -1940,6 +2097,7 @@ server.<span class="token-function">listen</span>(config.http.port);</code></pre
           uTime: { value: 0 },
           uIgnition: { value: 0 },
           uAssembly: { value: 0 },
+          uSurfacePresence: { value: 0 },
           uMass: { value: 0 },
           uImpacts: { value: new THREE.Vector4() },
           uEclipsePhase: { value: 0 },
@@ -1996,6 +2154,7 @@ server.<span class="token-function">listen</span>(config.http.port);</code></pre
           uniform float uIgnition;
           uniform float uAssembly;
           uniform float uMass;
+          uniform float uSurfacePresence;
           uniform vec4 uImpacts;
           uniform float uEclipsePhase;
           uniform float uEclipsePresence;
@@ -2081,7 +2240,8 @@ server.<span class="token-function">listen</span>(config.http.port);</code></pre
             color += vec3(1.0, 0.018, 0.15) * liveChromosphere * (0.38 + beads * 0.58);
             color += whiteHot * (contactFlash * uEclipsePresence * 1.18 + liveChromosphere * annularAlignment * 0.3);
             float stellarPresence = smoothstep(0.018, 0.14, uMass);
-            float alpha = stellarPresence * mix(0.78, 1.0, max(surfaceMask, frontier * 0.82)) *
+            float alpha = stellarPresence * uSurfacePresence *
+              mix(0.78, 1.0, max(surfaceMask, frontier * 0.82)) *
               (0.93 + facing * 0.07);
             if (alpha < 0.012) discard;
             gl_FragColor = vec4(color * (0.84 + uIgnition * 0.62), alpha);
@@ -2422,6 +2582,10 @@ server.<span class="token-function">listen</span>(config.http.port);</code></pre
       const ignition = smoothstep(0.46, 0.92, progress);
       const assembly = smoothstep(0.12, 0.88, progress);
       const protostar = smoothstep(0.08, 0.5, progress) * 0.24 + ignition * 0.76;
+      const volumePresence = moving
+        ? smoothstep(0.018, 0.075, progress) * (1 - smoothstep(0.7, 0.91, progress))
+        : 0;
+      const surfacePresence = moving ? smoothstep(0.49, 0.82, progress) : 1;
       const focus = smoothstep(0.05, 0.32, progress) * (1 - smoothstep(0.52, 0.78, progress));
       const registryAlpha = smoothstep(0.56, 0.9, progress);
       const consequenceAlpha = smoothstep(0.42, 0.72, progress);
@@ -2474,9 +2638,19 @@ server.<span class="token-function">listen</span>(config.http.port);</code></pre
       innerDiskField.uniforms.uPresence.value = innerDiskPresence;
       innerDiskField.uniforms.uStarRadius.value = starScale * 1.72;
       innerDiskField.uniforms.uMass.value = mass;
+      protoVolume.visible = volumePresence > 0.002;
+      protoVolume.material.uniforms.uTime.value = time;
+      protoVolume.material.uniforms.uPresence.value = volumePresence;
+      protoVolume.material.uniforms.uDensity.value = 0.84 + mass * 1.04 + impactEnergy * 0.28;
+      protoVolume.material.uniforms.uMass.value = mass;
+      protoVolume.material.uniforms.uIgnition.value = ignition;
+      protoVolume.material.uniforms.uImpacts.value.set(impactA, impactB, impactC, impactD);
+      protoVolume.material.depthWrite = volumePresence > 0.01 &&
+        surfacePresence < 0.08 && mass > 0.13;
       star.material.uniforms.uTime.value = time;
       star.material.uniforms.uIgnition.value = ignition;
       star.material.uniforms.uAssembly.value = assembly;
+      star.material.uniforms.uSurfacePresence.value = surfacePresence;
       star.material.uniforms.uMass.value = mass;
       star.material.uniforms.uImpacts.value.set(impactA, impactB, impactC, impactD);
       star.material.uniforms.uEclipsePhase.value = eclipsePhase;
@@ -2491,6 +2665,10 @@ server.<span class="token-function">listen</span>(config.http.port);</code></pre
       ignitionShell.material.uniforms.uPulse.value = shellPulse;
 
       star.scale.setScalar(starScale);
+      protoVolume.scale.setScalar(
+        starScale * THREE.MathUtils.lerp(1.42, 1.055, assembly) *
+        (1 + impactEnergy * 0.035),
+      );
       atmosphere.scale.setScalar(starScale * THREE.MathUtils.lerp(0.92, 1, ignition));
       corona.scale.setScalar(starScale * THREE.MathUtils.lerp(0.78, 1, ignition) *
         (1 + eclipseTotality * 0.16));
@@ -2499,6 +2677,14 @@ server.<span class="token-function">listen</span>(config.http.port);</code></pre
       ignitionShell.rotation.z = -time * 0.07;
       star.rotation.y = time * (0.022 + mass * 0.074);
       star.rotation.x = Math.sin(time * 0.08) * 0.09;
+      star.material.depthWrite = surfacePresence > 0.52;
+      protoVolume.rotation.y = -time * (0.025 + mass * 0.045);
+      protoVolume.rotation.x = Math.sin(time * 0.11) * 0.055;
+      protoVolume.rotation.z = Math.sin(time * 0.07) * 0.035;
+      protoVolume.updateWorldMatrix(true, false);
+      volumeCameraLocal.copy(camera.position);
+      protoVolume.worldToLocal(volumeCameraLocal);
+      protoVolume.material.uniforms.uCameraLocal.value.copy(volumeCameraLocal);
       accretionGroup.rotation.y = time * 0.018;
       updateAccretionKnots(progress, time, moving, starScale);
       updateProtoFragments(progress, time, moving, starScale);
