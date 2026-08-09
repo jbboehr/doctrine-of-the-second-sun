@@ -803,6 +803,7 @@ server.<span class="token-function">listen</span>(config.http.port);</code></pre
     let hydrogen;
     let feederField;
     let innerDiskField;
+    let jetField;
     let star;
     let protoVolume;
     let accretionKnots;
@@ -1450,6 +1451,170 @@ server.<span class="token-function">listen</span>(config.http.port);</code></pre
       innerDiskField = { geometry, points, uniforms };
     }
 
+    function makeJetSheathMaterial(side) {
+      return new THREE.ShaderMaterial({
+        transparent: true,
+        depthWrite: false,
+        depthTest: false,
+        side: THREE.DoubleSide,
+        blending: THREE.AdditiveBlending,
+        uniforms: {
+          uTime: { value: 0 },
+          uPresence: { value: 0 },
+          uShock: { value: 0 },
+          uSide: { value: side },
+        },
+        vertexShader: `
+          varying vec2 vUv;
+          varying vec3 vPosition;
+          void main() {
+            vUv = uv;
+            vPosition = position;
+            gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+          }
+        `,
+        fragmentShader: `
+          uniform float uTime;
+          uniform float uPresence;
+          uniform float uShock;
+          uniform float uSide;
+          varying vec2 vUv;
+          varying vec3 vPosition;
+          ${noiseGlsl}
+          void main() {
+            float angle = atan(vPosition.z, vPosition.x);
+            float axial = smoothstep(0.0, 0.09, vUv.y) *
+              (1.0 - smoothstep(0.58, 1.0, vUv.y));
+            float tornEdge = noise3(vec3(
+              cos(angle) * 2.2 + vUv.y * 3.4,
+              sin(angle) * 2.2 - uTime * 0.18,
+              vUv.y * 7.0 + uTime * 0.11
+            ));
+            float filaments = pow(max(0.0,
+              sin(angle * 5.0 + vUv.y * 24.0 - uTime * (1.2 + uSide * 0.17)) * 0.5 +
+              tornEdge * 0.82 - 0.28
+            ), 2.4);
+            vec3 cyan = vec3(0.02, 0.77, 0.92);
+            vec3 rose = vec3(1.0, 0.025, 0.34);
+            vec3 gold = vec3(1.0, 0.56, 0.12);
+            vec3 color = mix(cyan, rose, uSide * 0.5 + 0.5);
+            color = mix(color, gold, (1.0 - vUv.y) * (0.22 + uShock * 0.42));
+            float alpha = uPresence * axial * filaments * (0.035 + uShock * 0.085);
+            if (alpha < 0.002) discard;
+            gl_FragColor = vec4(color, alpha);
+          }
+        `,
+      });
+    }
+
+    function buildJets() {
+      const count = viewport.narrow ? 620 : viewport.compact ? 900 : 1400;
+      const jetRandom = mulberry32(0xb1701a7);
+      const jet = new Float32Array(count * 4);
+      const motion = new Float32Array(count * 4);
+
+      for (let index = 0; index < count; index += 1) {
+        const offset = index * 4;
+        jet[offset] = index % 2 === 0 ? -1 : 1;
+        jet[offset + 1] = jetRandom() * Math.PI * 2;
+        jet[offset + 2] = Math.pow(jetRandom(), 0.62);
+        jet[offset + 3] = 0.07 + jetRandom() * 0.065;
+        motion[offset] = jetRandom();
+        motion[offset + 1] = (0.72 + jetRandom() * 1.46) * (jetRandom() < 0.5 ? -1 : 1);
+        motion[offset + 2] = 0.34 + jetRandom() * 0.66;
+        motion[offset + 3] = jetRandom();
+      }
+
+      const geometry = new THREE.BufferGeometry();
+      geometry.setAttribute("position", new THREE.BufferAttribute(new Float32Array(count * 3), 3));
+      geometry.setAttribute("aJet", new THREE.BufferAttribute(jet, 4));
+      geometry.setAttribute("aMotion", new THREE.BufferAttribute(motion, 4));
+      geometry.boundingSphere = new THREE.Sphere(new THREE.Vector3(), 12);
+      const material = new THREE.ShaderMaterial({
+        transparent: true,
+        depthWrite: false,
+        depthTest: false,
+        blending: THREE.AdditiveBlending,
+        uniforms: {
+          uTime: { value: 0 },
+          uPresence: { value: 0 },
+          uShock: { value: 0 },
+          uBaseRadius: { value: 0.4 },
+          uPixelRatio: { value: renderer.getPixelRatio() },
+        },
+        vertexShader: `
+          uniform float uTime;
+          uniform float uPresence;
+          uniform float uShock;
+          uniform float uBaseRadius;
+          uniform float uPixelRatio;
+          attribute vec4 aJet;
+          attribute vec4 aMotion;
+          varying vec3 vColor;
+          varying float vAlpha;
+          void main() {
+            float side = aJet.x;
+            float cycle = fract(aMotion.x + uTime * aJet.w);
+            float launch = smoothstep(0.0, 0.075, cycle);
+            float dissolve = 1.0 - smoothstep(0.68, 1.0, cycle);
+            float distance = uBaseRadius + pow(cycle, 0.72) * (5.8 + aMotion.w * 2.4);
+            float plumeRadius = (0.045 + distance * 0.078) * (0.22 + aJet.z * 0.92);
+            float angle = aJet.y + distance * aMotion.y + uTime * side * 0.31;
+            vec3 transformed = vec3(
+              cos(angle) * plumeRadius,
+              side * distance,
+              sin(angle) * plumeRadius
+            );
+            transformed.x += sin(distance * 1.8 - uTime * 0.7 + aJet.y) * distance * 0.012;
+            transformed.z += cos(distance * 1.45 + uTime * 0.56 + aJet.y) * distance * 0.014;
+            vec4 mvPosition = modelViewMatrix * vec4(transformed, 1.0);
+            float baseHeat = 1.0 - smoothstep(uBaseRadius, uBaseRadius + 2.7, distance);
+            vec3 cyan = vec3(0.03, 0.84, 0.94);
+            vec3 rose = vec3(1.0, 0.025, 0.34);
+            vec3 gold = vec3(1.0, 0.66, 0.18);
+            vColor = mix(cyan, rose, side * 0.5 + 0.5);
+            vColor = mix(vColor, gold, baseHeat * (0.48 + uShock * 0.28));
+            vAlpha = uPresence * launch * dissolve *
+              (0.16 + aMotion.z * 0.62) * (0.62 + uShock * 0.52);
+            gl_PointSize = (0.9 + aMotion.z * 3.0 + baseHeat * 1.35) * uPixelRatio *
+              (34.0 / max(4.0, -mvPosition.z));
+            gl_Position = projectionMatrix * mvPosition;
+          }
+        `,
+        fragmentShader: `
+          varying vec3 vColor;
+          varying float vAlpha;
+          void main() {
+            vec2 point = gl_PointCoord - 0.5;
+            float radius = length(point);
+            if (radius > 0.5) discard;
+            float glow = 1.0 - smoothstep(0.04, 0.5, radius);
+            float core = pow(glow, 5.0);
+            gl_FragColor = vec4(vColor + core * 0.46, vAlpha * glow);
+          }
+        `,
+      });
+      const points = new THREE.Points(geometry, material);
+      points.frustumCulled = false;
+      points.renderOrder = 6;
+
+      const height = viewport.narrow ? 5.2 : 6.7;
+      const plumeGeometry = new THREE.CylinderGeometry(0.58, 0.065, height, 24, 36, true);
+      const plumeRecords = [-1, 1].map((side) => {
+        const plumeMaterial = makeJetSheathMaterial(side);
+        const mesh = new THREE.Mesh(plumeGeometry, plumeMaterial);
+        if (side < 0) mesh.rotation.z = Math.PI;
+        mesh.frustumCulled = false;
+        mesh.renderOrder = 5;
+        return { side, mesh, material: plumeMaterial, height };
+      });
+
+      const group = new THREE.Group();
+      group.add(points, ...plumeRecords.map((record) => record.mesh));
+      accretionGroup.add(group);
+      jetField = { group, points, material, plumeRecords };
+    }
+
     function makeFilamentMaterial(color) {
       const material = new THREE.ShaderMaterial({
         transparent: true,
@@ -1898,6 +2063,9 @@ server.<span class="token-function">listen</span>(config.http.port);</code></pre
           uDensity: { value: 0 },
           uMass: { value: 0 },
           uIgnition: { value: 0 },
+          uCompression: { value: 0 },
+          uShockPhase: { value: 0 },
+          uShockPulse: { value: 0 },
           uImpacts: { value: new THREE.Vector4() },
           uCameraLocal: { value: new THREE.Vector3(0, 0, 10) },
         },
@@ -1914,6 +2082,9 @@ server.<span class="token-function">listen</span>(config.http.port);</code></pre
           uniform float uDensity;
           uniform float uMass;
           uniform float uIgnition;
+          uniform float uCompression;
+          uniform float uShockPhase;
+          uniform float uShockPulse;
           uniform vec4 uImpacts;
           uniform vec3 uCameraLocal;
           varying vec3 vLocalPosition;
@@ -1945,6 +2116,13 @@ server.<span class="token-function">listen</span>(config.http.port);</code></pre
             float raggedEdge = 0.74 + billow * 0.23 + cells * 0.07 + breathing;
             float boundary = 1.0 - smoothstep(raggedEdge, raggedEdge + 0.13, radius);
             float core = 1.0 - smoothstep(0.08, 0.82, radius);
+            float compressedCore = pow(max(0.0, core), 2.8) * uCompression;
+            float shockRadius = mix(0.08, 1.04, smoothstep(0.0, 1.0, uShockPhase));
+            float shockFront = (1.0 - smoothstep(
+              0.035,
+              0.13,
+              abs(radius - shockRadius)
+            )) * uShockPulse;
             float knotThreshold = mix(0.66, 0.43, uMass);
             float knots = smoothstep(knotThreshold, knotThreshold + 0.16, turbulence + core * 0.2);
             float cavities = smoothstep(0.08, 0.34, abs(cells - billow));
@@ -1972,9 +2150,11 @@ server.<span class="token-function">listen</span>(config.http.port);</code></pre
             );
             density *= 0.58 + cavities * 0.42;
             density += impact * boundary * 0.72;
+            density += boundary * (compressedCore * 0.84 + shockFront * 0.52);
             float heat = clamp(
               core * (0.24 + uMass * 0.84) +
-              knots * 0.18 + ignitionSites * (0.38 + uIgnition * 0.82) + impact * 0.92,
+              knots * 0.18 + ignitionSites * (0.38 + uIgnition * 0.82) + impact * 0.92 +
+              compressedCore * 1.2 + shockFront * 1.08,
               0.0,
               1.45
             );
@@ -2500,6 +2680,7 @@ server.<span class="token-function">listen</span>(config.http.port);</code></pre
       buildHydrogen();
       buildFeeders();
       buildInnerDisk();
+      buildJets();
       buildFilaments();
       buildStar();
       buildRegistry();
@@ -2529,6 +2710,7 @@ server.<span class="token-function">listen</span>(config.http.port);</code></pre
       if (hydrogen) hydrogen.material.uniforms.uPixelRatio.value = renderer.getPixelRatio();
       if (feederField) feederField.pointMaterial.uniforms.uPixelRatio.value = renderer.getPixelRatio();
       if (innerDiskField) innerDiskField.uniforms.uPixelRatio.value = renderer.getPixelRatio();
+      if (jetField) jetField.material.uniforms.uPixelRatio.value = renderer.getPixelRatio();
     }
 
     function updatePetals(elapsedSeconds, alpha) {
@@ -2582,20 +2764,26 @@ server.<span class="token-function">listen</span>(config.http.port);</code></pre
       const ignition = smoothstep(0.46, 0.92, progress);
       const assembly = smoothstep(0.12, 0.88, progress);
       const protostar = smoothstep(0.08, 0.5, progress) * 0.24 + ignition * 0.76;
-      const volumePresence = moving
-        ? smoothstep(0.018, 0.075, progress) * (1 - smoothstep(0.7, 0.91, progress))
+      const compression = moving
+        ? smoothstep(0.54, 0.66, progress) * (1 - smoothstep(0.69, 0.76, progress))
         : 0;
-      const surfacePresence = moving ? smoothstep(0.49, 0.82, progress) : 1;
+      const shockPhase = clamp01((progress - 0.68) / 0.16);
+      const shockPulse = moving && shockPhase > 0 && shockPhase < 1
+        ? Math.pow(Math.sin(shockPhase * Math.PI), 0.86)
+        : 0;
+      const volumePresence = moving
+        ? smoothstep(0.018, 0.075, progress) * (1 - smoothstep(0.74, 0.9, progress))
+        : 0;
+      const surfacePresence = moving ? smoothstep(0.69, 0.86, progress) : 1;
+      const jetPresence = moving
+        ? smoothstep(0.6, 0.7, progress) * (1 - smoothstep(0.9, 0.98, progress))
+        : 0;
       const focus = smoothstep(0.05, 0.32, progress) * (1 - smoothstep(0.52, 0.78, progress));
       const registryAlpha = smoothstep(0.56, 0.9, progress);
       const consequenceAlpha = smoothstep(0.42, 0.72, progress);
       const feederPresence = moving ? smoothstep(0.08, 0.4, progress) : 0;
       const innerDiskPresence = moving ? smoothstep(0.035, 0.18, progress) * 1.12 : 0;
       const settledCloudAlpha = 0.34 * (1 - smoothstep(0.72, 1, progress) * 0.48);
-      const shellPhase = clamp01((progress - 0.52) / 0.24);
-      const shellPulse = moving && shellPhase > 0 && shellPhase < 1
-        ? Math.pow(Math.sin(shellPhase * Math.PI), 1.35)
-        : 0;
       const time = moving ? elapsedSeconds : 18.4;
       const eclipsePhase = moving
         ? clamp01((elapsedSeconds - 13.3) / 8.8)
@@ -2622,6 +2810,7 @@ server.<span class="token-function">listen</span>(config.http.port);</code></pre
         ? Math.sin(time * 2.15) * 0.008 * mass * (1 - ignition * 0.62)
         : 0;
       const starScale = retainedRadius + impactEnergy * 0.045 + breathing;
+      const displayedStarScale = starScale * (1 - compression * 0.16 + shockPulse * 0.042);
 
       hydrogen.material.uniforms.uTime.value = time;
       hydrogen.material.uniforms.uCollapse.value = collapse;
@@ -2636,14 +2825,18 @@ server.<span class="token-function">listen</span>(config.http.port);</code></pre
       });
       innerDiskField.uniforms.uTime.value = time;
       innerDiskField.uniforms.uPresence.value = innerDiskPresence;
-      innerDiskField.uniforms.uStarRadius.value = starScale * 1.72;
+      innerDiskField.uniforms.uStarRadius.value = displayedStarScale * 1.72;
       innerDiskField.uniforms.uMass.value = mass;
       protoVolume.visible = volumePresence > 0.002;
       protoVolume.material.uniforms.uTime.value = time;
       protoVolume.material.uniforms.uPresence.value = volumePresence;
-      protoVolume.material.uniforms.uDensity.value = 0.84 + mass * 1.04 + impactEnergy * 0.28;
+      protoVolume.material.uniforms.uDensity.value =
+        0.84 + mass * 1.04 + impactEnergy * 0.28 + compression * 0.72;
       protoVolume.material.uniforms.uMass.value = mass;
       protoVolume.material.uniforms.uIgnition.value = ignition;
+      protoVolume.material.uniforms.uCompression.value = compression;
+      protoVolume.material.uniforms.uShockPhase.value = shockPhase;
+      protoVolume.material.uniforms.uShockPulse.value = shockPulse;
       protoVolume.material.uniforms.uImpacts.value.set(impactA, impactB, impactC, impactD);
       protoVolume.material.depthWrite = volumePresence > 0.01 &&
         surfacePresence < 0.08 && mass > 0.13;
@@ -2662,17 +2855,35 @@ server.<span class="token-function">listen</span>(config.http.port);</code></pre
       gravityWell.material.uniforms.uTime.value = time;
       gravityWell.material.uniforms.uFocus.value = focus;
       ignitionShell.material.uniforms.uTime.value = time;
-      ignitionShell.material.uniforms.uPulse.value = shellPulse;
+      ignitionShell.material.uniforms.uPulse.value = shockPulse;
 
-      star.scale.setScalar(starScale);
+      jetField.group.visible = jetPresence > 0.002;
+      jetField.material.uniforms.uTime.value = time;
+      jetField.material.uniforms.uPresence.value = jetPresence;
+      jetField.material.uniforms.uShock.value = shockPulse;
+      jetField.material.uniforms.uBaseRadius.value = displayedStarScale * 1.62;
+      jetField.plumeRecords.forEach((record) => {
+        record.material.uniforms.uTime.value = time;
+        record.material.uniforms.uPresence.value = jetPresence;
+        record.material.uniforms.uShock.value = shockPulse;
+        record.mesh.position.y = record.side *
+          (displayedStarScale * 1.58 + record.height * 0.5);
+        record.mesh.scale.set(
+          0.76 + shockPulse * 0.34,
+          0.82 + shockPulse * 0.18,
+          0.76 + shockPulse * 0.34,
+        );
+      });
+
+      star.scale.setScalar(displayedStarScale);
       protoVolume.scale.setScalar(
-        starScale * THREE.MathUtils.lerp(1.42, 1.055, assembly) *
+        displayedStarScale * THREE.MathUtils.lerp(1.42, 1.055, assembly) *
         (1 + impactEnergy * 0.035),
       );
-      atmosphere.scale.setScalar(starScale * THREE.MathUtils.lerp(0.92, 1, ignition));
-      corona.scale.setScalar(starScale * THREE.MathUtils.lerp(0.78, 1, ignition) *
+      atmosphere.scale.setScalar(displayedStarScale * THREE.MathUtils.lerp(0.92, 1, ignition));
+      corona.scale.setScalar(displayedStarScale * THREE.MathUtils.lerp(0.78, 1, ignition) *
         (1 + eclipseTotality * 0.16));
-      ignitionShell.scale.setScalar(0.68 + shellPhase * 1.28);
+      ignitionShell.scale.setScalar(displayedStarScale * (0.62 + shockPhase * 1.1));
       ignitionShell.rotation.y = time * 0.13;
       ignitionShell.rotation.z = -time * 0.07;
       star.rotation.y = time * (0.022 + mass * 0.074);
@@ -2686,8 +2897,9 @@ server.<span class="token-function">listen</span>(config.http.port);</code></pre
       protoVolume.worldToLocal(volumeCameraLocal);
       protoVolume.material.uniforms.uCameraLocal.value.copy(volumeCameraLocal);
       accretionGroup.rotation.y = time * 0.018;
-      updateAccretionKnots(progress, time, moving, starScale);
-      updateProtoFragments(progress, time, moving, starScale);
+      jetField.group.rotation.y = time * 0.026;
+      updateAccretionKnots(progress, time, moving, displayedStarScale);
+      updateProtoFragments(progress, time, moving, displayedStarScale);
 
       filamentMaterials.forEach((material, index) => {
         material.uniforms.uTime.value = time;
