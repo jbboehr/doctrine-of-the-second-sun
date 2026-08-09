@@ -1331,12 +1331,14 @@ server.<span class="token-function">listen</span>(config.http.port);</code></pre
           uniform float uStarRadius;
           uniform float uMass;
           uniform float uDoppler;
+          uniform float uLensing;
           uniform float uPixelRatio;
           attribute vec4 aOrbit;
           attribute vec4 aMotion;
           attribute vec3 aColor;
           varying vec3 vColor;
           varying float vAlpha;
+          varying float vLensing;
 
           void main() {
             float cycle = fract(aOrbit.w + uTime * aMotion.x);
@@ -1354,6 +1356,28 @@ server.<span class="token-function">listen</span>(config.http.port);</code></pre
               sin(angle) * radius / eccentricity
             );
             vec4 mvPosition = modelViewMatrix * vec4(transformed, 1.0);
+            vec4 viewCenter = modelViewMatrix * vec4(0.0, 0.0, 0.0, 1.0);
+            float viewStarRadius = uStarRadius * length(modelViewMatrix[0].xyz);
+            vec2 sourceOffset = mvPosition.xy - viewCenter.xy;
+            float sourceDistance = length(sourceOffset);
+            float normalizedSource = sourceDistance / max(0.001, viewStarRadius);
+            float farSide = step(mvPosition.z, viewCenter.z - 0.012);
+            float lensZone = 1.0 - smoothstep(0.82, 1.62, normalizedSource);
+            float einsteinRadius = 0.94;
+            float outerImage = 0.5 * (
+              normalizedSource + sqrt(normalizedSource * normalizedSource +
+              4.0 * einsteinRadius * einsteinRadius)
+            ) * viewStarRadius;
+            vec2 fallbackDirection = normalize(vec2(cos(angle), sin(angle) * 0.62) + vec2(0.0001));
+            vec2 sourceDirection = sourceDistance > 0.001
+              ? sourceOffset / sourceDistance
+              : fallbackDirection;
+            float raySample = smoothstep(0.24, 0.58, aMotion.z);
+            float lensing = farSide * lensZone * uLensing * raySample;
+            mvPosition.xy = viewCenter.xy + sourceDirection * mix(sourceDistance, outerImage, lensing);
+            float caustic = 1.0 - smoothstep(0.02, 0.62, normalizedSource);
+            vLensing = farSide * uLensing * raySample *
+              (0.24 + caustic * 0.76) * lensZone;
             vec3 tangent = normalize(vec3(-sin(angle), 0.0, cos(angle)));
             vec3 tangentView = normalize(mat3(modelViewMatrix) * tangent);
             float radialVelocity = tangentView.z;
@@ -1373,12 +1397,14 @@ server.<span class="token-function">listen</span>(config.http.port);</code></pre
             vec3 dopplerColor = mix(receding, approaching, smoothstep(-0.08, 0.08, radialVelocity));
             float dopplerStrength = abs(radialVelocity) * uDoppler * (1.0 - innerHeat * 0.52);
             vColor = mix(vColor, dopplerColor, dopplerStrength * 0.78);
+            vColor += mix(dopplerColor, vec3(1.0, 0.84, 0.54), caustic * 0.62) *
+              vLensing * 0.72;
             vAlpha = uPresence * birth * absorption * drained *
               (0.12 + aMotion.z * 0.62) *
               (0.42 + innerHeat * 0.48 + plunge * 0.46 + compressionWave * 0.34);
             vAlpha *= 0.92 + max(0.0, radialVelocity) * uDoppler * 0.22;
             gl_PointSize = (0.9 + aMotion.z * 2.75 + innerHeat * 1.35 +
-              plunge * 1.1 + compressionWave * 0.7) * uPixelRatio *
+              plunge * 1.1 + compressionWave * 0.7) * (1.0 + vLensing * 1.15) * uPixelRatio *
               (34.0 / max(4.0, -mvPosition.z));
             gl_Position = projectionMatrix * mvPosition;
           }
@@ -1386,13 +1412,18 @@ server.<span class="token-function">listen</span>(config.http.port);</code></pre
         fragmentShader: `
           varying vec3 vColor;
           varying float vAlpha;
+          varying float vLensing;
           void main() {
             vec2 p = gl_PointCoord - 0.5;
             float radius = length(p);
             if (radius > 0.5) discard;
             float glow = 1.0 - smoothstep(0.03, 0.5, radius);
             float core = pow(glow, 4.0);
-            gl_FragColor = vec4(vColor + core * 0.38, vAlpha * glow);
+            float causticHalo = (1.0 - smoothstep(0.18, 0.5, radius)) * vLensing;
+            gl_FragColor = vec4(
+              vColor + core * 0.38 + vec3(1.0, 0.36, 0.42) * causticHalo * 0.42,
+              vAlpha * glow * (1.0 + vLensing * 0.92)
+            );
           }
         `,
       });
@@ -1454,6 +1485,7 @@ server.<span class="token-function">listen</span>(config.http.port);</code></pre
         uStarRadius: { value: 0.35 },
         uMass: { value: 0 },
         uDoppler: { value: 0 },
+        uLensing: { value: 0 },
         uPixelRatio: { value: renderer.getPixelRatio() },
       };
       const points = new THREE.Points(geometry, makeInnerDiskMaterial(uniforms));
@@ -2866,6 +2898,9 @@ server.<span class="token-function">listen</span>(config.http.port);</code></pre
       const innerDiskPresence = moving ? smoothstep(0.035, 0.18, progress) * 1.12 : 0;
       const dustPresence = moving ? smoothstep(0.12, 0.34, progress) * (0.84 - mass * 0.18) : 0;
       const dopplerPresence = moving ? smoothstep(0.1, 0.32, progress) * 0.94 : 0;
+      const lensingPresence = moving
+        ? smoothstep(0.4, 0.74, progress) * (0.72 + surfacePresence * 0.28)
+        : 0;
       const settledCloudAlpha = 0.34 * (1 - smoothstep(0.72, 1, progress) * 0.48);
       const time = moving ? elapsedSeconds : 18.4;
       const eclipsePhase = moving
@@ -2911,6 +2946,7 @@ server.<span class="token-function">listen</span>(config.http.port);</code></pre
       innerDiskField.uniforms.uStarRadius.value = displayedStarScale * 1.72;
       innerDiskField.uniforms.uMass.value = mass;
       innerDiskField.uniforms.uDoppler.value = dopplerPresence;
+      innerDiskField.uniforms.uLensing.value = lensingPresence;
       absorptionDisk.material.uniforms.uTime.value = time;
       absorptionDisk.material.uniforms.uPresence.value = dustPresence;
       absorptionDisk.material.uniforms.uStarRadius.value = displayedStarScale * 1.72;
