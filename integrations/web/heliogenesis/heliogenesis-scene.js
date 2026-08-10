@@ -42,6 +42,7 @@ export function createHeliogenesisScene({
   let atmosphere;
   let corona;
   let prominenceField;
+  let ruptureField;
   let gravityWell;
   let emberField;
   let petalField;
@@ -1920,7 +1921,9 @@ export function createHeliogenesisScene({
             uPresence: { value: 0 },
             uEclipse: { value: 0 },
             uShock: { value: 0 },
+            uRupture: { value: 0 },
             uPhase: { value: phase },
+            uPath: { value: pathIndex },
             uCore: { value: core },
           },
           vertexShader: `
@@ -1935,7 +1938,9 @@ export function createHeliogenesisScene({
             uniform float uPresence;
             uniform float uEclipse;
             uniform float uShock;
+            uniform float uRupture;
             uniform float uPhase;
+            uniform float uPath;
             uniform float uCore;
             varying vec2 vUv;
             void main() {
@@ -1958,8 +1963,14 @@ export function createHeliogenesisScene({
               color = mix(color, gold, current * (0.34 + uCore * 0.38));
               color = mix(color, vec3(1.0, 0.78, 0.37), uCore * current * 0.34);
               float layerAlpha = mix(0.14 + braid * fibers * 0.2, 0.38 + current * 0.54, uCore);
+              float rupturePath = 1.0 - step(0.5, uPath);
+              float magneticDrain = 1.0 - rupturePath * uRupture * smoothstep(0.08, 0.78, vUv.x) * 0.82;
+              float ruptureCurrent = rupturePath * uRupture *
+                pow(max(0.0, sin(vUv.x * 21.0 - uTime * 4.2)), 6.0);
+              color = mix(color, vec3(0.08, 0.82, 1.0), ruptureCurrent * 0.52);
               float alpha = taper * uPresence * layerAlpha *
-                (0.68 + uEclipse * 0.72 + uShock * 0.35);
+                (0.68 + uEclipse * 0.72 + uShock * 0.35 + ruptureCurrent * 0.72) *
+                magneticDrain;
               if (alpha < 0.008) discard;
               gl_FragColor = vec4(color, alpha);
             }
@@ -1976,6 +1987,184 @@ export function createHeliogenesisScene({
     group.visible = false;
     solarAnchor.add(group);
     prominenceField = { group, records };
+  }
+
+  function buildCoronalRupture() {
+    const paths = [
+      [
+        [1.24, 0.62, 0.16],
+        [2.16, 1.58, 0.34],
+        [1.34, 3.04, 0.82],
+        [-0.34, 3.92, 1.62],
+        [-2.86, 3.46, 3.24],
+        [-5.52, 1.54, 6.12],
+        [-7.24, -0.56, 9.08],
+      ],
+      [
+        [1.36, 0.34, -0.08],
+        [2.48, 1.08, 0.18],
+        [2.02, 2.72, 0.72],
+        [0.26, 4.42, 1.86],
+        [-3.08, 4.64, 4.04],
+        [-5.96, 2.06, 7.36],
+      ],
+    ];
+    const group = new THREE.Group();
+    const records = [];
+
+    paths.forEach((points, pathIndex) => {
+      const curve = new THREE.CatmullRomCurve3(
+        points.map(([x, y, z]) => new THREE.Vector3(x, y, z)),
+        false,
+        "centripetal",
+      );
+      [
+        { radius: pathIndex ? 0.075 : 0.13, core: 0 },
+        { radius: pathIndex ? 0.024 : 0.038, core: 1 },
+      ].forEach(({ radius, core }) => {
+        const geometry = new THREE.TubeGeometry(
+          curve,
+          viewport.compact ? 72 : 108,
+          radius,
+          viewport.compact ? 5 : 7,
+          false,
+        );
+        const material = new THREE.ShaderMaterial({
+          transparent: true,
+          depthWrite: false,
+          depthTest: false,
+          side: THREE.DoubleSide,
+          blending: THREE.AdditiveBlending,
+          uniforms: {
+            uTime: { value: 0 },
+            uPresence: { value: 0 },
+            uHead: { value: 0 },
+            uSnap: { value: 0 },
+            uCore: { value: core },
+            uPath: { value: pathIndex },
+          },
+          vertexShader: `
+            uniform float uTime;
+            uniform float uSnap;
+            uniform float uCore;
+            uniform float uPath;
+            varying vec2 vUv;
+            void main() {
+              vUv = uv;
+              float magneticWave =
+                sin(uv.x * 31.0 - uTime * 2.8 + uPath * 1.7) * 0.62 +
+                sin(uv.x * 13.0 + uTime * 1.9 - uPath) * 0.38;
+              float travelMask = smoothstep(0.08, 0.42, uv.x);
+              vec3 displaced = position + normal * magneticWave * travelMask *
+                (0.018 + uSnap * 0.055) * (1.0 - uCore * 0.44);
+              gl_Position = projectionMatrix * modelViewMatrix * vec4(displaced, 1.0);
+            }
+          `,
+          fragmentShader: `
+            uniform float uTime;
+            uniform float uPresence;
+            uniform float uHead;
+            uniform float uSnap;
+            uniform float uCore;
+            uniform float uPath;
+            varying vec2 vUv;
+            void main() {
+              float reveal = 1.0 - smoothstep(uHead - 0.018, uHead + 0.045, vUv.x);
+              float root = smoothstep(0.0, 0.055, vUv.x);
+              float taper = 1.0 - smoothstep(0.76, 1.0, vUv.x);
+              float head = 1.0 - smoothstep(0.0, 0.065, abs(vUv.x - uHead));
+              float current = pow(
+                max(0.0, sin(vUv.x * 43.0 - uTime * (5.4 + uPath * 0.8) + vUv.y * 8.0)),
+                5.0
+              );
+              float braid = 0.5 + 0.5 * sin(vUv.y * 12.566 + vUv.x * 27.0 - uTime * 2.6);
+              float fracture = smoothstep(0.25, 0.82, braid + current * 0.44);
+              vec3 rose = vec3(1.0, 0.018, 0.27);
+              vec3 cyan = vec3(0.0, 0.78, 1.0);
+              vec3 gold = vec3(1.0, 0.57, 0.09);
+              vec3 color = mix(rose, cyan, braid * (0.28 + uPath * 0.2));
+              color = mix(color, gold, current * (0.54 + uCore * 0.32));
+              color = mix(color, vec3(1.0, 0.92, 0.62), head * (0.48 + uCore * 0.34));
+              float body = mix(
+                0.035 + fracture * 0.28 + current * 0.16,
+                0.16 + current * 0.62 + fracture * 0.16,
+                uCore
+              );
+              float alpha = reveal * root * uPresence *
+                (body * (0.72 + taper * 0.28) + head * (0.42 + uSnap * 0.38));
+              if (alpha < 0.008) discard;
+              gl_FragColor = vec4(color, alpha);
+            }
+          `,
+        });
+        const mesh = new THREE.Mesh(geometry, material);
+        mesh.frustumCulled = false;
+        mesh.renderOrder = 15 + core + pathIndex * 2;
+        group.add(mesh);
+        records.push({ mesh, material, core, pathIndex });
+      });
+    });
+
+    const shellMaterial = new THREE.ShaderMaterial({
+      transparent: true,
+      depthWrite: false,
+      depthTest: false,
+      side: THREE.DoubleSide,
+      blending: THREE.AdditiveBlending,
+      uniforms: {
+        uTime: { value: 0 },
+        uPresence: { value: 0 },
+        uExpansion: { value: 0 },
+        uSnap: { value: 0 },
+      },
+      vertexShader: `
+        varying vec3 vNormalView;
+        varying vec3 vNormalObject;
+        void main() {
+          vNormalView = normalize(normalMatrix * normal);
+          vNormalObject = normalize(normal);
+          gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+        }
+      `,
+      fragmentShader: `
+        uniform float uTime;
+        uniform float uPresence;
+        uniform float uExpansion;
+        uniform float uSnap;
+        varying vec3 vNormalView;
+        varying vec3 vNormalObject;
+        void main() {
+          float fresnel = pow(1.0 - abs(vNormalView.z), 3.4);
+          float angle = atan(vNormalObject.y, vNormalObject.x);
+          float latitude = asin(clamp(vNormalObject.y, -1.0, 1.0));
+          float interference =
+            sin(angle * 11.0 - uTime * 1.8 + latitude * 7.0) * 0.55 +
+            sin(angle * 23.0 + uTime * 1.15 - latitude * 13.0) * 0.3 +
+            sin(angle * 37.0 - uTime * 0.72) * 0.15;
+          float caustic = smoothstep(0.24, 0.72, interference);
+          float spectral = sin(angle * 2.0 + latitude * 5.0 - uTime * 0.35) * 0.5 + 0.5;
+          vec3 cyan = vec3(0.0, 0.72, 1.0);
+          vec3 rose = vec3(1.0, 0.012, 0.31);
+          vec3 gold = vec3(1.0, 0.61, 0.12);
+          vec3 color = mix(cyan, rose, spectral);
+          color = mix(color, gold, caustic * (0.28 + uSnap * 0.28));
+          float membrane = fresnel * (0.16 + caustic * 0.34 + uSnap * 0.24);
+          float innerGhost = pow(max(0.0, vNormalView.z), 18.0) * caustic * 0.08;
+          float alpha = uPresence * (membrane + innerGhost) *
+            (1.0 - smoothstep(0.86, 1.0, uExpansion) * 0.42);
+          if (alpha < 0.006) discard;
+          gl_FragColor = vec4(color, alpha);
+        }
+      `,
+    });
+    const shell = new THREE.Mesh(
+      new THREE.SphereGeometry(3.1, viewport.compact ? 32 : 48, viewport.compact ? 20 : 30),
+      shellMaterial,
+    );
+    shell.renderOrder = 14;
+    shell.visible = false;
+    solarAnchor.add(group, shell);
+    ruptureField = { group, records, shell, shellMaterial };
   }
 
   function buildRegistry() {
@@ -2145,6 +2334,7 @@ export function createHeliogenesisScene({
     buildFilaments();
     buildStar();
     buildProminences();
+    buildCoronalRupture();
     buildRegistry();
     buildPetals();
     buildEmbers();
@@ -2267,6 +2457,12 @@ export function createHeliogenesisScene({
     const prominencePresence = moving
       ? smoothstep(0.6, 0.74, progress) * (0.68 + ignition * 0.32)
       : 1;
+    const rupturePhase = moving ? clamp01((progress - 0.57) / 0.27) : 0;
+    const rupturePresence = moving
+      ? smoothstep(0.57, 0.625, progress) * (1 - smoothstep(0.87, 0.96, progress))
+      : 0;
+    const ruptureSnap = moving ? impactPulse(progress, 0.69, 0.105) : 0;
+    const ruptureExpansion = smoothstep(0.08, 0.94, rupturePhase);
     const feederPresence = moving ? smoothstep(0.08, 0.4, progress) : 0;
     const innerDiskPresence = moving ? smoothstep(0.035, 0.18, progress) * 1.12 : 0;
     const dustPresence = moving ? smoothstep(0.12, 0.34, progress) * (0.84 - mass * 0.18) : 0;
@@ -2319,7 +2515,7 @@ export function createHeliogenesisScene({
     innerDiskField.uniforms.uStarRadius.value = displayedStarScale * 1.72;
     innerDiskField.uniforms.uMass.value = mass;
     innerDiskField.uniforms.uDoppler.value = dopplerPresence;
-    innerDiskField.uniforms.uLensing.value = lensingPresence;
+    innerDiskField.uniforms.uLensing.value = lensingPresence + rupturePresence * (0.38 + ruptureSnap * 0.72);
     absorptionDisk.material.uniforms.uTime.value = time;
     absorptionDisk.material.uniforms.uPresence.value = dustPresence;
     absorptionDisk.material.uniforms.uStarRadius.value = displayedStarScale * 1.72;
@@ -2349,7 +2545,10 @@ export function createHeliogenesisScene({
     corona.material.uniforms.uIgnition.value = protostar;
     corona.material.uniforms.uEclipseTotality.value = eclipseTotality;
     gravityWell.material.uniforms.uTime.value = time;
-    gravityWell.material.uniforms.uFocus.value = focus;
+    gravityWell.material.uniforms.uFocus.value = Math.max(
+      focus,
+      rupturePresence * (0.26 + ruptureSnap * 0.82),
+    );
     ignitionShell.material.uniforms.uTime.value = time;
     ignitionShell.material.uniforms.uPulse.value = shockPulse;
     prominenceField.group.visible = prominencePresence > 0.002;
@@ -2361,9 +2560,43 @@ export function createHeliogenesisScene({
       material.uniforms.uPresence.value = prominencePresence * (core ? 0.96 : 0.8);
       material.uniforms.uEclipse.value = eclipseTotality;
       material.uniforms.uShock.value = shockPulse;
+      material.uniforms.uRupture.value = rupturePhase;
+      if (pathIndex === 0) {
+        mesh.scale.set(1 + rupturePhase * 0.08, 1 + rupturePhase * 0.26, 1 + rupturePhase * 0.13);
+        mesh.position.set(-rupturePhase * 0.16, rupturePhase * 0.09, rupturePhase * 0.18);
+      } else {
+        mesh.scale.setScalar(1);
+        mesh.position.set(0, 0, 0);
+      }
       mesh.rotation.x = Math.sin(time * 0.17 + phase) * 0.012;
       mesh.rotation.z = Math.sin(time * 0.11 + pathIndex * 1.7) * 0.009;
     });
+    ruptureField.group.visible = rupturePresence > 0.002;
+    ruptureField.group.scale.setScalar(displayedStarScale * (0.96 + ruptureSnap * 0.06));
+    ruptureField.group.rotation.y = Math.sin(time * 0.16) * 0.045;
+    ruptureField.group.rotation.z = -0.035 + Math.sin(time * 0.12) * 0.018;
+    ruptureField.records.forEach(({ mesh, material, core, pathIndex }) => {
+      material.uniforms.uTime.value = time;
+      material.uniforms.uPresence.value = rupturePresence * (core ? 1 : 0.78);
+      material.uniforms.uHead.value = smoothstep(
+        pathIndex ? 0.08 : 0,
+        pathIndex ? 0.96 : 0.88,
+        rupturePhase,
+      );
+      material.uniforms.uSnap.value = ruptureSnap;
+      mesh.position.y = Math.sin(time * 0.31 + pathIndex * 1.7) * rupturePresence * 0.035;
+      mesh.rotation.z = Math.sin(time * 0.19 + pathIndex) * rupturePresence * 0.012;
+    });
+    ruptureField.shell.visible = rupturePresence > 0.002;
+    ruptureField.shellMaterial.uniforms.uTime.value = time;
+    ruptureField.shellMaterial.uniforms.uPresence.value = rupturePresence;
+    ruptureField.shellMaterial.uniforms.uExpansion.value = ruptureExpansion;
+    ruptureField.shellMaterial.uniforms.uSnap.value = ruptureSnap;
+    ruptureField.shell.scale.setScalar(
+      displayedStarScale * THREE.MathUtils.lerp(0.34, 1.88, ruptureExpansion),
+    );
+    ruptureField.shell.rotation.y = time * 0.04;
+    ruptureField.shell.rotation.z = -time * 0.027;
 
     jetField.group.visible = jetPresence > 0.002;
     jetField.material.uniforms.uTime.value = time;
@@ -2404,7 +2637,8 @@ export function createHeliogenesisScene({
     volumeCameraLocal.copy(camera.position);
     protoVolume.worldToLocal(volumeCameraLocal);
     protoVolume.material.uniforms.uCameraLocal.value.copy(volumeCameraLocal);
-    accretionGroup.rotation.y = time * 0.018;
+    accretionGroup.rotation.y = time * 0.018 + ruptureSnap * 0.055;
+    accretionGroup.rotation.z = -0.17 + Math.sin(time * 0.4) * rupturePresence * 0.018;
     jetField.group.rotation.y = time * 0.026;
     updateAccretionKnots(progress, time, moving, displayedStarScale);
     updateProtoFragments(progress, time, moving, displayedStarScale);

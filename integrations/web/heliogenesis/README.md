@@ -10,8 +10,8 @@ explicitly marks any document surfaces that should respond to the second light.
 ## Files
 
 - `heliogenesis.js` provides the public controller and event lifecycle;
-- `heliogenesis-scene.js` renders the hydrogen cloud, accretion flow, forming star, magnetic prominences, eclipse,
-  particles, and atmosphere;
+- `heliogenesis-scene.js` renders the hydrogen cloud, accretion flow, forming star, magnetic prominences, coronal
+  rupture, eclipse, particles, and atmosphere;
 - `heliogenesis.css` provides the fixed environmental layer, world-scale ignition front, and optional trigger
   appearance;
 - `heliogenesis-document.css` provides an optional documentation-lighting and second-shadow treatment for marked
@@ -163,6 +163,8 @@ the hold and return intervals.
 ## Ignition and projection
 
 Near the end of stellar assembly, the renderer grows asymmetric magnetic prominences around the photosphere and the
+largest prominence stretches, magnetically drains, and ruptures into braided plasma channels aimed partly toward the
+camera. The rupture expands a chromatic heliosphere through the accretion flow, intensifying its lensing before the
 local ignition shock escapes as a thin environmental front. The generated front expands from the star's projected
 screen position; marked document surfaces briefly catch a cyan-and-rose second shadow as it passes. Petals and embers
 arrive behind this front so they remain consequences of ignition rather than an independent particle effect.
@@ -202,7 +204,8 @@ the Heliogenesis layer behind an opaque reading surface will hide the sun.
 
 When `prefers-reduced-motion: reduce` matches, Heliogenesis renders one static, fully meaningful eclipsed-star frame
 with magnetic prominences and a restrained ignition halo. It omits the expanding front, moving hydrogen, feeder
-streams, petals, and embers while retaining the gradual CSS lighting transition.
+streams, coronal rupture, refractive heliosphere, petals, and embers while retaining the gradual CSS lighting
+transition.
 
 The trigger is disabled during an active event, so duplicate sequences cannot overlap. A hidden tab or a motion
 preference change resets an active event. If WebGL initialization fails during prewarming or activation, the controller
