@@ -431,6 +431,9 @@ A practical fork should be able to:
 6. explain its relationship to the original project; and
 7. continue releases without access to the original maintainer's accounts.
 
+When a project designates a steward, that designation identifies authority over the canonical repository and publishing
+identities. It does not limit the rights granted by the project license to fork, maintain, or redistribute the project.
+
 Document a succession procedure.
 
 A useful `docs/succession.md` may include:
@@ -449,8 +452,9 @@ A useful `docs/succession.md` may include:
 Document which accounts, permissions, and recovery or transfer procedures are required, but never record secret values
 in the repository. Succession documentation should identify where credentials are managed, not contain the credentials.
 
-Do not assume that changing the package owner requires renaming every source-level namespace. Preserving namespaces may
-be essential to making a successor a practical drop-in replacement.
+A compatible fork may preserve an established application-level namespace when necessary for interoperability, but
+should use its own repository and package identity unless the canonical identities are validly transferred.
+Forking never requires access to the steward's accounts, credentials, or private keys.
 
 ## Preserve Representative History, Not Every Accident
 
