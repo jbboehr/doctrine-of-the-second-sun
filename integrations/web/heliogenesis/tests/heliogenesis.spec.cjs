@@ -160,6 +160,76 @@ for (const pageScale of [1, 1.5]) {
   });
 }
 
+test("samples, reveals, resynchronizes, and disposes document tomography", async ({ page }) => {
+  const diagnostics = await openExample(page);
+
+  const prepared = await page.evaluate(async () => {
+    const scene = await globalThis.heliogenesis.prepare();
+    const tomography = scene.getTomographyDiagnostics();
+    return { frozen: Object.isFrozen(tomography), tomography };
+  });
+  expect(prepared.frozen).toBe(true);
+  expect(prepared.tomography.sampledElements).toBeGreaterThanOrEqual(4);
+  expect(prepared.tomography.flowObstacles).toBeGreaterThanOrEqual(2);
+  expect(prepared.tomography.visible).toBe(false);
+
+  await page.evaluate(() => window.dispatchEvent(new Event("scroll")));
+  await page.waitForTimeout(180);
+  expect(await page.evaluate(() => globalThis.heliogenesis.scene
+    .getTomographyDiagnostics().synchronizations))
+    .toBe(prepared.tomography.synchronizations);
+
+  await page.evaluate(async () => {
+    globalThis.heliogenesis.timings.standard = { rise: 2400, hold: 200, return: 200 };
+    await globalThis.heliogenesis.activate();
+  });
+  await expect.poll(() => page.evaluate(() => globalThis.heliogenesis.scene
+    .getTomographyDiagnostics().visible), { timeout: 2_000 }).toBe(true);
+
+  const beforeScrollSync = await page.evaluate(() => globalThis.heliogenesis.scene
+    .getTomographyDiagnostics().synchronizations);
+  await page.evaluate(() => window.dispatchEvent(new Event("scroll")));
+  await expect.poll(() => page.evaluate(() => globalThis.heliogenesis.scene
+    .getTomographyDiagnostics().synchronizations)).toBeGreaterThan(beforeScrollSync);
+
+  const disposed = await page.evaluate(() => {
+    const controller = globalThis.heliogenesis;
+    const scene = controller.scene;
+    controller.reset({ announce: false });
+    const afterReset = scene.getTomographyDiagnostics();
+    controller.destroy();
+    return {
+      afterDestroy: scene.getTomographyDiagnostics(),
+      afterReset,
+    };
+  });
+  expect(disposed.afterReset.visible).toBe(false);
+  expect(disposed.afterReset.sampledElements).toBe(prepared.tomography.sampledElements);
+  expect(disposed.afterDestroy).toEqual({
+    flowObstacles: 0,
+    sampledElements: 0,
+    synchronizations: 0,
+    visible: false,
+  });
+  await expect(page.locator("[data-heliogenesis-environment]")).toHaveCount(0);
+
+  const remounted = await page.evaluate(async () => {
+    const controller = globalThis.heliogenesis;
+    const replacementHook = document.createElement("aside");
+    replacementHook.dataset.heliogenesisCallout = "";
+    document.querySelector("[data-heliogenesis-surface]").append(replacementHook);
+    controller.mount();
+    const tomography = (await controller.prepare()).getTomographyDiagnostics();
+    controller.destroy();
+    return tomography;
+  });
+  expect(remounted.sampledElements).toBe(prepared.tomography.sampledElements + 1);
+  await expect(page.locator("[data-heliogenesis-environment]")).toHaveCount(0);
+  expect(diagnostics.externalRequests).toEqual([]);
+  expect(diagnostics.pageErrors).toEqual([]);
+  expect(diagnostics.consoleErrors).toEqual([]);
+});
+
 test("cold activation synchronizes CSS ignition with a custom renderer rise", async ({ page }) => {
   const diagnostics = await openExample(page);
 
@@ -380,6 +450,7 @@ test("reduced motion renders one meaningful static frame", async ({ page }) => {
       animation: style.animationName,
       opacity: Number.parseFloat(style.opacity),
       renderedFrames: globalThis.heliogenesis.scene.renderedFrames,
+      tomography: globalThis.heliogenesis.scene.getTomographyDiagnostics(),
     };
   });
   expect(reducedFrame).toEqual({
@@ -387,8 +458,15 @@ test("reduced motion renders one meaningful static frame", async ({ page }) => {
     animation: "none",
     opacity: 0.18,
     renderedFrames: expect.any(Number),
+    tomography: {
+      flowObstacles: expect.any(Number),
+      sampledElements: expect.any(Number),
+      synchronizations: expect.any(Number),
+      visible: false,
+    },
   });
   expect(reducedFrame.renderedFrames).toBeGreaterThan(0);
+  expect(reducedFrame.tomography.sampledElements).toBeGreaterThanOrEqual(4);
   await page.waitForTimeout(180);
   expect(await page.evaluate(() => globalThis.heliogenesis.scene.renderedFrames))
     .toBe(reducedFrame.renderedFrames);

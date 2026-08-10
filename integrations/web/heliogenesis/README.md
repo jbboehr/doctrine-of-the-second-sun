@@ -11,7 +11,7 @@ explicitly marks any document surfaces that should respond to the second light.
 
 - `heliogenesis.js` provides the public controller and event lifecycle;
 - `heliogenesis-scene.js` renders the hydrogen cloud, accretion flow, forming star, magnetic prominences, coronal
-  rupture, eclipse, particles, and atmosphere;
+  rupture, eclipse, document tomography, particles, and atmosphere;
 - `heliogenesis.css` provides the fixed environmental layer, world-scale ignition front, and optional trigger
   appearance;
 - `heliogenesis-document.css` provides an optional documentation-lighting and second-shadow treatment for marked
@@ -115,6 +115,10 @@ The optional treatment explicitly recolors headings and links inside a marked su
 rules cannot leave pale dark-theme text on the event's light reading plane. Override `--heliogenesis-ink-event` or
 `--heliogenesis-link-event` when a consuming theme needs different accessible event colors.
 
+These hooks also define the renderer's deliberately narrow view of the document. During the animated event, it samples
+the marked reading plane, rules, callouts, code blocks, and headings inside the reading plane. Unmarked DOM remains
+outside both the lighting adapter and the renderer's structural effect.
+
 The generic chrome treatment intentionally avoids `!important` and cannot override consumer rules with ID specificity.
 Add a narrow adapter in that consumer when necessary, using the active state and the provided chrome value:
 
@@ -179,6 +183,28 @@ root as viewport-projected pixel coordinates, including visual-viewport offsets.
 environment are percentages relative to that layer, which keeps its gradients and ignition front aligned to the canvas.
 Existing inline values for these properties and `--heliogenesis-rise` are restored by `destroy()`.
 
+## Document tomography and particle flow
+
+During the latter half of formation, a thin cyan-and-rose scan traverses the marked reading plane. It reconstructs the
+sampled rectangles as depth-extruded wireframe architecture in the Three.js scene without cloning, moving, or otherwise
+mutating the real document. The front faces remain registered to the live page while the hidden depth becomes visible;
+the coronal rupture then pulls the reconstructed slabs slightly out of plane before they recede.
+
+Marked code blocks and callouts also become simple flow obstacles for petals and embers. Consequence particles are
+deflected around their projected bounds rather than crossing them as though the document were only a background. This
+is an intentionally approximate flow field, not general DOM collision detection.
+
+The renderer resamples captured geometry at activation and, while the event is active, after window scroll. It also
+remeasures after resize, browser zoom, pinch zoom, or visual-viewport movement. A site can call
+`heliogenesis.scene.syncDocumentGeometry()` after programmatic reflow of the same marked elements without performing a
+full WebGL resize.
+
+The marked-element set is captured when the scene is constructed. Replacing those nodes or adding new hooks after
+`prepare()` requires `destroy()` followed by `mount()` so the next preparation can discover the new set. Documents with
+no structural hooks simply produce no tomography geometry. `getTomographyDiagnostics()` returns a frozen snapshot of
+the sampled-element count, visible flow-obstacle count, synchronization count, and current tomography visibility for
+development and automated verification.
+
 ## Quality tier
 
 The renderer chooses `desktop`, `compact`, or `narrow` particle budgets from the viewport at first preparation. That
@@ -204,8 +230,8 @@ the Heliogenesis layer behind an opaque reading surface will hide the sun.
 
 When `prefers-reduced-motion: reduce` matches, Heliogenesis renders one static, fully meaningful eclipsed-star frame
 with magnetic prominences and a restrained ignition halo. It omits the expanding front, moving hydrogen, feeder
-streams, coronal rupture, refractive heliosphere, petals, and embers while retaining the gradual CSS lighting
-transition.
+streams, coronal rupture, refractive heliosphere, moving document tomography, petals, and embers while retaining the
+gradual CSS lighting transition.
 
 The trigger is disabled during an active event, so duplicate sequences cannot overlap. A hidden tab or a motion
 preference change resets an active event. If WebGL initialization fails during prewarming or activation, the controller
