@@ -77,11 +77,18 @@ their locally selected `@logion` declaration coverage, citation form, allowed bo
 does not choose source roots or command entry points for the consumer and remains disabled unless local configuration
 or the `DOCTRINE_LOGION` environment variable enables it.
 
+## Browser Integration
+
+[`Heliogenesis`](integrations/web/heliogenesis/README.md) is an optional, framework-independent browser integration for
+the Dawning of the Second Sun documentation effect. It remains opt-in and does not alter a consuming documentation
+theme merely by being installed.
+
 ## License
 
-The documentation, Codex integrations, packaging files, and artwork in this repository are licensed under the
-[Creative Commons Attribution-ShareAlike 4.0 International License](LICENSE.md). The PHPStan adapter implementation,
-configuration, and tests are licensed under the
+Unless otherwise indicated, the documentation, integrations, packaging files, and artwork in this repository are
+licensed under the [Creative Commons Attribution-ShareAlike 4.0 International License](LICENSE.md).
+
+The PHPStan adapter implementation, configuration, and tests are licensed under the
 [GNU Affero General Public License version 3](integrations/phpstan/LICENSE.md) with the
 [Romic Exception](integrations/phpstan/LICENSE_EXCEPTION.md). The PHPStan integration's `README.md` remains
 documentation under CC BY-SA 4.0.

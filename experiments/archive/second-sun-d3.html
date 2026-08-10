@@ -1,0 +1,2396 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <title>Dawning of the Second Sun — D3 Celestial Administration</title>
+  <style>
+    :root {
+      --chrome: #080d16;
+      --chrome-raised: #111824;
+      --paper: #efeee8;
+      --paper-raised: #f8f6ef;
+      --ink: #24262b;
+      --muted: #686c74;
+      --heading: #171b22;
+      --rule: #d0cfc8;
+      --accent: #7b2d40;
+      --cyan: #00e6eb;
+      --magenta: #ff086a;
+      --gold: #ffd45e;
+      --header-height: 62px;
+      --event-in: 5200ms;
+      --event-out: 5200ms;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      min-width: 320px;
+      min-height: 100%;
+      background: var(--chrome);
+    }
+
+    body {
+      min-height: 100vh;
+      margin: 0;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 76% 17%, rgb(47 61 78 / 18%), transparent 30rem),
+        linear-gradient(145deg, #101722, #080d16 55%, #05070c);
+      font: 16px/1.68 Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      transition: background var(--event-out) ease;
+    }
+
+    body[data-state="dawning"],
+    body[data-state="radiant"] {
+      --paper: #f2e6e2;
+      --paper-raised: #ffefea;
+      --ink: #311a2b;
+      --muted: #735267;
+      --heading: #2e0c2a;
+      --rule: #d99aa7;
+      --accent: #c20b55;
+      background:
+        radial-gradient(circle at 4% 55%, rgb(0 218 225 / 25%), transparent 32rem),
+        radial-gradient(circle at 92% 42%, rgb(255 0 97 / 38%), transparent 38rem),
+        linear-gradient(145deg, #03161d, #19051c 51%, #020309);
+    }
+
+    ::selection {
+      color: #230814;
+      background: #ff8797;
+    }
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    .world-wash {
+      position: fixed;
+      z-index: 3;
+      inset: 0;
+      opacity: 0;
+      pointer-events: none;
+      background:
+        linear-gradient(108deg, rgb(0 239 236 / 11%), transparent 31%),
+        radial-gradient(circle at 82% 39%, rgb(255 208 77 / 27%), transparent 19%, transparent 39%),
+        linear-gradient(286deg, rgb(255 0 104 / 15%), transparent 54%);
+      mix-blend-mode: screen;
+      transition: opacity var(--event-out) ease;
+    }
+
+    .world-wash::before {
+      content: "";
+      position: absolute;
+      top: 43%;
+      right: 0;
+      left: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--cyan) 31%, var(--magenta) 69%, var(--gold), transparent);
+      box-shadow:
+        0 -3px 27px rgb(0 229 235 / 48%),
+        0 7px 49px rgb(255 6 104 / 58%);
+    }
+
+    .world-wash::after {
+      content: "";
+      position: absolute;
+      inset: 43% 0 0;
+      opacity: 0.35;
+      background: repeating-linear-gradient(180deg, rgb(255 44 129 / 20%) 0 1px, transparent 1px 21px);
+      mask-image: linear-gradient(#000, transparent 86%);
+    }
+
+    body[data-state="dawning"] .world-wash,
+    body[data-state="radiant"] .world-wash {
+      opacity: 1;
+      transition-duration: var(--event-in);
+    }
+
+    #cosmos {
+      position: fixed;
+      z-index: 20;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      pointer-events: none;
+      overflow: visible;
+      transition: opacity var(--event-out) ease;
+    }
+
+    #solar-foreground {
+      position: fixed;
+      z-index: 30;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      overflow: visible;
+      isolation: isolate;
+    }
+
+    #hydrogen-back,
+    #hydrogen {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity var(--event-out) ease;
+    }
+
+    #hydrogen-back {
+      z-index: 9;
+      mix-blend-mode: screen;
+    }
+
+    #hydrogen {
+      z-index: 19;
+    }
+
+    body[data-state="dawning"] #hydrogen-back,
+    body[data-state="radiant"] #hydrogen-back,
+    body[data-state="dawning"] #hydrogen,
+    body[data-state="radiant"] #hydrogen {
+      opacity: 1;
+      transition-duration: 1800ms;
+    }
+
+    body[data-state="dawning"] #cosmos,
+    body[data-state="radiant"] #cosmos {
+      opacity: 1;
+      transition-duration: var(--event-in);
+    }
+
+    #solar-foreground .solar-plasma,
+    #solar-foreground .solar-cell,
+    #solar-foreground .solar-prominence,
+    #solar-foreground .solar-flame {
+      mix-blend-mode: screen;
+    }
+
+    #solar-foreground .solar-prominence {
+      fill: none;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      filter: url(#foreground-solar-glow-small);
+    }
+
+    #solar-foreground .solar-cell {
+      filter: url(#foreground-solar-cell-glow);
+    }
+
+    #cosmos .registry-layer,
+    #cosmos .orbit-layer {
+      mix-blend-mode: screen;
+    }
+
+    #cosmos .network-layer {
+      mix-blend-mode: multiply;
+    }
+
+    #cosmos .registry-link {
+      fill: none;
+      stroke: url(#d3-spectrum);
+      stroke-linecap: round;
+    }
+
+    #cosmos .registry-node {
+      fill: #fff6c5;
+      stroke: var(--magenta);
+    }
+
+    #cosmos .orbit {
+      fill: none;
+      stroke: url(#d3-spectrum);
+    }
+
+    #cosmos .orbit-office {
+      fill: var(--gold);
+      stroke: var(--magenta);
+      filter: url(#d3-glow-small);
+    }
+
+    #cosmos .network-link {
+      stroke: #c31b6a;
+      stroke-width: 0.8;
+      opacity: 0.2;
+    }
+
+    #cosmos .network-node {
+      fill: #007d8d;
+      stroke: #cf125f;
+      stroke-width: 0.8;
+      opacity: 0.44;
+    }
+
+    #cosmos .radial-wave {
+      fill: none;
+      stroke: url(#d3-spectrum);
+      stroke-width: 1.2;
+      opacity: 0.64;
+      filter: url(#d3-glow-small);
+    }
+
+    #cosmos .particle {
+      mix-blend-mode: screen;
+      filter: url(#d3-glow-small);
+    }
+
+    .site-header {
+      position: sticky;
+      z-index: 40;
+      top: 0;
+      height: var(--header-height);
+      color: #aab2bf;
+      border-bottom: 1px solid rgb(255 255 255 / 7%);
+      background: rgb(7 12 20 / 88%);
+      box-shadow: 0 8px 30px rgb(0 0 0 / 20%);
+      backdrop-filter: blur(18px) saturate(115%);
+      transition:
+        border-color var(--event-out) ease,
+        background var(--event-out) ease,
+        box-shadow var(--event-out) ease;
+    }
+
+    body[data-state="dawning"] .site-header,
+    body[data-state="radiant"] .site-header {
+      border-color: rgb(255 21 110 / 50%);
+      background: rgb(11 4 24 / 81%);
+      box-shadow:
+        inset 0 -1px rgb(0 224 231 / 30%),
+        0 18px 58px rgb(190 0 78 / 31%);
+      transition-duration: var(--event-in);
+    }
+
+    .header-inner {
+      display: flex;
+      align-items: center;
+      width: min(100% - 32px, 1320px);
+      height: 100%;
+      margin-inline: auto;
+      gap: 17px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      color: #e5e7eb;
+      font-family: Georgia, "Times New Roman", serif;
+      letter-spacing: 0.035em;
+    }
+
+    .brand-mark {
+      position: relative;
+      width: 18px;
+      height: 18px;
+      margin-right: 10px;
+      border: 1px solid #929ba8;
+      border-radius: 50%;
+    }
+
+    .brand-mark::before,
+    .brand-mark::after {
+      content: "";
+      position: absolute;
+      inset: 4px;
+      border: 1px solid #687381;
+      transform: rotate(45deg);
+    }
+
+    .brand-mark::after {
+      inset: 8px -4px;
+      height: 0;
+      border-width: 1px 0 0;
+      transform: none;
+    }
+
+    .docs-label {
+      padding-left: 15px;
+      color: #788392;
+      border-left: 1px solid rgb(255 255 255 / 10%);
+      font-size: 0.69rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    .search {
+      display: flex;
+      align-items: center;
+      width: min(31vw, 330px);
+      height: 34px;
+      margin-left: auto;
+      padding-inline: 12px;
+      color: #778290;
+      border: 1px solid rgb(255 255 255 / 8%);
+      border-radius: 4px;
+      background: rgb(255 255 255 / 3%);
+      font-size: 0.78rem;
+    }
+
+    .search kbd {
+      margin-left: auto;
+      padding: 1px 6px;
+      border: 1px solid rgb(255 255 255 / 9%);
+      border-radius: 3px;
+      font: 0.67rem/1.5 ui-monospace, SFMono-Regular, Consolas, monospace;
+    }
+
+    .version {
+      color: #86909d;
+      font: 0.72rem ui-monospace, SFMono-Regular, Consolas, monospace;
+    }
+
+    .sun-trigger {
+      position: relative;
+      display: grid;
+      width: 36px;
+      height: 36px;
+      padding: 0;
+      place-items: center;
+      color: #9aa3ae;
+      border: 1px solid transparent;
+      border-radius: 50%;
+      background: transparent;
+      cursor: pointer;
+      transition: color 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
+    }
+
+    .sun-trigger:hover {
+      color: #ffd37b;
+      border-color: rgb(255 40 114 / 35%);
+      box-shadow:
+        0 0 18px rgb(255 18 106 / 25%),
+        inset 0 0 12px rgb(0 220 228 / 10%);
+    }
+
+    .sun-trigger:focus-visible {
+      color: #ffd87f;
+      outline: 2px solid var(--cyan);
+      outline-offset: 2px;
+    }
+
+    .sun-trigger:disabled {
+      color: #db7c79;
+      cursor: default;
+    }
+
+    .sun-trigger svg {
+      width: 22px;
+      height: 22px;
+    }
+
+    .app-shell {
+      position: relative;
+      z-index: 10;
+      display: grid;
+      grid-template-columns: 220px minmax(0, 920px);
+      width: min(100% - 40px, 1180px);
+      min-height: calc(100vh - var(--header-height));
+      margin-inline: auto;
+      align-items: start;
+      gap: 36px;
+    }
+
+    .sidebar {
+      position: sticky;
+      top: calc(var(--header-height) + 28px);
+      padding: 27px 8px 38px;
+      color: #9aa4b0;
+    }
+
+    .nav-group + .nav-group {
+      margin-top: 27px;
+    }
+
+    .nav-title {
+      margin: 0 0 8px 12px;
+      color: #687482;
+      font-size: 0.67rem;
+      font-weight: 700;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+    }
+
+    .sidebar a {
+      display: block;
+      padding: 6px 12px;
+      color: #99a3af;
+      border-left: 1px solid transparent;
+      font-size: 0.83rem;
+      text-decoration: none;
+    }
+
+    .sidebar a[aria-current="page"] {
+      color: #f0d5d9;
+      border-color: #d41663;
+      background: linear-gradient(90deg, rgb(217 10 93 / 12%), transparent 82%);
+    }
+
+    .reading-plane {
+      position: relative;
+      margin: 36px 0 72px;
+      color: var(--ink);
+      border: 1px solid var(--rule);
+      border-radius: 3px;
+      background: var(--paper);
+      box-shadow: 0 28px 80px rgb(0 0 0 / 35%);
+      overflow: hidden;
+      isolation: isolate;
+      transition:
+        color var(--event-out) ease,
+        border-color var(--event-out) ease,
+        background var(--event-out) ease,
+        box-shadow var(--event-out) ease;
+    }
+
+    body[data-state="dawning"] .reading-plane,
+    body[data-state="radiant"] .reading-plane {
+      border-color: rgb(225 45 119 / 61%);
+      box-shadow:
+        -42px 28px 95px rgb(0 222 228 / 22%),
+        49px 18px 110px rgb(255 5 100 / 34%),
+        0 28px 80px rgb(0 0 0 / 40%);
+      transition-duration: var(--event-in);
+    }
+
+    .reading-plane::before {
+      content: "";
+      position: absolute;
+      z-index: 4;
+      inset: 0;
+      opacity: 0;
+      pointer-events: none;
+      background:
+        linear-gradient(104deg, rgb(0 215 224 / 14%), transparent 34%),
+        linear-gradient(118deg, transparent 23%, rgb(255 218 111 / 20%) 44%, transparent 60%),
+        radial-gradient(circle at 87% 13%, rgb(255 22 110 / 27%), transparent 37%);
+      mix-blend-mode: multiply;
+      transition: opacity var(--event-out) ease;
+    }
+
+    body[data-state="dawning"] .reading-plane::before,
+    body[data-state="radiant"] .reading-plane::before {
+      opacity: 1;
+      transition-duration: var(--event-in);
+    }
+
+    .article-header {
+      position: relative;
+      min-height: 225px;
+      padding: 47px 185px 38px 56px;
+      border-bottom: 1px solid var(--rule);
+      background: var(--paper-raised);
+      overflow: hidden;
+      transition: background var(--event-out) ease, border-color var(--event-out) ease;
+    }
+
+    .article-header::after {
+      content: "";
+      position: absolute;
+      right: 0;
+      bottom: 31px;
+      width: 58%;
+      height: 1px;
+      opacity: 0;
+      background: linear-gradient(90deg, transparent, var(--cyan) 27%, var(--magenta) 70%, var(--gold), transparent);
+      box-shadow: 0 0 30px rgb(255 10 104 / 44%);
+      transition: opacity var(--event-out) ease;
+    }
+
+    body[data-state="dawning"] .article-header::after,
+    body[data-state="radiant"] .article-header::after {
+      opacity: 1;
+      transition-duration: var(--event-in);
+    }
+
+    .eyebrow {
+      position: relative;
+      z-index: 2;
+      margin: 0 0 12px;
+      color: var(--accent);
+      font-size: 0.7rem;
+      font-weight: 750;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    h1,
+    h2,
+    h3 {
+      position: relative;
+      z-index: 2;
+      color: var(--heading);
+      font-family: Georgia, "Times New Roman", serif;
+      font-weight: 500;
+      line-height: 1.22;
+      transition: color var(--event-out) ease, text-shadow var(--event-out) ease;
+    }
+
+    h1 {
+      max-width: 590px;
+      margin: 0;
+      font-size: clamp(2rem, 4.4vw, 3.2rem);
+      letter-spacing: -0.035em;
+    }
+
+    h2 {
+      margin: 2.35em 0 0.65em;
+      font-size: 1.62rem;
+    }
+
+    h3 {
+      margin: 2em 0 0.55em;
+      font-size: 1.13rem;
+    }
+
+    body[data-state="dawning"] h1,
+    body[data-state="dawning"] h2,
+    body[data-state="radiant"] h1,
+    body[data-state="radiant"] h2 {
+      text-shadow:
+        -2px 1px 0 rgb(0 193 204 / 26%),
+        2px -1px 0 rgb(255 21 108 / 20%),
+        0 0 29px rgb(255 30 111 / 16%);
+    }
+
+    .lede {
+      position: relative;
+      z-index: 2;
+      max-width: 610px;
+      margin: 15px 0 0;
+      color: var(--muted);
+      font-size: 1.01rem;
+    }
+
+    .article-body {
+      position: relative;
+      z-index: 2;
+      max-width: 760px;
+      padding: 10px 56px 68px;
+    }
+
+    .callout {
+      margin: 27px 0;
+      padding: 17px 20px;
+      border: 1px solid var(--rule);
+      border-left: 3px solid #15818a;
+      border-radius: 2px;
+      background: color-mix(in srgb, var(--paper-raised) 88%, transparent);
+      transition: border-color var(--event-out) ease, box-shadow var(--event-out) ease;
+    }
+
+    .callout strong {
+      display: block;
+      margin-bottom: 3px;
+      color: var(--heading);
+      font-size: 0.75rem;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+    }
+
+    body[data-state="dawning"] .callout,
+    body[data-state="radiant"] .callout {
+      box-shadow:
+        -12px 8px 30px rgb(0 204 214 / 16%),
+        15px 0 40px rgb(255 6 99 / 20%);
+    }
+
+    .table-wrap {
+      margin: 25px 0;
+      border: 1px solid var(--rule);
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.87rem;
+    }
+
+    th,
+    td {
+      padding: 10px 14px;
+      border-bottom: 1px solid var(--rule);
+      text-align: left;
+    }
+
+    tr:last-child td {
+      border-bottom: 0;
+    }
+
+    th {
+      color: var(--heading);
+      background: var(--paper-raised);
+      font-size: 0.71rem;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+    }
+
+    code {
+      padding: 0.12em 0.34em;
+      color: #761f3d;
+      border: 1px solid var(--rule);
+      border-radius: 3px;
+      background: #e8ddd9;
+      font: 0.85em ui-monospace, SFMono-Regular, Consolas, monospace;
+    }
+
+    pre {
+      margin: 26px 0;
+      padding: 21px 23px;
+      color: #f6deee;
+      border: 1px solid #38233d;
+      border-radius: 3px;
+      background: #1b1025;
+      box-shadow: inset 3px 0 #008b98;
+      overflow-x: auto;
+      font: 0.8rem/1.65 ui-monospace, SFMono-Regular, Consolas, monospace;
+      transition: border-color var(--event-out) ease, box-shadow var(--event-out) ease;
+    }
+
+    pre code {
+      padding: 0;
+      color: inherit;
+      border: 0;
+      background: transparent;
+    }
+
+    body[data-state="dawning"] pre,
+    body[data-state="radiant"] pre {
+      border-color: #a81c68;
+      box-shadow:
+        inset 3px 0 var(--cyan),
+        inset -1px 0 var(--magenta),
+        -8px 8px 29px rgb(0 190 202 / 15%),
+        13px 9px 41px rgb(218 0 92 / 29%);
+    }
+
+    .token-keyword { color: #f0a0c3; }
+    .token-string { color: #ecd080; }
+    .token-comment { color: #7c8498; }
+    .token-function { color: #80d9dd; }
+
+    .doc-footer {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 48px;
+      padding-top: 19px;
+      color: var(--muted);
+      border-top: 1px solid var(--rule);
+      font-size: 0.75rem;
+    }
+
+    @media (max-width: 900px) {
+      .app-shell {
+        display: block;
+        width: min(100% - 28px, 860px);
+      }
+
+      .sidebar {
+        display: none;
+      }
+
+      .reading-plane {
+        margin-top: 24px;
+      }
+    }
+
+    @media (max-width: 650px) {
+      .header-inner {
+        width: calc(100% - 20px);
+        gap: 10px;
+      }
+
+      .docs-label,
+      .search,
+      .version {
+        display: none;
+      }
+
+      .sun-trigger {
+        margin-left: auto;
+      }
+
+      .app-shell {
+        width: 100%;
+      }
+
+      .reading-plane {
+        margin: 0;
+        border-width: 0;
+        border-radius: 0;
+      }
+
+      .article-header {
+        min-height: 286px;
+        padding: 38px 104px 32px 25px;
+      }
+
+      h1 {
+        font-size: clamp(1.85rem, 10vw, 2.7rem);
+      }
+
+      .lede {
+        font-size: 0.94rem;
+      }
+
+      .article-body {
+        padding: 8px 25px 54px;
+      }
+
+      pre {
+        margin-inline: -8px;
+        padding: 18px 16px;
+        font-size: 0.74rem;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      :root {
+        --event-in: 1400ms;
+        --event-out: 1800ms;
+      }
+
+      #cosmos .particle {
+        display: none;
+      }
+
+      #hydrogen-back,
+      #hydrogen {
+        display: none;
+      }
+
+      .sun-trigger {
+        transition-duration: 0.01ms;
+      }
+    }
+  </style>
+</head>
+<body data-state="idle">
+  <div class="world-wash" aria-hidden="true"></div>
+  <canvas id="hydrogen-back" aria-hidden="true"></canvas>
+  <canvas id="hydrogen" aria-hidden="true"></canvas>
+  <svg id="cosmos" aria-hidden="true"></svg>
+  <svg id="solar-foreground" aria-hidden="true"></svg>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="brand"><span class="brand-mark" aria-hidden="true"></span>Meridian</div>
+      <div class="docs-label">Documentation</div>
+      <div class="search" aria-hidden="true">Search the documentation <kbd>/</kbd></div>
+      <span class="version">v2.4</span>
+      <button
+        class="sun-trigger"
+        id="sunTrigger"
+        type="button"
+        aria-label="Reveal the D3 Second Sun"
+        aria-describedby="triggerHint"
+        aria-pressed="false"
+        title="Second Sun"
+      >
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+          <circle cx="9.2" cy="12.2" r="3.3"></circle>
+          <circle cx="14.8" cy="8.1" r="2"></circle>
+          <path d="M3 16.8h18M6 19h12" opacity="0.62"></path>
+        </svg>
+      </button>
+      <span class="sr-only" id="triggerHint">Starts a temporary data-driven visual event.</span>
+      <span class="sr-only" id="eventStatus" role="status" aria-live="polite"></span>
+    </div>
+  </header>
+
+  <div class="app-shell">
+    <nav class="sidebar" aria-label="Documentation navigation">
+      <div class="nav-group">
+        <p class="nav-title">Getting started</p>
+        <a href="#">Overview</a>
+        <a href="#">Installation</a>
+        <a href="#">Project structure</a>
+      </div>
+      <div class="nav-group">
+        <p class="nav-title">Foundations</p>
+        <a href="#">Runtime model</a>
+        <a href="#" aria-current="page">Configuration</a>
+        <a href="#">Environment variables</a>
+        <a href="#">Error handling</a>
+      </div>
+      <div class="nav-group">
+        <p class="nav-title">Reference</p>
+        <a href="#">Command line</a>
+        <a href="#">HTTP API</a>
+        <a href="#">Schema</a>
+      </div>
+    </nav>
+
+    <main class="reading-plane">
+      <header class="article-header">
+        <p class="eyebrow">Foundations · Configuration</p>
+        <h1>Runtime configuration</h1>
+        <p class="lede">Combine project defaults, deployment values, and process-specific overrides.</p>
+      </header>
+
+      <article class="article-body">
+        <p>
+          Meridian assembles configuration from a small number of predictable sources. Later sources replace only the
+          values they define, allowing a deployment to override a shared project file without duplicating it.
+        </p>
+
+        <div class="callout">
+          <strong>Important</strong>
+          Environment variables are read when the process starts. Restart the process after changing them.
+        </div>
+
+        <h2>Source order</h2>
+        <p>The following sources are applied from lowest to highest priority.</p>
+
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Source</th><th>Scope</th><th>Purpose</th></tr></thead>
+            <tbody>
+              <tr><td>Defaults</td><td>Package</td><td>Portable baseline</td></tr>
+              <tr><td><code>meridian.json</code></td><td>Project</td><td>Shared settings</td></tr>
+              <tr><td>Environment</td><td>Host</td><td>Deployment values</td></tr>
+              <tr><td>Options</td><td>Process</td><td>Temporary overrides</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2>Loading values</h2>
+        <p>The loader validates every resolved value before returning an immutable configuration object.</p>
+
+        <pre aria-label="JavaScript configuration example"><code><span class="token-keyword">import</span> { <span class="token-function">loadConfig</span> } <span class="token-keyword">from</span> <span class="token-string">"@meridian/config"</span>;
+
+<span class="token-keyword">const</span> config = <span class="token-keyword">await</span> <span class="token-function">loadConfig</span>({
+  file: <span class="token-string">"./meridian.json"</span>,
+  environment: process.env,
+});
+
+<span class="token-comment">// Configuration is validated and frozen.</span>
+server.<span class="token-function">listen</span>(config.http.port);</code></pre>
+
+        <h3>Missing values</h3>
+        <p>
+          Required properties produce a validation error when absent. Optional properties retain their documented
+          defaults unless a higher-priority source supplies a value explicitly.
+        </p>
+
+        <footer class="doc-footer">
+          <span>Previous: Runtime model</span>
+          <span>Next: Environment variables</span>
+        </footer>
+      </article>
+    </main>
+  </div>
+
+  <script
+    src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.9.0/d3.min.js"
+    integrity="sha512-vc58qvvBdrDR4etbxMdlTt4GBQk1qjvyORR2nrsPsFPyrs+/u5c3+1Ct6upOgdZoIl7eq6k3a1UPDSNAQi/32A=="
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+  ></script>
+  <script>
+    (() => {
+      "use strict";
+
+      const body = document.body;
+      const trigger = document.querySelector("#sunTrigger");
+      const status = document.querySelector("#eventStatus");
+      const hydrogenBackCanvas = document.querySelector("#hydrogen-back");
+      const hydrogenCanvas = document.querySelector("#hydrogen");
+      const hydrogenBackContext = hydrogenBackCanvas.getContext("2d", { alpha: true });
+      const hydrogenFrontContext = hydrogenCanvas.getContext("2d", { alpha: true });
+      let hydrogenContext = hydrogenFrontContext;
+      const motionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+      const svg = window.d3 ? d3.select("#cosmos") : null;
+      const solarSvg = window.d3 ? d3.select("#solar-foreground") : null;
+
+      const timings = {
+        standard: { rise: 10500, particles: 7400, hold: 8500, return: 5200 },
+        reduced: { rise: 1400, particles: null, hold: 3000, return: 1900 },
+      };
+
+      const registry = {
+        name: "source",
+        children: [
+          {
+            name: "measure",
+            children: [
+              { name: "proportion" },
+              { name: "boundary" },
+              { name: "witness" },
+            ],
+          },
+          {
+            name: "succession",
+            children: [
+              { name: "inheritance" },
+              { name: "recognition" },
+              { name: "seal" },
+            ],
+          },
+          {
+            name: "hours",
+            children: [
+              { name: "vigil" },
+              { name: "dawn" },
+              { name: "return" },
+            ],
+          },
+          {
+            name: "archives",
+            children: [
+              { name: "memory" },
+              { name: "form" },
+              { name: "restoration" },
+            ],
+          },
+        ],
+      };
+
+      let state = "idle";
+      let timers = [];
+      let celestialTimer = null;
+      let particleTimer = null;
+      let hydrogenTimer = null;
+      let hydrogenClouds = [];
+      let hydrogenFeeders = [];
+      let hydrogenParticles = [];
+      let coronaParticles = [];
+      let hydrogenPixelRatio = 1;
+      let simulation = null;
+      let scene = null;
+      let viewport = {
+        width: 0,
+        height: 0,
+        sunX: 0,
+        sunY: 0,
+        radius: 0,
+        mobile: false,
+        compact: false,
+      };
+
+      function setState(nextState) {
+        state = nextState;
+        body.dataset.state = nextState;
+      }
+
+      function schedule(callback, delay) {
+        const timer = window.setTimeout(callback, delay);
+        timers.push(timer);
+      }
+
+      function clearTimers() {
+        timers.forEach(window.clearTimeout);
+        timers = [];
+      }
+
+      function geometry() {
+        const width = window.innerWidth;
+        const height = window.innerHeight;
+        const mobile = width < 650;
+        const compact = width < 900 || height < 600;
+        return {
+          width,
+          height,
+          mobile,
+          compact,
+          sunX: mobile ? width * 0.88 : width * 0.86,
+          sunY: mobile ? 257 : height * 0.43,
+          radius: mobile ? 96 : Math.min(142, height * 0.16),
+        };
+      }
+
+      function resizeHydrogenCanvas() {
+        hydrogenPixelRatio = Math.min(window.devicePixelRatio || 1, 1.6);
+        [
+          [hydrogenBackCanvas, hydrogenBackContext],
+          [hydrogenCanvas, hydrogenFrontContext],
+        ].forEach(([canvas, context]) => {
+          canvas.width = Math.round(viewport.width * hydrogenPixelRatio);
+          canvas.height = Math.round(viewport.height * hydrogenPixelRatio);
+          canvas.style.width = `${viewport.width}px`;
+          canvas.style.height = `${viewport.height}px`;
+          context.setTransform(hydrogenPixelRatio, 0, 0, hydrogenPixelRatio, 0, 0);
+        });
+      }
+
+      function initializeHydrogen() {
+        resizeHydrogenCanvas();
+        const random = d3.randomLcg(Math.random());
+        const angularNoise = d3.randomNormal.source(random)(0, 1);
+        const radialNoise = d3.randomNormal.source(random)(0, 1);
+        const cloudCount = viewport.compact ? 7 : 11;
+        const feederCount = viewport.compact ? 6 : 10;
+        const particleCount = viewport.compact ? (viewport.mobile ? 1900 : 2200) : 4200;
+        const coronaCount = viewport.compact ? (viewport.mobile ? 180 : 200) : 390;
+        hydrogenClouds = d3.range(cloudCount).map((index) => ({
+          angle: index / cloudCount * Math.PI * 2 + (random() - 0.5) * 0.42,
+          radius: viewport.radius * (2.2 + random() * 5.6),
+          spread: viewport.radius * (0.72 + random() * 1.75),
+          height: viewport.radius * (0.32 + random() * 0.9),
+          phase: random() * Math.PI * 2,
+          tone: index / Math.max(1, cloudCount - 1) * 0.7 + random() * 0.18,
+        }));
+
+        hydrogenFeeders = d3.range(feederCount).map((index) => {
+          const side = index % 5 === 0 ? "bottom" : index % 3 === 0 ? "top" : "left";
+          const margin = viewport.radius * (1.1 + random() * 2.8);
+          const source = side === "left"
+            ? { x: -margin, y: viewport.height * (-0.08 + random() * 1.16) }
+            : side === "top"
+              ? { x: viewport.width * (0.02 + random() * 0.88), y: -margin }
+              : { x: viewport.width * (0.02 + random() * 0.88), y: viewport.height + margin };
+          return {
+            ...source,
+            side,
+            spread: viewport.radius * (0.08 + random() * 0.22),
+            bend: (random() - 0.5) * viewport.radius * 2.8,
+            captureAngle: random() * Math.PI * 2,
+            captureRadius: viewport.radius * (2.2 + random() * 3.9),
+            captureHeight: angularNoise() * viewport.radius * 0.12,
+            phase: random() * Math.PI * 2,
+            tone: 0.08 + index / Math.max(1, feederCount - 1) * 0.62,
+          };
+        });
+
+        hydrogenParticles = d3.range(particleCount).map((index) => {
+          const cloudIndex = index % cloudCount;
+          const cloud = hydrogenClouds[cloudIndex];
+          const external = random() < 0.46;
+          const feederIndex = index % feederCount;
+          const feeder = hydrogenFeeders[feederIndex];
+          const radius = Math.max(
+            viewport.radius * 0.8,
+            external
+              ? feeder.captureRadius + radialNoise() * feeder.spread * 1.25
+              : cloud.radius + radialNoise() * cloud.spread * 0.55,
+          );
+          return {
+            index,
+            cloudIndex,
+            external,
+            feederIndex,
+            angle: external
+              ? feeder.captureAngle + angularNoise() * 0.095
+              : cloud.angle + angularNoise() * cloud.spread / cloud.radius * 0.62,
+            delay: external
+              ? 180 + random() * 2600 + feederIndex * 34
+              : 1500 + random() * 2500 + cloudIndex * 38,
+            duration: external ? 6900 + random() * 2600 : 4400 + random() * 2500,
+            captureFraction: external ? 0.38 + random() * 0.14 : 0,
+            startRadius: radius,
+            targetRadius: viewport.radius * (0.03 + random() * 0.22),
+            turns: -(0.9 + random() * 2.25),
+            orbitRate: -(0.000035 + random() * 0.000072),
+            height: external
+              ? feeder.captureHeight + angularNoise() * feeder.spread * 0.2
+              : angularNoise() * cloud.height,
+            sourceX: external ? feeder.x + angularNoise() * feeder.spread : 0,
+            sourceY: external ? feeder.y + angularNoise() * feeder.spread : 0,
+            size: 0.4 + random() * 1.65,
+            brightness: 0.28 + random() * 0.72,
+            phase: random() * Math.PI * 2,
+            tone: Math.min(
+              1,
+              (external ? feeder.tone : cloud.tone) + (random() - 0.5) * 0.16,
+            ),
+          };
+        });
+
+        coronaParticles = d3.range(coronaCount).map((index) => ({
+          angle: random() * Math.PI * 2,
+          radius: viewport.radius * (1.03 + Math.pow(random(), 1.8) * 1.35),
+          speed: (0.00008 + random() * 0.00028) * (index % 2 ? 1 : -1),
+          size: 0.45 + random() * 1.65,
+          opacity: 0.16 + random() * 0.58,
+          spectral: random() < 0.24,
+          height: angularNoise() * viewport.radius * 0.08,
+        }));
+      }
+
+      function projectAccretion(radius, angle, height = 0) {
+        const inclination = viewport.mobile ? 1.13 : 1.22;
+        const roll = viewport.mobile ? -0.23 : -0.17;
+        const planeX = Math.cos(angle) * radius;
+        const planeDepth = Math.sin(angle) * radius;
+        const viewY = planeDepth * Math.cos(inclination) + height * Math.sin(inclination);
+        const depth = planeDepth * Math.sin(inclination) - height * Math.cos(inclination);
+        const cameraDistance = viewport.radius * 12 + 260;
+        const perspective = Math.max(
+          0.62,
+          Math.min(1.52, cameraDistance / (cameraDistance - depth * 0.62)),
+        );
+        const rolledX = planeX * Math.cos(roll) - viewY * Math.sin(roll);
+        const rolledY = planeX * Math.sin(roll) + viewY * Math.cos(roll);
+
+        return {
+          x: viewport.sunX + rolledX * perspective,
+          y: viewport.sunY + rolledY * perspective,
+          depth,
+          near: depth >= 0,
+          perspective,
+          roll,
+        };
+      }
+
+      function feederPosition(particle, progress, elapsed) {
+        const feeder = hydrogenFeeders[particle.feederIndex];
+        const t = d3.easeCubicInOut(Math.max(0, Math.min(progress, 1)));
+        const targetAngle = particle.angle + elapsed * particle.orbitRate;
+        const target = projectAccretion(particle.startRadius, targetAngle, particle.height);
+        const approach = projectAccretion(
+          particle.startRadius * 1.28,
+          targetAngle + 0.48,
+          particle.height * 1.2,
+        );
+        let controlX = particle.sourceX;
+        let controlY = particle.sourceY;
+        if (feeder.side === "left") {
+          controlX += (viewport.sunX - particle.sourceX) * 0.34;
+          controlY += feeder.bend;
+        } else if (feeder.side === "top") {
+          controlX += feeder.bend;
+          controlY += (viewport.sunY - particle.sourceY) * 0.34;
+        } else {
+          controlX -= feeder.bend;
+          controlY += (viewport.sunY - particle.sourceY) * 0.34;
+        }
+
+        const inverse = 1 - t;
+        const x = inverse ** 3 * particle.sourceX
+          + 3 * inverse ** 2 * t * controlX
+          + 3 * inverse * t ** 2 * approach.x
+          + t ** 3 * target.x;
+        const y = inverse ** 3 * particle.sourceY
+          + 3 * inverse ** 2 * t * controlY
+          + 3 * inverse * t ** 2 * approach.y
+          + t ** 3 * target.y;
+        const tangentX = 3 * inverse ** 2 * (controlX - particle.sourceX)
+          + 6 * inverse * t * (approach.x - controlX)
+          + 3 * t ** 2 * (target.x - approach.x);
+        const tangentY = 3 * inverse ** 2 * (controlY - particle.sourceY)
+          + 6 * inverse * t * (approach.y - controlY)
+          + 3 * t ** 2 * (target.y - approach.y);
+        const trailScale = 0.012 + Math.sin(progress * Math.PI) * 0.02;
+        const depth = -viewport.radius * 2.8 * inverse + target.depth * t;
+        return {
+          x,
+          y,
+          trailX: tangentX * trailScale,
+          trailY: tangentY * trailScale,
+          depth,
+          near: t > 0.72 && target.near,
+          perspective: 0.72 * (1 - t) + target.perspective * t,
+          roll: target.roll,
+        };
+      }
+
+      function cloudPosition(particle, elapsed) {
+        const drift = Math.sin(elapsed / 1250 + particle.phase) * 0.045
+          + elapsed * particle.orbitRate;
+        const radius = particle.startRadius * (1 + Math.cos(elapsed / 1700 + particle.phase) * 0.022);
+        const height = particle.height
+          * (1 + Math.sin(elapsed / 980 + particle.phase * 1.7) * 0.055);
+        return projectAccretion(radius, particle.angle + drift, height);
+      }
+
+      function hydrogenPosition(particle, progress, elapsed) {
+        const eased = d3.easeCubicIn(progress);
+        const settled = d3.easeCubicOut(Math.min(progress * 1.35, 1));
+        const radius = particle.startRadius * (1 - eased) + particle.targetRadius;
+        const angle = particle.angle
+          + particle.turns * Math.PI * 2 * eased
+          + elapsed * particle.orbitRate * (1 + eased * 1.8)
+          + Math.sin(progress * Math.PI * 5 + particle.phase + elapsed / 1100) * (1 - progress) * 0.12;
+        const height = particle.height * (1 - settled * 0.96)
+          + Math.sin(angle * 2 + particle.phase) * radius * 0.018 * (1 - settled);
+        return projectAccretion(radius, angle, height);
+      }
+
+      function drawVoidField(collapse) {
+        const voidRadius = viewport.radius * (1.46 - collapse * 0.96);
+        if (collapse >= 0.985) return;
+
+        const voidGradient = hydrogenContext.createRadialGradient(
+          viewport.sunX,
+          viewport.sunY,
+          voidRadius * 0.08,
+          viewport.sunX,
+          viewport.sunY,
+          voidRadius,
+        );
+        voidGradient.addColorStop(0, `rgb(0 0 8 / ${0.97 - collapse * 0.42})`);
+        voidGradient.addColorStop(0.64, `rgb(5 0 15 / ${0.88 - collapse * 0.5})`);
+        voidGradient.addColorStop(0.84, `rgb(255 0 101 / ${0.22 * (1 - collapse)})`);
+        voidGradient.addColorStop(0.93, `rgb(0 225 232 / ${0.16 * (1 - collapse)})`);
+        voidGradient.addColorStop(1, "transparent");
+        hydrogenContext.fillStyle = voidGradient;
+        hydrogenContext.beginPath();
+        hydrogenContext.arc(viewport.sunX, viewport.sunY, voidRadius, 0, Math.PI * 2);
+        hydrogenContext.fill();
+      }
+
+      function drawCloudLayers(elapsed, cloudFade, cloudCollapse, color) {
+        const inclination = viewport.mobile ? 1.13 : 1.22;
+        const clouds = hydrogenClouds.map((cloud) => {
+          const radius = cloud.radius * (1 - cloudCollapse * 0.87);
+          const angle = cloud.angle
+            + Math.sin(elapsed / 1650 + cloud.phase) * 0.055
+            - elapsed * (0.000018 + cloud.tone * 0.000009)
+            + cloudCollapse * (cloud.angle % 0.4 - 0.2);
+          const height = Math.sin(elapsed / 1300 + cloud.phase) * cloud.height * (1 - cloudCollapse * 0.82);
+          return {
+            cloud,
+            projection: projectAccretion(radius, angle, height),
+          };
+        }).sort((a, b) => a.projection.depth - b.projection.depth);
+
+        clouds.forEach(({ cloud, projection }) => {
+          const spread = cloud.spread * (1 - cloudCollapse * 0.7);
+          const cloudColor = color(Math.min(0.76, cloud.tone * 0.72));
+          const depthLight = projection.near ? 1 : 0.58;
+          hydrogenContext.save();
+          hydrogenContext.translate(projection.x, projection.y);
+          hydrogenContext.rotate(projection.roll);
+          hydrogenContext.scale(
+            projection.perspective,
+            projection.perspective * (Math.cos(inclination) + 0.27),
+          );
+          const gradient = hydrogenContext.createRadialGradient(0, 0, 0, 0, 0, spread * 1.8);
+          gradient.addColorStop(
+            0,
+            d3.color(cloudColor).copy({ opacity: 0.11 * cloudFade * depthLight }).formatRgb(),
+          );
+          gradient.addColorStop(
+            0.38,
+            d3.color(cloudColor).copy({ opacity: 0.054 * cloudFade * depthLight }).formatRgb(),
+          );
+          gradient.addColorStop(1, "transparent");
+          hydrogenContext.globalAlpha = 1 - cloudCollapse * 0.8;
+          hydrogenContext.fillStyle = gradient;
+          hydrogenContext.beginPath();
+          hydrogenContext.arc(0, 0, spread * 1.8, 0, Math.PI * 2);
+          hydrogenContext.fill();
+          hydrogenContext.restore();
+        });
+      }
+
+      function drawAccretionLanes(elapsed, cloudFade, cloudCollapse, near) {
+        const visibility = cloudFade * (1 - cloudCollapse * 0.52);
+        if (visibility <= 0.01) return;
+        const ringCount = viewport.compact ? 4 : 6;
+
+        for (let ring = 0; ring < ringCount; ring += 1) {
+          const radius = viewport.radius
+            * (1.12 + ring * 0.67)
+            * (1 - cloudCollapse * (0.34 + ring * 0.055));
+          const phase = elapsed * (-0.000024 - ring * 0.000003) + ring * 0.43;
+          let drawing = false;
+          hydrogenContext.beginPath();
+
+          for (let step = 0; step <= 92; step += 1) {
+            const angle = phase + step / 92 * Math.PI * 2;
+            const height = Math.sin(angle * 3 + ring) * viewport.radius * 0.012;
+            const point = projectAccretion(radius, angle, height);
+            if (point.near !== near) {
+              drawing = false;
+              continue;
+            }
+            if (!drawing) {
+              hydrogenContext.moveTo(point.x, point.y);
+              drawing = true;
+            } else {
+              hydrogenContext.lineTo(point.x, point.y);
+            }
+          }
+
+          hydrogenContext.globalAlpha = visibility * (near ? 0.13 : 0.052);
+          hydrogenContext.strokeStyle = ring % 2 ? "#ff4d8d" : "#34f6ed";
+          hydrogenContext.lineWidth = near ? 0.72 : 0.46;
+          hydrogenContext.stroke();
+        }
+      }
+
+      function drawHydrogenRecord(record, color, cloudFade) {
+        const { particle, current, progress } = record;
+        const depthLight = current.near ? 1 : 0.48;
+        const perspective = current.perspective;
+        const layerAlpha = record.layerAlpha ?? 1;
+
+        if (record.stage === "stream") {
+          const streamLight = 0.5 + Math.sin(progress * Math.PI) * 0.5;
+          const alpha = particle.brightness
+            * (0.22 + streamLight * 0.68)
+            * (current.near ? 1 : 0.72)
+            * layerAlpha;
+          const heat = Math.min(0.8, particle.tone * 0.58 + progress * 0.44);
+          hydrogenContext.globalAlpha = alpha * 0.68;
+          hydrogenContext.strokeStyle = color(heat);
+          hydrogenContext.lineWidth = Math.max(0.42, particle.size * perspective * 0.48);
+          hydrogenContext.beginPath();
+          hydrogenContext.moveTo(record.previous.x, record.previous.y);
+          hydrogenContext.lineTo(current.x, current.y);
+          hydrogenContext.stroke();
+          hydrogenContext.globalAlpha = alpha;
+          hydrogenContext.fillStyle = color(Math.min(0.92, heat + 0.12));
+          hydrogenContext.beginPath();
+          hydrogenContext.arc(
+            current.x,
+            current.y,
+            particle.size * perspective * (0.72 + progress * 0.62),
+            0,
+            Math.PI * 2,
+          );
+          hydrogenContext.fill();
+          return;
+        }
+
+        if (progress <= 0) {
+          const shimmer = 0.7 + Math.sin(record.elapsed / 390 + particle.phase) * 0.3;
+          hydrogenContext.globalAlpha = cloudFade
+            * particle.brightness
+            * shimmer
+            * 0.34
+            * depthLight
+            * layerAlpha;
+          hydrogenContext.fillStyle = color(Math.max(0, Math.min(0.66, particle.tone * 0.7)));
+          hydrogenContext.beginPath();
+          hydrogenContext.arc(
+            current.x,
+            current.y,
+            particle.size * (1.1 + shimmer * 0.72) * perspective,
+            0,
+            Math.PI * 2,
+          );
+          hydrogenContext.fill();
+          return;
+        }
+
+        const arrival = Math.pow(progress, 0.74);
+        const alpha = (0.26 + Math.min(progress / 0.18, 1) * 0.74)
+          * Math.pow(1 - progress, 0.26)
+          * particle.brightness
+          * depthLight
+          * layerAlpha;
+        const size = particle.size * (0.62 + arrival * 1.25) * perspective;
+
+        hydrogenContext.strokeStyle = color(Math.min(0.98, arrival + 0.08));
+        hydrogenContext.globalAlpha = alpha * Math.min(progress / 0.24, 1) * 0.48;
+        hydrogenContext.lineWidth = Math.max(0.38, size * 0.52);
+        hydrogenContext.beginPath();
+        hydrogenContext.moveTo(record.previous.x, record.previous.y);
+        hydrogenContext.lineTo(current.x, current.y);
+        hydrogenContext.stroke();
+
+        hydrogenContext.globalAlpha = alpha;
+        hydrogenContext.fillStyle = color(Math.min(1, arrival + 0.16));
+        hydrogenContext.beginPath();
+        hydrogenContext.arc(current.x, current.y, size, 0, Math.PI * 2);
+        hydrogenContext.fill();
+      }
+
+      function drawCoronaRecord(record, reveal) {
+        const { particle, current, previous } = record;
+        const depthLight = current.near ? 1 : 0.42;
+        const layerAlpha = record.layerAlpha ?? 1;
+        const size = particle.size * current.perspective;
+        hydrogenContext.globalAlpha = particle.opacity * reveal * depthLight * layerAlpha;
+        hydrogenContext.strokeStyle = particle.spectral ? "#55fff4" : "#ff6a9c";
+        hydrogenContext.lineWidth = Math.max(0.4, size * 0.38);
+        hydrogenContext.beginPath();
+        hydrogenContext.moveTo(previous.x, previous.y);
+        hydrogenContext.lineTo(current.x, current.y);
+        hydrogenContext.stroke();
+        hydrogenContext.fillStyle = particle.spectral ? "#b4fff7" : "#ffe17a";
+        hydrogenContext.beginPath();
+        hydrogenContext.arc(current.x, current.y, size, 0, Math.PI * 2);
+        hydrogenContext.fill();
+      }
+
+      function drawFormingCore(collapse, coreProgress, elapsed, mode = "all") {
+        hydrogenContext.globalCompositeOperation = "source-over";
+        hydrogenContext.globalAlpha = 1;
+        const darkRadius = viewport.radius * (0.71 - collapse * 0.31);
+        if (mode !== "light") {
+          const darkGradient = hydrogenContext.createRadialGradient(
+            viewport.sunX,
+            viewport.sunY,
+            darkRadius * 0.12,
+            viewport.sunX,
+            viewport.sunY,
+            darkRadius,
+          );
+          darkGradient.addColorStop(0, `rgb(0 0 5 / ${0.98 - coreProgress * 0.5})`);
+          darkGradient.addColorStop(0.7, `rgb(4 0 12 / ${0.9 - coreProgress * 0.46})`);
+          darkGradient.addColorStop(1, "transparent");
+          hydrogenContext.fillStyle = darkGradient;
+          hydrogenContext.beginPath();
+          hydrogenContext.arc(viewport.sunX, viewport.sunY, darkRadius, 0, Math.PI * 2);
+          hydrogenContext.fill();
+        }
+
+        if (mode === "dark" || coreProgress <= 0.08) return;
+        const reveal = d3.easeCubicOut((coreProgress - 0.08) / 0.92);
+        const coreRadius = viewport.radius * (0.12 + reveal * 0.87);
+        const coreGradient = hydrogenContext.createRadialGradient(
+          viewport.sunX - coreRadius * 0.16,
+          viewport.sunY - coreRadius * 0.18,
+          0,
+          viewport.sunX,
+          viewport.sunY,
+          coreRadius,
+        );
+        coreGradient.addColorStop(0, `rgb(255 255 229 / ${0.99 * reveal})`);
+        coreGradient.addColorStop(0.24, `rgb(255 232 127 / ${0.95 * reveal})`);
+        coreGradient.addColorStop(0.62, `rgb(255 68 112 / ${0.78 * reveal})`);
+        coreGradient.addColorStop(0.88, `rgb(255 18 90 / ${0.36 * reveal})`);
+        coreGradient.addColorStop(1, "transparent");
+        hydrogenContext.globalCompositeOperation = "lighter";
+        hydrogenContext.fillStyle = coreGradient;
+        hydrogenContext.beginPath();
+        hydrogenContext.arc(viewport.sunX, viewport.sunY, coreRadius, 0, Math.PI * 2);
+        hydrogenContext.fill();
+
+        hydrogenContext.save();
+        hydrogenContext.beginPath();
+        hydrogenContext.arc(viewport.sunX, viewport.sunY, coreRadius * 0.94, 0, Math.PI * 2);
+        hydrogenContext.clip();
+        d3.range(28).forEach((index) => {
+          const phase = index * 2.39996 + elapsed * (0.00012 + index % 3 * 0.000018);
+          const distance = Math.sqrt((index * 0.6180339) % 1) * coreRadius * 0.79;
+          const x = viewport.sunX + Math.cos(phase) * distance;
+          const y = viewport.sunY + Math.sin(phase) * distance;
+          const length = coreRadius * (0.035 + (index % 7) * 0.008);
+          hydrogenContext.globalAlpha = reveal * (0.08 + (index % 5) * 0.035);
+          hydrogenContext.strokeStyle = index % 4 === 0 ? "#fffbd2" : index % 2 ? "#ffea65" : "#ff285f";
+          hydrogenContext.lineWidth = 0.6 + index % 4 * 0.42;
+          hydrogenContext.beginPath();
+          hydrogenContext.arc(x, y, length, phase - 0.8, phase + 0.55);
+          hydrogenContext.stroke();
+        });
+        hydrogenContext.restore();
+
+        d3.range(18).forEach((index) => {
+          const angle = index / 18 * Math.PI * 2 + elapsed * 0.000035;
+          const flicker = 0.5 + Math.sin(elapsed / 170 + index * 2.17) * 0.5;
+          const width = 0.025 + (index % 4) * 0.008;
+          const outerRadius = coreRadius * (1.05 + flicker * (0.1 + index % 5 * 0.025));
+          const startX = viewport.sunX + Math.cos(angle - width) * coreRadius * 0.9;
+          const startY = viewport.sunY + Math.sin(angle - width) * coreRadius * 0.9;
+          const endX = viewport.sunX + Math.cos(angle + width) * coreRadius * 0.9;
+          const endY = viewport.sunY + Math.sin(angle + width) * coreRadius * 0.9;
+          const controlX = viewport.sunX + Math.cos(angle) * outerRadius;
+          const controlY = viewport.sunY + Math.sin(angle) * outerRadius;
+          hydrogenContext.globalAlpha = reveal * (0.08 + flicker * 0.24);
+          hydrogenContext.strokeStyle = index % 3 === 0 ? "#fff2a0" : index % 2 ? "#ff376e" : "#ff922f";
+          hydrogenContext.lineWidth = 0.55 + flicker * 1.15;
+          hydrogenContext.beginPath();
+          hydrogenContext.moveTo(startX, startY);
+          hydrogenContext.quadraticCurveTo(controlX, controlY, endX, endY);
+          hydrogenContext.stroke();
+        });
+      }
+
+      function eraseCapturedStreams(collapse) {
+        const radius = viewport.radius * (0.56 - collapse * 0.17);
+        hydrogenContext.save();
+        hydrogenContext.globalCompositeOperation = "destination-out";
+        hydrogenContext.globalAlpha = 1;
+        hydrogenContext.fillStyle = "#000";
+        hydrogenContext.beginPath();
+        hydrogenContext.arc(viewport.sunX, viewport.sunY, radius, 0, Math.PI * 2);
+        hydrogenContext.fill();
+        hydrogenContext.restore();
+      }
+
+      function drawHydrogen(elapsed) {
+        hydrogenBackContext.clearRect(0, 0, viewport.width, viewport.height);
+        hydrogenFrontContext.clearRect(0, 0, viewport.width, viewport.height);
+        const collapse = d3.easeCubicIn(Math.min(elapsed / 8600, 1));
+        const color = d3.interpolateRgbBasis(["#006a82", "#00e8e8", "#ff1270", "#ffd85a", "#fffbd2"]);
+        const cloudFade = d3.easeCubicOut(Math.min(elapsed / 1900, 1));
+        const cloudCollapse = d3.easeCubicInOut(Math.max(0, Math.min((elapsed - 1700) / 7200, 1)));
+        const coreProgress = d3.easeCubicInOut(Math.max(0, Math.min((elapsed - 3200) / 6000, 1)));
+
+        const farParticles = [];
+        const nearParticles = [];
+        const foregroundStreams = [];
+        hydrogenParticles.forEach((particle) => {
+          const progress = (elapsed - particle.delay) / particle.duration;
+          if (progress >= 1) return;
+
+          if (particle.external && progress < 0) return;
+          let stage = "cloud";
+          let stageProgress = progress;
+          let current;
+          let previous;
+          if (particle.external && progress < particle.captureFraction) {
+            stage = "stream";
+            stageProgress = progress / particle.captureFraction;
+            current = feederPosition(particle, stageProgress, elapsed);
+            previous = {
+              x: current.x - current.trailX,
+              y: current.y - current.trailY,
+            };
+          } else if (particle.external) {
+            stage = "accretion";
+            stageProgress = (progress - particle.captureFraction) / (1 - particle.captureFraction);
+            current = hydrogenPosition(particle, stageProgress, elapsed);
+            previous = hydrogenPosition(
+              particle,
+              Math.max(0, stageProgress - 0.009),
+              elapsed - 16,
+            );
+          } else {
+            stage = progress <= 0 ? "cloud" : "accretion";
+            current = progress <= 0
+              ? cloudPosition(particle, elapsed)
+              : hydrogenPosition(particle, progress, elapsed);
+            previous = progress <= 0
+              ? current
+              : hydrogenPosition(particle, Math.max(0, progress - 0.009), elapsed - 16);
+          }
+          const record = {
+            particle,
+            progress: stageProgress,
+            current,
+            previous,
+            elapsed,
+            stage,
+          };
+          if (stage === "stream") {
+            record.layerAlpha = viewport.compact ? 0.45 : 0.56;
+            foregroundStreams.push(record);
+          }
+          else if (stage === "cloud") farParticles.push(record);
+          else if (current.near) {
+            record.layerAlpha = viewport.compact ? 0.46 : 0.58;
+            nearParticles.push(record);
+          } else farParticles.push(record);
+        });
+
+        const farCorona = [];
+        const nearCorona = [];
+        let coronaReveal = 0;
+        if (coreProgress > 0.34) {
+          coronaReveal = (coreProgress - 0.34) / 0.66;
+          coronaParticles.forEach((particle) => {
+            const angle = particle.angle + elapsed * particle.speed;
+            const breathing = 1 + Math.sin(elapsed / 430 + particle.angle * 3) * 0.035;
+            const radius = particle.radius * breathing;
+            const current = projectAccretion(radius, angle, particle.height);
+            const previous = projectAccretion(radius, angle - particle.speed * 72, particle.height);
+            const record = { particle, current, previous };
+            if (current.near) {
+              if (viewport.compact) record.layerAlpha = 0.8;
+              nearCorona.push(record);
+            } else farCorona.push(record);
+          });
+        }
+
+        hydrogenContext = hydrogenBackContext;
+        hydrogenContext.save();
+        drawVoidField(collapse);
+        hydrogenContext.globalCompositeOperation = "lighter";
+        drawCloudLayers(elapsed, cloudFade, cloudCollapse, color);
+        drawAccretionLanes(elapsed, cloudFade, cloudCollapse, false);
+        farParticles.forEach((record) => drawHydrogenRecord(record, color, cloudFade));
+        farCorona.forEach((record) => drawCoronaRecord(record, coronaReveal));
+        drawFormingCore(collapse, coreProgress, elapsed, "dark");
+        hydrogenContext.restore();
+
+        hydrogenContext = hydrogenFrontContext;
+        hydrogenContext.save();
+        hydrogenContext.globalCompositeOperation = "lighter";
+        foregroundStreams.forEach((record) => drawHydrogenRecord(record, color, cloudFade));
+        eraseCapturedStreams(collapse);
+        drawFormingCore(collapse, coreProgress, elapsed, "light");
+
+        hydrogenContext.globalCompositeOperation = "lighter";
+        drawAccretionLanes(elapsed, cloudFade, cloudCollapse, true);
+        nearParticles.forEach((record) => drawHydrogenRecord(record, color, cloudFade));
+        nearCorona.forEach((record) => drawCoronaRecord(record, coronaReveal));
+
+        if (coronaReveal > 0) {
+          const gradient = hydrogenContext.createRadialGradient(
+            viewport.sunX,
+            viewport.sunY,
+            0,
+            viewport.sunX,
+            viewport.sunY,
+            viewport.radius * 2.25,
+          );
+          gradient.addColorStop(0, `rgb(255 249 190 / ${0.18 * coronaReveal})`);
+          gradient.addColorStop(0.26, `rgb(255 190 67 / ${0.12 * coronaReveal})`);
+          gradient.addColorStop(0.55, `rgb(255 8 104 / ${0.08 * coronaReveal})`);
+          gradient.addColorStop(1, "transparent");
+          hydrogenContext.globalAlpha = 1;
+          hydrogenContext.fillStyle = gradient;
+          hydrogenContext.beginPath();
+          hydrogenContext.arc(viewport.sunX, viewport.sunY, viewport.radius * 2.25, 0, Math.PI * 2);
+          hydrogenContext.fill();
+        }
+
+        hydrogenContext.restore();
+        hydrogenContext = hydrogenFrontContext;
+      }
+
+      function startHydrogen() {
+        if (motionQuery.matches || hydrogenTimer) return;
+        initializeHydrogen();
+        hydrogenTimer = d3.timer(drawHydrogen);
+      }
+
+      function clearHydrogen() {
+        if (hydrogenTimer) hydrogenTimer.stop();
+        hydrogenTimer = null;
+        hydrogenClouds = [];
+        hydrogenFeeders = [];
+        hydrogenParticles = [];
+        coronaParticles = [];
+        hydrogenBackContext.clearRect(0, 0, viewport.width, viewport.height);
+        hydrogenFrontContext.clearRect(0, 0, viewport.width, viewport.height);
+        hydrogenContext = hydrogenFrontContext;
+      }
+
+      function addDefinitions() {
+        const defs = svg.append("defs");
+
+        const spectrum = defs.append("linearGradient")
+          .attr("id", "d3-spectrum")
+          .attr("x1", "0%")
+          .attr("y1", "0%")
+          .attr("x2", "100%")
+          .attr("y2", "100%");
+
+        spectrum.append("stop").attr("offset", "0%").attr("stop-color", "#00e8ed");
+        spectrum.append("stop").attr("offset", "52%").attr("stop-color", "#ff086a");
+        spectrum.append("stop").attr("offset", "100%").attr("stop-color", "#ffd45e");
+
+        const glow = defs.append("filter")
+          .attr("id", "d3-glow")
+          .attr("x", "-180%")
+          .attr("y", "-180%")
+          .attr("width", "460%")
+          .attr("height", "460%");
+        glow.append("feGaussianBlur").attr("stdDeviation", 16).attr("result", "blur");
+        const merge = glow.append("feMerge");
+        merge.append("feMergeNode").attr("in", "blur");
+        merge.append("feMergeNode").attr("in", "SourceGraphic");
+
+        const glowSmall = defs.append("filter")
+          .attr("id", "d3-glow-small")
+          .attr("x", "-100%")
+          .attr("y", "-100%")
+          .attr("width", "300%")
+          .attr("height", "300%");
+        glowSmall.append("feGaussianBlur").attr("stdDeviation", 3).attr("result", "small-blur");
+        const smallMerge = glowSmall.append("feMerge");
+        smallMerge.append("feMergeNode").attr("in", "small-blur");
+        smallMerge.append("feMergeNode").attr("in", "SourceGraphic");
+
+      }
+
+      function addSolarForegroundDefinitions() {
+        const defs = solarSvg.append("defs");
+        const hot = defs.append("radialGradient")
+          .attr("id", "foreground-solar-hot")
+          .attr("cx", "48%")
+          .attr("cy", "45%");
+        hot.append("stop").attr("offset", "0%").attr("stop-color", "#fffef0");
+        hot.append("stop").attr("offset", "28%").attr("stop-color", "#fff07a");
+        hot.append("stop").attr("offset", "61%").attr("stop-color", "#ff781f");
+        hot.append("stop").attr("offset", "88%").attr("stop-color", "#ff3c45");
+        hot.append("stop").attr("offset", "100%").attr("stop-color", "#e70b56");
+
+        const highlight = defs.append("radialGradient")
+          .attr("id", "foreground-solar-highlight")
+          .attr("cx", "38%")
+          .attr("cy", "34%")
+          .attr("r", "58%");
+        highlight.append("stop")
+          .attr("offset", "0%")
+          .attr("stop-color", "#ffffff")
+          .attr("stop-opacity", 0.72);
+        highlight.append("stop")
+          .attr("offset", "42%")
+          .attr("stop-color", "#fff18c")
+          .attr("stop-opacity", 0.15);
+        highlight.append("stop")
+          .attr("offset", "100%")
+          .attr("stop-color", "#ff225f")
+          .attr("stop-opacity", 0);
+
+        defs.append("clipPath")
+          .attr("id", "foreground-solar-disc-clip")
+          .append("circle")
+          .attr("r", viewport.radius * 0.985);
+
+        const plasma = defs.append("filter")
+          .attr("id", "foreground-solar-plasma")
+          .attr("x", "-18%")
+          .attr("y", "-18%")
+          .attr("width", "136%")
+          .attr("height", "136%");
+        const solarNoise = plasma.append("feTurbulence")
+          .attr("type", "fractalNoise")
+          .attr("baseFrequency", "0.012 0.034")
+          .attr("numOctaves", 4)
+          .attr("seed", 23)
+          .attr("result", "foreground-plasma-noise");
+        plasma.append("feColorMatrix")
+          .attr("in", "foreground-plasma-noise")
+          .attr("type", "matrix")
+          .attr("values", "1.45 0 0 0 .12  0 .58 0 0 .02  0 0 .12 0 0  0 0 0 .88 0")
+          .attr("result", "foreground-plasma-color");
+        plasma.append("feComposite")
+          .attr("in", "foreground-plasma-color")
+          .attr("in2", "SourceGraphic")
+          .attr("operator", "in")
+          .attr("result", "foreground-plasma-clipped");
+        plasma.append("feDisplacementMap")
+          .attr("in", "foreground-plasma-clipped")
+          .attr("in2", "foreground-plasma-noise")
+          .attr("scale", 7.5)
+          .attr("xChannelSelector", "R")
+          .attr("yChannelSelector", "B");
+
+        const glow = defs.append("filter")
+          .attr("id", "foreground-solar-glow")
+          .attr("x", "-180%")
+          .attr("y", "-180%")
+          .attr("width", "460%")
+          .attr("height", "460%");
+        glow.append("feGaussianBlur").attr("stdDeviation", 16).attr("result", "foreground-blur");
+        const glowMerge = glow.append("feMerge");
+        glowMerge.append("feMergeNode").attr("in", "foreground-blur");
+        glowMerge.append("feMergeNode").attr("in", "SourceGraphic");
+
+        const glowSmall = defs.append("filter")
+          .attr("id", "foreground-solar-glow-small")
+          .attr("x", "-100%")
+          .attr("y", "-100%")
+          .attr("width", "300%")
+          .attr("height", "300%");
+        glowSmall.append("feGaussianBlur")
+          .attr("stdDeviation", 3)
+          .attr("result", "foreground-small-blur");
+        const smallMerge = glowSmall.append("feMerge");
+        smallMerge.append("feMergeNode").attr("in", "foreground-small-blur");
+        smallMerge.append("feMergeNode").attr("in", "SourceGraphic");
+
+        const cellGlow = defs.append("filter")
+          .attr("id", "foreground-solar-cell-glow")
+          .attr("x", "-80%")
+          .attr("y", "-80%")
+          .attr("width", "260%")
+          .attr("height", "260%");
+        cellGlow.append("feGaussianBlur")
+          .attr("stdDeviation", 1.35)
+          .attr("result", "foreground-cell-blur");
+        const cellMerge = cellGlow.append("feMerge");
+        cellMerge.append("feMergeNode").attr("in", "foreground-cell-blur");
+        cellMerge.append("feMergeNode").attr("in", "SourceGraphic");
+
+        return { solarNoise };
+      }
+
+      function buildRegistry(parent, radius) {
+        const root = d3.hierarchy(registry);
+        d3.cluster().size([Math.PI * 2, radius * 1.58])(root);
+        const link = d3.linkRadial().angle((d) => d.x).radius((d) => d.y);
+
+        const layer = parent.append("g").attr("class", "registry-layer");
+        layer.selectAll("path")
+          .data(root.links())
+          .join("path")
+          .attr("class", "registry-link")
+          .attr("d", link)
+          .attr("stroke-width", (d) => 1.5 - d.target.depth * 0.25)
+          .attr("opacity", (d) => 0.72 - d.target.depth * 0.14);
+
+        layer.selectAll("circle")
+          .data(root.descendants().slice(1))
+          .join("circle")
+          .attr("class", "registry-node")
+          .attr("transform", (d) => `rotate(${d.x * 180 / Math.PI - 90}) translate(${d.y},0)`)
+          .attr("r", (d) => d.children ? 4.5 : 2.8)
+          .attr("stroke-width", 1.1);
+
+        return layer;
+      }
+
+      function buildOrbits(parent, radius) {
+        const layer = parent.append("g").attr("class", "orbit-layer");
+        const rings = d3.range(7).map((index) => ({
+          radius: radius * (1.18 + index * 0.23),
+          dash: index % 2 ? "2 11" : `${22 + index * 5} 9 2 9`,
+          width: index % 3 === 0 ? 1.4 : 0.75,
+          opacity: 0.68 - index * 0.055,
+        }));
+
+        layer.selectAll("circle.orbit")
+          .data(rings)
+          .join("circle")
+          .attr("class", "orbit")
+          .attr("r", (d) => d.radius)
+          .attr("stroke-dasharray", (d) => d.dash)
+          .attr("stroke-width", (d) => d.width)
+          .attr("opacity", (d) => d.opacity);
+
+        const offices = d3.range(18).map((index) => {
+          const ring = rings[index % rings.length];
+          return {
+            angle: index / 18 * Math.PI * 2,
+            radius: ring.radius,
+            size: index % 3 === 0 ? 4.8 : 2.7,
+          };
+        });
+
+        layer.selectAll("circle.orbit-office")
+          .data(offices)
+          .join("circle")
+          .attr("class", "orbit-office")
+          .attr("cx", (d) => Math.cos(d.angle) * d.radius)
+          .attr("cy", (d) => Math.sin(d.angle) * d.radius)
+          .attr("r", (d) => d.size);
+
+        const radialLine = d3.lineRadial()
+          .angle((d) => d.angle)
+          .radius((d) => d.radius)
+          .curve(d3.curveCatmullRomClosed.alpha(0.72));
+
+        const waveData = d3.range(180).map((index) => {
+          const angle = index / 180 * Math.PI * 2;
+          return {
+            angle,
+            radius: radius * 1.72 + Math.sin(angle * 7) * radius * 0.14 + Math.sin(angle * 13) * radius * 0.045,
+          };
+        });
+
+        layer.append("path").datum(waveData).attr("class", "radial-wave").attr("d", radialLine);
+        return layer;
+      }
+
+      function buildSolarBody(parent, radius) {
+        const random = d3.randomLcg(0.419);
+        const sun = parent.append("g")
+          .attr("class", "sun-layer")
+          .attr("opacity", 0)
+          .attr("transform", "scale(.06)");
+        const flames = sun.append("g").attr("class", "solar-flames");
+        const radialLine = d3.lineRadial()
+          .angle((d) => d.angle)
+          .radius((d) => d.radius)
+          .curve(d3.curveBasisClosed);
+        const flameColors = ["#ff7a24", "#ff1b62", "#ffd45c"];
+
+        d3.range(3).forEach((layerIndex) => {
+          const points = d3.range(112).map((index) => {
+            const angle = index / 112 * Math.PI * 2;
+            const wave = Math.sin(angle * (7 + layerIndex * 2) + layerIndex * 1.4) * 0.034;
+            const flare = Math.pow(random(), 3.2) * (0.3 + layerIndex * 0.035);
+            return {
+              angle,
+              radius: radius * (1.015 + layerIndex * 0.025 + wave + flare),
+            };
+          });
+          flames.append("path")
+            .datum(points)
+            .attr("class", "solar-flame")
+            .attr("d", radialLine)
+            .attr("fill", flameColors[layerIndex])
+            .attr("opacity", 0.35 - layerIndex * 0.055)
+            .attr(
+              "filter",
+              layerIndex === 0
+                ? "url(#foreground-solar-glow)"
+                : "url(#foreground-solar-glow-small)",
+            );
+        });
+
+        const prominences = sun.append("g").attr("class", "solar-prominences");
+        d3.range(11).forEach((index) => {
+          const angle = random() * Math.PI * 2;
+          const width = 0.08 + random() * 0.23;
+          const outerRadius = radius * (1.24 + Math.pow(random(), 1.45) * 0.72);
+          const start = {
+            x: Math.cos(angle - width) * radius * 0.97,
+            y: Math.sin(angle - width) * radius * 0.97,
+          };
+          const end = {
+            x: Math.cos(angle + width) * radius * 0.97,
+            y: Math.sin(angle + width) * radius * 0.97,
+          };
+          const controlA = {
+            x: Math.cos(angle - width * 0.18) * outerRadius,
+            y: Math.sin(angle - width * 0.18) * outerRadius,
+          };
+          const controlB = {
+            x: Math.cos(angle + width * 0.22) * outerRadius * (0.92 + random() * 0.16),
+            y: Math.sin(angle + width * 0.22) * outerRadius * (0.92 + random() * 0.16),
+          };
+          prominences.append("path")
+            .attr("class", "solar-prominence")
+            .attr(
+              "d",
+              `M${start.x},${start.y} C${controlA.x},${controlA.y} ${controlB.x},${controlB.y} ${end.x},${end.y}`,
+            )
+            .attr("stroke", index % 3 === 0 ? "#fff09a" : index % 2 ? "#ff2a77" : "#ff852c")
+            .attr("stroke-width", 1 + random() * 2.8)
+            .attr("opacity", 0.4 + random() * 0.42);
+        });
+
+        sun.append("circle")
+          .attr("r", radius * 1.4)
+          .attr("fill", "rgb(255 9 103 / 14%)")
+          .attr("filter", "url(#foreground-solar-glow)");
+        sun.append("circle")
+          .attr("r", radius)
+          .attr("fill", "url(#foreground-solar-hot)")
+          .attr("filter", "url(#foreground-solar-glow)");
+        const plasmaSurface = sun.append("circle")
+          .attr("class", "solar-plasma")
+          .attr("r", radius * 0.982)
+          .attr("fill", "#ff9b2f")
+          .attr("opacity", 0.62)
+          .attr("filter", "url(#foreground-solar-plasma)");
+
+        const cells = sun.append("g")
+          .attr("class", "solar-cells")
+          .attr("clip-path", "url(#foreground-solar-disc-clip)");
+        d3.range(46).forEach((index) => {
+          const angle = random() * Math.PI * 2;
+          const distance = Math.sqrt(random()) * radius * 0.82;
+          cells.append("ellipse")
+            .attr("class", "solar-granule")
+            .attr("cx", Math.cos(angle) * distance)
+            .attr("cy", Math.sin(angle) * distance)
+            .attr("rx", radius * (0.018 + random() * 0.065))
+            .attr("ry", radius * (0.008 + random() * 0.026))
+            .attr("fill", index % 7 === 0 ? "#b40056" : index % 3 === 0 ? "#fff7a8" : "#ff6b34")
+            .attr("opacity", index % 7 === 0 ? 0.2 : 0.1 + random() * 0.22)
+            .attr("transform", `rotate(${random() * 180} ${Math.cos(angle) * distance} ${Math.sin(angle) * distance})`);
+        });
+        d3.range(34).forEach((index) => {
+          const angle = random() * Math.PI * 2;
+          const distance = Math.sqrt(random()) * radius * 0.82;
+          const x = Math.cos(angle) * distance;
+          const y = Math.sin(angle) * distance;
+          const length = radius * (0.055 + random() * 0.14);
+          const tangent = angle + Math.PI / 2 + (random() - 0.5) * 0.7;
+          const bend = (random() - 0.5) * radius * 0.09;
+          const endX = x + Math.cos(tangent) * length;
+          const endY = y + Math.sin(tangent) * length;
+          cells.append("path")
+            .attr("class", "solar-cell")
+            .attr(
+              "d",
+              `M${x},${y} Q${(x + endX) / 2 + Math.cos(angle) * bend},${(y + endY) / 2 + Math.sin(angle) * bend} ${endX},${endY}`,
+            )
+            .attr("fill", "none")
+            .attr("stroke", index % 5 === 0 ? "#fffbd4" : index % 2 ? "#ffef75" : "#ff3d62")
+            .attr("stroke-width", 0.7 + random() * 2.9)
+            .attr("stroke-linecap", "round")
+            .attr("opacity", 0.16 + random() * 0.38);
+        });
+
+        sun.append("circle")
+          .attr("r", radius * 0.93)
+          .attr("fill", "url(#foreground-solar-highlight)")
+          .attr("opacity", 0.24);
+        sun.append("circle")
+          .attr("r", radius * 0.995)
+          .attr("fill", "none")
+          .attr("stroke", "#ffb347")
+          .attr("stroke-width", 1.1)
+          .attr("opacity", 0.32)
+          .attr("filter", "url(#foreground-solar-glow-small)");
+
+        return { sun, flames, prominences, plasmaSurface, cells };
+      }
+
+      function buildNetwork() {
+        const random = d3.randomLcg(0.731);
+        const count = viewport.compact ? 24 : 44;
+        const nodes = d3.range(count).map((index) => ({
+          id: index,
+          x: random() * viewport.width,
+          y: random() * viewport.height,
+          radius: index % 7 === 0 ? 3.5 : 1.7,
+        }));
+        const links = nodes.slice(1).map((node, index) => ({
+          source: node.id,
+          target: Math.floor(index / 2),
+        }));
+
+        const layer = svg.append("g").attr("class", "network-layer").attr("opacity", 0);
+        const linkSelection = layer.selectAll("line")
+          .data(links)
+          .join("line")
+          .attr("class", "network-link");
+        const nodeSelection = layer.selectAll("circle")
+          .data(nodes)
+          .join("circle")
+          .attr("class", "network-node")
+          .attr("r", (d) => d.radius);
+
+        simulation = d3.forceSimulation(nodes)
+          .force("link", d3.forceLink(links).id((d) => d.id).distance(58).strength(0.16))
+          .force("charge", d3.forceManyBody().strength(-18))
+          .force("x", d3.forceX(viewport.width * 0.5).strength(0.016))
+          .force("y", d3.forceY(viewport.height * 0.5).strength(0.018))
+          .force("collide", d3.forceCollide().radius((d) => d.radius + 4))
+          .alphaDecay(0.018)
+          .on("tick", () => {
+            linkSelection
+              .attr("x1", (d) => d.source.x)
+              .attr("y1", (d) => d.source.y)
+              .attr("x2", (d) => d.target.x)
+              .attr("y2", (d) => d.target.y);
+            nodeSelection.attr("cx", (d) => d.x).attr("cy", (d) => d.y);
+          });
+        simulation.stop();
+        return layer;
+      }
+
+      function buildScene() {
+        if (!svg || !solarSvg) return;
+        stopD3Activity();
+        svg.selectAll("*").remove();
+        solarSvg.selectAll("*").remove();
+        viewport = geometry();
+        svg.attr("viewBox", `0 0 ${viewport.width} ${viewport.height}`);
+        solarSvg.attr("viewBox", `0 0 ${viewport.width} ${viewport.height}`);
+        addDefinitions();
+        const solarDefinitions = addSolarForegroundDefinitions();
+
+        const network = buildNetwork();
+        const sunSystem = svg.append("g")
+          .attr("class", "sun-system solar-light")
+          .attr("opacity", 0)
+          .attr("transform", `translate(${viewport.sunX},${viewport.sunY}) scale(1)`);
+
+        const aura = sunSystem.append("g").attr("class", "aura-layer").attr("opacity", 0);
+        aura.append("circle")
+          .attr("r", viewport.radius * 2.25)
+          .attr("fill", "none")
+          .attr("stroke", "url(#d3-spectrum)")
+          .attr("stroke-width", 1.2)
+          .attr("stroke-dasharray", "1 8")
+          .attr("opacity", 0.55);
+        aura.append("ellipse")
+          .attr("rx", viewport.radius * 2.55)
+          .attr("ry", viewport.radius * 0.82)
+          .attr("fill", "none")
+          .attr("stroke", "#00dfe7")
+          .attr("stroke-width", 1)
+          .attr("opacity", 0.5)
+          .attr("transform", "rotate(17)");
+        aura.append("ellipse")
+          .attr("rx", viewport.radius * 1.05)
+          .attr("ry", viewport.radius * 2.8)
+          .attr("fill", "none")
+          .attr("stroke", "#ff126f")
+          .attr("stroke-width", 1)
+          .attr("opacity", 0.45)
+          .attr("transform", "rotate(-11)");
+
+        const orbits = buildOrbits(sunSystem, viewport.radius).attr("opacity", 0);
+        const registryLayer = buildRegistry(sunSystem, viewport.radius).attr("opacity", 0);
+        const solarSystem = solarSvg.append("g")
+          .attr("class", "foreground-sun-system")
+          .attr("opacity", 0)
+          .attr("transform", `translate(${viewport.sunX},${viewport.sunY}) scale(1)`);
+        const solar = buildSolarBody(solarSystem, viewport.radius);
+
+        scene = {
+          network,
+          sunSystem,
+          solarSystem,
+          aura,
+          orbits,
+          registryLayer,
+          solarNoise: solarDefinitions.solarNoise,
+          ...solar,
+        };
+      }
+
+      function startCelestialMotion() {
+        if (motionQuery.matches || celestialTimer || !scene) return;
+        let noiseFrame = -1;
+        celestialTimer = d3.timer((elapsed) => {
+          scene.orbits.attr("transform", `rotate(${elapsed * 0.0045})`);
+          scene.registryLayer.attr("transform", `rotate(${-elapsed * 0.007})`);
+          scene.aura.attr("transform", `rotate(${Math.sin(elapsed / 2300) * 12})`);
+          scene.flames.attr(
+            "transform",
+            `rotate(${elapsed * 0.0018}) scale(${1 + Math.sin(elapsed / 510) * 0.018})`,
+          );
+          scene.prominences.attr(
+            "transform",
+            `rotate(${-elapsed * 0.0011}) scale(${1 + Math.sin(elapsed / 690 + 1.2) * 0.026})`,
+          );
+          scene.plasmaSurface.attr("transform", `rotate(${elapsed * 0.0024})`);
+          scene.cells.attr("transform", `rotate(${-elapsed * 0.0031})`);
+          const nextNoiseFrame = Math.floor(elapsed / 120);
+          if (elapsed > 6000 && nextNoiseFrame !== noiseFrame) {
+            noiseFrame = nextNoiseFrame;
+            scene.solarNoise.attr(
+              "baseFrequency",
+              `${0.0115 + Math.sin(elapsed / 880) * 0.0018} ${0.033 + Math.cos(elapsed / 710) * 0.004}`,
+            );
+          }
+          if (elapsed > 10800) {
+            const pulse = 1 + Math.sin(elapsed / 620) * 0.024;
+            scene.sun.attr("transform", `scale(${pulse})`);
+          }
+        });
+      }
+
+      function spawnParticles() {
+        if (!svg || state === "idle" || state === "receding" || motionQuery.matches) return;
+        const random = d3.randomUniform;
+        const count = viewport.compact ? 3 : 5;
+        const data = d3.range(count).map(() => {
+          const ember = Math.random() < 0.38;
+          const spectral = Math.random() < 0.27;
+          return {
+            ember,
+            spectral,
+            x: random(-20, viewport.width)(),
+            y: random(-45, viewport.height * 0.16)(),
+            dx: random(80, 280)(),
+            duration: random(5000, 10500)(),
+            size: ember ? random(1.1, 3.7)() : random(4, 10)(),
+            spin: random(-620, 620)(),
+          };
+        });
+
+        const particles = svg.append("g")
+          .attr("class", "particle-batch")
+          .selectAll("g")
+          .data(data)
+          .join("g")
+          .attr("class", "particle")
+          .attr("opacity", 0)
+          .attr("transform", (d) => `translate(${d.x},${d.y})`);
+
+        particles.each(function draw(datum) {
+          const particle = d3.select(this);
+          if (datum.ember) {
+            particle.append("line")
+              .attr("x1", -datum.size * 5)
+              .attr("x2", 0)
+              .attr("stroke", datum.spectral ? "#55fff2" : "#ffad42")
+              .attr("stroke-width", Math.max(0.7, datum.size * 0.45));
+            particle.append("circle")
+              .attr("r", datum.size)
+              .attr("fill", datum.spectral ? "#82fff4" : "#ffd16a");
+          } else {
+            const size = datum.size;
+            particle.append("path")
+              .attr("d", `M0,${-size} C${size},${-size * 0.4} ${size * 0.8},${size * 0.7} 0,${size} C${-size * 0.75},${size * 0.45} ${-size * 0.8},${-size * 0.45} 0,${-size}`)
+              .attr("fill", datum.spectral ? "#79f9ee" : "#ff91b2");
+          }
+        });
+
+        particles
+          .transition()
+          .duration(650)
+          .attr("opacity", (d) => d.ember ? 0.92 : 0.68)
+          .transition()
+          .duration((d) => d.duration)
+          .ease(d3.easeLinear)
+          .attr("opacity", 0)
+          .attr("transform", (d) => `translate(${d.x + d.dx},${viewport.height + 60}) rotate(${d.spin})`)
+          .on("end", function removeEmptyBatch() {
+            const parent = this.parentNode;
+            this.remove();
+            if (parent && !parent.children.length) parent.remove();
+          });
+      }
+
+      function startParticles() {
+        if (motionQuery.matches || particleTimer) return;
+        spawnParticles();
+        particleTimer = d3.interval(spawnParticles, viewport.compact ? 410 : 280);
+      }
+
+      function stopD3Activity() {
+        if (celestialTimer) celestialTimer.stop();
+        if (particleTimer) particleTimer.stop();
+        if (hydrogenTimer) hydrogenTimer.stop();
+        if (simulation) simulation.stop();
+        celestialTimer = null;
+        particleTimer = null;
+        hydrogenTimer = null;
+      }
+
+      function revealScene(animate = true) {
+        if (!scene) return;
+        const reduced = motionQuery.matches;
+        const useTransition = animate && !reduced;
+        const finalTransform = `translate(${viewport.sunX},${viewport.sunY}) scale(1)`;
+        const networkOpacity = viewport.compact ? 0.4 : 0.66;
+
+        if (useTransition) {
+          scene.sunSystem.interrupt().attr("opacity", 1).attr("transform", finalTransform);
+          scene.solarSystem.interrupt().attr("opacity", 1).attr("transform", finalTransform);
+          scene.sun
+            .interrupt()
+            .transition()
+            .delay(4200)
+            .duration(4700)
+            .ease(d3.easeCubicIn)
+            .attr("opacity", 1)
+            .attr("transform", "scale(1)");
+          scene.orbits
+            .interrupt()
+            .transition()
+            .delay(7200)
+            .duration(3300)
+            .attr("opacity", 1);
+          scene.aura
+            .interrupt()
+            .transition()
+            .delay(6800)
+            .duration(3400)
+            .attr("opacity", 1);
+          scene.registryLayer
+            .interrupt()
+            .transition()
+            .delay(7800)
+            .duration(3000)
+            .attr("opacity", 1);
+          scene.network
+            .interrupt()
+            .transition()
+            .delay(7900)
+            .duration(2600)
+            .attr("opacity", networkOpacity);
+        } else {
+          scene.sunSystem.attr("opacity", 1).attr("transform", finalTransform);
+          scene.solarSystem.attr("opacity", 1).attr("transform", finalTransform);
+          scene.sun.attr("opacity", 1).attr("transform", "scale(1)");
+          scene.orbits.attr("opacity", 1);
+          scene.aura.attr("opacity", 1);
+          scene.registryLayer.attr("opacity", 1);
+          scene.network.attr("opacity", viewport.compact ? 0.34 : 0.56);
+        }
+
+        if (!reduced) {
+          simulation.alpha(0.9).restart();
+          startCelestialMotion();
+        }
+      }
+
+      function recedeScene(duration) {
+        stopD3Activity();
+        if (!scene) return;
+        scene.network.interrupt().transition().duration(duration).attr("opacity", 0);
+        scene.sunSystem
+          .interrupt()
+          .transition()
+          .duration(duration)
+          .ease(d3.easeCubicInOut)
+          .attr("opacity", 0)
+          .attr("transform", `translate(${viewport.sunX},${viewport.sunY - 32}) scale(1.13)`);
+        scene.solarSystem
+          .interrupt()
+          .transition()
+          .duration(duration)
+          .ease(d3.easeCubicInOut)
+          .attr("opacity", 0)
+          .attr("transform", `translate(${viewport.sunX},${viewport.sunY - 32}) scale(1.13)`);
+        svg.selectAll(".particle-batch").interrupt().transition().duration(duration * 0.72).attr("opacity", 0).remove();
+      }
+
+      function resetEvent() {
+        clearTimers();
+        stopD3Activity();
+        clearHydrogen();
+        svg.selectAll("*").interrupt();
+        solarSvg.selectAll("*").interrupt();
+        svg.selectAll(".particle-batch").remove();
+        setState("idle");
+        trigger.disabled = false;
+        trigger.setAttribute("aria-pressed", "false");
+        status.textContent = "The celestial administration has withdrawn.";
+        buildScene();
+      }
+
+      function activateEvent() {
+        if (state !== "idle" || !svg || !solarSvg) return;
+        const timing = motionQuery.matches ? timings.reduced : timings.standard;
+        clearTimers();
+        setState("dawning");
+        trigger.disabled = true;
+        trigger.setAttribute("aria-pressed", "true");
+        status.textContent = "Hydrogen streams are converging in the void.";
+        startHydrogen();
+        revealScene(true);
+
+        if (timing.particles !== null) schedule(startParticles, timing.particles);
+
+        schedule(() => {
+          setState("radiant");
+          status.textContent = "The Second Sun and its celestial registry are visible.";
+        }, timing.rise);
+
+        schedule(() => {
+          setState("receding");
+          status.textContent = "The celestial registry is closing.";
+          recedeScene(timing.return);
+        }, timing.rise + timing.hold);
+
+        schedule(resetEvent, timing.rise + timing.hold + timing.return);
+      }
+
+      function handleResize() {
+        window.clearTimeout(handleResize.timer);
+        handleResize.timer = window.setTimeout(() => {
+          const wasActive = state !== "idle";
+          buildScene();
+          if (wasActive) {
+            startHydrogen();
+            revealScene(false);
+          }
+        }, 160);
+      }
+
+      if (!svg) {
+        trigger.disabled = true;
+        trigger.title = "D3 could not be loaded";
+        status.textContent = "The visualization dependency could not be loaded.";
+      } else {
+        buildScene();
+        trigger.addEventListener("click", activateEvent);
+        window.addEventListener("resize", handleResize, { passive: true });
+        motionQuery.addEventListener("change", () => {
+          if (motionQuery.matches) {
+            stopD3Activity();
+            clearHydrogen();
+          }
+        });
+      }
+    })();
+  </script>
+</body>
+</html>

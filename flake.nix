@@ -56,6 +56,43 @@
         package = self.packages.${system}.default;
       });
 
+      apps.x86_64-linux =
+        let
+          pkgs = import nixpkgs { system = "x86_64-linux"; };
+          playwrightBrowsers = pkgs.playwright-driver.selectBrowsers {
+            withChromium = false;
+            withChromiumHeadlessShell = false;
+            withFirefox = true;
+            withWebkit = false;
+            withFfmpeg = false;
+          };
+          testHeliogenesis = pkgs.writeShellApplication {
+            name = "test-heliogenesis";
+            runtimeInputs = [
+              pkgs.chromium
+              pkgs.miniserve
+              pkgs.playwright-test
+            ];
+            text = ''
+              export HELIOGENESIS_CHROMIUM_PATH="${pkgs.lib.getExe pkgs.chromium}"
+              export HELIOGENESIS_INTEGRATION_ROOT="${self}/integrations/web/heliogenesis"
+              export PLAYWRIGHT_BROWSERS_PATH="${playwrightBrowsers}"
+              export PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD=1
+
+              exec playwright test \
+                --config="${self}/integrations/web/heliogenesis/tests/playwright.config.cjs" \
+                "$@"
+            '';
+          };
+        in
+        {
+          test-heliogenesis = {
+            type = "app";
+            program = "${testHeliogenesis}/bin/test-heliogenesis";
+            meta.description = "Run the Heliogenesis browser integration tests";
+          };
+        };
+
       formatter = forAllSystems (system: nixpkgs.legacyPackages.${system}.nixfmt);
     };
 }

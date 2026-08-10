@@ -160,6 +160,10 @@ uniqueness without choosing those local paths itself. Its collision collector re
 configured scope; changed-file analysis alone cannot establish repository-wide uniqueness. The adapter is off by
 default and may be enabled per invocation with the `DOCTRINE_LOGION` environment variable.
 
+The optional [`Heliogenesis browser integration`](integrations/web/heliogenesis/README.md) is distributed in the same
+package. It must be copied into a consuming site's public assets and mounted explicitly; installation alone never
+changes that site's documentation theme.
+
 Do not present one tool's configuration format as a portable agent standard. Additional adapters should live under
 `integrations/<tool>/` and identify the tool they target.
 

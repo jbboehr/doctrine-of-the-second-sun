@@ -1,0 +1,183 @@
+:root {
+  --heliogenesis-layer: 30;
+  --heliogenesis-reveal: 2400ms;
+  --heliogenesis-return: 7000ms;
+  --heliogenesis-midnight: #070817;
+  --heliogenesis-rose: #e00060;
+  --heliogenesis-rose-hot: #ff267e;
+  --heliogenesis-cyan: #00d8dd;
+  --heliogenesis-gold: #ffc966;
+}
+
+.heliogenesis-environment {
+  position: fixed;
+  z-index: var(--heliogenesis-layer);
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  opacity: 0;
+  isolation: isolate;
+  pointer-events: none;
+  transition: opacity var(--heliogenesis-return) cubic-bezier(.2, .7, .2, 1);
+}
+
+.heliogenesis-world-light,
+.heliogenesis-horizon,
+.heliogenesis-stage,
+.heliogenesis-vigil {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.heliogenesis-world-light {
+  z-index: 0;
+  opacity: 0;
+  background:
+    linear-gradient(104deg, transparent 13%, rgb(0 230 235 / 10%) 34%, transparent 47%),
+    radial-gradient(ellipse at 77% 37%, rgb(255 221 133 / 26%), rgb(255 25 112 / 18%) 16%, transparent 48%);
+  mix-blend-mode: screen;
+  transition: opacity var(--heliogenesis-return) ease;
+}
+
+.heliogenesis-horizon {
+  z-index: 1;
+  top: auto;
+  bottom: 0;
+  height: 46vh;
+  opacity: 0;
+  background:
+    linear-gradient(180deg, transparent, rgb(230 0 91 / 10%) 53%, rgb(255 23 103 / 21%) 100%),
+    repeating-linear-gradient(90deg, transparent 0 72px, rgb(0 222 228 / 5%) 73px 74px);
+  mask-image: linear-gradient(transparent, black);
+  transition: opacity var(--heliogenesis-return) ease;
+}
+
+.heliogenesis-stage {
+  z-index: 2;
+  display: block;
+}
+
+.heliogenesis-vigil {
+  z-index: 3;
+  opacity: 0;
+  background:
+    linear-gradient(105deg, transparent 0 54%, rgb(255 255 255 / 3%) 63%, transparent 77%),
+    radial-gradient(circle at 78% 34%, transparent 0 18%, rgb(255 13 99 / 8%) 31%, transparent 56%);
+  box-shadow: inset 0 0 120px rgb(2 4 18 / 65%);
+  transition: opacity var(--heliogenesis-return) ease;
+}
+
+.heliogenesis-environment:is(
+  [data-heliogenesis-state="dawning"],
+  [data-heliogenesis-state="radiant"]
+) {
+  opacity: 1;
+  transition-duration: var(--heliogenesis-reveal);
+}
+
+.heliogenesis-environment:is(
+  [data-heliogenesis-state="dawning"],
+  [data-heliogenesis-state="radiant"]
+) .heliogenesis-world-light {
+  opacity: 1;
+  transition-duration: 3800ms;
+}
+
+.heliogenesis-environment:is(
+  [data-heliogenesis-state="dawning"],
+  [data-heliogenesis-state="radiant"]
+) .heliogenesis-horizon {
+  opacity: 0.56;
+  transition-duration: 3800ms;
+}
+
+.heliogenesis-environment:is(
+  [data-heliogenesis-state="dawning"],
+  [data-heliogenesis-state="radiant"]
+) .heliogenesis-vigil {
+  opacity: 1;
+  transition-duration: 3800ms;
+}
+
+[data-heliogenesis-trigger] {
+  position: relative;
+  display: grid;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  place-items: center;
+  color: #b96b80;
+  border: 1px solid rgb(213 32 103 / 36%);
+  border-radius: 50%;
+  background: rgb(17 15 34 / 82%);
+  cursor: pointer;
+  transition: color 220ms ease, border-color 220ms ease, box-shadow 220ms ease, transform 220ms ease;
+}
+
+[data-heliogenesis-trigger]::before,
+[data-heliogenesis-trigger]::after {
+  content: "";
+  position: absolute;
+  inset: 7px;
+  border: 1px solid currentColor;
+  border-radius: 50%;
+  opacity: 0.46;
+  transform: rotateX(67deg);
+}
+
+[data-heliogenesis-trigger]::after {
+  inset: 12px;
+  opacity: 0.82;
+  background: currentColor;
+  box-shadow: 0 0 12px currentColor;
+  transform: none;
+}
+
+[data-heliogenesis-trigger]:hover:not(:disabled) {
+  color: #f294ae;
+  border-color: rgb(255 74 133 / 68%);
+  box-shadow: 0 0 18px rgb(238 17 99 / 22%);
+  transform: translateY(-1px);
+}
+
+[data-heliogenesis-trigger]:focus-visible {
+  outline: 2px solid var(--heliogenesis-cyan);
+  outline-offset: 3px;
+}
+
+[data-heliogenesis-trigger]:disabled {
+  cursor: default;
+  opacity: 0.82;
+}
+
+[data-heliogenesis-trigger][data-heliogenesis-unavailable] {
+  opacity: 0.42;
+}
+
+.heliogenesis-sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --heliogenesis-reveal: 1400ms;
+    --heliogenesis-return: 1900ms;
+  }
+
+  [data-heliogenesis-trigger] {
+    transition-duration: 0.01ms;
+  }
+}
