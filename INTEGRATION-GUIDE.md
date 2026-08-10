@@ -154,6 +154,12 @@ Codex adapters are available under [`integrations/codex/`](integrations/codex/RE
 package or Nix flake does not register them automatically. Review any copied adapter, commit it in the consuming
 repository, and keep local instructions authoritative for source scope, citations, insertion, and verification.
 
+PHP repositories may also opt into the [`integrations/phpstan/`](integrations/phpstan/README.md) enforcement adapter.
+It validates locally selected declaration and command coverage, tag and citation form, allowed books, and citation
+uniqueness without choosing those local paths itself. Its collision collector requires a complete analysis of the
+configured scope; changed-file analysis alone cannot establish repository-wide uniqueness. The adapter is off by
+default and may be enabled per invocation with the `DOCTRINE_LOGION` environment variable.
+
 Do not present one tool's configuration format as a portable agent standard. Additional adapters should live under
 `integrations/<tool>/` and identify the tool they target.
 

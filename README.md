@@ -70,15 +70,27 @@ revisions.
 Codex-specific writer and reviewer adapters live under [`integrations/codex/`](integrations/codex/README.md). They are
 optional workflow aids rather than part of the tool-neutral doctrine.
 
+## PHPStan Integration
+
+The optional [`integrations/phpstan/`](integrations/phpstan/README.md) adapter lets consuming PHP repositories enforce
+their locally selected `@logion` declaration coverage, citation form, allowed books, and repository-wide uniqueness. It
+does not choose source roots or command entry points for the consumer and remains disabled unless local configuration
+or the `DOCTRINE_LOGION` environment variable enables it.
+
 ## License
 
-Unless otherwise indicated, the documentation, Codex integrations, packaging files, and artwork in this repository are
-licensed under the [Creative Commons Attribution-ShareAlike 4.0 International License](LICENSE.md).
+The documentation, Codex integrations, packaging files, and artwork in this repository are licensed under the
+[Creative Commons Attribution-ShareAlike 4.0 International License](LICENSE.md). The PHPStan adapter implementation,
+configuration, and tests are licensed under the
+[GNU Affero General Public License version 3](integrations/phpstan/LICENSE.md) with the
+[Romic Exception](integrations/phpstan/LICENSE_EXCEPTION.md). The PHPStan integration's `README.md` remains
+documentation under CC BY-SA 4.0.
 
 When attribution is required, a reasonable form is:
 
 > Doctrine of the Second Sun, John Boehr and contributors,
 > <https://github.com/jbboehr/doctrine-of-the-second-sun>
 
-The SPDX identifier is `CC-BY-SA-4.0`. Adaptations must identify their changes and be distributed under the same or a
-compatible license as required by CC BY-SA 4.0.
+The package-level SPDX expression is
+`CC-BY-SA-4.0 AND AGPL-3.0-only WITH romic-exception`. Adaptations of CC-licensed material must identify their changes
+and be distributed under the same or a compatible license as required by CC BY-SA 4.0.

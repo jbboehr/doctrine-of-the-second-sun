@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- SPDX-License-Identifier: AGPL-3.0-only WITH romic-exception -->
+<phpunit bootstrap="../../vendor/autoload.php"
+         cacheDirectory="../../.cache/phpunit"
+         colors="true">
+    <testsuites>
+        <testsuite name="PHPStan extension">
+            <directory>tests</directory>
+        </testsuite>
+    </testsuites>
+</phpunit>

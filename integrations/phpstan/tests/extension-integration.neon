@@ -1,0 +1,15 @@
+# SPDX-License-Identifier: AGPL-3.0-only WITH romic-exception
+
+includes:
+    - ../extension.neon
+
+parameters:
+    level: 0
+    paths:
+        - data/command-valid.php
+    doctrineOfTheSecondSun:
+        enabled: true
+        filePatterns:
+            - '#/not-a-declaration-source/#'
+        commandFilePatterns:
+            - '#/command-valid\.php$#'

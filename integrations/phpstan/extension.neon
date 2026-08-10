@@ -1,0 +1,125 @@
+# SPDX-License-Identifier: AGPL-3.0-only WITH romic-exception
+
+parameters:
+    doctrineOfTheSecondSun:
+        enabled: false
+        enableEnvVar: DOCTRINE_LOGION
+        allowedBooks:
+            - OSD
+            - RAS
+            - AWC
+            - SFA
+        filePatterns: []
+        excludeFilePatterns: []
+        commandFilePatterns: []
+        checkClassLikes: true
+        checkMethods: true
+        checkFunctions: true
+
+parametersSchema:
+    doctrineOfTheSecondSun: structure([
+        enabled: bool()
+        enableEnvVar: string()
+        allowedBooks: listOf(string())
+        filePatterns: listOf(string())
+        excludeFilePatterns: listOf(string())
+        commandFilePatterns: listOf(string())
+        checkClassLikes: bool()
+        checkMethods: bool()
+        checkFunctions: bool()
+    ])
+
+services:
+    doctrineOfTheSecondSun.runtimeSwitch:
+        class: DoctrineOfTheSecondSun\PHPStan\RuntimeSwitch
+        arguments:
+            - %doctrineOfTheSecondSun.enabled%
+            - %doctrineOfTheSecondSun.enableEnvVar%
+
+    doctrineOfTheSecondSun.logionParser:
+        class: DoctrineOfTheSecondSun\PHPStan\LogionParser
+        arguments:
+            - %doctrineOfTheSecondSun.allowedBooks%
+
+    doctrineOfTheSecondSun.namedDeclarationErrorFormatter:
+        class: DoctrineOfTheSecondSun\PHPStan\NamedDeclarationErrorFormatter
+        arguments:
+            - @doctrineOfTheSecondSun.logionParser
+
+    doctrineOfTheSecondSun.declarationSelector:
+        class: DoctrineOfTheSecondSun\PHPStan\DeclarationSelector
+        arguments:
+            - @doctrineOfTheSecondSun.runtimeSwitch
+            - %doctrineOfTheSecondSun.filePatterns%
+            - %doctrineOfTheSecondSun.excludeFilePatterns%
+            - %doctrineOfTheSecondSun.checkClassLikes%
+            - %doctrineOfTheSecondSun.checkMethods%
+            - %doctrineOfTheSecondSun.checkFunctions%
+
+    doctrineOfTheSecondSun.commandFileSelector:
+        class: DoctrineOfTheSecondSun\PHPStan\CommandFileSelector
+        arguments:
+            - @doctrineOfTheSecondSun.runtimeSwitch
+            - %doctrineOfTheSecondSun.commandFilePatterns%
+
+    -
+        class: DoctrineOfTheSecondSun\PHPStan\LogionResultCacheMetaExtension
+        arguments:
+            - @doctrineOfTheSecondSun.runtimeSwitch
+        tags:
+            - phpstan.resultCacheMetaExtension
+
+    -
+        class: DoctrineOfTheSecondSun\PHPStan\Rules\NamedDeclarationLogionRule
+        arguments:
+            - @doctrineOfTheSecondSun.logionParser
+            - @doctrineOfTheSecondSun.declarationSelector
+            - @doctrineOfTheSecondSun.namedDeclarationErrorFormatter
+        tags:
+            - phpstan.rules.rule
+
+    -
+        class: DoctrineOfTheSecondSun\PHPStan\Collectors\LogionReferenceCollector
+        arguments:
+            - @doctrineOfTheSecondSun.logionParser
+            - @doctrineOfTheSecondSun.declarationSelector
+        tags:
+            - phpstan.collector
+
+    -
+        class: DoctrineOfTheSecondSun\PHPStan\Collectors\TraitMethodLogionReferenceCollector
+        arguments:
+            - @doctrineOfTheSecondSun.logionParser
+            - @doctrineOfTheSecondSun.declarationSelector
+        tags:
+            - phpstan.collector
+
+    -
+        class: DoctrineOfTheSecondSun\PHPStan\Rules\TraitMethodLogionRule
+        arguments:
+            - @doctrineOfTheSecondSun.logionParser
+            - @doctrineOfTheSecondSun.declarationSelector
+            - @doctrineOfTheSecondSun.namedDeclarationErrorFormatter
+        tags:
+            - phpstan.rules.rule
+
+    -
+        class: DoctrineOfTheSecondSun\PHPStan\Rules\CommandFileLogionRule
+        arguments:
+            - @doctrineOfTheSecondSun.logionParser
+            - @doctrineOfTheSecondSun.commandFileSelector
+        tags:
+            - phpstan.rules.rule
+
+    -
+        class: DoctrineOfTheSecondSun\PHPStan\Collectors\CommandFileLogionReferenceCollector
+        arguments:
+            - @doctrineOfTheSecondSun.logionParser
+            - @doctrineOfTheSecondSun.commandFileSelector
+        tags:
+            - phpstan.collector
+
+    -
+        class: DoctrineOfTheSecondSun\PHPStan\Rules\UniqueLogionReferenceRule
+        tags:
+            - phpstan.rules.rule

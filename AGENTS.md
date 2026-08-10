@@ -40,4 +40,12 @@ composer validate --strict
 nix flake check
 ```
 
+For PHPStan adapter changes, also run:
+
+```console
+composer test
+composer cs
+composer analyse
+```
+
 For documentation changes, also inspect relative links, search for stale terminology, and review the complete diff.

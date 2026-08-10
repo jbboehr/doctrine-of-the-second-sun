@@ -1,0 +1,11 @@
+# SPDX-License-Identifier: AGPL-3.0-only WITH romic-exception
+
+includes:
+    - ../extension.neon
+
+parameters:
+    level: 0
+    paths:
+        - data/trait-references.php
+    doctrineOfTheSecondSun:
+        enabled: true

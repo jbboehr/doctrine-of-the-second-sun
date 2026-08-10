@@ -2,7 +2,7 @@
     "name": "jbboehr/doctrine-of-the-second-sun",
     "description": "Portable doctrine, visual, coding, and software-stewardship guides",
     "type": "library",
-    "license": "CC-BY-SA-4.0",
+    "license": "(CC-BY-SA-4.0 AND AGPL-3.0-only WITH romic-exception)",
     "authors": [
         {
             "name": "John Boehr",
@@ -25,6 +25,40 @@
             "/flake.lock",
             "/flake.nix",
             "/result*"
+        ]
+    },
+    "autoload": {
+        "psr-4": {
+            "DoctrineOfTheSecondSun\\PHPStan\\": "integrations/phpstan/src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "DoctrineOfTheSecondSun\\PHPStan\\Tests\\": "integrations/phpstan/tests/"
+        },
+        "exclude-from-classmap": [
+            "/integrations/phpstan/tests/data/"
+        ]
+    },
+    "require-dev": {
+        "php-cs-fixer/shim": "^3.95",
+        "phpstan/phpstan": "^2.1",
+        "phpunit/phpunit": "^10.5 || ^11.5"
+    },
+    "scripts": {
+        "analyse": "phpstan analyse --configuration=integrations/phpstan/phpstan.neon.dist",
+        "cs": "php-cs-fixer fix --config=integrations/phpstan/.php-cs-fixer.dist.php --dry-run --diff",
+        "cs:fix": "php-cs-fixer fix --config=integrations/phpstan/.php-cs-fixer.dist.php",
+        "test": [
+            "@test:unit",
+            "@test:integration"
+        ],
+        "test:unit": "phpunit --configuration=integrations/phpstan/phpunit.xml.dist",
+        "test:integration": [
+            "phpstan analyse --configuration=integrations/phpstan/tests/extension-integration.neon --no-progress",
+            "phpstan analyse --configuration=integrations/phpstan/tests/disabled-integration.neon --no-progress",
+            "phpstan analyse --configuration=integrations/phpstan/tests/extension-trait-integration.neon --no-progress",
+            "phpstan analyse --configuration=integrations/phpstan/tests/overlap-integration.neon --no-progress"
         ]
     }
 }
