@@ -331,6 +331,14 @@ navigators; worthy heirs; statues with agency; veiled office-holders; and iconog
 
 > Derive cultural setting from the source material before sampling it.
 
+> Project names are identifiers, not cultural-setting evidence, unless the project explicitly makes them so.
+
+For visual-setting purposes, treat project and product names as opaque identifiers unless explicit project context makes
+their cultural meaning relevant. Do not infer geography, ethnicity, architecture, historical period, or cultural setting
+from a name alone. Derive the setting from the source logion, project subject matter, established series continuity, and
+the rules below. Do not rename a project or suppress relevant cultural context when its name is intentionally part of
+the subject matter.
+
 When an image contains recognizable people or culturally specific dress, rites, objects, or architecture, resolve its
 local setting in this order:
 
@@ -530,6 +538,10 @@ remembered, or transfigured beneath an impossible Second Sun, not merely decorat
 ---
 
 ## 15. Prompt construction
+
+Omit a project or product name from the descriptive image-generation prompt when it is not semantically necessary.
+Include it only when needed for visible title text, branding, genuinely project-specific symbolism, or subject matter in
+which the name's cultural meaning is explicitly relevant.
 
 A generation prompt should specify:
 
