@@ -119,9 +119,9 @@ A single dramatic, symbolic, painterly scene. Use it for major logia, apocalypti
 one-logion image series.
 
 **Banner and header emphasis:** Banners, headers, and atmospheric key art should usually intensify the mandatory Second
-Sun layer through monumental environment, horizon light, celestial scale, architectural silhouette, atmospheric depth,
-and deliberate negative space. Prefer fewer literal narrative details when they would weaken the ethereal presentation
-or the composition's clarity.
+Sun layer through a focused selection from devices such as monumental environment, horizon light, celestial scale,
+architectural silhouette, atmospheric depth, and deliberate negative space. Prefer fewer literal narrative details when
+they would weaken the ethereal presentation or the composition's clarity.
 
 ### Illuminated doctrinal plate
 
@@ -563,10 +563,11 @@ A generation prompt should specify:
 
 > Create a ceremonial retrofuturist environment embodying `[doctrinal center]`. Depict architecture as metaphysical law
 > rather than background. Make its vernacular architecture and everyday material culture consistently `[resolved local
-> cultural setting]`. Transfigure the whole environment through `[impossible illumination, atmospheric depth, horizon
-> glow, monumental silhouette, and celestial scale]`. Establish `[threshold, rank, procession, or concealment]` through
-> `[selected motifs]`, translating celestial or supra-local elements through the local setting. The space should feel
-> inhabited by an institution even when no figures are present.
+> cultural setting]`. Transfigure the whole environment through `[selected Second Sun atmospheric treatment]`, drawing
+> from the guide's vocabulary according to the image's illumination, depth, scale, weather, and celestial character.
+> Establish `[threshold, rank, procession, or concealment]` through `[selected motifs]`, translating celestial or
+> supra-local elements through the local setting. The space should feel inhabited by an institution even when no figures
+> are present.
 
 ---
 
