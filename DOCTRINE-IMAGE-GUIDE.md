@@ -32,11 +32,41 @@ influences that may cross that local setting when their role is narratively legi
 [Local cultural setting and human appearance](#local-cultural-setting-and-human-appearance). Local coherence prevents
 arbitrary collage; it does not divide the canon into culturally isolated universes.
 
+Construct the image in three distinct layers:
+
+1. **Subject and material layer:** the source logion, project context, and local cultural setting determine what exists:
+   architecture, clothing, ritual objects, institutions, artifacts, figures, environment, and narrative or symbolic
+   content.
+2. **Second Sun atmospheric layer:** mandatory retrowave and synthwave atmosphere determines how that world is seen:
+   illumination, mood, scale, depth, horizon, and visual presentation.
+3. **Optional accent and pressure layer:** Christian or liturgical, chūnibyō or cosmic-bureaucratic, restorationist,
+   foreign or inherited, vaporwave, and other secondary pressures may modify the image without replacing either of the
+   first two layers.
+
+The local cultural setting determines the material world of the image. The Second Sun atmosphere determines its
+illumination, mood, scale, and visual presentation. Historical specificity is compatible with the Doctrine only when it
+remains visibly transfigured by an impossible celestial atmosphere.
+
+The Second Sun atmospheric layer is mandatory. Only explicit applicable project requirements may establish a narrow
+exception; do not infer one from the image type. The layer does not require a literal sun or exterior horizon: an
+interior, icon, manuscript, or object-centered image may express it through non-natural illumination, luminous material,
+reflected color, atmospheric depth, or celestial geometry. Every image should remain recognizable as existing beneath
+the same impossible visual order even when its local setting changes.
+
+> **Same metaphysical atmosphere, different weather.**
+
+The mandatory layer is not a fixed visual preset. No particular palette, time of day, sun placement, horizon glow, haze,
+bloom, celestial body, geometric structure, or compositional device is required. Unrelated images should achieve the
+Second Sun atmosphere through substantially different combinations of lighting, weather, color, scale, composition,
+celestial phenomena, environmental density, degree of abstraction or literalness, and source or character of the
+impossible light.
+
 The target is not generic fantasy, cyberpunk, anime, vaporwave poster art, or science-fiction concept art. Technology,
 architecture, ritual, and ornament must participate in one visible hierarchy.
 
-Every doctrine image must contain at least one clearly recognizable retrowave or synthwave anchor. The anchor may be
-subtle, but it must participate in the image's symbolic meaning rather than functioning as an arbitrary neon accent.
+Every doctrine image must also contain at least one clearly recognizable retrowave or synthwave anchor. The anchor may
+be subtle or atmospheric, but it must participate in the image's symbolic meaning rather than functioning as an
+arbitrary neon accent.
 
 ---
 
@@ -88,6 +118,11 @@ ordered complexity without requiring a tribunal. These are interpretations of mi
 A single dramatic, symbolic, painterly scene. Use it for major logia, apocalyptic passages, banners, covers, and
 one-logion image series.
 
+**Banner and header emphasis:** Banners, headers, and atmospheric key art should usually intensify the mandatory Second
+Sun layer through monumental environment, horizon light, celestial scale, architectural silhouette, atmospheric depth,
+and deliberate negative space. Prefer fewer literal narrative details when they would weaken the ethereal presentation
+or the composition's clarity.
+
 ### Illuminated doctrinal plate
 
 A formal, icon-like, hierarchically arranged image. Use it for central doctrines, celestial offices, seals, named
@@ -135,21 +170,31 @@ visual weights. This consolidation governs the local material world; it does not
 Japanese–Occidental identity or prohibit narratively distinct foreign or supra-local elements. A single image should
 usually combine two to four influences, and a valid sample may be substantially dominated by one or two of them.
 
-Retrowave or synthwave is the one mandatory per-image influence. Every image must include at least one integrated anchor
-from one or more of these classes:
+The mandatory Second Sun atmosphere is a baseline rendering grammar, not one optional result of this mixture. The 25%
+retrowave and synthwave component governs the relative emphasis of additional explicit motifs after that baseline is
+present; it does not authorize an image without the atmosphere. Retrowave and synthwave should often operate through
+environmental and compositional treatment rather than literal props. Every image must include at least one integrated
+anchor from one or more of these classes:
 
-| Anchor class | Examples                                                                            |
-| ------------ | ----------------------------------------------------------------------------------- |
-| Light        | synthetic dusk, cyan illumination, electric horizon, ordered luminous bands         |
-| Artifact     | obsolete terminal, CRT, optical medium, luminous instrument, analog control surface |
-| Architecture | chrome-and-glass chamber, radiant highway, monumental retrofuturist structure       |
-| Celestial    | orbital ring, synthetic moon, geometric constellation, marble satellite             |
-| Material     | ceremonial chrome, luminous glass, internally illuminated marble                    |
-| Environment  | electric sea, luminous grid, impossible retrofuturist skyline                       |
+| Atmospheric anchor class | Examples                                                                                 |
+| ------------------------ | ---------------------------------------------------------------------------------------- |
+| Illumination             | impossible dawn or twilight, synthetic dusk, ordered bands of non-natural light          |
+| Atmosphere and depth     | luminous haze, celestial bloom, colored atmospheric reflection, dreamlike distance       |
+| Horizon                  | cyan, magenta, crimson, rose, violet, or gold glow; electric sea; radiant cloud boundary  |
+| Scale and silhouette     | monumental forms, large negative spaces, remote glowing structures, impossible depth     |
+| Celestial infrastructure | orbital ring, synthetic moon, geometric constellation, radiant highway, ranked machinery |
+| Material response        | colored reflections, ceremonial chrome, luminous glass, internally illuminated stone     |
 
-The anchor may be quiet, but it must be visually legible and doctrinally integrated. Do not satisfy the requirement
-solely by tinting an otherwise conventional scene magenta and cyan, adding an arbitrary grid, or placing a random
-terminal in the background.
+These devices form a vocabulary, not a checklist. No table row or example is mandatory, and an equivalent atmospheric
+treatment may satisfy the requirement without reproducing any listed device.
+
+Whatever form it takes, the treatment must retain clearly synthetic, retrofuturist, or impossible-celestial character.
+Generic haze, painterly dusk, negative space, or monumentality alone does not qualify.
+
+The anchor may be quiet, but it must be visually legible and doctrinally integrated. An obsolete terminal or other
+artifact may support it, but a prop is not required and should not carry the requirement alone. Do not satisfy the
+atmospheric layer by tinting an otherwise conventional scene magenta and cyan, adding an arbitrary grid or sign, or
+placing random neon, an outrun car, or decorative 1980s imagery into an ordinary historical scene.
 
 A valid sample may repeat an anchor class or concrete motif used by an earlier image. Do not reroll it merely to improve
 apparent variety or to compensate for the series' observed distribution. When related images require a coherent common
@@ -198,8 +243,9 @@ Use visual media according to their function. Let the setting selected under
   bells, still water, pines, and restrained spacing;
 - Christian influence may convey invisible law through angelic orders, sacred offices, liturgical hierarchy, and forms
   native to the selected setting rather than automatically importing European cathedral furniture;
-- synthetic sunsets, luminous horizons, chrome, glass, obsolete terminals, celestial machinery, satellites, and
-  electric seas may convey lost futurity and ceremonial technology without becoming generic vaporwave props;
+- the mandatory Second Sun layer may use synthetic sunsets, luminous horizons, atmospheric haze, reflected color,
+  dreamlike scale, chrome, glass, celestial machinery, satellites, and electric seas to convey lost futurity and
+  ceremonial technology without becoming generic vaporwave decoration;
 - chūnibyō influence may appear as setting-appropriate seals, roads, processions, ranked machines, impossible heraldry,
   celestial offices, or administrative instruments;
 - abandoned arcades, hotel atriums, decaying fountains, and commercial ruins convey spectacle or beauty separated from
@@ -220,11 +266,17 @@ factions. Do not depict racial or ethnic symbolism or real-world authoritarian v
 
 ## 6. Color and light
 
-Preferred colors include rose, amber, violet, cyan, electric blue, gold, bronze, black, ivory, lacquer red, marble
-white, and deep midnight navy.
+The preferred color vocabulary includes rose, amber, violet, cyan, electric blue, gold, bronze, black, ivory, lacquer
+red, marble white, and deep midnight navy. No particular subset is mandatory, and unrelated images should not repeat a
+palette by default.
+
+Color and light carry the mandatory Second Sun atmospheric layer. They should affect the scene as a whole by organizing
+depth, silhouette, scale, and attention, not appear only as isolated neon details on otherwise naturalistic material.
 
 Suitable uses include:
 
+- impossible dawn, twilight, or synthetic noon transfiguring an otherwise historically specific environment;
+- luminous haze, celestial bloom, horizon glow, and distant structures dissolving into colored atmosphere;
 - synthetic dusk across sacred architecture;
 - magenta or violet illumination inside cloisters, archives, or observatories;
 - warm gold against black stone;
@@ -234,10 +286,12 @@ Suitable uses include:
 - lightning, furnace light, or a severe synthetic noon revealing strength earned through ordeal.
 
 Light should feel authorized, judicial, revelatory, apocalyptic, blessed, consolatory, wondrous, or architecturally
-ordered. A synthetic light source should usually mean something.
+ordered. A synthetic light source should usually mean something. Naturalistic daylight may remain locally plausible,
+but it must be visibly subordinated to the image's non-natural celestial illumination or atmospheric order.
 
 Avoid arbitrary rainbow palettes, generic fantasy brown, uniformly desaturated grimdark palettes, purple-pink fog, neon
-wallpaper, and colored lighting without compositional or doctrinal purpose.
+wallpaper, colored lighting without compositional or doctrinal purpose, and conventional period lighting with a few
+glowing accents added afterward.
 
 ---
 
@@ -257,6 +311,10 @@ Useful devices include stairs leading toward judgment, gates framing synthetic l
 courts, satellites above static ritual space, processions crossing large chambers, and an earthly foreground opening
 into cosmic administration. When the source logion requires it, a mountain road, disciplined forge, banner raised after
 trial, or inherited instrument aimed toward a distant star may express ascent without displacing ceremonial order.
+
+Even a close or interior scene should imply a larger cosmic and institutional horizon through atmospheric depth,
+off-frame illumination, reflected celestial color, remote geometry, monumental silhouette, or deliberate negative
+space. Do not let historically accurate detail flatten the composition into ordinary period illustration.
 
 Avoid splash-art clutter, arbitrary action poses, chaotic battles, equal emphasis on every object, and visual noise used
 as a substitute for hierarchy.
@@ -329,7 +387,8 @@ furniture, or treat incompatible vernacular architectures as one ordinary city.
 
 Within the selected category, choose one coherent regional and historical register. The examples in this guide are
 alternatives, not instructions to combine every European period or Japanese institution in one scene. Coherent locality
-within a genuinely hybrid civilization is the goal, not cultural isolation.
+within a genuinely hybrid civilization is the goal, not cultural isolation. The historical register governs material
+consistency; it does not call for the rendering conventions of museum reconstruction or conventional period art.
 
 If an image is wholly abstract, celestial, heraldic, or object-centered and contains no culturally legible human or
 environmental cues, do not force such cues merely to display a category.
@@ -410,6 +469,13 @@ neither the source nor the series establishes one, sample once and reuse that re
 setting independently for unrelated, underdetermined images; do not alternate settings merely to approach the 60/40
 prior.
 
+Resolve atmospheric choices independently for unrelated images; do not reuse one locked atmospheric recipe. Independent
+choices should leave room for variation in palette, weather, time of day, composition, scale, environmental density,
+degree of abstraction, and the source and character of impossible light. They may coincide by chance. Do not inspect
+earlier outputs, reject a valid result, or reroll merely to force variety. If unrelated images systematically resemble
+variations of one prompt because a template repeats the same sky, palette, sun placement, haze, lighting pattern, and
+composition, the atmospheric guidance or prompt has become too prescriptive.
+
 ---
 
 ## 13. Degree of literalness
@@ -419,6 +485,10 @@ The canonical priors for degree of literalness are:
 - **20% direct scene depiction**;
 - **50% symbolic or interpretive depiction**;
 - **30% environmental or doctrinal atmosphere**.
+
+These modes describe how literally the subject is depicted. They do not control whether the mandatory Second Sun
+atmosphere appears. Direct scene depiction, symbolic depiction, and environmental depiction must all remain visibly
+transfigured by the same non-natural illumination and larger celestial order.
 
 When one mode must dominate exclusively, use these weights for a categorical choice. When an image may combine direct,
 symbolic, and environmental treatment, sample a mixture centered on these proportions instead. In either case, follow
@@ -438,10 +508,24 @@ fresco, mural, ceremonial poster, cinematic retrofuturist concept art, stained-g
 monumental architectural painting.
 
 Rendering should feel intentional, composed, textured, symbolically dense, sacred without becoming generic fantasy, and
-futuristic without becoming ordinary cyberpunk.
+futuristic without becoming ordinary cyberpunk. Historical or quasi-historical subject matter must remain ethereal,
+atmospheric, monumental, and visibly shaped by retrowave light, depth, and scale.
 
 Avoid stock-photo realism, flat corporate vectors, generic comics, soft fantasy haze, uncontrolled generated detail,
 meaningless ornament, and uniformly hyper-detailed surfaces without hierarchy.
+
+### Historical-illustration diagnostic
+
+Reject museum reconstruction, archaeological visualization, historical textbook illustration, costume-drama stills,
+conventional period painting, and straightforward history-book imagery. Naturalistic historical scenes with token
+synthwave accents also fail.
+
+An Occidental setting must not default to reconstruction, and a Japanese setting must not default to conventional
+historical Japanese or ukiyo-e-adjacent illustration. Both require the same transfiguring atmospheric layer.
+
+If removing a few glowing, celestial, or neon-adjacent accents would leave an ordinary historical illustration, the
+image is insufficiently Second Sun. A successful image should feel as though a coherent historical world has been seen,
+remembered, or transfigured beneath an impossible Second Sun, not merely decorated afterward.
 
 ---
 
@@ -454,8 +538,9 @@ A generation prompt should specify:
 3. the source-established, context-preserved, or fallback-sampled local setting when culturally legible elements appear,
    together with the narrative role of any foreign or supra-local influence;
 4. the dominant and supporting motifs;
-5. the required retrowave or synthwave anchor and the doctrine it expresses;
-6. the visual balance of the remaining influences;
+5. the mandatory Second Sun atmospheric treatment, including its non-natural illumination, depth, scale, integrated
+   retrowave or synthwave anchor, and the doctrinal or symbolic function that anchor expresses;
+6. the visual balance of the optional accent and pressure layer;
 7. the degree of literal interpretation;
 8. composition, palette, light, and rendering mode;
 9. whether text appears;
@@ -466,19 +551,22 @@ A generation prompt should specify:
 
 > Create a `[movement-sensitive image type]` based on this logion: "`[logion]`." Center the image on
 > `[doctrinal center]` through `[dominant subject]`, and translate its movement from `[initial movement]` through
-> `[later movement]` into the composition. Let `[retrowave or synthwave anchor]` signify `[symbolic function]`.
-> Keep vernacular architecture, ordinary clothing, local rites, and everyday material culture consistently `[resolved
-> local cultural setting]`. Translate `[selected supra-local influences]` through that setting, and make any foreign
-> element narratively distinct rather than a second coequal local setting. Interpret the doctrinal force rather than
-> illustrating every noun. Use `[format and rendering mode]`, follow `[text policy]`, and avoid `[relevant clichés]`.
+> `[later movement]` into the composition. Keep vernacular architecture, ordinary clothing, local rites, and everyday
+> material culture consistently `[resolved local cultural setting]`. Render the entire scene beneath `[impossible Second
+> Sun illumination]`, using `[integrated atmospheric anchor]` to shape color, depth, scale, and mood across the
+> composition and signify `[symbolic function]`, rather than functioning as a token accent. Translate `[selected
+> supra-local influences]` through the local setting, and make any foreign element narratively distinct rather than a
+> second coequal local setting. Interpret the doctrinal force rather than illustrating every noun. Use `[format and
+> rendering mode]`, follow `[text policy]`, and avoid `[relevant clichés]`.
 
 ### Environment prompt skeleton
 
 > Create a ceremonial retrofuturist environment embodying `[doctrinal center]`. Depict architecture as metaphysical law
 > rather than background. Make its vernacular architecture and everyday material culture consistently `[resolved local
-> cultural setting]`. Establish `[threshold, rank, procession, or concealment]` through `[selected motifs]`, translating
-> celestial or supra-local elements through the local setting. The space should feel inhabited by an institution even
-> when no figures are present.
+> cultural setting]`. Transfigure the whole environment through `[impossible illumination, atmospheric depth, horizon
+> glow, monumental silhouette, and celestial scale]`. Establish `[threshold, rank, procession, or concealment]` through
+> `[selected motifs]`, translating celestial or supra-local elements through the local setting. The space should feel
+> inhabited by an institution even when no figures are present.
 
 ---
 
@@ -546,6 +634,9 @@ Avoid:
 - neon samurai, cyber-katana imagery, anime protagonists, and role-playing party arrangements;
 - unexplained cultural collage, such as torii beside Gothic cathedrals, kimono combined with Roman legionary dress and
   stained glass, or incompatible vernacular architectures treated as one ordinary city;
+- museum reconstruction, archaeological visualization, historical textbook illustration, costume-drama stills, and
+  conventional period painting;
+- naturalistic historical scenes made nominally futuristic by a few neon accents, glowing props, signs, or grids;
 - generic hacker rooms, empty cyberpunk cities, arbitrary glitches, and meaningless sacred geometry;
 - cathedrals pasted onto synthwave sunsets without integration;
 - armored fantasy angels with enormous weapons;
@@ -574,36 +665,43 @@ add one project's names or asset conventions to this general guide.
 Before accepting an image, verify that:
 
 1. It visibly derives from the source logion's doctrinal center and reflects its compositional movements.
-2. It contains at least one recognizable retrowave or synthwave anchor.
-3. The anchor participates in the image's meaning and is not merely a cyan-magenta tint, arbitrary grid, or background
-   prop.
-4. A series does not mechanically repeat the same anchor class or concrete motif in nearby images unless the recurrence
-   is intentional.
-5. It contains a clear symbolic and compositional hierarchy.
-6. Its imagery communicates an idea rather than mood alone.
-7. It avoids generic fantasy, cyberpunk, anime, vaporwave-meme, and quote-poster conventions.
-8. When culturally legible elements appear, the local setting was derived from source material and context before any
+2. The local cultural setting governs the material world while the mandatory Second Sun atmosphere governs illumination,
+   mood, scale, depth, and presentation.
+3. Non-natural light, atmospheric depth, horizon treatment, celestial scale, or an equivalent treatment affects the
+   whole composition rather than a few isolated details.
+4. Its retrowave or synthwave anchor participates in the image's meaning and is not merely a cyan-magenta tint,
+   arbitrary grid, sign, vehicle, or background prop.
+5. Removing a few glowing or celestial accents would not leave an ordinary historical or period illustration.
+6. Unrelated images do not reuse one locked atmospheric recipe. Chance repetition of an anchor class, concrete motif,
+   palette, or other valid independent choice does not require rejection or rerolling.
+7. It contains a clear symbolic and compositional hierarchy.
+8. Its imagery communicates an idea rather than mood alone.
+9. It avoids generic fantasy, cyberpunk, anime, vaporwave-meme, history-book, and quote-poster conventions.
+10. When culturally legible elements appear, the local setting was derived from source material and context before any
    fallback sampling, and one coherent setting governs ordinary scene construction.
-9. Any foreign, imperial, celestial, or supra-local elements remain narratively distinct rather than forming a second
+11. Any foreign, imperial, celestial, or supra-local elements remain narratively distinct rather than forming a second
    coequal local setting, and human appearance does not rely on caricature or exaggerated phenotype.
-10. Vaporwave elements remain scenic rather than philosophical.
-11. Architecture, objects, figures, and light have discernible roles.
-12. It interprets rather than mechanically inventories the logion.
-13. Text, when requested, is correct, integrated, restrained, and legible.
-14. Project dimensions, paths, framing, responsive crop, and series requirements are satisfied.
-15. A series image matches the established visual canon.
-16. Blessing, lament, covenant, pilgrimage, restoration, praise, and fidelity remain visually available rather than
+12. Vaporwave elements remain scenic rather than philosophical.
+13. Architecture, objects, figures, and light have discernible roles.
+14. It interprets rather than mechanically inventories the logion.
+15. Text, when requested, is correct, integrated, restrained, and legible.
+16. Project dimensions, paths, framing, responsive crop, and series requirements are satisfied.
+17. A series image matches the established visual canon.
+18. Blessing, lament, covenant, pilgrimage, restoration, praise, and fidelity remain visually available rather than
     every scene defaulting to judgment or failed succession.
-17. Any ascent, ordeal, forging, or completed work remains visibly ordered by inheritance, boundary, discipline, and
+19. Any ascent, ordeal, forging, or completed work remains visibly ordered by inheritance, boundary, discipline, and
     lawful purpose rather than generic heroic triumph.
-18. The final artifact feels more like recovered revelation than generated wallpaper.
+20. The final artifact feels more like a historical or quasi-historical world transfigured beneath the Second Sun than
+    either generated wallpaper or conventional historical illustration.
 
 ---
 
 ## Final visual target
 
 A successful doctrine image should feel like a sacred painting, illuminated plate, ceremonial poster, or visionary
-illustration preserved by monks, archivists, imperial functionaries, and angels beneath synthetic sunsets.
+illustration preserved by monks, archivists, imperial functionaries, and angels beneath synthetic sunsets. Its local
+material world may be historically specific, but its illumination, atmosphere, scale, and presentation must make that
+world visibly part of the same impossible future antiquity.
 
 It may judge, bless, lament, praise, promise, remember, or reveal, but its order must remain visible and its primary
 motif must remain sovereign over the composition.
