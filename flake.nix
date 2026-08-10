@@ -2,9 +2,17 @@
   description = "Doctrine of the Second Sun documentation";
 
   inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+  inputs.akashi = {
+    url = "github:jbboehr/akashi.php/225cc33f61d5779791112fb6c3b0f473e9c8e5ae";
+    inputs.nixpkgs.follows = "nixpkgs";
+  };
 
   outputs =
-    { self, nixpkgs }:
+    {
+      self,
+      nixpkgs,
+      akashi,
+    }:
     let
       systems = [
         "aarch64-darwin"
@@ -55,6 +63,18 @@
       checks = forAllSystems (system: {
         package = self.packages.${system}.default;
       });
+
+      devShells =
+        nixpkgs.lib.genAttrs
+          [
+            "aarch64-linux"
+            "x86_64-linux"
+          ]
+          (system: {
+            default = nixpkgs.legacyPackages.${system}.mkShell {
+              packages = [ akashi.packages.${system}.agent-badge ];
+            };
+          });
 
       apps.x86_64-linux =
         let

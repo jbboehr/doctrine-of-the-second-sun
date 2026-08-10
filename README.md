@@ -1,3 +1,7 @@
+<!-- agent-badge:start -->
+[![AI burn](https://img.shields.io/endpoint?url=https%3A%2F%2Fgist.githubusercontent.com%2Fjbboehr%2Fb37af21823641103278208098592134e%2Fraw%2Fagent-badge.json&cacheSeconds=300)](https://github.com/arlegotin/agent-badge)
+<!-- agent-badge:end -->
+
 ![Doctrine of the Second Sun](assets/banner.png)
 
 # Doctrine of the Second Sun
