@@ -41,10 +41,13 @@ function createLayer(document) {
   const canvas = document.createElement("canvas");
   canvas.className = "heliogenesis-stage";
 
+  const ignitionFront = document.createElement("div");
+  ignitionFront.className = "heliogenesis-ignition-front";
+
   const vigil = document.createElement("div");
   vigil.className = "heliogenesis-vigil";
 
-  environment.append(worldLight, horizon, canvas, vigil);
+  environment.append(worldLight, horizon, canvas, ignitionFront, vigil);
   return { environment, canvas };
 }
 
@@ -97,6 +100,13 @@ export class Heliogenesis extends EventTarget {
     this.failed = false;
     this.failure = null;
     this.previousRootState = this.root.getAttribute("data-heliogenesis-state");
+    this.previousRootIgnition = this.root.getAttribute("data-heliogenesis-ignition");
+    this.previousRootRise = this.root.style.getPropertyValue("--heliogenesis-rise");
+    this.previousRootRisePriority = this.root.style.getPropertyPriority("--heliogenesis-rise");
+    this.previousRootSunX = this.root.style.getPropertyValue("--heliogenesis-sun-x");
+    this.previousRootSunXPriority = this.root.style.getPropertyPriority("--heliogenesis-sun-x");
+    this.previousRootSunY = this.root.style.getPropertyValue("--heliogenesis-sun-y");
+    this.previousRootSunYPriority = this.root.style.getPropertyPriority("--heliogenesis-sun-y");
     this.initialDisabled = Boolean(this.trigger.disabled);
     this.initialPressed = this.trigger.getAttribute("aria-pressed");
     this.hadTriggerHook = this.trigger.hasAttribute("data-heliogenesis-trigger");
@@ -127,6 +137,8 @@ export class Heliogenesis extends EventTarget {
       if (!this.failed) void this.prepare().catch((error) => this.fail(error));
     }, { signal });
     this.document.defaultView.addEventListener("resize", () => this.queueResize(), { signal });
+    this.document.defaultView.visualViewport?.addEventListener("resize", () => this.queueResize(), { signal });
+    this.document.defaultView.visualViewport?.addEventListener("scroll", () => this.queueResize(), { signal });
     this.document.addEventListener("visibilitychange", () => {
       if (this.document.hidden && this.state !== "idle") this.reset();
     }, { signal });
@@ -151,6 +163,10 @@ export class Heliogenesis extends EventTarget {
         this.scene = createHeliogenesisScene({
           canvas: this.canvas,
           reducedMotion: () => this.motionQuery.matches,
+          onSunPosition: ({ x, y }) => {
+            this.root.style.setProperty("--heliogenesis-sun-x", x);
+            this.root.style.setProperty("--heliogenesis-sun-y", y);
+          },
         });
         return this.scene;
       })
@@ -167,6 +183,7 @@ export class Heliogenesis extends EventTarget {
     const timing = reduced ? this.timings.reduced : this.timings.standard;
 
     this.clearTimers();
+    this.setTimingStyle(timing);
     this.trigger.disabled = true;
     this.trigger.setAttribute("aria-pressed", "true");
     this.setState("dawning");
@@ -174,6 +191,7 @@ export class Heliogenesis extends EventTarget {
     try {
       const scene = await this.prepare();
       if (!scene || !this.mounted || this.state !== "dawning") return false;
+      this.setIgnition(true);
       if (reduced) scene.showReduced();
       else scene.start({ rise: timing.rise });
     } catch (error) {
@@ -181,7 +199,10 @@ export class Heliogenesis extends EventTarget {
       return false;
     }
 
-    this.schedule(() => this.setState("radiant"), timing.rise);
+    this.schedule(() => {
+      this.setIgnition(false);
+      this.setState("radiant");
+    }, timing.rise);
     this.schedule(() => this.setState("receding"), timing.rise + timing.hold);
     this.schedule(() => this.reset(), timing.rise + timing.hold + timing.return);
     return true;
@@ -189,6 +210,7 @@ export class Heliogenesis extends EventTarget {
 
   reset({ announce = true } = {}) {
     this.clearTimers();
+    this.setIgnition(false);
     if (this.failed) {
       if (this.state !== "idle") this.setState("idle", { announce: false });
       this.status.textContent = STATUS_TEXT.unavailable;
@@ -213,6 +235,35 @@ export class Heliogenesis extends EventTarget {
 
     if (this.previousRootState === null) this.root.removeAttribute("data-heliogenesis-state");
     else this.root.setAttribute("data-heliogenesis-state", this.previousRootState);
+    if (this.previousRootIgnition === null) this.root.removeAttribute("data-heliogenesis-ignition");
+    else this.root.setAttribute("data-heliogenesis-ignition", this.previousRootIgnition);
+    if (this.previousRootRise) {
+      this.root.style.setProperty(
+        "--heliogenesis-rise",
+        this.previousRootRise,
+        this.previousRootRisePriority,
+      );
+    } else {
+      this.root.style.removeProperty("--heliogenesis-rise");
+    }
+    if (this.previousRootSunX) {
+      this.root.style.setProperty(
+        "--heliogenesis-sun-x",
+        this.previousRootSunX,
+        this.previousRootSunXPriority,
+      );
+    } else {
+      this.root.style.removeProperty("--heliogenesis-sun-x");
+    }
+    if (this.previousRootSunY) {
+      this.root.style.setProperty(
+        "--heliogenesis-sun-y",
+        this.previousRootSunY,
+        this.previousRootSunYPriority,
+      );
+    } else {
+      this.root.style.removeProperty("--heliogenesis-sun-y");
+    }
     this.trigger.disabled = this.initialDisabled;
     if (this.initialPressed === null) this.trigger.removeAttribute("aria-pressed");
     else this.trigger.setAttribute("aria-pressed", this.initialPressed);
@@ -238,6 +289,12 @@ export class Heliogenesis extends EventTarget {
     this.timers.clear();
   }
 
+  setTimingStyle(timing) {
+    const rise = `${Math.max(1, Number(timing.rise) || DEFAULT_TIMINGS.standard.rise)}ms`;
+    this.root.style.setProperty("--heliogenesis-rise", rise);
+    this.layer?.style.setProperty("--heliogenesis-rise", rise);
+  }
+
   queueResize() {
     if (!this.scene) return;
     if (this.resizeTimer !== null) this.document.defaultView.clearTimeout(this.resizeTimer);
@@ -256,6 +313,11 @@ export class Heliogenesis extends EventTarget {
     this.dispatchLifecycle(nextState);
   }
 
+  setIgnition(active) {
+    this.root.toggleAttribute("data-heliogenesis-ignition", active);
+    this.layer?.toggleAttribute("data-heliogenesis-ignition", active);
+  }
+
   dispatchLifecycle(name, extraDetail = {}) {
     const EventConstructor = this.document.defaultView.CustomEvent;
     const eventName = `heliogenesis:${name}`;
@@ -269,6 +331,7 @@ export class Heliogenesis extends EventTarget {
     this.failed = true;
     this.failure = error instanceof Error ? error : new Error(String(error));
     this.clearTimers();
+    this.setIgnition(false);
     if (this.scene) {
       try {
         this.scene.destroy();

@@ -10,9 +10,12 @@ explicitly marks any document surfaces that should respond to the second light.
 ## Files
 
 - `heliogenesis.js` provides the public controller and event lifecycle;
-- `heliogenesis-scene.js` renders the hydrogen cloud, accretion flow, forming star, eclipse, particles, and atmosphere;
-- `heliogenesis.css` provides the fixed environmental layer and optional trigger appearance;
-- `heliogenesis-document.css` provides an optional documentation-lighting treatment for marked elements;
+- `heliogenesis-scene.js` renders the hydrogen cloud, accretion flow, forming star, magnetic prominences, eclipse,
+  particles, and atmosphere;
+- `heliogenesis.css` provides the fixed environmental layer, world-scale ignition front, and optional trigger
+  appearance;
+- `heliogenesis-document.css` provides an optional documentation-lighting and second-shadow treatment for marked
+  elements;
 - `vendor/three.module.min.js` and `vendor/three.core.min.js` are the pinned Three.js r185 runtime;
 - `example/index.html` is a minimal integration example;
 - `tests/` contains the Playwright lifecycle and failure-recovery suite.
@@ -108,6 +111,20 @@ does not allocate a WebGL context.
 | `data-heliogenesis-code` | A code block or dark technical panel |
 | `data-heliogenesis-rule` | A border or section whose edge should bloom |
 
+The optional treatment explicitly recolors headings and links inside a marked surface so common theme-level color
+rules cannot leave pale dark-theme text on the event's light reading plane. Override `--heliogenesis-ink-event` or
+`--heliogenesis-link-event` when a consuming theme needs different accessible event colors.
+
+The generic chrome treatment intentionally avoids `!important` and cannot override consumer rules with ID specificity.
+Add a narrow adapter in that consumer when necessary, using the active state and the provided chrome value:
+
+```css
+:where([data-heliogenesis-state="dawning"], [data-heliogenesis-state="radiant"])
+  #mdbook-menu-bar[data-heliogenesis-chrome] {
+  background: var(--heliogenesis-chrome-event);
+}
+```
+
 The controller places `data-heliogenesis-state` on the document root. The values are `idle`, `dawning`, `radiant`, and
 `receding`. It mirrors the state onto the generated environment, so a custom mount does not need to be a descendant of
 the state root. A consuming theme may ignore the supplied document stylesheet and respond to the root states itself.
@@ -143,6 +160,23 @@ The renderer scales its complete choreography to `standard.rise`, including the 
 rise completes, normalized formation progress remains at its final value while atmospheric animation continues through
 the hold and return intervals.
 
+## Ignition and projection
+
+Near the end of stellar assembly, the renderer grows asymmetric magnetic prominences around the photosphere and the
+local ignition shock escapes as a thin environmental front. The generated front expands from the star's projected
+screen position; marked document surfaces briefly catch a cyan-and-rose second shadow as it passes. Petals and embers
+arrive behind this front so they remain consequences of ignition rather than an independent particle effect.
+
+The controller exposes `data-heliogenesis-ignition` only for the rise-synchronized interval that begins when the
+renderer starts. Use that hook for CSS choreography that must share the WebGL formation clock; `dawning` begins earlier
+and may include renderer preparation on a cold activation.
+
+The environment sizes itself against `visualViewport` when available and updates on page zoom, pinch zoom, and visual
+viewport movement. It mirrors the projected origin into `--heliogenesis-sun-x` and `--heliogenesis-sun-y` on the state
+root as viewport-projected pixel coordinates, including visual-viewport offsets. The same properties on the generated
+environment are percentages relative to that layer, which keeps its gradients and ignition front aligned to the canvas.
+Existing inline values for these properties and `--heliogenesis-rise` are restored by `destroy()`.
+
 ## Quality tier
 
 The renderer chooses `desktop`, `compact`, or `narrow` particle budgets from the viewport at first preparation. That
@@ -166,8 +200,9 @@ the Heliogenesis layer behind an opaque reading surface will hide the sun.
 
 ## Reduced motion and failure behavior
 
-When `prefers-reduced-motion: reduce` matches, Heliogenesis renders one static, fully meaningful eclipsed-star frame.
-It omits moving hydrogen, feeder streams, petals, and embers while retaining the gradual CSS lighting transition.
+When `prefers-reduced-motion: reduce` matches, Heliogenesis renders one static, fully meaningful eclipsed-star frame
+with magnetic prominences and a restrained ignition halo. It omits the expanding front, moving hydrogen, feeder
+streams, petals, and embers while retaining the gradual CSS lighting transition.
 
 The trigger is disabled during an active event, so duplicate sequences cannot overlap. A hidden tab or a motion
 preference change resets an active event. If WebGL initialization fails during prewarming or activation, the controller

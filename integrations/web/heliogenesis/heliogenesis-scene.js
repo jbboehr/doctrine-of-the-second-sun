@@ -6,11 +6,16 @@ import * as THREE from "./vendor/three.module.min.js";
  * The returned object owns its WebGL context and every resource allocated in
  * the scene. Call destroy() when removing the integration from a document.
  */
-export function createHeliogenesisScene({ canvas, reducedMotion = () => false }) {
+export function createHeliogenesisScene({
+  canvas,
+  reducedMotion = () => false,
+  onSunPosition = () => {},
+}) {
   const view = canvas?.ownerDocument?.defaultView;
   if (!view || !(canvas instanceof view.HTMLCanvasElement)) {
     throw new TypeError("Heliogenesis requires a canvas element.");
   }
+  const environment = canvas.closest("[data-heliogenesis-environment]") || canvas.parentElement;
 
   const motionQuery = {
     get matches() {
@@ -36,6 +41,7 @@ export function createHeliogenesisScene({ canvas, reducedMotion = () => false })
   let ignitionShell;
   let atmosphere;
   let corona;
+  let prominenceField;
   let gravityWell;
   let emberField;
   let petalField;
@@ -46,7 +52,16 @@ export function createHeliogenesisScene({ canvas, reducedMotion = () => false })
   let eventStartedAt = 0;
   let renderedFrames = 0;
   let riseDuration = 15000;
-  let viewport = { width: 1, height: 1, worldWidth: 1, worldHeight: 1, compact: false, narrow: false };
+  let viewport = {
+    width: 1,
+    height: 1,
+    offsetLeft: 0,
+    offsetTop: 0,
+    worldWidth: 1,
+    worldHeight: 1,
+    compact: false,
+    narrow: false,
+  };
 
   const random = mulberry32(0x5ec0da7a);
   const volumeCameraLocal = new THREE.Vector3();
@@ -1840,6 +1855,129 @@ export function createHeliogenesisScene({ canvas, reducedMotion = () => false })
     solarAnchor.add(corona);
   }
 
+  function buildProminences() {
+    const paths = [
+      {
+        phase: 0.2,
+        points: [
+          [-1.46, 0.48, -0.24],
+          [-2.3, 1.42, -0.08],
+          [-1.18, 3.08, 0.18],
+          [0.72, 2.76, 0.36],
+          [1.48, 0.62, 0.2],
+        ],
+      },
+      {
+        phase: 2.4,
+        points: [
+          [1.5, -0.18, 0.3],
+          [2.74, 0.28, 0.54],
+          [2.5, 1.88, 0.16],
+          [1.24, 1.34, -0.12],
+          [0.62, 1.52, -0.26],
+        ],
+      },
+      {
+        phase: 4.7,
+        points: [
+          [-1.34, -0.7, 0.32],
+          [-2.46, -1.36, 0.48],
+          [-1.34, -2.18, 0.12],
+          [0.18, -1.94, -0.18],
+          [1.24, -0.92, -0.3],
+        ],
+      },
+    ];
+    const group = new THREE.Group();
+    const records = [];
+
+    paths.forEach(({ phase, points }, pathIndex) => {
+      const curve = new THREE.CatmullRomCurve3(
+        points.map(([x, y, z]) => new THREE.Vector3(x, y, z)),
+        false,
+        "centripetal",
+      );
+
+      [
+        { radius: 0.07, core: 0 },
+        { radius: 0.018, core: 1 },
+      ].forEach(({ radius, core }) => {
+        const geometry = new THREE.TubeGeometry(
+          curve,
+          viewport.compact ? 48 : 72,
+          radius,
+          viewport.compact ? 5 : 7,
+          false,
+        );
+        const material = new THREE.ShaderMaterial({
+          transparent: true,
+          depthWrite: false,
+          depthTest: true,
+          side: THREE.DoubleSide,
+          blending: THREE.AdditiveBlending,
+          uniforms: {
+            uTime: { value: 0 },
+            uPresence: { value: 0 },
+            uEclipse: { value: 0 },
+            uShock: { value: 0 },
+            uPhase: { value: phase },
+            uCore: { value: core },
+          },
+          vertexShader: `
+            varying vec2 vUv;
+            void main() {
+              vUv = uv;
+              gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+            }
+          `,
+          fragmentShader: `
+            uniform float uTime;
+            uniform float uPresence;
+            uniform float uEclipse;
+            uniform float uShock;
+            uniform float uPhase;
+            uniform float uCore;
+            varying vec2 vUv;
+            void main() {
+              float taper = smoothstep(0.0, 0.13, vUv.x) *
+                (1.0 - smoothstep(0.82, 1.0, vUv.x));
+              float current = pow(
+                0.5 + 0.5 * sin(vUv.x * 31.0 - uTime * (2.3 + uPhase * 0.08) + uPhase * 5.0),
+                4.0
+              );
+              float braid = 0.5 + 0.5 * sin(vUv.y * 12.566 + vUv.x * 19.0 + uTime * 1.4);
+              float fibers = smoothstep(
+                0.18,
+                0.88,
+                0.5 + 0.5 * sin(vUv.x * 47.0 + braid * 4.2 - uTime * 1.9 + uPhase)
+              );
+              vec3 cyan = vec3(0.0, 0.38, 0.5);
+              vec3 rose = vec3(0.94, 0.006, 0.12);
+              vec3 gold = vec3(1.0, 0.43, 0.055);
+              vec3 color = mix(cyan, rose, 0.68 + 0.22 * sin(uPhase + vUv.x * 4.6));
+              color = mix(color, gold, current * (0.34 + uCore * 0.38));
+              color = mix(color, vec3(1.0, 0.78, 0.37), uCore * current * 0.34);
+              float layerAlpha = mix(0.14 + braid * fibers * 0.2, 0.38 + current * 0.54, uCore);
+              float alpha = taper * uPresence * layerAlpha *
+                (0.68 + uEclipse * 0.72 + uShock * 0.35);
+              if (alpha < 0.008) discard;
+              gl_FragColor = vec4(color, alpha);
+            }
+          `,
+        });
+        const mesh = new THREE.Mesh(geometry, material);
+        mesh.frustumCulled = false;
+        mesh.renderOrder = 10 + core;
+        group.add(mesh);
+        records.push({ mesh, material, phase, pathIndex, core });
+      });
+    });
+
+    group.visible = false;
+    solarAnchor.add(group);
+    prominenceField = { group, records };
+  }
+
   function buildRegistry() {
     const ringColors = [0x00dfe5, 0xff2f83, 0xffb14f, 0x9b6dff];
     const rings = viewport.compact ? 6 : 9;
@@ -1932,7 +2070,7 @@ export function createHeliogenesisScene({ canvas, reducedMotion = () => false })
         nx: random(),
         ny: random(),
         z: -2 + random() * 9,
-        delay: 6.2 + random() * 14.5,
+        delay: 9.4 + random() * 14.5,
         duration: 7.4 + random() * 9.2,
         drift: gaussian(0.8),
         sway: 0.8 + random() * 1.6,
@@ -1960,7 +2098,7 @@ export function createHeliogenesisScene({ canvas, reducedMotion = () => false })
         nx: 0.46 + random() * 0.6,
         ny: 0.08 + random() * 0.92,
         z: -2 + random() * 10,
-        delay: 5.8 + random() * 17,
+        delay: 9.25 + random() * 17,
         duration: 4 + random() * 9,
         drift: gaussian(0.6),
         rise: random() < 0.72,
@@ -2006,6 +2144,7 @@ export function createHeliogenesisScene({ canvas, reducedMotion = () => false })
     buildJets();
     buildFilaments();
     buildStar();
+    buildProminences();
     buildRegistry();
     buildPetals();
     buildEmbers();
@@ -2014,8 +2153,11 @@ export function createHeliogenesisScene({ canvas, reducedMotion = () => false })
 
   function resizeScene() {
     if (!renderer || !camera) return;
-    viewport.width = view.innerWidth;
-    viewport.height = view.innerHeight;
+    const visualViewport = view.visualViewport;
+    viewport.width = visualViewport?.width || view.innerWidth;
+    viewport.height = visualViewport?.height || view.innerHeight;
+    viewport.offsetLeft = visualViewport?.offsetLeft || 0;
+    viewport.offsetTop = visualViewport?.offsetTop || 0;
     viewport.compact = viewport.width < 980 || viewport.height < 610;
     viewport.narrow = viewport.width < 700;
     camera.aspect = viewport.width / viewport.height;
@@ -2028,6 +2170,24 @@ export function createHeliogenesisScene({ canvas, reducedMotion = () => false })
     solarAnchor.position.set(starX, starY, 0);
     accretionGroup.position.copy(solarAnchor.position);
     registryGroup.position.copy(solarAnchor.position);
+    if (environment) {
+      environment.style.top = `${viewport.offsetTop}px`;
+      environment.style.left = `${viewport.offsetLeft}px`;
+      environment.style.width = `${viewport.width}px`;
+      environment.style.height = `${viewport.height}px`;
+      environment.style.setProperty(
+        "--heliogenesis-sun-x",
+        `${(0.5 + starX / viewport.worldWidth) * 100}%`,
+      );
+      environment.style.setProperty(
+        "--heliogenesis-sun-y",
+        `${(0.5 - starY / viewport.worldHeight) * 100}%`,
+      );
+    }
+    onSunPosition({
+      x: `${viewport.offsetLeft + viewport.width * (0.5 + starX / viewport.worldWidth)}px`,
+      y: `${viewport.offsetTop + viewport.height * (0.5 - starY / viewport.worldHeight)}px`,
+    });
     renderer.setPixelRatio(Math.min(view.devicePixelRatio || 1, viewport.compact ? 1.35 : 1.65));
     renderer.setSize(viewport.width, viewport.height, false);
     if (hydrogen) hydrogen.material.uniforms.uPixelRatio.value = renderer.getPixelRatio();
@@ -2103,7 +2263,10 @@ export function createHeliogenesisScene({ canvas, reducedMotion = () => false })
       : 0;
     const focus = smoothstep(0.05, 0.32, progress) * (1 - smoothstep(0.52, 0.78, progress));
     const registryAlpha = smoothstep(0.56, 0.9, progress);
-    const consequenceAlpha = smoothstep(0.42, 0.72, progress);
+    const consequenceAlpha = smoothstep(0.61, 0.78, progress);
+    const prominencePresence = moving
+      ? smoothstep(0.6, 0.74, progress) * (0.68 + ignition * 0.32)
+      : 1;
     const feederPresence = moving ? smoothstep(0.08, 0.4, progress) : 0;
     const innerDiskPresence = moving ? smoothstep(0.035, 0.18, progress) * 1.12 : 0;
     const dustPresence = moving ? smoothstep(0.12, 0.34, progress) * (0.84 - mass * 0.18) : 0;
@@ -2189,6 +2352,18 @@ export function createHeliogenesisScene({ canvas, reducedMotion = () => false })
     gravityWell.material.uniforms.uFocus.value = focus;
     ignitionShell.material.uniforms.uTime.value = time;
     ignitionShell.material.uniforms.uPulse.value = shockPulse;
+    prominenceField.group.visible = prominencePresence > 0.002;
+    prominenceField.group.scale.setScalar(displayedStarScale * (1 + shockPulse * 0.1));
+    prominenceField.group.rotation.y = Math.sin(time * 0.13) * 0.055;
+    prominenceField.group.rotation.z = Math.sin(time * 0.09) * 0.018;
+    prominenceField.records.forEach(({ mesh, material, phase, pathIndex, core }) => {
+      material.uniforms.uTime.value = time;
+      material.uniforms.uPresence.value = prominencePresence * (core ? 0.96 : 0.8);
+      material.uniforms.uEclipse.value = eclipseTotality;
+      material.uniforms.uShock.value = shockPulse;
+      mesh.rotation.x = Math.sin(time * 0.17 + phase) * 0.012;
+      mesh.rotation.z = Math.sin(time * 0.11 + pathIndex * 1.7) * 0.009;
+    });
 
     jetField.group.visible = jetPresence > 0.002;
     jetField.material.uniforms.uTime.value = time;
