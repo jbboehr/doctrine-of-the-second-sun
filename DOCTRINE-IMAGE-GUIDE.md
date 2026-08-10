@@ -25,12 +25,12 @@ The central rule is:
 Doctrine images should resemble artifacts from the same impossible civilization as the logia: classified sacred art from
 a sovereign techno-religious order that administered monasteries, dynastic courts, shrines, and orbital infrastructure.
 
-The result layers imperial form, retrowave and synthwave futurism, Christian apocalyptic pressure, controlled
-chūnibyō cosmology, and limited vaporwave scenery over one coherent European, Japanese, or Chinese cultural setting when
-culturally legible elements appear. Choose that setting under
-[Cultural setting and human appearance](#cultural-setting-and-human-appearance); do not blend the three settings within
-one image. Consult the style guide for what the remaining influences mean. Do not reinterpret their philosophical role
-independently here.
+The result belongs to the Doctrine's impossible Japanese–Occidental civilization. When culturally legible elements
+appear, one coherent cultural setting governs the local material world. Imperial form, retrowave and synthwave
+futurism, Christian apocalyptic pressure, controlled chūnibyō cosmology, and limited vaporwave scenery remain distinct
+influences that may cross that local setting when their role is narratively legible. Resolve the setting under
+[Local cultural setting and human appearance](#local-cultural-setting-and-human-appearance). Local coherence prevents
+arbitrary collage; it does not divide the canon into culturally isolated universes.
 
 The target is not generic fantasy, cyberpunk, anime, vaporwave poster art, or science-fiction concept art. Technology,
 architecture, ritual, and ornament must participate in one visible hierarchy.
@@ -120,19 +120,20 @@ not as a substitute for a scene when the logion requires one.
 The canonical visual priors are:
 
 - **25% medieval Christian apocalyptic or liturgical imagery**;
-- **35% the selected cultural setting**;
+- **35% the selected local cultural setting**;
 - **25% retrowave and synthwave futurism**;
 - **10% chūnibyō cosmic bureaucracy**;
 - **5% vaporwave scenery**.
 
 These are visual sampling priors, distinct from the compositional balance used when writing logia. Interpret them using
 [Interpreting aesthetic percentages](DOCTRINE-STYLE-GUIDE.md#interpreting-aesthetic-percentages). Visual motif selection
-is normally a blend decision, with one exception: cultural setting is a prior categorical choice, not a mixture. First
-select exactly one cultural setting under [Figures and presence](#8-figures-and-presence) when culturally legible
-elements apply. Then treat that selected setting as the single 35% cultural component when sampling the wider visual
-mixture. If a wholly abstract, celestial, heraldic, or object-centered image has no applicable cultural setting, remove
-that component and renormalize the remaining visual weights. A single image should usually combine two to four
-influences, and a valid sample may be substantially dominated by one or two of them.
+is normally a blend decision, with one exception: local cultural setting is a categorical variable, not a mixture.
+Resolve one setting under [Figures and presence](#8-figures-and-presence) when culturally legible elements apply, then
+treat it as the single 35% local component when sampling the wider visual mixture. If a wholly abstract, celestial,
+heraldic, or object-centered image has no applicable local setting, remove that component and renormalize the remaining
+visual weights. This consolidation governs the local material world; it does not erase the Doctrine's broader
+Japanese–Occidental identity or prohibit narratively distinct foreign or supra-local elements. A single image should
+usually combine two to four influences, and a valid sample may be substantially dominated by one or two of them.
 
 Retrowave or synthwave is the one mandatory per-image influence. Every image must include at least one integrated anchor
 from one or more of these classes:
@@ -156,9 +157,10 @@ motif, one sampled mixture may serve as their shared soft prior; otherwise, samp
 independently.
 
 The Christian-apocalyptic influence often supplies visionary movement; its liturgical and theological registers also
-carry covenant, lament, mercy, praise, and consolation. The selected cultural setting defines the image's people,
-material culture, and culturally specific architecture. Chūnibyō supplies controlled institutional specificity. The
-required retrowave or synthwave anchor marks every image as touched by the same impossible future. Vaporwave is normally
+carry covenant, lament, mercy, praise, and consolation. The selected setting defines the local vernacular architecture,
+ordinary clothing, and everyday material culture. Chūnibyō supplies controlled institutional specificity. The required
+retrowave or synthwave anchor marks every image as touched by the same impossible future. These supra-local influences
+should be translated through the setting where appropriate and must not silently replace it. Vaporwave is normally
 limited to architecture, lighting, obsolete luxury, and commercial ruin.
 
 The scenery may be vaporwave. The metaphysics must not be.
@@ -187,28 +189,28 @@ Apply those meanings visually through concrete choices:
 | Praise and wonder          | Ordered orbits, concordant lights, sacred complexity, fulfilled forms    |
 | Lawful ascent and increase | Mountain roads, disciplined fire, strengthened vessels, completed works  |
 
-Use visual media according to their function. For culturally specific people, dress, rites, and architecture, use only
-the vocabulary of the setting selected under [Figures and presence](#8-figures-and-presence):
+Use visual media according to their function. Let the setting selected under
+[Figures and presence](#8-figures-and-presence) govern the local material world:
 
 - European settings may use Roman, Byzantine, medieval, or early modern European courts, basilicas, monasteries,
   heraldry, marble, bronze, porphyry, ivory, and dynastic vestment;
 - Japanese settings may use classical court, shrine, or monastic forms, including lacquer, torii, processional paths,
   bells, still water, pines, and restrained spacing;
-- Chinese settings may use classical imperial, ancestral, temple, or monastic forms, including axial timber halls,
-  stone terraces, bronze ritual vessels, scholar-official vestment, screens, courtyards, and restrained red lacquer;
-- do not combine these three cultural vocabularies in one image or substitute generic pan-Asian ornament for a coherent
-  Japanese or Chinese setting;
 - Christian influence may convey invisible law through angelic orders, sacred offices, liturgical hierarchy, and forms
-  native to the selected setting; stained glass, scriptoria, reliquaries, altars, and choirs are examples for compatible
-  European registers, not cross-cultural props that must appear in Japanese or Chinese settings;
-- synthetic sunsets, chrome, glass, obsolete terminals, luminous grids, satellites, and electric seas convey lost
-  futurity and ceremonial technology;
+  native to the selected setting rather than automatically importing European cathedral furniture;
+- synthetic sunsets, luminous horizons, chrome, glass, obsolete terminals, celestial machinery, satellites, and
+  electric seas may convey lost futurity and ceremonial technology without becoming generic vaporwave props;
+- chūnibyō influence may appear as setting-appropriate seals, roads, processions, ranked machines, impossible heraldry,
+  celestial offices, or administrative instruments;
 - abandoned arcades, hotel atriums, decaying fountains, and commercial ruins convey spectacle or beauty separated from
   authority.
 
+Foreign and supra-local elements must retain a legible narrative role and remain subordinate to the local material
+world, as detailed under [Figures and presence](#8-figures-and-presence).
+
 Avoid converting these vocabularies into genre shorthand. No motif should appear merely because it is recognizable.
-European, Japanese, or Chinese imagery needs institutional and ritual structure, Christian imagery needs theological
-gravity, and retrofuturism needs a relation to inherited order.
+Occidental and Japanese imagery need institutional and ritual structure, Christian imagery needs theological gravity,
+and retrofuturism needs a relation to inherited order.
 
 Treat political implications at civilizational and sacred-historical distance. Express them through institutions, rites,
 dynastic memory, inherited architecture, and visible judgments rather than the symbols or personalities of current
@@ -267,45 +269,70 @@ Possible presences include angels of measure, mercy, or judgment; faceless monks
 witnesses; tribunal figures; pilgrims; widows; children; custodians; scribes; exiles; founders; builders; smiths;
 navigators; worthy heirs; statues with agency; veiled office-holders; and iconographic saints.
 
-### Cultural setting and human appearance
+### Local cultural setting and human appearance
 
-When an image contains recognizable people or culturally specific dress, rites, objects, or architecture, choose one
-setting with these categorical priors:
+> Derive cultural setting from the source material before sampling it.
 
-- **60% European**;
-- **30% Japanese**;
-- **10% Chinese**.
+When an image contains recognizable people or culturally specific dress, rites, objects, or architecture, resolve its
+local setting in this order:
+
+1. If the source logion explicitly establishes a cultural setting, use it.
+2. If architecture, institutions, titles, clothing, ritual objects, political vocabulary, material culture, geography,
+   or other concrete details strongly imply a setting, preserve that implication.
+3. If an established project or visual series already has a coherent setting, preserve its continuity unless the source
+   material clearly requires otherwise.
+4. Only when source material and project context leave the setting genuinely underdetermined, sample from the canonical
+   prior with a suitable random-number generator ultimately seeded from operating-system entropy.
+
+A Roman forum, consul, imperial standard, or unmistakably Occidental basilica or monastery normally resolves to an
+Occidental setting. Clearly Japanese court, shrine, architectural, or material-cultural cues normally resolve to a
+Japanese setting. An impossible road, celestial bureaucracy, restored machine, unnamed city, or abstract ritual may be
+underdetermined. These examples illustrate semantic judgment; they are not a closed keyword classifier. Broad doctrinal
+subjects, emotional pressures, compositional movements, and motifs shared across cultures do not establish a setting.
+
+For an underdetermined setting, use these categorical priors:
+
+- **60% Occidental (European)**;
+- **40% Japanese**.
 
 Conceptually:
 
 ```text
-setting ~ Categorical([0.60, 0.30, 0.10])
+setting ~ Categorical([0.60, 0.40])
 ```
 
-This is a choose-one decision under
-[Interpreting aesthetic percentages](DOCTRINE-STYLE-GUIDE.md#interpreting-aesthetic-percentages), never a Dirichlet or
-other mixture decision. Apply semantic, project, and series constraints first. If more than one setting remains viable,
-sample once with a suitable random-number generator ultimately seeded from operating-system entropy. Remove genuinely
-inapplicable settings before sampling and renormalize the remaining weights without changing their relative
-proportions. Do not select by model intuition, enforce a quota over a small batch, compensate for earlier results, or
-reroll a valid result because it appears repetitive or surprising.
+These percentages are priors over an underdetermined variable, not desired proportions across generated images. A
+source-driven corpus may legitimately diverge substantially from them. Apply the choose-one and entropy rules under
+[Interpreting aesthetic percentages](DOCTRINE-STYLE-GUIDE.md#interpreting-aesthetic-percentages); this is never a
+Dirichlet or other mixture decision. Remove genuinely inapplicable settings before sampling and renormalize the
+remaining weights without changing their relative proportions. Do not roll first and reinterpret the logion to fit the
+result. Do not override explicit or implied evidence, compensate for previous outputs, reroll a valid setting because it
+appeared recently or seems repetitive or surprising, force a batch toward 60/40, or substitute model intuition for an
+actual random choice.
 
-The selected setting governs the whole image. People, facial appearance, hair, dress, material culture, culturally
-specific architecture, ritual objects, and institutional details should agree with that choice. Do not create mixed
-European–Japanese, European–Chinese, Japanese–Chinese, or vaguely pan-Asian populations and environments within one
-image. Retrowave, synthwave, Christian-apocalyptic, chūnibyō, and vaporwave influences may still participate, but they
-must be translated through the one selected cultural setting rather than importing a second population or material
-culture.
+The canonical fallback contains only Occidental and Japanese settings because those are the cultural registers
+established by the style guide. If source material or a consuming project explicitly establishes another setting,
+preserve it for that scene; doing so does not add it to the canonical fallback prior.
+
+One cultural setting governs the local material world of the image. Vernacular architecture, ordinary clothing,
+everyday material culture, local ritual objects, common institutional details, streets, interiors, furniture, and tools
+should normally agree with it. People and dress should be plausible within the scene. Convey culture primarily through
+the material world rather than facial features; human appearance should remain plausible without caricature, tokenism,
+or exaggerated phenotype. Do not use modern nationalist symbols as cultural shortcuts.
+
+Other civilizational influences may appear when they are clearly subordinate, foreign, inherited, imported, imperial or
+supra-local, celestial, institutional, archaeological, anomalous, or otherwise narratively distinct. They must not
+create a second coequal local setting. An Occidental monastery may stand beneath celestial administration whose geometry
+carries Japanese influence, and a Japanese court may preserve an inherited foreign relic. Do not place torii beside a
+Gothic cathedral without narrative reason, combine kimono, Roman legionary dress, and stained glass as ordinary local
+furniture, or treat incompatible vernacular architectures as one ordinary city.
 
 Within the selected category, choose one coherent regional and historical register. The examples in this guide are
-alternatives, not instructions to combine every European period or every Japanese or Chinese institution in one scene.
-The canon may remain cross-civilizational across the corpus even though each image presents one internally consistent
-local setting.
+alternatives, not instructions to combine every European period or Japanese institution in one scene. Coherent locality
+within a genuinely hybrid civilization is the goal, not cultural isolation.
 
-Treat the setting as a coherent world, not a costume checklist or the image's doctrinal subject. Avoid caricature, token
-figures, exaggerated phenotype, and modern nationalist symbols. If an image is wholly abstract, celestial, heraldic, or
-object-centered and contains no culturally legible human or environmental cues, do not force such cues merely to
-display the sampled category.
+If an image is wholly abstract, celestial, heraldic, or object-centered and contains no culturally legible human or
+environmental cues, do not force such cues merely to display a category.
 
 Prioritize office over personality and symbolic authority over character design. Show rank through placement, vestment,
 scale, light, architecture, posture, or gesture. Faces may be hidden, simplified, masked, or iconographic.
@@ -378,8 +405,10 @@ of realism.
 
 Recurring entities should look related without forcing identical compositions. Record any series-specific deviations
 from this guide in the project brief or generation prompt. When a series depicts the same population, institution, city,
-or continuous setting, sample its cultural setting once and reuse that result throughout the series. Independently
-sample the category for unrelated images; do not alternate settings merely to approach the 60/30/10 priors.
+or continuous setting, preserve its established local setting unless the source material clearly requires otherwise. If
+neither the source nor the series establishes one, sample once and reuse that result throughout the series. Resolve the
+setting independently for unrelated, underdetermined images; do not alternate settings merely to approach the 60/40
+prior.
 
 ---
 
@@ -422,7 +451,8 @@ A generation prompt should specify:
 
 1. the source logion, its compositional movements, and its doctrinal center;
 2. the image type and intended use;
-3. the sampled European, Japanese, or Chinese cultural setting when culturally legible elements appear;
+3. the source-established, context-preserved, or fallback-sampled local setting when culturally legible elements appear,
+   together with the narrative role of any foreign or supra-local influence;
 4. the dominant and supporting motifs;
 5. the required retrowave or synthwave anchor and the doctrine it expresses;
 6. the visual balance of the remaining influences;
@@ -437,17 +467,18 @@ A generation prompt should specify:
 > Create a `[movement-sensitive image type]` based on this logion: "`[logion]`." Center the image on
 > `[doctrinal center]` through `[dominant subject]`, and translate its movement from `[initial movement]` through
 > `[later movement]` into the composition. Let `[retrowave or synthwave anchor]` signify `[symbolic function]`.
-> Keep all people, dress, rites, and culturally specific architecture consistently `[sampled cultural setting]`.
-> Integrate `[selected supporting influences]` through clear hierarchy and ceremonial light without importing another
-> cultural setting. Interpret the doctrinal force rather than illustrating every noun. Use `[format and rendering
-> mode]`, follow `[text policy]`, and avoid `[relevant clichés]`.
+> Keep vernacular architecture, ordinary clothing, local rites, and everyday material culture consistently `[resolved
+> local cultural setting]`. Translate `[selected supra-local influences]` through that setting, and make any foreign
+> element narratively distinct rather than a second coequal local setting. Interpret the doctrinal force rather than
+> illustrating every noun. Use `[format and rendering mode]`, follow `[text policy]`, and avoid `[relevant clichés]`.
 
 ### Environment prompt skeleton
 
 > Create a ceremonial retrofuturist environment embodying `[doctrinal center]`. Depict architecture as metaphysical law
-> rather than background. Make its culturally specific architecture and material culture consistently `[sampled
-> cultural setting]`. Establish `[threshold, rank, procession, or concealment]` through `[selected motifs]`. The space
-> should feel inhabited by an institution even when no figures are present.
+> rather than background. Make its vernacular architecture and everyday material culture consistently `[resolved local
+> cultural setting]`. Establish `[threshold, rank, procession, or concealment]` through `[selected motifs]`, translating
+> celestial or supra-local elements through the local setting. The space should feel inhabited by an institution even
+> when no figures are present.
 
 ---
 
@@ -513,7 +544,8 @@ triumphalist spectacle, and destruction presented as creation.
 Avoid:
 
 - neon samurai, cyber-katana imagery, anime protagonists, and role-playing party arrangements;
-- mixed or vaguely pan-Asian populations, dress, architecture, and ritual ornament;
+- unexplained cultural collage, such as torii beside Gothic cathedrals, kimono combined with Roman legionary dress and
+  stained glass, or incompatible vernacular architectures treated as one ordinary city;
 - generic hacker rooms, empty cyberpunk cities, arbitrary glitches, and meaningless sacred geometry;
 - cathedrals pasted onto synthwave sunsets without integration;
 - armored fantasy angels with enormous weapons;
@@ -550,19 +582,21 @@ Before accepting an image, verify that:
 5. It contains a clear symbolic and compositional hierarchy.
 6. Its imagery communicates an idea rather than mood alone.
 7. It avoids generic fantasy, cyberpunk, anime, vaporwave-meme, and quote-poster conventions.
-8. When culturally legible elements appear, exactly one European, Japanese, or Chinese setting governs the image, and
-   its people, dress, rites, objects, and architecture remain internally consistent.
-9. Vaporwave elements remain scenic rather than philosophical.
-10. Architecture, objects, figures, and light have discernible roles.
-11. It interprets rather than mechanically inventories the logion.
-12. Text, when requested, is correct, integrated, restrained, and legible.
-13. Project dimensions, paths, framing, responsive crop, and series requirements are satisfied.
-14. A series image matches the established visual canon.
-15. Blessing, lament, covenant, pilgrimage, restoration, praise, and fidelity remain visually available rather than
+8. When culturally legible elements appear, the local setting was derived from source material and context before any
+   fallback sampling, and one coherent setting governs ordinary scene construction.
+9. Any foreign, imperial, celestial, or supra-local elements remain narratively distinct rather than forming a second
+   coequal local setting, and human appearance does not rely on caricature or exaggerated phenotype.
+10. Vaporwave elements remain scenic rather than philosophical.
+11. Architecture, objects, figures, and light have discernible roles.
+12. It interprets rather than mechanically inventories the logion.
+13. Text, when requested, is correct, integrated, restrained, and legible.
+14. Project dimensions, paths, framing, responsive crop, and series requirements are satisfied.
+15. A series image matches the established visual canon.
+16. Blessing, lament, covenant, pilgrimage, restoration, praise, and fidelity remain visually available rather than
     every scene defaulting to judgment or failed succession.
-16. Any ascent, ordeal, forging, or completed work remains visibly ordered by inheritance, boundary, discipline, and
+17. Any ascent, ordeal, forging, or completed work remains visibly ordered by inheritance, boundary, discipline, and
     lawful purpose rather than generic heroic triumph.
-17. The final artifact feels more like recovered revelation than generated wallpaper.
+18. The final artifact feels more like recovered revelation than generated wallpaper.
 
 ---
 
