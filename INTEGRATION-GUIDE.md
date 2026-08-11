@@ -47,8 +47,8 @@ Commit `flake.lock` so the selected revision remains reproducible.
 
 ## 2. Choose What The Project Adopts
 
-Adoption is deliberate. A project may use the literary and coding guides without adopting the institutional documents,
-or use Ruinenwert without placing logia in source code.
+Adoption is deliberate. A project may use the literary, coding, and technical-writing guides without adopting the
+institutional documents, or use Ruinenwert without placing logia in source code.
 
 The available documents have distinct responsibilities:
 
@@ -59,6 +59,7 @@ The available documents have distinct responsibilities:
 | `DOCTRINE-IMAGE-GUIDE.md` | Visual interpretation of completed logia |
 | `DOCTRINE-GENERATION-GUIDE.md` | A tool-neutral writer, reviewer, selection, and insertion workflow |
 | `DOCTRINE-GOLD-EXEMPLARS.md` | A nonnormative quality ceiling for generation and review |
+| `MEASURE-OF-WORDS.md` | Concise, clear, and exact technical writing |
 | `RUINENWERT.md` | Long-term preservation of software knowledge and replacement boundaries |
 | `CODE_OF_SOVEREIGNTY.md` | Repository governance under a recognized final authority and the sovereignty of forks |
 
@@ -83,8 +84,8 @@ Define, as applicable:
 - the local generation, independent review, selection, insertion, and leakage checks;
 - formatting, static-analysis, test, documentation, and packaging commands required after edits.
 
-Local policy governs placement, coverage, tooling, and verification. The installed style, coding, image, and generation
-guides govern their respective literary and procedural concerns. A local policy may narrow optional choices, but it
+Local policy governs placement, coverage, tooling, and verification. The installed guides govern their respective
+literary, coding, visual, technical-writing, and procedural concerns. A local policy may narrow optional choices, but it
 should identify deliberate departures instead of silently contradicting the portable guidance.
 
 ## 4. Give Humans And Agents The Same Entrance
@@ -117,8 +118,8 @@ The installed guides are available at [path or environment variable].
 ### Authority
 
 [Name the local policy authority.] Local policy governs repository scope, placement, citation allocation, and
-verification. The installed Doctrine guides govern literary style, safe insertion, visual interpretation, and generation
-within their stated responsibilities.
+verification. The installed Doctrine guides govern literary style, safe insertion, visual interpretation, technical
+writing, and generation within their stated responsibilities.
 
 ### Scope
 

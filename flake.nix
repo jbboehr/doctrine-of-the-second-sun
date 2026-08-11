@@ -48,7 +48,7 @@
             '';
 
             meta = {
-              description = "Portable doctrine, visual, coding, and software-stewardship guides";
+              description = "Portable literary, visual, coding, technical-writing, and software-stewardship guidance";
               homepage = "https://github.com/jbboehr/doctrine-of-the-second-sun";
               # Nixpkgs has no composite license for the Romic additional permission.
               license = [

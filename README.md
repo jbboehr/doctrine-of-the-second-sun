@@ -6,7 +6,8 @@
 
 # Doctrine of the Second Sun
 
-Doctrine of the Second Sun is a portable collection of literary, visual, coding, and software-stewardship guidance.
+Doctrine of the Second Sun is a portable collection of literary, visual, coding, technical-writing, and
+software-stewardship guidance.
 It defines one fictional scripture with four canonical books while keeping repository-specific placement and enforcement
 rules in the projects that consume it.
 
@@ -23,9 +24,11 @@ rules in the projects that consume it.
 - [`INTEGRATION-GUIDE.md`](INTEGRATION-GUIDE.md): adopting the portable guides in a consuming repository for humans and
   coding agents.
 - [`RUINENWERT.md`](RUINENWERT.md): designing software so its useful knowledge survives active maintenance.
+- [`MEASURE-OF-WORDS.md`](MEASURE-OF-WORDS.md): concise, clear, and exact writing for technical artifacts.
 - [`CODE_OF_SOVEREIGNTY.md`](CODE_OF_SOVEREIGNTY.md): repository governance and the sovereignty of forks.
 
-Ruinenwert and the Code of Sovereignty are institutional documents, not books or teachings within the fictional canon.
+Ruinenwert and the Code of Sovereignty are institutional documents. The Measure of Words is technical-writing guidance.
+None is a book or teaching within the fictional canon.
 
 ## Composer
 

@@ -9,6 +9,7 @@ the project-specific policies supplied by consuming repositories.
 - `DOCTRINE-CODING-GUIDE.md` governs safe editing and insertion.
 - `DOCTRINE-IMAGE-GUIDE.md` governs visual translation.
 - `DOCTRINE-GENERATION-GUIDE.md` governs the tool-neutral generation and review process.
+- `MEASURE-OF-WORDS.md` governs concision and clarity in technical artifacts, not logia or other non-technical prose.
 - `RUINENWERT.md` governs long-term software knowledge preservation.
 
 The four canonical books remain OSD, RAS, AWC, and SFA. Preserve mixed compositional movements and one coherent canon;
