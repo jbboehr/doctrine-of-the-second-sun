@@ -2858,15 +2858,94 @@ server.<span class="token-function">listen</span>(config.http.port);</code></pre
             opalWash = mix(opalWash, panelCyan, smoothstep(0.64, 0.96, cells) * 0.42);
             signalSurface = mix(signalSurface, opalWash, 0.24 + signalFacing * 0.12);
             signalSurface *= 0.76 + panelCharge * 0.32;
-            signalSurface += edgeRose * roseRaster * 0.16;
-            signalSurface += edgeGold * goldRaster * 0.17;
-            signalSurface += edgeCyan * cyanSeparation * 1.34;
-            signalSurface += edgeMagenta * magentaSeparation * 1.22;
-            signalSurface += pearlHot * scanCore * 0.22;
-            signalSurface += edgeMagenta * persistenceRaster * 0.075;
-            signalSurface += edgeCyan * persistenceCore * (0.3 + (1.0 - phaseLock) * 0.14);
-            signalSurface += (edgeCyan * vectorA + edgeMagenta * vectorB) * 0.07;
-            signalSurface += pearlHot * nodeBlink * 0.56;
+
+            // Magnetic interference currents ignore the facets and drift through the
+            // smoother photospheric field beneath them.
+            float currentWarp = (broad - 0.5) * 2.1 + (cells - 0.5) * 0.5;
+            float currentPhaseA =
+              n.y * 7.6 + n.x * 2.1 + sin(n.z * 4.4 - uTime * 0.09) * 0.45 +
+              currentWarp - uTime * 0.12;
+            float currentPhaseB =
+              n.y * 5.1 - n.z * 3.3 + sin(n.x * 3.7 + uTime * 0.07) * 0.55 -
+              currentWarp * 0.65 + uTime * 0.08;
+            float currentGateA = 0.2 + smoothstep(
+              0.38,
+              0.66,
+              broad * 0.72 + cells * 0.28 + sin(n.x * 6.0 + n.z * 3.0 + uTime * 0.08) * 0.14
+            ) * 0.8;
+            float currentGateB = 0.16 + smoothstep(
+              0.46,
+              0.73,
+              broad * 0.46 + cells * 0.54 + sin(n.y * 5.0 - n.x * 3.0 - uTime * 0.06) * 0.12
+            ) * 0.84;
+            float currentWaveA = sin(currentPhaseA) * 0.5 + 0.5;
+            float currentWaveB = sin(currentPhaseB) * 0.5 + 0.5;
+            float currentCoreA = pow(currentWaveA, 13.0) * currentGateA;
+            float currentCoreB = pow(currentWaveB, 15.0) * currentGateB * 0.76;
+            float currentCore = max(currentCoreA, currentCoreB);
+            float currentHalo = max(
+              pow(currentWaveA, 4.0) * currentGateA,
+              pow(currentWaveB, 5.0) * currentGateB * 0.68
+            );
+            float cyanGhost = max(
+              pow(sin(currentPhaseA + 0.13) * 0.5 + 0.5, 14.0) * currentGateA,
+              pow(sin(currentPhaseB + 0.11) * 0.5 + 0.5, 16.0) * currentGateB * 0.66
+            );
+            float magentaGhost = max(
+              pow(sin(currentPhaseA - 0.13) * 0.5 + 0.5, 14.0) * currentGateA,
+              pow(sin(currentPhaseB - 0.11) * 0.5 + 0.5, 16.0) * currentGateB * 0.66
+            );
+            float currentPresence = signalOrder * (0.4 + thermalSignal * 0.6) *
+              (1.0 - smoothstep(0.22, 1.08, limb));
+            float currentBalance = currentCoreB / max(0.001, currentCoreA + currentCoreB);
+            vec3 currentRibbon = mix(
+              vec3(0.24, 0.78, 1.0),
+              vec3(1.0, 0.18, 0.76),
+              currentBalance
+            );
+            vec3 currentUndertow = mix(
+              vec3(0.025, 0.008, 0.16),
+              vec3(0.16, 0.008, 0.2),
+              currentBalance
+            );
+            float currentShimmer = 0.76 + 0.24 * sin(
+              uTime * 1.18 + currentWarp * 4.0 + n.x * 5.0 - n.z * 2.0
+            );
+            signalSurface = mix(
+              signalSurface,
+              currentUndertow,
+              clamp(currentHalo * currentPresence * 0.3, 0.0, 0.28)
+            );
+            float currentMask = clamp(
+              currentCore * currentPresence * (0.38 + currentShimmer * 0.4),
+              0.0, 0.7
+            );
+            signalSurface = mix(
+              signalSurface,
+              currentRibbon * (0.76 + thermalSignal * 0.24),
+              currentMask
+            );
+            signalSurface += edgeCyan * cyanGhost * currentPresence * 0.14;
+            signalSurface += edgeMagenta * magentaGhost * currentPresence * 0.12;
+            signalSurface += pearlHot * currentCore * currentPresence * currentShimmer * 0.24;
+
+            float nacre = sin(
+              uTime * 0.28 + broad * 6.0 + carrierNoise * 3.2 + n.y * 2.4
+            ) * 0.5 + 0.5;
+            float nacrePresence = smoothstep(0.34, 0.82, nacre) *
+              (1.0 - signalLimb * 0.36);
+            vec3 nacreColor = mix(panelCyan, pearlHot, smoothstep(0.22, 0.78, broad));
+            signalSurface += nacreColor * nacrePresence * (0.055 + thermalSignal * 0.065);
+
+            signalSurface += edgeRose * roseRaster * 0.07;
+            signalSurface += edgeGold * goldRaster * 0.075;
+            signalSurface += edgeCyan * cyanSeparation * 0.48;
+            signalSurface += edgeMagenta * magentaSeparation * 0.43;
+            signalSurface += pearlHot * scanCore * 0.1;
+            signalSurface += edgeMagenta * persistenceRaster * 0.045;
+            signalSurface += edgeCyan * persistenceCore * (0.18 + (1.0 - phaseLock) * 0.08);
+            signalSurface += (edgeCyan * vectorA + edgeMagenta * vectorB) * 0.03;
+            signalSurface += pearlHot * nodeBlink * 0.3;
             signalSurface = mix(
               signalSurface,
               pearlHot * (1.05 + lockPulse * 0.16),
