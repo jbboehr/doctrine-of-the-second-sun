@@ -1,4 +1,5 @@
 import * as THREE from "./vendor/three.module.min.js";
+import { DEFAULT_SUN_STYLE, resolveSunStyle } from "./heliogenesis-options.js";
 
 /**
  * Create the Three.js renderer used by the Heliogenesis browser integration.
@@ -10,11 +11,14 @@ export function createHeliogenesisScene({
   canvas,
   reducedMotion = () => false,
   onSunPosition = () => {},
+  sunStyle = DEFAULT_SUN_STYLE,
 }) {
   const view = canvas?.ownerDocument?.defaultView;
   if (!view || !(canvas instanceof view.HTMLCanvasElement)) {
     throw new TypeError("Heliogenesis requires a canvas element.");
   }
+  sunStyle = resolveSunStyle(sunStyle);
+  const useSynthwaveSun = sunStyle === "synthwave";
   const environment = canvas.closest("[data-heliogenesis-environment]") || canvas.parentElement;
 
   const motionQuery = {
@@ -1608,8 +1612,32 @@ export function createHeliogenesisScene({
     buildProtoFragments();
     buildProtoVolume();
 
-    const geometry = new THREE.IcosahedronGeometry(1.72, viewport.compact ? 5 : 6);
+    const surfaceDetail = useSynthwaveSun
+      ? viewport.compact ? 2 : 3
+      : viewport.compact ? 5 : 6;
+    const geometry = new THREE.IcosahedronGeometry(1.72, surfaceDetail);
+    if (useSynthwaveSun) geometry.computeVertexNormals();
+    const surfaceVertexCount = geometry.attributes.position.count;
+    if (useSynthwaveSun) {
+      const surfaceRandom = mulberry32(0x50facade);
+      const barycentrics = new Float32Array(surfaceVertexCount * 3);
+      const facetCharges = new Float32Array(surfaceVertexCount);
+      const facetPhases = new Float32Array(surfaceVertexCount);
+      for (let vertex = 0; vertex < surfaceVertexCount; vertex += 3) {
+        const charge = surfaceRandom();
+        const phase = surfaceRandom();
+        for (let corner = 0; corner < 3; corner += 1) {
+          barycentrics[(vertex + corner) * 3 + corner] = 1;
+          facetCharges[vertex + corner] = charge;
+          facetPhases[vertex + corner] = phase;
+        }
+      }
+      geometry.setAttribute("aBarycentric", new THREE.BufferAttribute(barycentrics, 3));
+      geometry.setAttribute("aFacetCharge", new THREE.BufferAttribute(facetCharges, 1));
+      geometry.setAttribute("aFacetPhase", new THREE.BufferAttribute(facetPhases, 1));
+    }
     const material = new THREE.ShaderMaterial({
+      defines: useSynthwaveSun ? { HELIOGENESIS_SYNTHWAVE: 1 } : {},
       transparent: true,
       depthWrite: true,
       depthTest: true,
@@ -1630,27 +1658,44 @@ export function createHeliogenesisScene({
         uniform float uAssembly;
         uniform float uMass;
         uniform vec4 uImpacts;
-        varying vec3 vNormalObject;
+        varying vec3 vRadialNormal;
         varying vec2 vEclipsePoint;
         varying vec3 vPositionObject;
+#ifdef HELIOGENESIS_SYNTHWAVE
+        attribute vec3 aBarycentric;
+        attribute float aFacetCharge;
+        attribute float aFacetPhase;
+        varying vec3 vFacetNormal;
+        varying vec3 vBarycentric;
+        varying float vFacetCharge;
+        varying float vFacetPhase;
+#endif
         ${noiseGlsl}
         void main() {
-          vec3 unitNormal = normalize(normal);
-          vNormalObject = unitNormal;
-          float turbulence = fbm(normal * 3.4 + vec3(uTime * 0.055, -uTime * 0.036, uTime * 0.024));
-          float pulse = sin(uTime * 0.82 + normal.y * 8.0) * 0.018;
+          vec3 radialNormal = normalize(position);
+          vRadialNormal = radialNormal;
+#ifdef HELIOGENESIS_SYNTHWAVE
+          vFacetNormal = normalize(normal);
+          vBarycentric = aBarycentric;
+          vFacetCharge = aFacetCharge;
+          vFacetPhase = aFacetPhase;
+#endif
+          float turbulence = fbm(
+            radialNormal * 3.4 + vec3(uTime * 0.055, -uTime * 0.036, uTime * 0.024)
+          );
+          float pulse = sin(uTime * 0.82 + radialNormal.y * 8.0) * 0.018;
           float unstableSurface = mix(1.78, 1.0, uAssembly);
           vec4 impactAlignment = vec4(
-            max(0.0, dot(unitNormal, normalize(vec3(-0.72, 0.18, 0.67)))),
-            max(0.0, dot(unitNormal, normalize(vec3(0.58, 0.42, 0.69)))),
-            max(0.0, dot(unitNormal, normalize(vec3(0.15, -0.72, 0.68)))),
-            max(0.0, dot(unitNormal, normalize(vec3(0.75, -0.22, 0.62))))
+            max(0.0, dot(radialNormal, normalize(vec3(-0.72, 0.18, 0.67)))),
+            max(0.0, dot(radialNormal, normalize(vec3(0.58, 0.42, 0.69)))),
+            max(0.0, dot(radialNormal, normalize(vec3(0.15, -0.72, 0.68)))),
+            max(0.0, dot(radialNormal, normalize(vec3(0.75, -0.22, 0.62))))
           );
           vec4 impactCores = pow(impactAlignment, vec4(18.0));
           vec4 impactRings = 1.0 - smoothstep(vec4(0.025), vec4(0.11), abs(impactAlignment - 0.72));
           float impactBulge = dot(uImpacts, impactCores) * 0.4;
           float impactRipple = dot(uImpacts, impactRings) * 0.058;
-          vec3 displaced = position + normal *
+          vec3 displaced = position + radialNormal *
             ((turbulence - 0.48) * 0.3 * unstableSurface +
               pulse * (0.62 + uAssembly * 0.38) + impactBulge + impactRipple);
           vPositionObject = displaced;
@@ -1679,12 +1724,31 @@ export function createHeliogenesisScene({
         uniform vec4 uImpacts;
         uniform float uEclipsePhase;
         uniform float uEclipsePresence;
-        varying vec3 vNormalObject;
+        varying vec3 vRadialNormal;
         varying vec2 vEclipsePoint;
         varying vec3 vPositionObject;
+#ifdef HELIOGENESIS_SYNTHWAVE
+        varying vec3 vFacetNormal;
+        varying vec3 vBarycentric;
+        varying float vFacetCharge;
+        varying float vFacetPhase;
+#endif
         ${noiseGlsl}
+
+#ifdef HELIOGENESIS_SYNTHWAVE
+        mat2 signalRotation(float angle) {
+          float sine = sin(angle);
+          float cosine = cos(angle);
+          return mat2(cosine, -sine, sine, cosine);
+        }
+
+        float phosphorLine(float field, float frequency, float width) {
+          return 1.0 - smoothstep(0.0, width, abs(sin(field * frequency)));
+        }
+#endif
+
         void main() {
-          vec3 n = normalize(vNormalObject);
+          vec3 n = normalize(vRadialNormal);
           float broad = fbm(n * 4.2 + vec3(uTime * 0.07, 0.0, -uTime * 0.045));
           float cells = fbm(n * 11.0 - vec3(0.0, uTime * 0.11, uTime * 0.04));
           float formationField = broad * 0.58 + cells * 0.42;
@@ -1738,6 +1802,73 @@ export function createHeliogenesisScene({
           float filaments = smoothstep(0.48, 0.73, abs(broad - cells * 0.56));
           float facing = max(0.0, dot(n, normalize(vec3(-0.38, 0.5, 1.0))));
           float limb = pow(1.0 - max(0.0, n.z), 1.7);
+
+#ifdef HELIOGENESIS_SYNTHWAVE
+          float signalOrder = smoothstep(0.4, 0.9, uAssembly);
+          float phaseLock = smoothstep(0.34, 0.8, uIgnition);
+          float lockPulse =
+            smoothstep(0.38, 0.56, uIgnition) * (1.0 - smoothstep(0.7, 0.88, uIgnition));
+          vec3 signalNormal = normalize(vFacetNormal);
+          float signalFacing = max(0.0, dot(signalNormal, normalize(vec3(-0.38, 0.5, 1.0))));
+          float signalLimb = pow(1.0 - max(0.0, signalNormal.z), 1.7);
+
+          // Rotate a synthetic thermal carrier independently of the physical facets.
+          vec3 carrier = signalNormal;
+          carrier.xz = signalRotation(uTime * 0.025 + phaseLock * 0.2) * carrier.xz;
+          carrier.yz = signalRotation(-0.36) * carrier.yz;
+          carrier.xy = signalRotation(0.24) * carrier.xy;
+          float carrierNoise = fbm(carrier * 3.1 + vec3(4.8, -uTime * 0.015, 9.1));
+          float carrierLongitude = atan(carrier.z, carrier.x);
+          float impactTear = (impactHeat * 0.16 + impactWave * 0.09) *
+            sin(carrierLongitude * 7.0 - uTime * 1.1);
+
+          // The physical icosphere supplies true triangular cells. Each edge family is a
+          // different phosphor gun; shared edges disagree slightly at analogue boundaries.
+          float edgeWidth = mix(0.085, 0.055, phaseLock);
+          float gridA = 1.0 - smoothstep(0.012, edgeWidth, vBarycentric.x);
+          float gridB = 1.0 - smoothstep(0.012, edgeWidth, vBarycentric.y);
+          float gridC = 1.0 - smoothstep(0.012, edgeWidth, vBarycentric.z);
+          float tearGate = 1.0 - smoothstep(
+            0.42,
+            0.92,
+            abs(sin(vFacetPhase * 17.0 + impactTear * 8.0)) * impactWave
+          );
+          gridA *= tearGate;
+          gridB *= tearGate;
+          gridC *= tearGate;
+          float goldRaster = gridA;
+          float cyanRaster = gridB;
+          float roseRaster = gridC;
+          float rasterBody = max(gridA, max(gridB, gridC));
+          float nodeField = max(
+            gridA * gridB,
+            max(gridB * gridC, gridC * gridA)
+          );
+
+          // A television-rate trace passes through the facets without replacing them with
+          // the familiar striped-sunset symbol.
+          float scanCore = phosphorLine(
+            vEclipsePoint.y + sin(vEclipsePoint.x * 4.0 + uTime * 0.24) * 0.006,
+            46.0,
+            0.085
+          );
+          float persistenceRaster = rasterBody *
+            (0.55 + 0.45 * sin(uTime * 0.38 + vFacetPhase * 13.0));
+          float persistenceCore = scanCore * (0.55 + 0.45 * rasterBody);
+
+          float panelCode = vFacetCharge;
+          float panelPulse = 0.5 + 0.5 * sin(
+            uTime * (0.22 + vFacetPhase * 0.18) + vFacetPhase * 11.0
+          );
+          float panelCharge = mix(panelCode, panelPulse, 0.24);
+          float vectorA = max(gridA, gridB);
+          float vectorB = gridC;
+          float vectorJunction = pow(max(0.0, nodeField), 0.5);
+          float nodeBlink = vectorJunction *
+            (0.72 + 0.28 * sin(uTime * 1.3 + vFacetPhase * 18.0));
+          float syncFlash = max(impactHeat, impactWave) + lockPulse * rasterBody;
+#endif
+
           vec3 crimson = vec3(0.86, 0.012, 0.14);
           vec3 orange = vec3(1.0, 0.20, 0.025);
           vec3 amber = vec3(1.0, 0.64, 0.10);
@@ -1751,19 +1882,92 @@ export function createHeliogenesisScene({
           fire = mix(fire, crimson * 0.72, limb * 0.63);
           vec3 firstFire = mix(crimson * 0.94, orange, smoothstep(0.26, 0.78, broad + cells * 0.24));
           fire = mix(firstFire, fire, smoothstep(0.18, 0.58, uAssembly));
+
+#ifdef HELIOGENESIS_SYNTHWAVE
+          vec3 signalWhiteHot = vec3(1.0, 0.9, 0.62);
+          vec3 lawViolet = vec3(0.18, 0.008, 0.58);
+          vec3 lawRose = vec3(1.0, 0.012, 0.46);
+          vec3 lawGold = vec3(1.0, 0.36, 0.055);
+          vec3 lawCyan = vec3(0.0, 0.9, 1.0);
+          vec3 lawMagenta = vec3(1.0, 0.008, 0.7);
+          float cyanSeparation = max(0.0, cyanRaster - max(roseRaster, goldRaster));
+          float magentaSeparation = max(0.0, roseRaster - max(cyanRaster, goldRaster));
+          float thermalSignal = clamp(
+            panelCharge * 0.54 + carrierNoise * 0.28 + signalFacing * 0.18,
+            0.0,
+            1.0
+          );
+          vec3 signalSurface = mix(vec3(0.012, 0.001, 0.08), lawViolet, thermalSignal);
+          signalSurface = mix(
+            signalSurface,
+            mix(lawViolet, lawRose, smoothstep(0.18, 0.88, panelCode)),
+            0.24
+          );
+          signalSurface = mix(
+            signalSurface,
+            lawRose,
+            smoothstep(0.42, 0.8, thermalSignal) * 0.64
+          );
+          signalSurface = mix(
+            signalSurface,
+            lawGold,
+            smoothstep(0.72, 1.0, thermalSignal) * 0.42
+          );
+          signalSurface *= 0.76 + panelCharge * 0.32;
+          signalSurface += lawRose * roseRaster * 0.2;
+          signalSurface += lawGold * goldRaster * 0.22;
+          signalSurface += lawCyan * cyanSeparation * 1.68;
+          signalSurface += lawMagenta * magentaSeparation * 1.52;
+          signalSurface += signalWhiteHot * scanCore * 0.26;
+          signalSurface += lawMagenta * persistenceRaster * 0.075;
+          signalSurface += lawCyan * persistenceCore * (0.3 + (1.0 - phaseLock) * 0.14);
+          signalSurface += (lawCyan * vectorA + lawMagenta * vectorB) * 0.07;
+          signalSurface += signalWhiteHot * nodeBlink * 0.68;
+          signalSurface = mix(
+            signalSurface,
+            signalWhiteHot * (1.08 + lockPulse * 0.18),
+            clamp(syncFlash * 0.5, 0.0, 0.76)
+          );
+          signalSurface *= 0.62 + signalFacing * 0.38;
+          signalSurface = mix(signalSurface, lawViolet * 0.5, signalLimb * 0.46);
+          signalSurface +=
+            (lawCyan * cyanSeparation + lawMagenta * magentaSeparation) * signalLimb * 0.34;
+          fire = mix(fire, signalSurface, signalOrder * 0.97);
+#endif
+
           vec3 color = mix(proto, fire, surfaceMask);
           color = mix(color, whiteHot, (1.0 - cohesion) * islands * 0.16);
           color = mix(color, whiteHot * 1.16, frontier * 0.88);
           color = mix(color, whiteHot * 1.2, clamp(impactHeat * 0.92 + impactWave * 0.24, 0.0, 1.0));
-          vec3 eclipseShadow = mix(vec3(0.003, 0.001, 0.012), vec3(0.038, 0.001, 0.055), broad);
-          color = mix(color, eclipseShadow, occultation * uEclipsePresence * 0.985);
+#ifdef HELIOGENESIS_SYNTHWAVE
+          float eclipseInterior = smoothstep(0.05, eclipseRadius, eclipseDistance);
+          vec3 eclipseShadow = mix(
+            vec3(0.002, 0.001, 0.009),
+            vec3(0.012, 0.001, 0.022),
+            eclipseInterior * 0.48
+          );
+          float eclipseCoverage = occultation * uEclipsePresence;
+#else
+          vec3 eclipseShadow = mix(
+            vec3(0.003, 0.001, 0.012),
+            vec3(0.038, 0.001, 0.055),
+            broad
+          );
+          float eclipseCoverage = occultation * uEclipsePresence * 0.985;
+#endif
+          color = mix(color, eclipseShadow, eclipseCoverage);
           float liveChromosphere = chromosphere * uEclipsePresence;
           color += vec3(1.0, 0.018, 0.15) * liveChromosphere * (0.38 + beads * 0.58);
           color += whiteHot * (contactFlash * uEclipsePresence * 1.18 + liveChromosphere * annularAlignment * 0.3);
           float stellarPresence = smoothstep(0.018, 0.14, uMass);
           float alpha = stellarPresence * uSurfacePresence *
-            mix(0.78, 1.0, max(surfaceMask, frontier * 0.82)) *
-            (0.93 + facing * 0.07);
+            mix(0.78, 1.0, max(surfaceMask, frontier * 0.82));
+#ifdef HELIOGENESIS_SYNTHWAVE
+          alpha *= mix(0.93 + facing * 0.07, 1.0, signalOrder);
+          alpha = mix(alpha, 1.0, eclipseCoverage);
+#else
+          alpha *= 0.93 + facing * 0.07;
+#endif
           if (alpha < 0.012) discard;
           gl_FragColor = vec4(color * (0.84 + uIgnition * 0.62), alpha);
         }
@@ -3002,6 +3206,19 @@ export function createHeliogenesisScene({
     });
   }
 
+  function getPhotosphereDiagnostics() {
+    const attributes = star?.geometry?.attributes || {};
+    const synthwaveShader = Boolean(star?.material?.defines?.HELIOGENESIS_SYNTHWAVE);
+    return Object.freeze({
+      hasSignalAttributes: Boolean(
+        attributes.aBarycentric && attributes.aFacetCharge && attributes.aFacetPhase
+      ),
+      shaderVariant: synthwaveShader ? "synthwave" : "natural",
+      style: sunStyle,
+      vertexCount: attributes.position?.count || 0,
+    });
+  }
+
   function disposeSceneResources() {
     const disposedGeometries = new Set();
     const disposedMaterials = new Set();
@@ -3051,6 +3268,7 @@ export function createHeliogenesisScene({
 
   return Object.freeze({
     destroy,
+    getPhotosphereDiagnostics,
     getTomographyDiagnostics,
     quality,
     get renderedFrames() {
@@ -3060,6 +3278,7 @@ export function createHeliogenesisScene({
     reset: stop,
     showReduced,
     start,
+    sunStyle,
     syncDocumentGeometry,
   });
 }

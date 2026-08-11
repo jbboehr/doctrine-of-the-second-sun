@@ -55,11 +55,27 @@ for (const pageScale of [1, 1.5]) {
       });
     }, eventNames);
 
-    const quality = await page.evaluate(async () => {
+    const sceneConfiguration = await page.evaluate(async () => {
       const scene = await globalThis.heliogenesis.prepare();
-      return scene.quality;
+      return {
+        controllerSunStyle: globalThis.heliogenesis.sunStyle,
+        photosphere: scene.getPhotosphereDiagnostics(),
+        quality: scene.quality,
+        sceneSunStyle: scene.sunStyle,
+      };
     });
-    expect(["desktop", "compact", "narrow"]).toContain(quality);
+    expect(["desktop", "compact", "narrow"]).toContain(sceneConfiguration.quality);
+    expect(sceneConfiguration).toMatchObject({
+      controllerSunStyle: "synthwave",
+      photosphere: {
+        hasSignalAttributes: true,
+        shaderVariant: "synthwave",
+        style: "synthwave",
+        vertexCount: expect.any(Number),
+      },
+      sceneSunStyle: "synthwave",
+    });
+    expect(sceneConfiguration.photosphere.vertexCount).toBeGreaterThan(0);
 
     const activation = await page.evaluate(async () => {
       const controller = globalThis.heliogenesis;
@@ -159,6 +175,76 @@ for (const pageScale of [1, 1.5]) {
     expect(diagnostics.consoleErrors).toEqual([]);
   });
 }
+
+test("compiles distinct synthwave and natural photospheres", async ({ page }) => {
+  const diagnostics = await openExample(page);
+
+  const result = await page.evaluate(async () => {
+    const original = globalThis.heliogenesis;
+    const Controller = original.constructor;
+    const trigger = original.trigger;
+    const { DEFAULT_SUN_STYLE, SUN_STYLES } = await import("../heliogenesis.js");
+    const defaultScene = await original.prepare();
+    defaultScene.showReduced();
+    const defaultPhotosphere = defaultScene.getPhotosphereDiagnostics();
+    original.destroy();
+
+    const controller = new Controller({ trigger, sunStyle: "natural" }).mount();
+    const scene = await controller.prepare();
+    scene.showReduced();
+    const natural = {
+      controllerSunStyle: controller.sunStyle,
+      diagnosticsFrozen: Object.isFrozen(scene.getPhotosphereDiagnostics()),
+      photosphere: scene.getPhotosphereDiagnostics(),
+      renderedFrames: scene.renderedFrames,
+      sceneSunStyle: scene.sunStyle,
+    };
+    controller.destroy();
+
+    let invalidMessage = null;
+    try {
+      new Controller({ trigger, sunStyle: "ultraviolet" });
+    } catch (error) {
+      invalidMessage = error.message;
+    }
+    return {
+      defaultPhotosphere,
+      defaultSunStyle: DEFAULT_SUN_STYLE,
+      invalidMessage,
+      natural,
+      sunStyles: [...SUN_STYLES],
+    };
+  });
+
+  expect(result.defaultSunStyle).toBe("synthwave");
+  expect(result.sunStyles).toEqual(["synthwave", "natural"]);
+  expect(result.invalidMessage).toBe(
+    `Heliogenesis sunStyle must be one of: ${result.sunStyles.join(", ")}.`
+  );
+  expect(result.defaultPhotosphere).toMatchObject({
+    hasSignalAttributes: true,
+    shaderVariant: "synthwave",
+    style: "synthwave",
+  });
+  expect(result.natural).toMatchObject({
+    controllerSunStyle: "natural",
+    diagnosticsFrozen: true,
+    photosphere: {
+      hasSignalAttributes: false,
+      shaderVariant: "natural",
+      style: "natural",
+    },
+    renderedFrames: expect.any(Number),
+    sceneSunStyle: "natural",
+  });
+  expect(result.defaultPhotosphere.vertexCount).toBeGreaterThan(0);
+  expect(result.natural.photosphere.vertexCount).toBeGreaterThan(result.defaultPhotosphere.vertexCount);
+  expect(result.natural.renderedFrames).toBeGreaterThan(0);
+  await expect(page.locator("[data-heliogenesis-environment]")).toHaveCount(0);
+  expect(diagnostics.externalRequests).toEqual([]);
+  expect(diagnostics.pageErrors).toEqual([]);
+  expect(diagnostics.consoleErrors).toEqual([]);
+});
 
 test("samples, reveals, resynchronizes, and disposes document tomography", async ({ page }) => {
   const diagnostics = await openExample(page);

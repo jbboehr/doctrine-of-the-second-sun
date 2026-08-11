@@ -1,3 +1,5 @@
+import { DEFAULT_SUN_STYLE, SUN_STYLES, resolveSunStyle } from "./heliogenesis-options.js";
+
 const DEFAULT_TIMINGS = Object.freeze({
   standard: Object.freeze({ rise: 15000, hold: 9000, return: 7000 }),
   reduced: Object.freeze({ rise: 1400, hold: 3000, return: 1900 }),
@@ -71,6 +73,7 @@ export class Heliogenesis extends EventTarget {
     status,
     timings,
     motionQuery,
+    sunStyle,
   } = {}) {
     super();
     const document = trigger?.ownerDocument || globalThis.document;
@@ -87,6 +90,7 @@ export class Heliogenesis extends EventTarget {
     this.ownsStatus = !status;
     this.timings = mergeTimings(timings);
     this.motionQuery = motionQuery || document.defaultView.matchMedia("(prefers-reduced-motion: reduce)");
+    this.sunStyle = resolveSunStyle(sunStyle);
 
     this.state = "idle";
     this.scene = null;
@@ -168,6 +172,7 @@ export class Heliogenesis extends EventTarget {
         this.scene = createHeliogenesisScene({
           canvas: this.canvas,
           reducedMotion: () => this.motionQuery.matches,
+          sunStyle: this.sunStyle,
           onSunPosition: ({ x, y }) => {
             this.root.style.setProperty("--heliogenesis-sun-x", x);
             this.root.style.setProperty("--heliogenesis-sun-y", y);
@@ -387,4 +392,4 @@ export class Heliogenesis extends EventTarget {
   }
 }
 
-export { DEFAULT_TIMINGS };
+export { DEFAULT_SUN_STYLE, DEFAULT_TIMINGS, SUN_STYLES };

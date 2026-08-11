@@ -10,8 +10,9 @@ explicitly marks any document surfaces that should respond to the second light.
 ## Files
 
 - `heliogenesis.js` provides the public controller and event lifecycle;
-- `heliogenesis-scene.js` renders the hydrogen cloud, accretion flow, forming star, magnetic prominences, coronal
-  rupture, eclipse, document tomography, particles, and atmosphere;
+- `heliogenesis-options.js` defines the shared photosphere options and validation;
+- `heliogenesis-scene.js` renders the hydrogen cloud, accretion flow, selectable photosphere, magnetic prominences,
+  coronal rupture, eclipse, document tomography, particles, and atmosphere;
 - `heliogenesis.css` provides the fixed environmental layer, world-scale ignition front, and optional trigger
   appearance;
 - `heliogenesis-document.css` provides an optional documentation-lighting and second-shadow treatment for marked
@@ -97,6 +98,23 @@ Mount one controller after the page body exists:
 
 The Three.js renderer is loaded and constructed on first hover, keyboard focus, or activation. Calling `mount()` alone
 does not allocate a WebGL context.
+
+## Photosphere style
+
+The default `synthwave` photosphere is a charged, faceted icosphere with cyan, magenta, and gold phosphor edges. The
+original smooth, fire-like treatment remains available as `natural`:
+
+```js
+const heliogenesis = new Heliogenesis({
+  trigger,
+  sunStyle: "natural",
+});
+```
+
+Existing constructor calls remain valid and select `synthwave`. The resolved value is available as
+`heliogenesis.sunStyle` and, after preparation, `heliogenesis.scene.sunStyle`. Select the style when constructing the
+controller; changing the public property after preparation does not rebuild the renderer. The scene's
+`getPhotosphereDiagnostics()` method reports the compiled variant, signal attributes, and surface vertex count.
 
 ## Document-lighting hooks
 
