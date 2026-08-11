@@ -1,5 +1,7 @@
 # The Measure of Words
 
+![A measured codex before a celestial tribunal](assets/banners/measure-of-words.webp)
+
 ## Principle
 
 > Use no more words than the work requires. Prefer short, direct, unambiguous prose. Do not restate information,

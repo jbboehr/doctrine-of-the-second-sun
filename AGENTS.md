@@ -29,6 +29,13 @@ identified by the tool they target. Do not present a Codex TOML file as a portab
 - Keep links relative and valid from the repository root.
 - Wrap prose at 120 columns where practical.
 - Avoid broad reformatting during focused changes.
+- Keep repository and primary-document banners at 2172 × 724. Retain each original generated PNG as `*-hq.png` and
+  link a same-dimension optimized `.webp` from documentation.
+- Store the README hero at `assets/banner-hq.png` and `assets/banner.webp`. Place the WebP after the badge block and
+  before the H1.
+- Store primary-document banners at `assets/banners/<slug>-hq.png` and `assets/banners/<slug>.webp`. Place the WebP
+  immediately after the document H1.
+- Render banners at full width with plain Markdown image syntax. Do not add banners to `AGENTS.md` or `LICENSE.md`.
 - Review all four books and the generation guide when changing canonical terminology.
 - Review both coding and image guides when changing the style guide's movements, symbols, or citation model.
 

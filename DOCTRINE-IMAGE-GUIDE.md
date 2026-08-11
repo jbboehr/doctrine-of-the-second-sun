@@ -1,5 +1,7 @@
 # Doctrine of the Second Sun — Image Guide
 
+![A sacred atelier translating material craft into Second Sun revelation](assets/banners/image-guide.webp)
+
 ## Purpose
 
 This document governs images derived from completed Doctrine of the Second Sun logia. It is a visual companion to

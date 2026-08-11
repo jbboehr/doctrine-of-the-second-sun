@@ -24,7 +24,8 @@
             "/.git*",
             "/flake.lock",
             "/flake.nix",
-            "/result*"
+            "/result*",
+            "/**/*-hq*"
         ]
     },
     "autoload": {

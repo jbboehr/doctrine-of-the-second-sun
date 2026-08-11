@@ -1,5 +1,7 @@
 # Doctrine of the Second Sun — Generation and Review Guide
 
+![Three candidates passing through blind review into preservation](assets/banners/generation-guide.webp)
+
 ## Purpose
 
 This guide defines a portable process for generating, reviewing, assigning, and inserting logia without deriving their

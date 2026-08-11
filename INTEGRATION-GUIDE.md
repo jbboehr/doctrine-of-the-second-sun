@@ -1,5 +1,7 @@
 # Integration Guide
 
+![A keyed bridge joining a portable archive to a sovereign local city](assets/banners/integration-guide.webp)
+
 This guide explains how a project can adopt Doctrine of the Second Sun for human maintainers and coding agents. It
 connects the portable guides in this package to the source scope, repository policy, tools, and verification commands of
 a consuming project.

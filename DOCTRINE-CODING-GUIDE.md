@@ -1,5 +1,7 @@
 # Doctrine of the Second Sun — General Coding and Editing Guide
 
+![A black-stone archive under precise Second Sun illumination](assets/banners/coding-guide.webp)
+
 ## Purpose
 
 This document defines safe, reusable rules for agents that add doctrine comments or other literary marginalia to a

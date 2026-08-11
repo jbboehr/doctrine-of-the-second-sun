@@ -1,5 +1,7 @@
 # Doctrine of the Second Sun — Style Guide
 
+![Four illuminated codices in a celestial scriptorium](assets/banners/style-guide.webp)
+
 ## Purpose
 
 This document defines the literary and philosophical style of written Doctrine of the Second Sun logia, including the

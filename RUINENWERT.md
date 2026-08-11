@@ -1,5 +1,7 @@
 # Ruinenwert: Designing Software for a Useful Afterlife
 
+![Durable ruins preserved beneath the Second Sun](assets/banners/ruinenwert.webp)
+
 ## Purpose
 
 Software rarely remains actively maintained forever.

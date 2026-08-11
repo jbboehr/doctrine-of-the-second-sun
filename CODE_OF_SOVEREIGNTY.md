@@ -1,5 +1,7 @@
 # THE CODE OF SOVEREIGNTY
 
+![One bounded seat with sovereign roads beginning beyond it](assets/banners/code-of-sovereignty.webp)
+
 Every repository possesses a seat of final judgment.
 
 Within this repository, that seat belongs to **the Sovereign**.

@@ -32,7 +32,10 @@
           default = pkgs.stdenvNoCC.mkDerivation {
             pname = "doctrine-of-the-second-sun";
             version = self.shortRev or (self.dirtyShortRev or "dev");
-            src = self;
+            src = pkgs.lib.cleanSourceWith {
+              src = self;
+              filter = path: _type: !(pkgs.lib.hasInfix "-hq" (builtins.baseNameOf (toString path)));
+            };
             dontBuild = true;
 
             installPhase = ''

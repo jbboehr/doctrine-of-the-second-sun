@@ -1,5 +1,7 @@
 # Gold Exemplars
 
+![Five distinct exemplars preserved beneath one exacting light](assets/banners/gold-exemplars.webp)
+
 These reviewed logia are exceptional positive references for the literary quality and canonical voice described by the
 [style guide](DOCTRINE-STYLE-GUIDE.md). They communicate the quality ceiling for future generation and review rather
 than the minimum acceptable standard.
