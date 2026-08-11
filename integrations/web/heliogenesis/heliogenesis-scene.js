@@ -1824,7 +1824,7 @@ export function createHeliogenesisScene({
 
           // The physical icosphere supplies true triangular cells. Each edge family is a
           // different phosphor gun; shared edges disagree slightly at analogue boundaries.
-          float edgeWidth = mix(0.085, 0.055, phaseLock);
+          float edgeWidth = mix(0.068, 0.044, phaseLock);
           float gridA = 1.0 - smoothstep(0.012, edgeWidth, vBarycentric.x);
           float gridB = 1.0 - smoothstep(0.012, edgeWidth, vBarycentric.y);
           float gridC = 1.0 - smoothstep(0.012, edgeWidth, vBarycentric.z);
@@ -1873,6 +1873,7 @@ export function createHeliogenesisScene({
           vec3 orange = vec3(1.0, 0.20, 0.025);
           vec3 amber = vec3(1.0, 0.64, 0.10);
           vec3 whiteHot = vec3(1.0, 0.96, 0.66);
+          vec3 surfaceWhiteHot = whiteHot;
           vec3 proto = mix(vec3(0.3, 0.001, 0.032), vec3(0.66, 0.018, 0.022), broad);
           proto += cells * vec3(0.12, 0.004, 0.028);
           vec3 fire = mix(crimson, orange, smoothstep(0.18, 0.62, broad));
@@ -1884,12 +1885,16 @@ export function createHeliogenesisScene({
           fire = mix(firstFire, fire, smoothstep(0.18, 0.58, uAssembly));
 
 #ifdef HELIOGENESIS_SYNTHWAVE
-          vec3 signalWhiteHot = vec3(1.0, 0.9, 0.62);
-          vec3 lawViolet = vec3(0.18, 0.008, 0.58);
-          vec3 lawRose = vec3(1.0, 0.012, 0.46);
-          vec3 lawGold = vec3(1.0, 0.36, 0.055);
-          vec3 lawCyan = vec3(0.0, 0.9, 1.0);
-          vec3 lawMagenta = vec3(1.0, 0.008, 0.7);
+          vec3 pearlHot = vec3(1.0, 0.78, 0.93);
+          vec3 panelLilac = vec3(0.62, 0.34, 0.88);
+          vec3 panelRose = vec3(1.0, 0.46, 0.72);
+          vec3 panelPeach = vec3(1.0, 0.68, 0.5);
+          vec3 panelCyan = vec3(0.42, 0.82, 1.0);
+          vec3 edgeRose = vec3(1.0, 0.02, 0.52);
+          vec3 edgeGold = vec3(1.0, 0.4, 0.07);
+          vec3 edgeCyan = vec3(0.02, 0.9, 1.0);
+          vec3 edgeMagenta = vec3(1.0, 0.02, 0.72);
+          surfaceWhiteHot = pearlHot;
           float cyanSeparation = max(0.0, cyanRaster - max(roseRaster, goldRaster));
           float magentaSeparation = max(0.0, roseRaster - max(cyanRaster, goldRaster));
           float thermalSignal = clamp(
@@ -1897,48 +1902,55 @@ export function createHeliogenesisScene({
             0.0,
             1.0
           );
-          vec3 signalSurface = mix(vec3(0.012, 0.001, 0.08), lawViolet, thermalSignal);
+          vec3 signalSurface = mix(vec3(0.018, 0.004, 0.09), panelLilac, thermalSignal);
           signalSurface = mix(
             signalSurface,
-            mix(lawViolet, lawRose, smoothstep(0.18, 0.88, panelCode)),
+            mix(panelLilac, panelRose, smoothstep(0.18, 0.88, panelCode)),
             0.24
           );
           signalSurface = mix(
             signalSurface,
-            lawRose,
+            panelRose,
             smoothstep(0.42, 0.8, thermalSignal) * 0.64
           );
           signalSurface = mix(
             signalSurface,
-            lawGold,
+            panelPeach,
             smoothstep(0.72, 1.0, thermalSignal) * 0.42
           );
+          vec3 opalWash = mix(panelLilac, panelRose, smoothstep(0.18, 0.86, broad));
+          opalWash = mix(opalWash, panelCyan, smoothstep(0.64, 0.96, cells) * 0.42);
+          signalSurface = mix(signalSurface, opalWash, 0.24 + signalFacing * 0.12);
           signalSurface *= 0.76 + panelCharge * 0.32;
-          signalSurface += lawRose * roseRaster * 0.2;
-          signalSurface += lawGold * goldRaster * 0.22;
-          signalSurface += lawCyan * cyanSeparation * 1.68;
-          signalSurface += lawMagenta * magentaSeparation * 1.52;
-          signalSurface += signalWhiteHot * scanCore * 0.26;
-          signalSurface += lawMagenta * persistenceRaster * 0.075;
-          signalSurface += lawCyan * persistenceCore * (0.3 + (1.0 - phaseLock) * 0.14);
-          signalSurface += (lawCyan * vectorA + lawMagenta * vectorB) * 0.07;
-          signalSurface += signalWhiteHot * nodeBlink * 0.68;
+          signalSurface += edgeRose * roseRaster * 0.16;
+          signalSurface += edgeGold * goldRaster * 0.17;
+          signalSurface += edgeCyan * cyanSeparation * 1.34;
+          signalSurface += edgeMagenta * magentaSeparation * 1.22;
+          signalSurface += pearlHot * scanCore * 0.22;
+          signalSurface += edgeMagenta * persistenceRaster * 0.075;
+          signalSurface += edgeCyan * persistenceCore * (0.3 + (1.0 - phaseLock) * 0.14);
+          signalSurface += (edgeCyan * vectorA + edgeMagenta * vectorB) * 0.07;
+          signalSurface += pearlHot * nodeBlink * 0.56;
           signalSurface = mix(
             signalSurface,
-            signalWhiteHot * (1.08 + lockPulse * 0.18),
+            pearlHot * (1.05 + lockPulse * 0.16),
             clamp(syncFlash * 0.5, 0.0, 0.76)
           );
           signalSurface *= 0.62 + signalFacing * 0.38;
-          signalSurface = mix(signalSurface, lawViolet * 0.5, signalLimb * 0.46);
+          signalSurface = mix(signalSurface, panelLilac * 0.5, signalLimb * 0.46);
           signalSurface +=
-            (lawCyan * cyanSeparation + lawMagenta * magentaSeparation) * signalLimb * 0.34;
+            (edgeCyan * cyanSeparation + edgeMagenta * magentaSeparation) * signalLimb * 0.34;
           fire = mix(fire, signalSurface, signalOrder * 0.97);
 #endif
 
           vec3 color = mix(proto, fire, surfaceMask);
-          color = mix(color, whiteHot, (1.0 - cohesion) * islands * 0.16);
-          color = mix(color, whiteHot * 1.16, frontier * 0.88);
-          color = mix(color, whiteHot * 1.2, clamp(impactHeat * 0.92 + impactWave * 0.24, 0.0, 1.0));
+          color = mix(color, surfaceWhiteHot, (1.0 - cohesion) * islands * 0.16);
+          color = mix(color, surfaceWhiteHot * 1.16, frontier * 0.88);
+          color = mix(
+            color,
+            surfaceWhiteHot * 1.2,
+            clamp(impactHeat * 0.92 + impactWave * 0.24, 0.0, 1.0)
+          );
 #ifdef HELIOGENESIS_SYNTHWAVE
           float eclipseInterior = smoothstep(0.05, eclipseRadius, eclipseDistance);
           vec3 eclipseShadow = mix(
@@ -1958,7 +1970,8 @@ export function createHeliogenesisScene({
           color = mix(color, eclipseShadow, eclipseCoverage);
           float liveChromosphere = chromosphere * uEclipsePresence;
           color += vec3(1.0, 0.018, 0.15) * liveChromosphere * (0.38 + beads * 0.58);
-          color += whiteHot * (contactFlash * uEclipsePresence * 1.18 + liveChromosphere * annularAlignment * 0.3);
+          color += surfaceWhiteHot *
+            (contactFlash * uEclipsePresence * 1.18 + liveChromosphere * annularAlignment * 0.3);
           float stellarPresence = smoothstep(0.018, 0.14, uMass);
           float alpha = stellarPresence * uSurfacePresence *
             mix(0.78, 1.0, max(surfaceMask, frontier * 0.82));
@@ -1979,6 +1992,7 @@ export function createHeliogenesisScene({
     solarAnchor.add(star);
 
     const atmosphereMaterial = new THREE.ShaderMaterial({
+      defines: useSynthwaveSun ? { HELIOGENESIS_SYNTHWAVE: 1 } : {},
       transparent: true,
       depthWrite: false,
       depthTest: false,
@@ -1999,7 +2013,12 @@ export function createHeliogenesisScene({
         varying vec3 vNormalView;
         void main() {
           float rim = pow(1.0 - abs(vNormalView.z), 2.35);
+#ifdef HELIOGENESIS_SYNTHWAVE
+          vec3 color = mix(vec3(0.68, 0.26, 0.94), vec3(1.0, 0.58, 0.76), rim);
+          color = mix(color, vec3(0.36, 0.84, 1.0), pow(rim, 3.0) * 0.24);
+#else
           vec3 color = mix(vec3(1.0, 0.08, 0.32), vec3(1.0, 0.55, 0.11), rim);
+#endif
           gl_FragColor = vec4(color, rim * 0.6 * uIgnition);
         }
       `,
@@ -2009,6 +2028,7 @@ export function createHeliogenesisScene({
     solarAnchor.add(atmosphere);
 
     const coronaMaterial = new THREE.ShaderMaterial({
+      defines: useSynthwaveSun ? { HELIOGENESIS_SYNTHWAVE: 1 } : {},
       transparent: true,
       depthWrite: false,
       depthTest: false,
@@ -2047,7 +2067,16 @@ export function createHeliogenesisScene({
             (1.0 - smoothstep(0.31, 1.0, radius)) * (0.08 + rays * 1.16) * uEclipseTotality;
           float alpha = ((core * 0.2 + crown) * uIgnition + eclipseCrown) *
             (1.0 - smoothstep(0.78, 1.0, radius));
+#ifdef HELIOGENESIS_SYNTHWAVE
+          vec3 color = mix(
+            vec3(0.66, 0.18, 0.94),
+            vec3(1.0, 0.58, 0.76),
+            core + turbulence * 0.28
+          );
+          color = mix(color, vec3(0.38, 0.84, 1.0), rays * 0.18);
+#else
           vec3 color = mix(vec3(1.0, 0.03, 0.27), vec3(1.0, 0.58, 0.13), core + turbulence * 0.28);
+#endif
           vec3 eclipseColor = mix(
             vec3(0.04, 0.82, 1.0),
             vec3(1.0, 0.035, 0.42),
