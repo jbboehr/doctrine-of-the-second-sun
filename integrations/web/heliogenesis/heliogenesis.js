@@ -215,6 +215,7 @@ export class Heliogenesis extends EventTarget {
 
   reset({ announce = true } = {}) {
     this.clearTimers();
+    this.clearDebouncedTimers();
     this.setIgnition(false);
     if (this.failed) {
       if (this.state !== "idle") this.setState("idle", { announce: false });
@@ -232,12 +233,7 @@ export class Heliogenesis extends EventTarget {
   destroy() {
     if (!this.mounted) return;
     this.clearTimers();
-    if (this.resizeTimer !== null) this.document.defaultView.clearTimeout(this.resizeTimer);
-    this.resizeTimer = null;
-    if (this.documentSyncTimer !== null) {
-      this.document.defaultView.clearTimeout(this.documentSyncTimer);
-    }
-    this.documentSyncTimer = null;
+    this.clearDebouncedTimers();
     this.abortController.abort();
     this.scene?.destroy();
     this.layer.remove();
@@ -299,6 +295,17 @@ export class Heliogenesis extends EventTarget {
     this.timers.clear();
   }
 
+  clearDebouncedTimers() {
+    if (this.resizeTimer !== null) {
+      this.document.defaultView.clearTimeout(this.resizeTimer);
+    }
+    if (this.documentSyncTimer !== null) {
+      this.document.defaultView.clearTimeout(this.documentSyncTimer);
+    }
+    this.resizeTimer = null;
+    this.documentSyncTimer = null;
+  }
+
   setTimingStyle(timing) {
     const rise = `${Math.max(1, Number(timing.rise) || DEFAULT_TIMINGS.standard.rise)}ms`;
     this.root.style.setProperty("--heliogenesis-rise", rise);
@@ -356,6 +363,7 @@ export class Heliogenesis extends EventTarget {
     this.failed = true;
     this.failure = error instanceof Error ? error : new Error(String(error));
     this.clearTimers();
+    this.clearDebouncedTimers();
     this.setIgnition(false);
     if (this.scene) {
       try {

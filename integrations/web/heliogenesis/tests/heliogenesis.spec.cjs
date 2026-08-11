@@ -230,6 +230,140 @@ test("samples, reveals, resynchronizes, and disposes document tomography", async
   expect(diagnostics.consoleErrors).toEqual([]);
 });
 
+test("reset cancels queued geometry work and remains reusable", async ({ page }) => {
+  const diagnostics = await openExample(page);
+
+  const result = await page.evaluate(async () => {
+    const controller = globalThis.heliogenesis;
+    const scene = await controller.prepare();
+    await controller.activate();
+
+    const beforeResize = scene.getTomographyDiagnostics().synchronizations;
+    controller.queueResize();
+    const resizeQueued = controller.resizeTimer !== null;
+    controller.reset({ announce: false });
+    const afterResizeReset = {
+      documentSyncTimer: controller.documentSyncTimer,
+      resizeTimer: controller.resizeTimer,
+    };
+    await new Promise((resolve) => setTimeout(resolve, 180));
+    const afterResizeDelay = scene.getTomographyDiagnostics().synchronizations;
+
+    const reactivated = await controller.activate();
+    const beforeDocumentSync = scene.getTomographyDiagnostics().synchronizations;
+    controller.queueDocumentSync();
+    const documentSyncQueued = controller.documentSyncTimer !== null;
+    controller.reset({ announce: false });
+    const afterDocumentSyncReset = {
+      documentSyncTimer: controller.documentSyncTimer,
+      resizeTimer: controller.resizeTimer,
+    };
+    await new Promise((resolve) => setTimeout(resolve, 180));
+
+    return {
+      afterDocumentSyncDelay: scene.getTomographyDiagnostics().synchronizations,
+      afterDocumentSyncReset,
+      afterResizeDelay,
+      afterResizeReset,
+      beforeDocumentSync,
+      beforeResize,
+      documentSyncQueued,
+      finalState: controller.state,
+      reactivated,
+      resizeQueued,
+    };
+  });
+
+  expect(result.resizeQueued).toBe(true);
+  expect(result.afterResizeReset).toEqual({
+    documentSyncTimer: null,
+    resizeTimer: null,
+  });
+  expect(result.afterResizeDelay).toBe(result.beforeResize);
+  expect(result.reactivated).toBe(true);
+  expect(result.beforeDocumentSync).toBeGreaterThan(result.beforeResize);
+  expect(result.documentSyncQueued).toBe(true);
+  expect(result.afterDocumentSyncReset).toEqual({
+    documentSyncTimer: null,
+    resizeTimer: null,
+  });
+  expect(result.afterDocumentSyncDelay).toBe(result.beforeDocumentSync);
+  expect(result.finalState).toBe("idle");
+  expect(diagnostics.externalRequests).toEqual([]);
+  expect(diagnostics.pageErrors).toEqual([]);
+  expect(diagnostics.consoleErrors).toEqual([]);
+});
+
+test("destroy cancels pending debounce callbacks", async ({ page }) => {
+  const diagnostics = await openExample(page);
+
+  const result = await page.evaluate(async () => {
+    const controller = globalThis.heliogenesis;
+    const callbacks = { resize: 0 };
+    await controller.prepare();
+    // A sentinel callback stays observable after destroy releases the scene.
+    controller.resizeTimer = setTimeout(() => { callbacks.resize += 1; }, 140);
+
+    controller.destroy();
+    const immediate = {
+      documentSyncTimer: controller.documentSyncTimer,
+      mounted: controller.mounted,
+      resizeTimer: controller.resizeTimer,
+    };
+    await new Promise((resolve) => setTimeout(resolve, 180));
+    return { callbacks, immediate };
+  });
+
+  expect(result.immediate).toEqual({
+    documentSyncTimer: null,
+    mounted: false,
+    resizeTimer: null,
+  });
+  expect(result.callbacks).toEqual({ resize: 0 });
+  await expect(page.locator("[data-heliogenesis-environment]")).toHaveCount(0);
+  expect(diagnostics.externalRequests).toEqual([]);
+  expect(diagnostics.pageErrors).toEqual([]);
+  expect(diagnostics.consoleErrors).toEqual([]);
+});
+
+test("failure cancels pending debounce callbacks", async ({ page }) => {
+  const diagnostics = await openExample(page);
+
+  const result = await page.evaluate(async () => {
+    const controller = globalThis.heliogenesis;
+    const callbacks = { documentSync: 0, resize: 0 };
+    // The real queue methods cannot leave both debounce slots pending at once.
+    controller.resizeTimer = setTimeout(() => { callbacks.resize += 1; }, 140);
+    controller.documentSyncTimer = setTimeout(() => { callbacks.documentSync += 1; }, 140);
+
+    const originalConsoleError = console.error;
+    console.error = () => {};
+    try {
+      controller.fail(new Error("Forced debounce cleanup test failure."));
+    } finally {
+      console.error = originalConsoleError;
+    }
+
+    const immediate = {
+      documentSyncTimer: controller.documentSyncTimer,
+      resizeTimer: controller.resizeTimer,
+    };
+    await new Promise((resolve) => setTimeout(resolve, 180));
+    controller.destroy();
+    return { callbacks, immediate };
+  });
+
+  expect(result.immediate).toEqual({
+    documentSyncTimer: null,
+    resizeTimer: null,
+  });
+  expect(result.callbacks).toEqual({ documentSync: 0, resize: 0 });
+  await expect(page.locator("[data-heliogenesis-environment]")).toHaveCount(0);
+  expect(diagnostics.externalRequests).toEqual([]);
+  expect(diagnostics.pageErrors).toEqual([]);
+  expect(diagnostics.consoleErrors).toEqual([]);
+});
+
 test("cold activation synchronizes CSS ignition with a custom renderer rise", async ({ page }) => {
   const diagnostics = await openExample(page);
 
