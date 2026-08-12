@@ -102,12 +102,13 @@ does not allocate a WebGL context.
 ## Photosphere style
 
 The default `synthwave` photosphere is a charged, faceted icosphere with cyan, magenta, and gold phosphor edges. The
-original smooth, fire-like treatment remains available as `natural`:
+`transmutation` treatment forms through broad violet, pearl, gold, and rose plasma regions before it resolves into a
+pastel stellar body. The original smooth, fire-like treatment remains available as `natural`:
 
 ```js
 const heliogenesis = new Heliogenesis({
   trigger,
-  sunStyle: "natural",
+  sunStyle: "transmutation", // Or "natural".
 });
 ```
 

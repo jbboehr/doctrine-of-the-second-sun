@@ -176,7 +176,7 @@ for (const pageScale of [1, 1.5]) {
   });
 }
 
-test("compiles distinct synthwave and natural photospheres", async ({ page }) => {
+test("compiles distinct transmutation, synthwave, and natural photospheres", async ({ page }) => {
   const diagnostics = await openExample(page);
 
   const result = await page.evaluate(async () => {
@@ -189,17 +189,28 @@ test("compiles distinct synthwave and natural photospheres", async ({ page }) =>
     const defaultPhotosphere = defaultScene.getPhotosphereDiagnostics();
     original.destroy();
 
-    const controller = new Controller({ trigger, sunStyle: "natural" }).mount();
-    const scene = await controller.prepare();
-    scene.showReduced();
-    const natural = {
-      controllerSunStyle: controller.sunStyle,
-      diagnosticsFrozen: Object.isFrozen(scene.getPhotosphereDiagnostics()),
-      photosphere: scene.getPhotosphereDiagnostics(),
-      renderedFrames: scene.renderedFrames,
-      sceneSunStyle: scene.sunStyle,
+    const transmutationController = new Controller({ trigger, sunStyle: "transmutation" }).mount();
+    const transmutationScene = await transmutationController.prepare();
+    transmutationScene.showReduced();
+    const transmutation = {
+      controllerSunStyle: transmutationController.sunStyle,
+      photosphere: transmutationScene.getPhotosphereDiagnostics(),
+      renderedFrames: transmutationScene.renderedFrames,
+      sceneSunStyle: transmutationScene.sunStyle,
     };
-    controller.destroy();
+    transmutationController.destroy();
+
+    const naturalController = new Controller({ trigger, sunStyle: "natural" }).mount();
+    const naturalScene = await naturalController.prepare();
+    naturalScene.showReduced();
+    const natural = {
+      controllerSunStyle: naturalController.sunStyle,
+      diagnosticsFrozen: Object.isFrozen(naturalScene.getPhotosphereDiagnostics()),
+      photosphere: naturalScene.getPhotosphereDiagnostics(),
+      renderedFrames: naturalScene.renderedFrames,
+      sceneSunStyle: naturalScene.sunStyle,
+    };
+    naturalController.destroy();
 
     let invalidMessage = null;
     try {
@@ -213,11 +224,12 @@ test("compiles distinct synthwave and natural photospheres", async ({ page }) =>
       invalidMessage,
       natural,
       sunStyles: [...SUN_STYLES],
+      transmutation,
     };
   });
 
   expect(result.defaultSunStyle).toBe("synthwave");
-  expect(result.sunStyles).toEqual(["synthwave", "natural"]);
+  expect(result.sunStyles).toEqual(["synthwave", "transmutation", "natural"]);
   expect(result.invalidMessage).toBe(
     `Heliogenesis sunStyle must be one of: ${result.sunStyles.join(", ")}.`
   );
@@ -225,6 +237,16 @@ test("compiles distinct synthwave and natural photospheres", async ({ page }) =>
     hasSignalAttributes: true,
     shaderVariant: "synthwave",
     style: "synthwave",
+  });
+  expect(result.transmutation).toMatchObject({
+    controllerSunStyle: "transmutation",
+    photosphere: {
+      hasSignalAttributes: false,
+      shaderVariant: "transmutation",
+      style: "transmutation",
+    },
+    renderedFrames: expect.any(Number),
+    sceneSunStyle: "transmutation",
   });
   expect(result.natural).toMatchObject({
     controllerSunStyle: "natural",
@@ -238,7 +260,9 @@ test("compiles distinct synthwave and natural photospheres", async ({ page }) =>
     sceneSunStyle: "natural",
   });
   expect(result.defaultPhotosphere.vertexCount).toBeGreaterThan(0);
+  expect(result.transmutation.photosphere.vertexCount).toBe(result.defaultPhotosphere.vertexCount);
   expect(result.natural.photosphere.vertexCount).toBeGreaterThan(result.defaultPhotosphere.vertexCount);
+  expect(result.transmutation.renderedFrames).toBeGreaterThan(0);
   expect(result.natural.renderedFrames).toBeGreaterThan(0);
   await expect(page.locator("[data-heliogenesis-environment]")).toHaveCount(0);
   expect(diagnostics.externalRequests).toEqual([]);

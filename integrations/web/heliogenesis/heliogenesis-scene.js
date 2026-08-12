@@ -19,6 +19,13 @@ export function createHeliogenesisScene({
   }
   sunStyle = resolveSunStyle(sunStyle);
   const useSynthwaveSun = sunStyle === "synthwave";
+  const useTransmutationSun = sunStyle === "transmutation";
+  const useStylizedSun = useSynthwaveSun || useTransmutationSun;
+  const sunDefines = useSynthwaveSun
+    ? { HELIOGENESIS_SPECTRAL: 1, HELIOGENESIS_SYNTHWAVE: 1 }
+    : useTransmutationSun
+      ? { HELIOGENESIS_SPECTRAL: 1, HELIOGENESIS_TRANSMUTATION: 1 }
+      : {};
   const environment = canvas.closest("[data-heliogenesis-environment]") || canvas.parentElement;
 
   const motionQuery = {
@@ -1612,7 +1619,7 @@ export function createHeliogenesisScene({
     buildProtoFragments();
     buildProtoVolume();
 
-    const surfaceDetail = useSynthwaveSun
+    const surfaceDetail = useStylizedSun
       ? viewport.compact ? 2 : 3
       : viewport.compact ? 5 : 6;
     const geometry = new THREE.IcosahedronGeometry(1.72, surfaceDetail);
@@ -1637,7 +1644,7 @@ export function createHeliogenesisScene({
       geometry.setAttribute("aFacetPhase", new THREE.BufferAttribute(facetPhases, 1));
     }
     const material = new THREE.ShaderMaterial({
-      defines: useSynthwaveSun ? { HELIOGENESIS_SYNTHWAVE: 1 } : {},
+      defines: sunDefines,
       transparent: true,
       depthWrite: true,
       depthTest: true,
@@ -1812,7 +1819,6 @@ export function createHeliogenesisScene({
           float signalFacing = max(0.0, dot(signalNormal, normalize(vec3(-0.38, 0.5, 1.0))));
           float signalLimb = pow(1.0 - max(0.0, signalNormal.z), 1.7);
 
-          // Rotate a synthetic thermal carrier independently of the physical facets.
           vec3 carrier = signalNormal;
           carrier.xz = signalRotation(uTime * 0.025 + phaseLock * 0.2) * carrier.xz;
           carrier.yz = signalRotation(-0.36) * carrier.yz;
@@ -1822,8 +1828,6 @@ export function createHeliogenesisScene({
           float impactTear = (impactHeat * 0.16 + impactWave * 0.09) *
             sin(carrierLongitude * 7.0 - uTime * 1.1);
 
-          // The physical icosphere supplies true triangular cells. Each edge family is a
-          // different phosphor gun; shared edges disagree slightly at analogue boundaries.
           float edgeWidth = mix(0.068, 0.044, phaseLock);
           float gridA = 1.0 - smoothstep(0.012, edgeWidth, vBarycentric.x);
           float gridB = 1.0 - smoothstep(0.012, edgeWidth, vBarycentric.y);
@@ -1840,13 +1844,8 @@ export function createHeliogenesisScene({
           float cyanRaster = gridB;
           float roseRaster = gridC;
           float rasterBody = max(gridA, max(gridB, gridC));
-          float nodeField = max(
-            gridA * gridB,
-            max(gridB * gridC, gridC * gridA)
-          );
+          float nodeField = max(gridA * gridB, max(gridB * gridC, gridC * gridA));
 
-          // A television-rate trace passes through the facets without replacing them with
-          // the familiar striped-sunset symbol.
           float scanCore = phosphorLine(
             vEclipsePoint.y + sin(vEclipsePoint.x * 4.0 + uTime * 0.24) * 0.006,
             46.0,
@@ -1867,6 +1866,10 @@ export function createHeliogenesisScene({
           float nodeBlink = vectorJunction *
             (0.72 + 0.28 * sin(uTime * 1.3 + vFacetPhase * 18.0));
           float syncFlash = max(impactHeat, impactWave) + lockPulse * rasterBody;
+#endif
+
+#ifdef HELIOGENESIS_TRANSMUTATION
+          float signalOrder = smoothstep(0.4, 0.9, uAssembly);
 #endif
 
           vec3 crimson = vec3(0.86, 0.012, 0.14);
@@ -1923,8 +1926,6 @@ export function createHeliogenesisScene({
           signalSurface = mix(signalSurface, opalWash, 0.24 + signalFacing * 0.12);
           signalSurface *= 0.76 + panelCharge * 0.32;
 
-          // Magnetic interference currents ignore the facets and drift through the
-          // smoother photospheric field beneath them.
           float currentWarp = (broad - 0.5) * 2.1 + (cells - 0.5) * 0.5;
           float currentPhaseA =
             n.y * 7.6 + n.x * 2.1 + sin(n.z * 4.4 - uTime * 0.09) * 0.45 +
@@ -2022,6 +2023,142 @@ export function createHeliogenesisScene({
           fire = mix(fire, signalSurface, signalOrder * 0.97);
 #endif
 
+#ifdef HELIOGENESIS_TRANSMUTATION
+          vec3 pearlHot = vec3(1.0, 0.78, 0.93);
+          vec3 panelRose = vec3(1.0, 0.46, 0.72);
+          vec3 panelPeach = vec3(1.0, 0.68, 0.5);
+          vec3 panelCyan = vec3(0.42, 0.82, 1.0);
+          vec3 albedoPearl = vec3(0.72, 0.84, 1.0);
+          vec3 alchemicalGold = vec3(1.0, 0.48, 0.06);
+          vec3 rubedoRose = vec3(0.96, 0.06, 0.34);
+          vec3 nigredoViolet = vec3(0.022, 0.001, 0.06);
+          vec3 edgeCyan = vec3(0.02, 0.9, 1.0);
+          vec3 edgeMagenta = vec3(1.0, 0.02, 0.72);
+          surfaceWhiteHot = pearlHot;
+          float atmosphericDrift = fbm(
+            n * 1.85 + vec3(uTime * 0.013, -uTime * 0.009, 7.4)
+          );
+          float slowBreath = sin(
+            uTime * 0.22 + atmosphericDrift * 2.2 + n.y * 0.7
+          ) * 0.5 + 0.5;
+          float lightTemperature = clamp(
+            0.62 + (atmosphericDrift - 0.5) * 0.1 + (slowBreath - 0.5) * 0.06,
+            0.54,
+            0.72
+          );
+          vec3 resolvedLight = mix(panelPeach, pearlHot, lightTemperature);
+          float projectedRadius = clamp(length(vEclipsePoint), 0.0, 1.08);
+          float innerLight = pow(max(0.0, 1.0 - projectedRadius), 0.72);
+
+          float currentTurnA = uTime * 0.07 + atmosphericDrift * 0.16;
+          float currentTurnB = -uTime * 0.052 + atmosphericDrift * 0.11;
+          mat2 currentRotationA = mat2(
+            cos(currentTurnA), -sin(currentTurnA),
+            sin(currentTurnA), cos(currentTurnA)
+          );
+          mat2 currentRotationB = mat2(
+            cos(currentTurnB), -sin(currentTurnB),
+            sin(currentTurnB), cos(currentTurnB)
+          );
+          vec3 currentA = n;
+          vec3 currentB = n;
+          currentA.xz = currentRotationA * currentA.xz;
+          currentB.yz = currentRotationB * currentB.yz;
+          float currentFieldA = fbm(
+            currentA * 2.35 + vec3(uTime * 0.018, -uTime * 0.012, 3.8)
+          );
+          float currentFieldB = fbm(
+            currentB * 3.05 + vec3(-uTime * 0.014, 9.2, uTime * 0.017)
+          );
+          float transmutationStage = pow(clamp(uSurfacePresence, 0.0, 1.0), 1.65);
+          float localStage = clamp(
+            transmutationStage + (currentFieldA - currentFieldB) * 0.62 +
+              (atmosphericDrift - 0.5) * 0.12,
+            0.0,
+            1.0
+          );
+          vec3 transmutationColor = mix(
+            nigredoViolet,
+            albedoPearl,
+            smoothstep(0.1, 0.32, localStage)
+          );
+          transmutationColor = mix(
+            transmutationColor,
+            alchemicalGold,
+            smoothstep(0.26, 0.55, localStage)
+          );
+          transmutationColor = mix(
+            transmutationColor,
+            rubedoRose,
+            smoothstep(0.56, 0.8, localStage)
+          );
+          vec3 signalSurface = mix(
+            transmutationColor,
+            resolvedLight,
+            smoothstep(0.89, 1.0, transmutationStage)
+          );
+          signalSurface = mix(signalSurface, pearlHot, innerLight * 0.12);
+
+          float reactionDistance = abs(currentFieldA - currentFieldB);
+          float reactionHalo = 1.0 - smoothstep(0.04, 0.18, reactionDistance);
+          float reactionCore = 1.0 - smoothstep(0.014, 0.06, reactionDistance);
+          float phaseDistance = min(
+            abs(localStage - 0.28),
+            min(abs(localStage - 0.55), abs(localStage - 0.78))
+          );
+          float transmutationFront = 1.0 - smoothstep(0.016, 0.058, phaseDistance);
+          float transmutationActive = smoothstep(0.04, 0.35, transmutationStage) *
+            (1.0 - smoothstep(0.91, 1.0, transmutationStage));
+          float reactionPresence = 0.22 + transmutationActive * 0.9;
+          signalSurface *= 1.0 - transmutationActive * 0.16;
+          vec3 reactionColor = mix(alchemicalGold, pearlHot, reactionCore * 0.72);
+          reactionColor = mix(
+            reactionColor,
+            panelCyan,
+            smoothstep(0.7, 0.94, currentFieldB) * 0.22
+          );
+          signalSurface = mix(
+            signalSurface,
+            nigredoViolet * 1.6 + panelRose * 0.08,
+            reactionHalo * reactionPresence * 0.25
+          );
+          signalSurface += reactionColor *
+            (reactionHalo * 0.045 + reactionCore * 0.28) * reactionPresence;
+          signalSurface = mix(
+            signalSurface,
+            mix(alchemicalGold, pearlHot, localStage),
+            transmutationFront * (0.16 + transmutationActive * 0.62)
+          );
+          float mercurialThread = 1.0 - smoothstep(
+            0.018,
+            0.065,
+            abs(currentFieldB - 0.68)
+          );
+          signalSurface += mix(panelCyan, pearlHot, currentFieldA) * mercurialThread *
+            (0.035 + transmutationActive * 0.12);
+
+          float chromaticLimb = smoothstep(0.48, 0.99, projectedRadius);
+          float spectralBalance = smoothstep(
+            -0.58,
+            0.58,
+            n.x + sin(uTime * 0.075) * 0.12
+          );
+          vec3 limbSpectrum = mix(panelRose, panelCyan, spectralBalance);
+          signalSurface = mix(signalSurface, limbSpectrum, chromaticLimb * 0.18);
+          float rimThread = smoothstep(0.8, 1.01, projectedRadius);
+          signalSurface += mix(edgeMagenta, edgeCyan, spectralBalance) * rimThread * 0.08;
+
+          float lightResolve = smoothstep(0.07, 0.34, uIgnition);
+          float arrivalFlash = smoothstep(0.1, 0.28, uIgnition) *
+            (1.0 - smoothstep(0.42, 0.64, uIgnition));
+          signalSurface = mix(signalSurface, pearlHot * 1.04, arrivalFlash * 0.16);
+          float emissionDither = noise3(n * 47.0 + vec3(2.8, 6.1, 9.7)) - 0.5;
+          signalSurface += vec3(emissionDither * 0.006);
+          signalSurface *= 0.67 + innerLight * 0.11 + slowBreath * 0.045 +
+            (atmosphericDrift - 0.5) * 0.025;
+          fire = mix(fire, signalSurface, signalOrder * lightResolve * 0.98);
+#endif
+
           vec3 color = mix(proto, fire, surfaceMask);
           color = mix(color, surfaceWhiteHot, (1.0 - cohesion) * islands * 0.16);
           color = mix(color, surfaceWhiteHot * 1.16, frontier * 0.88);
@@ -2030,7 +2167,7 @@ export function createHeliogenesisScene({
             surfaceWhiteHot * 1.2,
             clamp(impactHeat * 0.92 + impactWave * 0.24, 0.0, 1.0)
           );
-#ifdef HELIOGENESIS_SYNTHWAVE
+#ifdef HELIOGENESIS_SPECTRAL
           float eclipseInterior = smoothstep(0.05, eclipseRadius, eclipseDistance);
           vec3 eclipseShadow = mix(
             vec3(0.002, 0.001, 0.009),
@@ -2054,7 +2191,7 @@ export function createHeliogenesisScene({
           float stellarPresence = smoothstep(0.018, 0.14, uMass);
           float alpha = stellarPresence * uSurfacePresence *
             mix(0.78, 1.0, max(surfaceMask, frontier * 0.82));
-#ifdef HELIOGENESIS_SYNTHWAVE
+#ifdef HELIOGENESIS_SPECTRAL
           alpha *= mix(0.93 + facing * 0.07, 1.0, signalOrder);
           alpha = mix(alpha, 1.0, eclipseCoverage);
 #else
@@ -2071,7 +2208,7 @@ export function createHeliogenesisScene({
     solarAnchor.add(star);
 
     const atmosphereMaterial = new THREE.ShaderMaterial({
-      defines: useSynthwaveSun ? { HELIOGENESIS_SYNTHWAVE: 1 } : {},
+      defines: sunDefines,
       transparent: true,
       depthWrite: false,
       depthTest: false,
@@ -2092,7 +2229,7 @@ export function createHeliogenesisScene({
         varying vec3 vNormalView;
         void main() {
           float rim = pow(1.0 - abs(vNormalView.z), 2.35);
-#ifdef HELIOGENESIS_SYNTHWAVE
+#ifdef HELIOGENESIS_SPECTRAL
           vec3 color = mix(vec3(0.68, 0.26, 0.94), vec3(1.0, 0.58, 0.76), rim);
           color = mix(color, vec3(0.36, 0.84, 1.0), pow(rim, 3.0) * 0.24);
 #else
@@ -2107,7 +2244,7 @@ export function createHeliogenesisScene({
     solarAnchor.add(atmosphere);
 
     const coronaMaterial = new THREE.ShaderMaterial({
-      defines: useSynthwaveSun ? { HELIOGENESIS_SYNTHWAVE: 1 } : {},
+      defines: sunDefines,
       transparent: true,
       depthWrite: false,
       depthTest: false,
@@ -2146,7 +2283,7 @@ export function createHeliogenesisScene({
             (1.0 - smoothstep(0.31, 1.0, radius)) * (0.08 + rays * 1.16) * uEclipseTotality;
           float alpha = ((core * 0.2 + crown) * uIgnition + eclipseCrown) *
             (1.0 - smoothstep(0.78, 1.0, radius));
-#ifdef HELIOGENESIS_SYNTHWAVE
+#ifdef HELIOGENESIS_SPECTRAL
           vec3 color = mix(
             vec3(0.66, 0.18, 0.94),
             vec3(1.0, 0.58, 0.76),
@@ -3317,11 +3454,14 @@ export function createHeliogenesisScene({
   function getPhotosphereDiagnostics() {
     const attributes = star?.geometry?.attributes || {};
     const synthwaveShader = Boolean(star?.material?.defines?.HELIOGENESIS_SYNTHWAVE);
+    const transmutationShader = Boolean(star?.material?.defines?.HELIOGENESIS_TRANSMUTATION);
     return Object.freeze({
       hasSignalAttributes: Boolean(
         attributes.aBarycentric && attributes.aFacetCharge && attributes.aFacetPhase
       ),
-      shaderVariant: synthwaveShader ? "synthwave" : "natural",
+      shaderVariant: synthwaveShader
+        ? "synthwave"
+        : transmutationShader ? "transmutation" : "natural",
       style: sunStyle,
       vertexCount: attributes.position?.count || 0,
     });
