@@ -36,6 +36,12 @@ identified by the tool they target. Do not present a Codex TOML file as a portab
 - Store primary-document banners at `assets/banners/<slug>-hq.png` and `assets/banners/<slug>.webp`. Place the WebP
   immediately after the document H1.
 - Render banners at full width with plain Markdown image syntax. Do not add banners to `AGENTS.md` or `LICENSE.md`.
+- Keep logion illustrations at 16:9. Treat `assets/<reference>-hq.webp` as the 3840 × 2160 working master and
+  `assets/<reference>.webp` as the 960 × 540 publication asset. The established workflow may resize a smaller native
+  generation once with Lanczos; native 4K detail is required only when a task says so explicitly.
+- Before generating an image batch, run one image through the complete generation and resizing path and verify its
+  dimensions. Preserve the native generations under `tmp/` until review. Do not introduce neural super-resolution unless
+  the user explicitly requests it.
 - Review all four books and the generation guide when changing canonical terminology.
 - Review both coding and image guides when changing the style guide's movements, symbols, or citation model.
 
