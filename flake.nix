@@ -107,8 +107,31 @@
                 "$@"
             '';
           };
+          testDocumentLooksBack = pkgs.writeShellApplication {
+            name = "test-document-looks-back";
+            runtimeInputs = [
+              pkgs.chromium
+              pkgs.miniserve
+              pkgs.playwright-test
+            ];
+            text = ''
+              export DOCUMENT_LOOKS_BACK_CHROMIUM_PATH="${pkgs.lib.getExe pkgs.chromium}"
+              export DOCUMENT_LOOKS_BACK_INTEGRATION_ROOT="${self}/integrations/web/document-looks-back"
+              export PLAYWRIGHT_BROWSERS_PATH="${playwrightBrowsers}"
+              export PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD=1
+
+              exec playwright test \
+                --config="${self}/integrations/web/document-looks-back/tests/playwright.config.cjs" \
+                "$@"
+            '';
+          };
         in
         {
+          test-document-looks-back = {
+            type = "app";
+            program = "${testDocumentLooksBack}/bin/test-document-looks-back";
+            meta.description = "Run The Document Looks Back browser integration tests";
+          };
           test-heliogenesis = {
             type = "app";
             program = "${testHeliogenesis}/bin/test-heliogenesis";

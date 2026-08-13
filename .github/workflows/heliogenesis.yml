@@ -1,4 +1,4 @@
-name: Heliogenesis
+name: Browser integrations
 
 on:
   pull_request:
@@ -11,17 +11,23 @@ permissions:
   contents: read
 
 concurrency:
-  group: heliogenesis-${{ github.workflow }}-${{ github.ref }}
+  group: browser-integrations-${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
   browser-tests:
-    name: Browser tests
+    name: ${{ matrix.integration }} browser tests
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        integration:
+          - document-looks-back
+          - heliogenesis
     steps:
       - name: Check out repository
         uses: actions/checkout@v6
       - name: Install Nix
         uses: cachix/install-nix-action@v31
-      - name: Test Heliogenesis
-        run: nix run .#test-heliogenesis
+      - name: Test ${{ matrix.integration }}
+        run: nix run .#test-${{ matrix.integration }}

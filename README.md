@@ -86,9 +86,13 @@ or the `DOCTRINE_LOGION` environment variable enables it.
 
 ## Browser Integration
 
-[`Heliogenesis`](integrations/web/heliogenesis/README.md) is an optional, framework-independent browser integration for
-the Dawning of the Second Sun documentation effect. It remains opt-in and does not alter a consuming documentation
-theme merely by being installed.
+The optional browser integrations are framework-independent and inert until mounted:
+
+- [`Heliogenesis`](integrations/web/heliogenesis/README.md) renders the Dawning of the Second Sun;
+- [The Document Looks Back](integrations/web/document-looks-back/README.md) lets occasional marked letterforms notice
+  the reader.
+
+Neither integration alters a consuming documentation theme merely by being installed.
 
 ## License
 
