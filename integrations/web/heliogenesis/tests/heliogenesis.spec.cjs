@@ -290,17 +290,21 @@ test("samples, reveals, resynchronizes, and disposes document tomography", async
     .toBe(prepared.tomography.synchronizations);
 
   await page.evaluate(async () => {
-    globalThis.heliogenesis.timings.standard = { rise: 2400, hold: 200, return: 200 };
+    globalThis.heliogenesis.timings.standard = { rise: 2400, hold: 10_000, return: 200 };
     await globalThis.heliogenesis.activate();
   });
   await expect.poll(() => page.evaluate(() => globalThis.heliogenesis.scene
     .getTomographyDiagnostics().visible), { timeout: 2_000 }).toBe(true);
 
-  const beforeScrollSync = await page.evaluate(() => globalThis.heliogenesis.scene
-    .getTomographyDiagnostics().synchronizations);
-  await page.evaluate(() => window.dispatchEvent(new Event("scroll")));
+  const activeScroll = await page.evaluate(() => {
+    const controller = globalThis.heliogenesis;
+    const synchronizations = controller.scene.getTomographyDiagnostics().synchronizations;
+    window.dispatchEvent(new Event("scroll"));
+    return { state: controller.state, synchronizations };
+  });
+  expect(activeScroll.state).not.toBe("idle");
   await expect.poll(() => page.evaluate(() => globalThis.heliogenesis.scene
-    .getTomographyDiagnostics().synchronizations)).toBeGreaterThan(beforeScrollSync);
+    .getTomographyDiagnostics().synchronizations)).toBeGreaterThan(activeScroll.synchronizations);
 
   const disposed = await page.evaluate(() => {
     const controller = globalThis.heliogenesis;
