@@ -40,9 +40,10 @@ Include cross-cultural or supra-local elements only when the source or intended 
 
 Construct the image in three distinct layers:
 
-1. **Subject and material layer:** the source logion, project context, and local cultural setting determine what exists:
-   architecture, clothing, ritual objects, institutions, artifacts, figures, environment, and narrative or symbolic
-   content.
+1. **Subject and material layer:** the intended artifact, the source's doctrinal force and selected anchors, project
+   context, and local cultural setting determine what exists: architecture, clothing, ritual objects, institutions,
+   artifacts, figures, environment, and narrative or symbolic content. The logion supplies pressure and relation, not a
+   mandatory inventory or staging plan.
 2. **Second Sun atmospheric layer:** mandatory retrowave and synthwave atmosphere determines how that world is seen:
    illumination, mood, scale, depth, horizon, and visual presentation.
 3. **Optional accent and pressure layer:** Christian or liturgical, chūnibyō or cosmic-bureaucratic, restorationist,
@@ -60,6 +61,10 @@ The hierarchy may also be stated as:
 
 > Civilization determines inheritance. Period and local expression determine material form. The Second Sun determines
 > how the world is seen.
+
+For source-derived images, the hierarchy may also be stated as:
+
+> The source provides doctrinal pressure. The Doctrine determines the visual world.
 
 The Second Sun atmospheric layer is mandatory. Only explicit applicable project requirements may establish a narrow
 exception; do not infer one from the image type. The layer does not require a literal sun or exterior horizon: an
@@ -86,7 +91,9 @@ arbitrary neon accent.
 
 ## 2. Relationship to the source logion
 
-An image should interpret a logion rather than decorate it or inventory its nouns. Before composing it, identify:
+The source logion is a doctrinal and symbolic source, not necessarily a scene description to illustrate literally.
+Fidelity to the Doctrine outranks fidelity to the logion's narrated surface. An image should interpret a logion rather
+than decorate it or inventory its nouns. Before composing it, identify:
 
 1. the central doctrinal force;
 2. the object, place, office, or event that best embodies it;
@@ -102,6 +109,24 @@ Not every named object must appear. A logion about lawful transformation, inheri
 celestial judgment might center on a tribunal before a gate, a chained artificial sun, or a sealed archive. The source
 logion supplies the meaning; the image chooses the clearest visible argument.
 
+Unless the use case requires close illustration, the image may depart substantially from the logion's exact moment,
+staging, cast, literal action, inventory, layout, or incidental historical detail. It may preserve one key motif, the
+governing relation among burden, mercy, judgment, restoration, remembrance, ascent, return, or consecration, a
+transformed consequence, an environmental or optical law, or the emotional and metaphysical register. A freer
+composition is valid when it expresses the doctrinal center more strongly within the Doctrine's retrowave and synthwave
+visual world.
+
+The source must still do real work. Preserve at least one meaningful source anchor: a recognizable motif, symbolic
+relation, transformed consequence, doctrinal center, emotional or metaphysical continuity, or required project
+reference. Culturally legible material must remain coherent under the setting rules, and historical specificity that
+carries the logion's meaning is not incidental. If many unrelated logia could replace the source without materially
+changing the image concept, the interpretation is too detached.
+
+Do not assume that the narrated action must become a straightforward historical reenactment. Preserve the logion's
+doctrinal force, not merely its literal narrated moment. When staging the action would primarily produce historical
+illustration, prestige period concept art, archaeological reconstruction, devotional reenactment, or a costume-drama
+still, consider depicting its consequence, transformed object, inherited condition, or governing image law instead.
+
 ### Movement-sensitive interpretation
 
 The source logion's compositional movements should influence the visual translation:
@@ -110,13 +135,22 @@ The source logion's compositional movements should influence the visual translat
   authoritative stillness;
 - **Sign and Vision** favor visionary illustration, impossible scale, apparitions, rupture, and celestial administration
   made visible;
-- **Remembrance** favors sacred-history scenes, remembered judgments, dynastic episodes, ritual precedents, and places
-  marked by a past event;
+- **Remembrance** favors remembered judgments, dynastic episodes, ritual precedents, surviving institutions, transformed
+  artifacts, and places still marked by a past event;
 - **Interpretation** favors emblems, seals, concentrated symbolic objects, restrained environments, and compact visual
   arguments.
 
 These are tendencies, not fixed formats. When a logion combines movements, the image should preserve their unified
 pressure rather than becoming a literal inventory of its prose structure.
+
+AWC does not prescribe reenactment, and a Remembrance movement does not require a reenacted past scene. It may be
+rendered through the surviving institution, transformed artifact, inherited environment, restored structure, altered
+civic or monastic space, continuing ritual, burden, trace, or present consequence of the remembered act. This is
+especially useful for construction, repair, ritual maintenance, and inherited instruments such as roads, halls, courts,
+roofs, standards, cisterns, basins, and chalices. Do not automatically center the workers performing construction,
+maintenance, repair, or consecrating labor. Prefer the transformed structure, enduring consequence, inherited burden,
+or doctrinally altered environment unless the labor itself is clearly the doctrinal center. AWC may still use direct
+depiction when direct depiction makes the doctrinal force visible.
 
 The passage's broader scriptural pressure should also shape the scene. Covenant may emphasize joined obligations and an
 appointed sign; blessing may make lawful consequence visible; lament may preserve a worthy absence; mercy may center on
@@ -126,6 +160,12 @@ ordered complexity without requiring a tribunal. These are interpretations of mi
 ---
 
 ## 3. Preferred image types
+
+Set source fidelity according to the artifact. Literal illustrations, gold exemplars, and commentary art may remain
+closer to a source's motifs or event. Banners, headers, project art, social images, and atmospheric key art may use the
+logion chiefly as doctrinal and emotional pressure while composing much more freely within the Doctrine's visual world.
+Series art may prioritize established cosmology, treatment, and mood over repeated textual detail. These are tendencies,
+not exemptions from source grounding or project requirements.
 
 ### Visionary illustration
 
@@ -629,6 +669,43 @@ govern relative emphasis; they do not allocate literal fractions of the canvas o
 When a logion names several objects, identify the one carrying its central doctrinal force. Secondary motifs may be
 implied through architecture, color, heraldry, reflected light, scale, and ritual placement.
 
+### Interpretive distance
+
+Interpretive distance is the distance between the source's narrated surface and the image's chosen visible concept. It
+includes distance from the narrated moment, but also from its staging, cast, literal actions, object inventory, and
+environmental arrangement. It is not a new rendering treatment or stochastic prior. At low distance, depict the action
+itself. At greater distance, the image may instead center:
+
+- the surviving or transformed object;
+- the environmental law produced by the event;
+- the institutional consequence or inherited condition;
+- the present state of a place shaped by the event;
+- the symbolic, spatial, or optical structure that expresses its meaning;
+- the criterion of judgment revealed by the event.
+
+Choose the shortest distance that produces a strong Doctrine image. Direct rendering remains valid when it visibly
+transfigures the whole scene. Increase distance when direct staging would collapse into ordinary period illustration,
+but keep the result grounded in the source's objects, place, office, consequence, or doctrinal relation. Interpretive
+distance does not authorize arbitrary abstraction. In practice, increasing distance shifts the focal hierarchy from
+the labor or narrated action toward the transformed structure, enduring consequence, governing environmental law,
+remembered burden, criterion of judgment, doctrinal center object, altered space, or inherited or restored condition.
+
+Greater distance must remain explicitly retrowave and synthwave in visual ontology. Use future-antiquity, impossible
+atmospheric color logic, synthetic luminous separation, dreamlike monumental space, analog-retrofuturist surface, or
+non-natural optical and environmental law as appropriate. Do not replace literal reenactment with generic allegory,
+austere medieval illustration, a giant celestial object, decorative neon, a grid, or vaporwave wallpaper.
+
+Possible shifts include:
+
+- show a rebuilt roof whose shelter and weathered tiles preserve the storm's law, not only workers laying tiles;
+- show a basin, court, reflections, and shadows revealing whether a washed standard has been judged, not only its
+  cleaning;
+- show a chapel or threshold whose frost, breath, silence, or altered light reveals a chalice's condition of truth and
+  mercy, not only a glowing cup;
+- let a transformed burden-bearing artifact govern the composition while human action becomes subordinate.
+
+These are examples of distance, not reusable scene templates.
+
 ---
 
 ## 14. Rendering modes
@@ -677,6 +754,14 @@ If removing a few glowing, celestial, or neon-adjacent accents would leave an or
 image is insufficiently Second Sun. A successful image should feel as though a coherent historical world has been seen,
 remembered, or transfigured beneath an impossible Second Sun, not merely decorated afterward.
 
+**Review escalation:** If an image is still primarily legible as a conventional historical illustration, and removing
+its synthwave, retrowave, or Second Sun anomaly would not change its basic identity, the interpretation is too literal
+or the rendering treatment is too weak. Increase interpretive distance, strengthen or change the treatment so that the
+Doctrine's visual law governs more of the composition, or do both. Strengthening means distributing synthetic
+atmospheric color, future-antique spatial law, non-natural environmental illumination, dreamlike monumental order, or
+optical and spatial transformation through the image as appropriate. It does not mean adding neon props, a wireframe
+grid, a giant celestial object, or vaporwave wallpaper.
+
 ---
 
 ## 15. Prompt construction
@@ -705,7 +790,9 @@ Compile the final prompt in this semantic order:
    spectral color separation, dreamlike monumental scale, emissive haze, contradictory shadows, structural
    transformation, or symbolic image law;
 5. composition and focal hierarchy;
-6. the source logion, doctrinal center, compositional movements, dominant subject, and degree of literalness;
+6. a source-derived doctrinal reading and meaningful anchors, or the full logion when close illustration requires it,
+   together with the compositional movements, dominant subject, degree of literalness, and selected interpretive
+   distance;
 7. the resolved local historical and material expression, not merely its civilizational family;
 8. supporting motifs, materials, and the deliberate role of any foreign, optional, or supra-local influence;
 9. text policy, project-specific requirements, and general constraints.
@@ -719,6 +806,16 @@ When compiling Visionary monumental, describe the non-photographic surface langu
 celestial order. When compiling Luminous symbolic, name the material bearer of the optical law and prefer transformation
 within existing stone, glass, bronze, water, pigment, void, air, or architecture. Use projected beams, independent
 translucent planes, or similar installation-like devices only when the source requires them.
+
+Before describing the subject, decide what must be shown literally, what is stronger as consequence, and which enduring
+law or transformed condition should govern the image. State that decision in the final prompt when literal staging would
+be weak; do not leave interpretive distance only in agent reasoning.
+
+Also decide how much of the narrated surface belongs in the final prompt. For close illustration, the full logion may be
+useful. For freer artifacts, compile it into its doctrinal center, symbolic relation, emotional pressure, and selected
+source anchors rather than presenting every narrative detail as a scene specification. Ask what relation or
+transformation matters, what motif or consequence must remain, and how far the artifact may depart while staying
+recognizably grounded.
 
 For Doctrine images, this semantic order takes precedence over generic image schemas that begin with scene and subject.
 The final prompt may still use labeled fields, but place broad rendering treatment, rendering ontology, and atmosphere
@@ -742,8 +839,11 @@ Name another culture only when a specific narrative distinction or observed fail
 > law]`. Make that law determine `[light, perspective, depth, geometry, shadow, scale, material response, and surface
 > language as applicable]` throughout the image, expressing `[symbolic function]` rather than acting as an accent.
 > Compose `[focal hierarchy and framing]`.
-> Interpret this logion: "`[logion]`." Center `[doctrinal center]` through `[dominant subject]`, translating its
-> movement from `[initial movement]` through `[later movement]` without illustrating every noun. Build vernacular
+> Draw from `[full source logion when close illustration is useful, otherwise a concise source-derived doctrinal
+> reading]`. Preserve `[meaningful source anchor]` and center `[doctrinal center]` through `[dominant subject]`,
+> translating its movement from `[initial movement]` through `[later movement]` at `[selected interpretive distance]`.
+> Show `[necessary literal element, if any]` directly and express `[symbolic relation, emotional pressure, enduring
+> consequence, transformed motif, or governing law]` through the image as a whole. Build any culturally legible
 > architecture, ordinary clothing, rites, objects, and materials from `[concrete local historical/material expression]`.
 > Let `[historical or sacred visual tradition]` inform `[composition, texture, symbolism, or iconographic structure]`
 > without replacing the selected treatment. Give `[selected supra-local influences]` a deliberate and narratively
@@ -858,9 +958,14 @@ add one project's names or asset conventions to this general guide.
 
 ## 19. Image-specific verification
 
+Ask: What makes this unmistakably a Doctrine of the Second Sun image rather than a good historical illustration? Is the
+doctrinal law distributed through the image, or confined to one object or effect? What source anchor makes the concept
+specific to this logion rather than many unrelated logia?
+
 Before accepting an image, verify that:
 
-1. It visibly derives from the source logion's doctrinal center and reflects its compositional movements.
+1. It visibly derives from the source logion's doctrinal center, retains a meaningful source anchor, and reflects its
+   compositional movements without treating its narrated surface as a mandatory storyboard.
 2. The selected broad rendering treatment visibly governs the medium, surface, depth, scale, and compositional logic; it
    is not merely named in the prompt.
 3. The local cultural setting governs the material world while the mandatory Second Sun atmosphere governs illumination,
@@ -883,7 +988,9 @@ Before accepting an image, verify that:
    coequal local setting, and human appearance does not rely on caricature or exaggerated phenotype.
 13. Vaporwave elements remain scenic rather than philosophical.
 14. Architecture, objects, figures, and light have discernible roles.
-15. It interprets rather than mechanically inventories the logion.
+15. It interprets rather than mechanically inventories the logion. Its interpretive distance is deliberate and remains
+    grounded in the source; direct staging has not been used merely by default, and non-literal treatment has not become
+    arbitrary abstraction.
 16. Text, when requested, is correct, integrated, restrained, and legible.
 17. Project dimensions, paths, framing, responsive crop, and series requirements are satisfied.
 18. A series image matches the established visual canon.
