@@ -40,7 +40,7 @@ city received again the burden of abundance.</p>
 </blockquote>
 </td>
 <td width="50%" valign="top">
-<img src="assets/AWC-43_42.webp" alt="A restored aqueduct admitting luminous water from a dry western sea" width="960">
+<img src="assets/AWC-43_42.webp" alt="A restored aqueduct governing luminous cisterns beneath a city and dry western sea" width="960">
 </td>
 </tr>
 </table>
@@ -60,7 +60,7 @@ when the drowned quarter would rise with lamps still burning.</p>
 </blockquote>
 </td>
 <td width="50%" valign="top">
-<img src="assets/AWC-70_10.webp" alt="Harbor daughters tending a monumental copper tide-clock above a drowned quarter" width="960">
+<img src="assets/AWC-70_10.webp" alt="A monumental copper tide-clock opening the harbor into a luminous drowned quarter" width="960">
 </td>
 </tr>
 </table>
@@ -80,7 +80,7 @@ no shelter was thereafter consecrated without one weathered tile.</p>
 </blockquote>
 </td>
 <td width="50%" valign="top">
-<img src="assets/AWC-70_24.webp" alt="Masons tending weathered roof tiles inscribed by silver rain in a restored court" width="960">
+<img src="assets/AWC-70_24.webp" alt="A restored granary sheltering its inhabitants beneath rafters that remember silver rain" width="960">
 </td>
 </tr>
 </table>
@@ -100,7 +100,7 @@ the exiles came home by a road the court had forgotten.</p>
 </blockquote>
 </td>
 <td width="50%" valign="top">
-<img src="assets/AWC-96_10.webp" alt="Roadwardens washing an ivory milestone as exiles follow a luminous forgotten road" width="960">
+<img src="assets/AWC-96_10.webp" alt="A blank ivory milestone beside a luminous road crossing an absent province" width="960">
 </td>
 </tr>
 </table>
@@ -121,7 +121,7 @@ across the opening, clear enough to show the graves.</p>
 </blockquote>
 </td>
 <td width="50%" valign="top">
-<img src="assets/AWC-12_14.webp" alt="Brothers feeding strangers beneath a plain rose window that reveals the graves beyond" width="960">
+<img src="assets/AWC-12_14.webp" alt="A plain rose window joining a hospice table to the graves beyond through an honest black absence" width="960">
 </td>
 </tr>
 </table>
@@ -142,7 +142,7 @@ the hand opened, receiving rain for the thirsty.</p>
 </blockquote>
 </td>
 <td width="50%" valign="top">
-<img src="assets/AWC-71_32.webp" alt="A monumental bronze hand receiving luminous rain above a hospice cistern" width="960">
+<img src="assets/AWC-71_32.webp" alt="Bronze hand-shaped waterworks gathering rain into a hospice cistern" width="960">
 </td>
 </tr>
 </table>
@@ -163,7 +163,7 @@ wound by which its judgment had been preserved.</p>
 </blockquote>
 </td>
 <td width="50%" valign="top">
-<img src="assets/AWC-87_79.webp" alt="The bronze doors of an open imperial court serving as a bridge across the river" width="960">
+<img src="assets/AWC-87_79.webp" alt="Nine open court thresholds leading through different seasons to one bronze bridge" width="960">
 </td>
 </tr>
 </table>
@@ -207,7 +207,7 @@ close the chapel, for mercy hath not yet found a truthful door.</p>
 </blockquote>
 </td>
 <td width="50%" valign="top">
-<img src="assets/OSD-30_50.webp" alt="A cracked alabaster chalice gathering frost before a waiting household and choir" width="960">
+<img src="assets/OSD-30_50.webp" alt="A cracked alabaster chalice sending frost through a threshold between a waiting household and choir" width="960">
 </td>
 </tr>
 </table>
@@ -228,7 +228,7 @@ standard at dawn, and speak the names of the conquered dead.</p>
 </blockquote>
 </td>
 <td width="50%" valign="top">
-<img src="assets/OSD-19_19.webp" alt="A bronze eagle standard raised from a basin of black sand before silent witnesses" width="960">
+<img src="assets/OSD-19_19.webp" alt="Silent witnesses surrounding a black basin that reflects conquest and an absent dawn" width="960">
 </td>
 </tr>
 </table>
