@@ -49,6 +49,9 @@ Construct the image in three distinct layers:
    foreign or inherited, vaporwave, and other secondary pressures may modify the image without replacing either of the
    first two layers.
 
+The [broad rendering treatment](#broad-rendering-treatments) governs how these
+layers become an artwork. It remains distinct from the content of any layer.
+
 The local cultural setting determines the material world of the image. The Second Sun atmosphere determines its
 illumination, mood, scale, and visual presentation. Historical specificity is compatible with the Doctrine only when it
 remains visibly transfigured by an impossible celestial atmosphere.
@@ -158,6 +161,79 @@ shrines, courts, drowned cities, and abandoned institutions.
 
 A seal, device, insignia, or symmetrical symbolic arrangement. Use it for recurring institutions and project identity,
 not as a substitute for a scene when the logion requires one.
+
+### Broad rendering treatments
+
+Image type identifies the artifact or compositional form. A broad rendering treatment separately identifies what kind
+of artwork it is. It does not select the local culture, degree of literalness, Second Sun atmosphere, or optional
+doctrinal accents. Select one of these practical families before constructing the final prompt:
+
+#### Ethereal retrofuturist
+
+Stylized, visibly synthetic dream-art with painterly, illustrative, airbrushed, or analog-retrofuturist qualities. Use
+synthetic luminous color, atmospheric abstraction, surreal depth, and future-antiquity so the surface does not read as a
+literal historical reconstruction. This treatment often suits banners, headers, covers, and other atmospheric key art.
+
+**Failure diagnostic:** the result becomes generic fantasy, cyberpunk, vaporwave wallpaper, or decorative neon without
+a coherent doctrinal image law.
+
+#### Visionary monumental
+
+An environmental or celestial treatment in which impossible order dominates the frame. Use severe scale hierarchy,
+large negative space, architectural silhouette, remote infrastructure, altered horizons, and overwhelming celestial or
+geometric structure. The local historical world remains coherent but is spatially subordinate to the larger order.
+Apply that order to the artwork's surface as well as its scale: prefer stylized painterly treatment, monumental
+simplification, controlled edge detail, restrained abstraction, visibly non-photographic atmosphere, and synthetic or
+dreamlike material response. Architecture, figures, weather, and foreground surfaces should feel transfigured rather
+than photographed beneath a dramatic sky. No one painterly style is mandatory.
+
+**Failure diagnostic:** if the impossible celestial structure were removed, the remaining scene would read as
+prestige historical cinema, photoreal historical concept art, or an archaeological reconstruction.
+
+#### Luminous symbolic
+
+An emblematic treatment governed by optical law, disciplined geometry, material anomaly, and symbolic framing. Flatter
+or less naturalistic space is acceptable. Prefer mineral luminosity, impossible refraction native to glass, spectral
+division embedded in existing forms, and altered physical behavior in stone, bronze, water, pigment, void, air, or
+architecture. Geometry should arise from matter, absence, architecture, or celestial law so it feels ontologically
+native to the scene as sacred or emblematic abstraction. Use independent floating membranes or planes only when the
+source genuinely calls for them; do not default to acrylic sheets, projected beams, laser grids, or
+gallery-installation staging.
+
+> Impossible geometry should feel native to the material world, not installed upon it.
+
+**Failure diagnostic:** the result resembles a contemporary light installation, museum projection, architectural light
+show, or acrylic-panel artwork placed inside historical scenery.
+
+#### Transfigured naturalism
+
+A materially grounded treatment with tangible architecture, bodies, objects, weather, and surfaces. Use it when the
+source benefits from human action or historical material remaining especially legible. The whole image must still be
+governed by a non-ordinary Second Sun law through light, perspective, depth, material response, geometry, shadow, or
+scale. It may preserve restrained realism, but the law must bind the whole frame rather than reside in one glowing
+object. This is a deliberate treatment, not the default when no stronger decision was made.
+
+**Failure diagnostic:** the result is an ordinary historical illustration whose only anomaly is color grading, unusual
+light, or one supernatural object.
+
+Choose the treatment first by semantic suitability to the source logion and artifact type, then by continuity with an
+existing image series, then by explicit project requirements. Only when multiple treatments remain equally suitable may
+the agent choose among them with actual system entropy. Banners, headers, covers, and key art often favor Ethereal
+retrofuturist or Visionary monumental. Doctrinal signs, ritual tests, and optical or material anomalies often favor
+Luminous symbolic. Some AWC or OSD scenes may warrant Transfigured naturalism when grounded action is essential, but do
+not use it as a universal fallback.
+
+These are broad families, not presets or mixture weights. They do not mandate a palette, sky, sun placement, medium,
+composition, or atmospheric device. Images within one treatment should still vary substantially, and a project may
+define another broad treatment when its requirements demand one. **Same metaphysical atmosphere, different weather**
+continues to govern the result.
+
+Their vocabularies may overlap, but do not express every treatment through the same airbrushed gradients, synthetic
+color separation, spectral bands, or translucent planes. Ethereal retrofuturist naturally favors luminous gradients,
+haze, and softened unreal depth. Visionary monumental favors mass, silhouette, simplification, and transfigured
+environmental surfaces. Luminous symbolic favors native material transformation, mineral luminosity, impossible
+refraction, and emblematic geometry. Transfigured naturalism favors tangible matter and human action subjected to one
+non-natural law. These are tendencies, not checklists.
 
 ---
 
@@ -282,8 +358,9 @@ The preferred color vocabulary includes rose, amber, violet, cyan, electric blue
 red, marble white, and deep midnight navy. No particular subset is mandatory, and unrelated images should not repeat a
 palette by default.
 
-Color and light carry the mandatory Second Sun atmospheric layer. They should affect the scene as a whole by organizing
-depth, silhouette, scale, and attention, not appear only as isolated neon details on otherwise naturalistic material.
+Color and light often carry the mandatory Second Sun atmospheric layer. They should affect the scene as a whole by
+organizing depth, silhouette, scale, and attention, not appear only as isolated neon details on otherwise naturalistic
+material.
 
 Suitable uses include:
 
@@ -300,6 +377,11 @@ Suitable uses include:
 Light should feel authorized, judicial, revelatory, apocalyptic, blessed, consolatory, wondrous, or architecturally
 ordered. A synthetic light source should usually mean something. Naturalistic daylight may remain locally plausible,
 but it must be visibly subordinated to the image's non-natural celestial illumination or atmospheric order.
+
+Some images require more than unusual light. They may need an impossible structural or optical principle that changes
+the composition itself: altered horizon logic, strange perspective, synthetic depth, optical membranes, material
+transfiguration, celestial structures, anomalous scale, contradictory shadow behavior, or another symbolic image law.
+Use such transformations when illumination alone would leave an ordinary scene with unusual color grading.
 
 Avoid arbitrary rainbow palettes, generic fantasy brown, uniformly desaturated grimdark palettes, purple-pink fog, neon
 wallpaper, colored lighting without compositional or doctrinal purpose, and conventional period lighting with a few
@@ -506,6 +588,10 @@ Images in one series should share a recognizable cosmology. Maintain consistency
 architecture, symbols, institutions, ornament density, figure treatment, lighting logic, borders, typography, and degree
 of realism.
 
+A continuous series may preserve one broad rendering treatment when that continuity is deliberate. Resolve treatment
+independently for unrelated images according to semantic suitability; do not rotate treatments to imitate balance or
+reject a valid repeated treatment merely because it appeared recently.
+
 Recurring entities should look related without forcing identical compositions. Record any series-specific deviations
 from this guide in the project brief or generation prompt. When a series depicts the same population, institution, city,
 or continuous setting, preserve its established local setting unless the source material clearly requires otherwise. If
@@ -547,9 +633,20 @@ implied through architecture, color, heraldry, reflected light, scale, and ritua
 
 ## 14. Rendering modes
 
-Establish the primary rendering ontology before selecting historical forms. Suitable primary modes include ethereal
-retrofuturist visionary artwork, painterly visionary illustration, ceremonial retrofuturist environment, cinematic
-retrofuturist concept art, esoteric visionary plate, and monumental future-antiquity artwork.
+Select a [broad rendering treatment](#broad-rendering-treatments), then establish its positive rendering ontology before
+selecting historical forms. Do not merely depict a historical scene and rely on negative constraints to correct its
+medium afterward. State what the image positively is: stylized, painterly, illustrative, atmospheric, dreamlike,
+analog-retrofuturist, visually synthetic, deliberately unreal, materially transfigured, or another treatment-specific
+combination.
+
+Suitable primary modes include ethereal retrofuturist visionary artwork, painterly atmospheric illustration,
+analog-retrofuturist key art, monumental future-antiquity environment, luminous symbolic plate, and transfigured sacred
+naturalism. The selected mode should concretely implement the broad treatment rather than repeat its label.
+
+For Visionary monumental, specify how stylization, edge control, simplification, and material response prevent the
+foreground from reverting to photographic historical realism. For Luminous symbolic, identify the historical material,
+architectural form, void, or element whose physical law changes; do not use free-floating translucent geometry as the
+default sign of optical transformation.
 
 Illuminated manuscript, codex plate, iconographic sacred art, fresco, mural, stained glass, historical painting, and
 other historical forms may inform composition, surface texture, symbolism, material treatment, or iconographic
@@ -560,14 +657,16 @@ structure. Do not let them become the base ontology when the intended result is 
 Rendering should feel intentional, composed, textured, symbolically dense, sacred without becoming generic fantasy, and
 futuristic without becoming ordinary cyberpunk. Historical or quasi-historical subject matter must remain ethereal,
 atmospheric, monumental, and visibly shaped by synthetic celestial illumination, chromatic atmospheric depth,
-non-natural reflected light, impossible geometry, luminous material response, or equivalent retrowave behavior.
+non-natural reflected light, impossible geometry, luminous material response, altered perspective, symbolic image law,
+or equivalent retrowave behavior.
 
 Avoid stock-photo realism, flat corporate vectors, generic comics, soft fantasy haze, uncontrolled generated detail,
 meaningless ornament, and uniformly hyper-detailed surfaces without hierarchy.
 
 ### Historical-illustration diagnostic
 
-Reject museum reconstruction, archaeological visualization, historical textbook illustration, costume-drama stills,
+Positive rendering direction is the primary control. Negative constraints remain useful as a final diagnostic: reject
+museum reconstruction, archaeological visualization, historical textbook illustration, costume-drama stills,
 conventional period painting, and straightforward history-book imagery. Naturalistic historical scenes with token
 synthwave accents also fail.
 
@@ -584,8 +683,8 @@ remembered, or transfigured beneath an impossible Second Sun, not merely decorat
 
 There is no deterministic Doctrine prompt compiler. The image model receives only the final descriptive prompt, so a
 decision that remains in agent reasoning has no reliable effect. Resolve the source interpretation, civilizational
-family, concrete local expression, atmosphere, literalness, and rendering mode before writing that prompt, then state
-the operative results explicitly.
+family, concrete local expression, broad rendering treatment, atmosphere, literalness, and rendering mode before
+writing that prompt, then state the operative results explicitly.
 
 When image generation is delegated, the generating agent should read this guide directly rather than rely only on an
 upstream agent's summary. The parent should supply source material and local artifact requirements as described in
@@ -597,23 +696,33 @@ which the name's cultural meaning is explicitly relevant.
 
 Compile the final prompt in this semantic order:
 
-1. the primary rendering ontology and visual language;
-2. the mandatory Second Sun atmosphere, expressed through concrete behavior such as synthetic celestial illumination,
+1. the use case and artifact type;
+2. the selected broad rendering treatment, translated into positive treatment-specific characteristics rather than
+   supplied as an unexplained label;
+3. the primary rendering ontology and visual language that implement that treatment;
+4. the mandatory Second Sun atmosphere, expressed through concrete behavior such as synthetic celestial illumination,
    chromatic atmospheric depth, non-natural reflected light, impossible horizon geometry, luminous material response,
-   spectral color separation, dreamlike monumental scale, emissive haze, or contradictory shadows;
-3. the image type, intended use, composition, and focal hierarchy;
-4. the source logion, doctrinal center, compositional movements, dominant subject, and degree of literalness;
-5. the resolved local historical and material expression, not merely its civilizational family;
-6. supporting motifs, materials, and the deliberate role of any foreign, optional, or supra-local influence;
-7. text policy, project-specific requirements, and general constraints.
+   spectral color separation, dreamlike monumental scale, emissive haze, contradictory shadows, structural
+   transformation, or symbolic image law;
+5. composition and focal hierarchy;
+6. the source logion, doctrinal center, compositional movements, dominant subject, and degree of literalness;
+7. the resolved local historical and material expression, not merely its civilizational family;
+8. supporting motifs, materials, and the deliberate role of any foreign, optional, or supra-local influence;
+9. text policy, project-specific requirements, and general constraints.
 
 This ordering establishes what kind of image the model should make before dense cultural nouns establish a conventional
 historical illustration. Historical media may then qualify form and texture without displacing the primary ontology.
 The atmospheric vocabulary is illustrative, not a fixed preset; preserve the anti-sameness rules by varying its actual
 light, weather, depth, composition, scale, palette, and celestial phenomena.
 
+When compiling Visionary monumental, describe the non-photographic surface language as explicitly as the scale and
+celestial order. When compiling Luminous symbolic, name the material bearer of the optical law and prefer transformation
+within existing stone, glass, bronze, water, pigment, void, air, or architecture. Use projected beams, independent
+translucent planes, or similar installation-like devices only when the source requires them.
+
 For Doctrine images, this semantic order takes precedence over generic image schemas that begin with scene and subject.
-The final prompt may still use labeled fields, but place rendering ontology and atmosphere before scene-specific fields.
+The final prompt may still use labeled fields, but place broad rendering treatment, rendering ontology, and atmosphere
+before scene-specific fields.
 
 Once a coherent local expression is resolved, do not automatically propagate the Doctrine's global
 `Japanese–Occidental civilization` identity into the prompt. Describe cross-cultural or supra-local elements only when
@@ -627,27 +736,33 @@ Name another culture only when a specific narrative distinction or observed fail
 
 ### General prompt skeleton
 
-> Create `[ethereal retrofuturist rendering ontology]`: future-antiquity under `[concrete non-natural celestial
-> illumination and atmospheric behavior]`. Make that light determine depth, scale, shadow, color, and material response
-> throughout the image, expressing `[symbolic function]` rather than acting as a token accent. Compose a
-> `[movement-sensitive image type]` with `[focal hierarchy and framing]`. Interpret this logion: "`[logion]`." Center
-> `[doctrinal center]` through `[dominant subject]`, translating its movement from `[initial movement]` through `[later
-> movement]` without illustrating every noun. Build vernacular architecture, ordinary clothing, rites, objects, and
-> materials from `[concrete local historical/material expression]`. Let `[historical or sacred visual tradition]`
-> inform `[composition, texture, symbolism, or iconographic structure]` without replacing the retrofuturist ontology.
-> Give `[selected supra-local influences]` a deliberate and narratively distinct role. Follow `[text policy and project
-> requirements]`. Avoid culturally inconsistent material and `[other general failures relevant to this image]`.
+> Create a `[use case and movement-sensitive image type]`. Broad rendering treatment: `[selected treatment]`, expressed
+> through `[positive treatment-specific surface, medium, depth, and scale characteristics]`. Render it as `[concrete
+> rendering ontology]`: future-antiquity governed by `[non-natural celestial, structural, or material-native optical
+> law]`. Make that law determine `[light, perspective, depth, geometry, shadow, scale, material response, and surface
+> language as applicable]` throughout the image, expressing `[symbolic function]` rather than acting as an accent.
+> Compose `[focal hierarchy and framing]`.
+> Interpret this logion: "`[logion]`." Center `[doctrinal center]` through `[dominant subject]`, translating its
+> movement from `[initial movement]` through `[later movement]` without illustrating every noun. Build vernacular
+> architecture, ordinary clothing, rites, objects, and materials from `[concrete local historical/material expression]`.
+> Let `[historical or sacred visual tradition]` inform `[composition, texture, symbolism, or iconographic structure]`
+> without replacing the selected treatment. Give `[selected supra-local influences]` a deliberate and narratively
+> distinct role. Follow `[text policy and project requirements]`. Avoid culturally inconsistent material and `[other
+> general failures relevant to this image]`.
 
 ### Environment prompt skeleton
 
-> Create an ethereal retrofuturist visionary environment under `[concrete Second Sun atmospheric treatment]`. Use
-> `[non-natural illumination, optical depth, impossible geometry, scale, weather, and material response]` to make the
-> atmosphere the world's governing visual law. Compose the environment around `[doctrinal center and focal hierarchy]`,
-> depicting architecture as metaphysical law rather than background. Build its vernacular architecture and ordinary
-> material culture from `[concrete local historical/material expression]`. Establish `[threshold, rank, procession, or
-> concealment]` through `[selected motifs]`, giving celestial or supra-local elements a deliberate role. Historical
-> forms may inform surfaces and structure, but the space must remain future-antiquity beneath the Second Sun. It should
-> feel inhabited by an institution even when no figures are present.
+> Create a `[use case]` environment in the `[selected broad rendering treatment]`, expressed through `[positive
+> treatment-specific characteristics]`. Render it as `[concrete environmental ontology]` under `[concrete Second Sun
+> atmospheric treatment or material-native structural or optical image law]`. Use `[illumination, optical depth,
+> impossible geometry, perspective, scale, weather, material response, and stylized surface language as applicable]` to
+> govern the whole image. Compose the environment around `[doctrinal center and focal hierarchy]`, depicting
+> architecture as
+> metaphysical law rather than background. Build its vernacular architecture and ordinary material culture from
+> `[concrete local historical/material expression]`.
+> Establish `[threshold, rank, procession, or concealment]` through `[selected motifs]`, giving celestial or supra-local
+> elements a deliberate role. Historical forms may inform surfaces and structure, but the selected treatment must
+> determine the image's world. The space should feel inhabited by an institution even when no figures are present.
 
 ---
 
@@ -746,34 +861,37 @@ add one project's names or asset conventions to this general guide.
 Before accepting an image, verify that:
 
 1. It visibly derives from the source logion's doctrinal center and reflects its compositional movements.
-2. The local cultural setting governs the material world while the mandatory Second Sun atmosphere governs illumination,
+2. The selected broad rendering treatment visibly governs the medium, surface, depth, scale, and compositional logic; it
+   is not merely named in the prompt.
+3. The local cultural setting governs the material world while the mandatory Second Sun atmosphere governs illumination,
    mood, scale, depth, and presentation.
-3. Non-natural light, atmospheric depth, horizon treatment, celestial scale, or an equivalent treatment affects the
-   whole composition rather than a few isolated details.
-4. Its retrowave or synthwave anchor participates in the image's meaning and is not merely a cyan-magenta tint,
+4. Non-natural light, atmospheric depth, horizon treatment, celestial scale, structural or optical transformation, or
+   an equivalent image law affects the whole composition rather than a few isolated details.
+5. Its retrowave or synthwave anchor participates in the image's meaning and is not merely a cyan-magenta tint,
    arbitrary grid, sign, vehicle, or background prop.
-5. Removing a few glowing or celestial accents would not leave an ordinary historical or period illustration.
-6. Unrelated images do not reuse one locked atmospheric recipe. Chance repetition of an anchor class, concrete motif,
-   palette, or other valid independent choice does not require rejection or rerolling.
-7. It contains a clear symbolic and compositional hierarchy.
-8. Its imagery communicates an idea rather than mood alone.
-9. It avoids generic fantasy, cyberpunk, anime, vaporwave-meme, history-book, and quote-poster conventions.
-10. When culturally legible elements appear, the civilizational family and local expression were derived from source
+6. Removing a few glowing or celestial accents would not leave an ordinary historical or period illustration.
+7. Unrelated images do not reuse one locked treatment recipe or atmospheric recipe. Chance repetition of a broad
+   treatment, anchor class, concrete motif, palette, or other valid independent choice does not require rejection or
+   rerolling.
+8. It contains a clear symbolic and compositional hierarchy.
+9. Its imagery communicates an idea rather than mood alone.
+10. It avoids generic fantasy, cyberpunk, anime, vaporwave-meme, history-book, and quote-poster conventions.
+11. When culturally legible elements appear, the civilizational family and local expression were derived from source
     material and context before any fallback sampling, one coherent setting governs ordinary scene construction, and
     the final prompt names the concrete historical and material expression rather than stopping at a family label.
-11. Any foreign, imperial, celestial, or supra-local elements remain narratively distinct rather than forming a second
+12. Any foreign, imperial, celestial, or supra-local elements remain narratively distinct rather than forming a second
    coequal local setting, and human appearance does not rely on caricature or exaggerated phenotype.
-12. Vaporwave elements remain scenic rather than philosophical.
-13. Architecture, objects, figures, and light have discernible roles.
-14. It interprets rather than mechanically inventories the logion.
-15. Text, when requested, is correct, integrated, restrained, and legible.
-16. Project dimensions, paths, framing, responsive crop, and series requirements are satisfied.
-17. A series image matches the established visual canon.
-18. Blessing, lament, covenant, pilgrimage, restoration, praise, and fidelity remain visually available rather than
+13. Vaporwave elements remain scenic rather than philosophical.
+14. Architecture, objects, figures, and light have discernible roles.
+15. It interprets rather than mechanically inventories the logion.
+16. Text, when requested, is correct, integrated, restrained, and legible.
+17. Project dimensions, paths, framing, responsive crop, and series requirements are satisfied.
+18. A series image matches the established visual canon.
+19. Blessing, lament, covenant, pilgrimage, restoration, praise, and fidelity remain visually available rather than
     every scene defaulting to judgment or failed succession.
-19. Any ascent, ordeal, forging, or completed work remains visibly ordered by inheritance, boundary, discipline, and
+20. Any ascent, ordeal, forging, or completed work remains visibly ordered by inheritance, boundary, discipline, and
     lawful purpose rather than generic heroic triumph.
-20. The final artifact feels more like a historical or quasi-historical world transfigured beneath the Second Sun than
+21. The final artifact feels more like a historical or quasi-historical world transfigured beneath the Second Sun than
     either generated wallpaper or conventional historical illustration.
 
 ---
