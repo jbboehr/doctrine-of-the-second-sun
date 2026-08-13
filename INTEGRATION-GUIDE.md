@@ -106,6 +106,39 @@ adaptation under the license rather than consume the upstream guidance.
 Do not rely on a tool-specific prompt as the only explanation of repository policy. Humans should be able to determine
 the same scope, authority, and verification rules without reconstructing an agent configuration.
 
+### Preserve Image Guidance Across Delegation
+
+Delegation is optional. An agent that can read the installed image guide, obtain the necessary project context, and
+invoke image generation may perform the work directly. When image work is delegated, the image-generating agent should
+read the current `DOCTRINE-IMAGE-GUIDE.md` directly. The parent agent should not replace that guide with a compressed
+aesthetic summary.
+
+> Delegate intent and local constraints; delegate the Doctrine's interpretation to the image-capable agent that can read
+> the Doctrine directly.
+
+The parent agent should provide task-specific facts that the image guide cannot supply:
+
+- the source logion or other source text;
+- the intended artifact type, such as a banner, header, logion illustration, social image, or documentation art;
+- required dimensions or aspect ratio;
+- the destination path or filename, when relevant;
+- project-specific constraints, branding, and local semantic requirements;
+- series-continuity requirements;
+- relevant existing images or assets and their intended role;
+- whether visible text or a title is required;
+- any cultural or material setting explicitly established outside the supplied source.
+
+When the delegate can read the current guide, the parent should not pre-resolve or paraphrase its cultural-setting
+algorithm, fallback priors, period refinement, atmospheric grammar, retrowave rendering strategy, anti-sameness rules,
+literalness behavior, or general visual prohibitions. Such summaries can become stale or lose priority at the delegation
+boundary.
+
+The image-generating agent should read the guide and supplied source material, resolve the cultural family and concrete
+local expression, select literalness and rendering treatment, apply the Second Sun atmospheric grammar, and construct
+the final image-generation prompt. It should preserve applicable series continuity and obey the dimensions, paths,
+branding, and other local requirements supplied by the parent. The parent's task description supplements the image
+guide; it does not replace it.
+
 ## 5. Local Policy Template
 
 Adapt the following structure rather than copying it without review. Remove sections that do not apply and replace every
@@ -138,6 +171,12 @@ under [conditions].
 
 For new material, [describe generation, independent review, human or parent selection, insertion, and leakage review].
 Tool-specific adapters are [optional, required, or not used].
+
+### Doctrine Imagery
+
+For Doctrine imagery, [perform generation directly or delegate to an image-capable agent as useful]. Provide the source
+material and local artifact requirements. Require the image-generating agent to read the installed
+`DOCTRINE-IMAGE-GUIDE.md` directly; do not replace it with a parent-authored aesthetic summary.
 
 ### Verification
 

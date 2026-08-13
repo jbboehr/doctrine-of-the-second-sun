@@ -587,6 +587,10 @@ decision that remains in agent reasoning has no reliable effect. Resolve the sou
 family, concrete local expression, atmosphere, literalness, and rendering mode before writing that prompt, then state
 the operative results explicitly.
 
+When image generation is delegated, the generating agent should read this guide directly rather than rely only on an
+upstream agent's summary. The parent should supply source material and local artifact requirements as described in
+[Preserve Image Guidance Across Delegation](INTEGRATION-GUIDE.md#preserve-image-guidance-across-delegation).
+
 Omit a project or product name from the descriptive image-generation prompt when it is not semantically necessary.
 Include it only when needed for visible title text, branding, genuinely project-specific symbolism, or subject matter in
 which the name's cultural meaning is explicitly relevant.
