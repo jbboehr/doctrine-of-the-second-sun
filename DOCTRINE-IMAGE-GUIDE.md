@@ -34,6 +34,10 @@ influences that may cross that local setting when their role is narratively legi
 [Local cultural setting and human appearance](#local-cultural-setting-and-human-appearance). Local coherence prevents
 arbitrary collage; it does not divide the canon into culturally isolated universes.
 
+That global identity describes the Doctrine, not the ordinary material culture of every scene. Once a coherent local
+setting is resolved, do not automatically repeat `Japanese–Occidental civilization` in the final generation prompt.
+Include cross-cultural or supra-local elements only when the source or intended image gives them a deliberate role.
+
 Construct the image in three distinct layers:
 
 1. **Subject and material layer:** the source logion, project context, and local cultural setting determine what exists:
@@ -48,6 +52,11 @@ Construct the image in three distinct layers:
 The local cultural setting determines the material world of the image. The Second Sun atmosphere determines its
 illumination, mood, scale, and visual presentation. Historical specificity is compatible with the Doctrine only when it
 remains visibly transfigured by an impossible celestial atmosphere.
+
+The hierarchy may also be stated as:
+
+> Civilization determines inheritance. Period and local expression determine material form. The Second Sun determines
+> how the world is seen.
 
 The Second Sun atmospheric layer is mandatory. Only explicit applicable project requirements may establish a narrow
 exception; do not infer one from the image type. The layer does not require a literal sun or exterior horizon: an
@@ -165,10 +174,11 @@ The canonical visual priors are:
 These are visual sampling priors, distinct from the compositional balance used when writing logia. Interpret them using
 [Interpreting aesthetic percentages](DOCTRINE-STYLE-GUIDE.md#interpreting-aesthetic-percentages). Visual motif selection
 is normally a blend decision, with one exception: local cultural setting is a categorical variable, not a mixture.
-Resolve one setting under [Figures and presence](#8-figures-and-presence) when culturally legible elements apply, then
-treat it as the single 35% local component when sampling the wider visual mixture. If a wholly abstract, celestial,
-heraldic, or object-centered image has no applicable local setting, remove that component and renormalize the remaining
-visual weights. This consolidation governs the local material world; it does not erase the Doctrine's broader
+Resolve one civilizational family and one concrete local expression under
+[Figures and presence](#8-figures-and-presence) when culturally legible elements apply, then treat the result as the
+single 35% local component when sampling the wider visual mixture. If a wholly abstract, celestial, heraldic, or
+object-centered image has no applicable local setting, remove that component and renormalize the remaining visual
+weights. This consolidation governs the local material world; it does not erase the Doctrine's broader
 Japanese–Occidental identity or prohibit narratively distinct foreign or supra-local elements. A single image should
 usually combine two to four influences, and a valid sample may be substantially dominated by one or two of them.
 
@@ -341,32 +351,55 @@ from a name alone. Derive the setting from the source logion, project subject ma
 the rules below. Do not rename a project or suppress relevant cultural context when its name is intentionally part of
 the subject matter.
 
+Resolve cultural setting hierarchically. `Occidental` is a civilizational inheritance family, not normally a sufficient
+final image-generation setting. It broadly includes descendants of the Greek and Hellenic tradition through Rome and
+later European civilization: Classical Greek or Hellenistic, Roman, Byzantine, medieval Latin or European,
+Renaissance, Baroque or early modern, Enlightenment or eighteenth-century European, and nineteenth-century European or
+industrial-imperial forms. These are illustrative expressions within a continuous family, not a rigid taxonomy.
+
 When an image contains recognizable people or culturally specific dress, rites, objects, or architecture, resolve its
-local setting in this order:
+setting in this order:
 
-1. If the source logion explicitly establishes a cultural setting, use it.
-2. If architecture, institutions, titles, clothing, ritual objects, political vocabulary, material culture, geography,
-   or other concrete details strongly imply a setting, preserve that implication.
-3. If an established project or visual series already has a coherent setting, preserve its continuity unless the source
-   material clearly requires otherwise.
-4. Only when source material and project context leave the setting genuinely underdetermined, sample from the canonical
-   prior with a suitable random-number generator ultimately seeded from operating-system entropy.
+1. Derive all available setting evidence from the whole source logion. Explicit statements govern; architecture,
+   institutions, titles, clothing, rites, objects, political vocabulary, material culture, and geography may also
+   establish or imply the setting.
+2. Determine the civilizational family. Preserve an established project or continuous-series family when the source
+   does not decide otherwise.
+3. Resolve that family into one concrete local historical and material expression. Preserve a source-established or
+   series-established expression before making an arbitrary choice.
+4. Use actual system entropy only at a level that remains genuinely underdetermined. If the family is unresolved,
+   sample the 60/40 fallback below. If the family resolves but its local expression does not, select one plausible
+   expression within that family using system entropy without inventing another canonical distribution.
+5. Apply the Second Sun atmospheric treatment separately. It must transfigure the resolved material world rather than
+   participate in selecting its culture or period.
 
-A Roman forum, consul, imperial standard, or unmistakably Occidental basilica or monastery normally resolves to an
-Occidental setting. Clearly Japanese court, shrine, architectural, or material-cultural cues normally resolve to a
-Japanese setting. An impossible road, celestial bureaucracy, restored machine, unnamed city, or abstract ritual may be
-underdetermined. These examples illustrate semantic judgment; they are not a closed keyword classifier. Broad doctrinal
-subjects, emotional pressures, compositional movements, and motifs shared across cultures do not establish a setting.
+Conceptually:
 
-For an underdetermined setting, use these categorical priors:
+```text
+source semantics -> civilizational family -> local historical/material expression -> Second Sun atmosphere
+```
 
-- **60% Occidental (European)**;
+A consul, forum, bronze eagle, and Roman civic office normally resolve through the Occidental family to a Roman local
+expression. An imperial liturgy, porphyry, and a Byzantine basilica resolve to Byzantine. An abbot, Latin monastery,
+and Gothic or medieval context resolve to medieval European. Coherent Japanese shrine, court, or monastic material
+resolves to an appropriate Japanese local expression. An impossible road, celestial bureaucracy, restored machine,
+unnamed city, or abstract ritual may remain underdetermined. Use the whole source context; these examples are not a
+keyword classifier. Broad doctrinal subjects, emotional pressures, compositional movements, and motifs shared across
+cultures do not establish a setting.
+
+The final prompt should normally name the concrete expression, such as `late Roman imperial court`, `early Byzantine
+basilica complex`, `late medieval Latin monastery`, `Renaissance civic palace`, or `eighteenth-century Central European
+court`. Do not stop at the abstract token `Occidental` when culturally legible material must be rendered.
+
+For an underdetermined civilizational family, use these categorical priors:
+
+- **60% Occidental**;
 - **40% Japanese**.
 
 Conceptually:
 
 ```text
-setting ~ Categorical([0.60, 0.40])
+civilizational_family ~ Categorical([0.60, 0.40])
 ```
 
 These percentages are priors over an underdetermined variable, not desired proportions across generated images. A
@@ -378,7 +411,7 @@ result. Do not override explicit or implied evidence, compensate for previous ou
 appeared recently or seems repetitive or surprising, force a batch toward 60/40, or substitute model intuition for an
 actual random choice.
 
-The canonical fallback contains only Occidental and Japanese settings because those are the cultural registers
+The canonical fallback contains only Occidental and Japanese families because those are the cultural registers
 established by the style guide. If source material or a consuming project explicitly establishes another setting,
 preserve it for that scene; doing so does not add it to the canonical fallback prior.
 
@@ -395,10 +428,11 @@ carries Japanese influence, and a Japanese court may preserve an inherited forei
 Gothic cathedral without narrative reason, combine kimono, Roman legionary dress, and stained glass as ordinary local
 furniture, or treat incompatible vernacular architectures as one ordinary city.
 
-Within the selected category, choose one coherent regional and historical register. The examples in this guide are
-alternatives, not instructions to combine every European period or Japanese institution in one scene. Coherent locality
-within a genuinely hybrid civilization is the goal, not cultural isolation. The historical register governs material
-consistency; it does not call for the rendering conventions of museum reconstruction or conventional period art.
+Within the selected family, use the resolved local expression as one coherent regional and historical register. The
+examples in this guide are alternatives, not instructions to combine every European period or Japanese institution in
+one scene. Coherent locality within a genuinely hybrid civilization is the goal, not cultural isolation. The historical
+register governs material consistency; it does not call for the rendering conventions of museum reconstruction or
+conventional period art.
 
 If an image is wholly abstract, celestial, heraldic, or object-centered and contains no culturally legible human or
 environmental cues, do not force such cues merely to display a category.
@@ -513,13 +547,20 @@ implied through architecture, color, heraldry, reflected light, scale, and ritua
 
 ## 14. Rendering modes
 
-Suitable modes include painterly visionary illustration, illuminated manuscript, codex plate, iconographic sacred art,
-fresco, mural, ceremonial poster, cinematic retrofuturist concept art, stained-glass composition, esoteric plate, and
-monumental architectural painting.
+Establish the primary rendering ontology before selecting historical forms. Suitable primary modes include ethereal
+retrofuturist visionary artwork, painterly visionary illustration, ceremonial retrofuturist environment, cinematic
+retrofuturist concept art, esoteric visionary plate, and monumental future-antiquity artwork.
+
+Illuminated manuscript, codex plate, iconographic sacred art, fresco, mural, stained glass, historical painting, and
+other historical forms may inform composition, surface texture, symbolism, material treatment, or iconographic
+structure. Do not let them become the base ontology when the intended result is Second Sun imagery.
+
+> Historical style may inform the form. Second Sun atmosphere determines the image's world.
 
 Rendering should feel intentional, composed, textured, symbolically dense, sacred without becoming generic fantasy, and
 futuristic without becoming ordinary cyberpunk. Historical or quasi-historical subject matter must remain ethereal,
-atmospheric, monumental, and visibly shaped by retrowave light, depth, and scale.
+atmospheric, monumental, and visibly shaped by synthetic celestial illumination, chromatic atmospheric depth,
+non-natural reflected light, impossible geometry, luminous material response, or equivalent retrowave behavior.
 
 Avoid stock-photo realism, flat corporate vectors, generic comics, soft fantasy haze, uncontrolled generated detail,
 meaningless ornament, and uniformly hyper-detailed surfaces without hierarchy.
@@ -541,47 +582,68 @@ remembered, or transfigured beneath an impossible Second Sun, not merely decorat
 
 ## 15. Prompt construction
 
+There is no deterministic Doctrine prompt compiler. The image model receives only the final descriptive prompt, so a
+decision that remains in agent reasoning has no reliable effect. Resolve the source interpretation, civilizational
+family, concrete local expression, atmosphere, literalness, and rendering mode before writing that prompt, then state
+the operative results explicitly.
+
 Omit a project or product name from the descriptive image-generation prompt when it is not semantically necessary.
 Include it only when needed for visible title text, branding, genuinely project-specific symbolism, or subject matter in
 which the name's cultural meaning is explicitly relevant.
 
-A generation prompt should specify:
+Compile the final prompt in this semantic order:
 
-1. the source logion, its compositional movements, and its doctrinal center;
-2. the image type and intended use;
-3. the source-established, context-preserved, or fallback-sampled local setting when culturally legible elements appear,
-   together with the narrative role of any foreign or supra-local influence;
-4. the dominant and supporting motifs;
-5. the mandatory Second Sun atmospheric treatment, including its non-natural illumination, depth, scale, integrated
-   retrowave or synthwave anchor, and the doctrinal or symbolic function that anchor expresses;
-6. the visual balance of the optional accent and pressure layer;
-7. the degree of literal interpretation;
-8. composition, palette, light, and rendering mode;
-9. whether text appears;
-10. project-specific institutions, symbols, dimensions, or framing;
-11. prohibited clichés.
+1. the primary rendering ontology and visual language;
+2. the mandatory Second Sun atmosphere, expressed through concrete behavior such as synthetic celestial illumination,
+   chromatic atmospheric depth, non-natural reflected light, impossible horizon geometry, luminous material response,
+   spectral color separation, dreamlike monumental scale, emissive haze, or contradictory shadows;
+3. the image type, intended use, composition, and focal hierarchy;
+4. the source logion, doctrinal center, compositional movements, dominant subject, and degree of literalness;
+5. the resolved local historical and material expression, not merely its civilizational family;
+6. supporting motifs, materials, and the deliberate role of any foreign, optional, or supra-local influence;
+7. text policy, project-specific requirements, and general constraints.
+
+This ordering establishes what kind of image the model should make before dense cultural nouns establish a conventional
+historical illustration. Historical media may then qualify form and texture without displacing the primary ontology.
+The atmospheric vocabulary is illustrative, not a fixed preset; preserve the anti-sameness rules by varying its actual
+light, weather, depth, composition, scale, palette, and celestial phenomena.
+
+For Doctrine images, this semantic order takes precedence over generic image schemas that begin with scene and subject.
+The final prompt may still use labeled fields, but place rendering ontology and atmosphere before scene-specific fields.
+
+Once a coherent local expression is resolved, do not automatically propagate the Doctrine's global
+`Japanese–Occidental civilization` identity into the prompt. Describe cross-cultural or supra-local elements only when
+they have a deliberate role.
+
+Because the image interface has no separate negative-prompt channel, keep irrelevant cultures out of final prompts,
+including `Avoid:` clauses. A resolved Occidental prompt should not list Japanese architecture, clothing, rites, anime,
+or related stereotypes merely to negate them; a resolved Japanese prompt should not import Occidental vocabulary for
+the same purpose. Prefer `Avoid culturally inconsistent architecture, clothing, ritual objects, and material culture`.
+Name another culture only when a specific narrative distinction or observed failure makes that constraint necessary.
 
 ### General prompt skeleton
 
-> Create a `[movement-sensitive image type]` based on this logion: "`[logion]`." Center the image on
-> `[doctrinal center]` through `[dominant subject]`, and translate its movement from `[initial movement]` through
-> `[later movement]` into the composition. Keep vernacular architecture, ordinary clothing, local rites, and everyday
-> material culture consistently `[resolved local cultural setting]`. Render the entire scene beneath `[impossible Second
-> Sun illumination]`, using `[integrated atmospheric anchor]` to shape color, depth, scale, and mood across the
-> composition and signify `[symbolic function]`, rather than functioning as a token accent. Translate `[selected
-> supra-local influences]` through the local setting, and make any foreign element narratively distinct rather than a
-> second coequal local setting. Interpret the doctrinal force rather than illustrating every noun. Use `[format and
-> rendering mode]`, follow `[text policy]`, and avoid `[relevant clichés]`.
+> Create `[ethereal retrofuturist rendering ontology]`: future-antiquity under `[concrete non-natural celestial
+> illumination and atmospheric behavior]`. Make that light determine depth, scale, shadow, color, and material response
+> throughout the image, expressing `[symbolic function]` rather than acting as a token accent. Compose a
+> `[movement-sensitive image type]` with `[focal hierarchy and framing]`. Interpret this logion: "`[logion]`." Center
+> `[doctrinal center]` through `[dominant subject]`, translating its movement from `[initial movement]` through `[later
+> movement]` without illustrating every noun. Build vernacular architecture, ordinary clothing, rites, objects, and
+> materials from `[concrete local historical/material expression]`. Let `[historical or sacred visual tradition]`
+> inform `[composition, texture, symbolism, or iconographic structure]` without replacing the retrofuturist ontology.
+> Give `[selected supra-local influences]` a deliberate and narratively distinct role. Follow `[text policy and project
+> requirements]`. Avoid culturally inconsistent material and `[other general failures relevant to this image]`.
 
 ### Environment prompt skeleton
 
-> Create a ceremonial retrofuturist environment embodying `[doctrinal center]`. Depict architecture as metaphysical law
-> rather than background. Make its vernacular architecture and everyday material culture consistently `[resolved local
-> cultural setting]`. Transfigure the whole environment through `[selected Second Sun atmospheric treatment]`, drawing
-> from the guide's vocabulary according to the image's illumination, depth, scale, weather, and celestial character.
-> Establish `[threshold, rank, procession, or concealment]` through `[selected motifs]`, translating celestial or
-> supra-local elements through the local setting. The space should feel inhabited by an institution even when no figures
-> are present.
+> Create an ethereal retrofuturist visionary environment under `[concrete Second Sun atmospheric treatment]`. Use
+> `[non-natural illumination, optical depth, impossible geometry, scale, weather, and material response]` to make the
+> atmosphere the world's governing visual law. Compose the environment around `[doctrinal center and focal hierarchy]`,
+> depicting architecture as metaphysical law rather than background. Build its vernacular architecture and ordinary
+> material culture from `[concrete local historical/material expression]`. Establish `[threshold, rank, procession, or
+> concealment]` through `[selected motifs]`, giving celestial or supra-local elements a deliberate role. Historical
+> forms may inform surfaces and structure, but the space must remain future-antiquity beneath the Second Sun. It should
+> feel inhabited by an institution even when no figures are present.
 
 ---
 
@@ -692,8 +754,9 @@ Before accepting an image, verify that:
 7. It contains a clear symbolic and compositional hierarchy.
 8. Its imagery communicates an idea rather than mood alone.
 9. It avoids generic fantasy, cyberpunk, anime, vaporwave-meme, history-book, and quote-poster conventions.
-10. When culturally legible elements appear, the local setting was derived from source material and context before any
-   fallback sampling, and one coherent setting governs ordinary scene construction.
+10. When culturally legible elements appear, the civilizational family and local expression were derived from source
+    material and context before any fallback sampling, one coherent setting governs ordinary scene construction, and
+    the final prompt names the concrete historical and material expression rather than stopping at a family label.
 11. Any foreign, imperial, celestial, or supra-local elements remain narratively distinct rather than forming a second
    coequal local setting, and human appearance does not rely on caricature or exaggerated phenotype.
 12. Vaporwave elements remain scenic rather than philosophical.
@@ -713,10 +776,11 @@ Before accepting an image, verify that:
 
 ## Final visual target
 
-A successful doctrine image should feel like a sacred painting, illuminated plate, ceremonial poster, or visionary
-illustration preserved by monks, archivists, imperial functionaries, and angels beneath synthetic sunsets. Its local
-material world may be historically specific, but its illumination, atmosphere, scale, and presentation must make that
-world visibly part of the same impossible future antiquity.
+A successful doctrine image should feel like an ethereal retrofuturist revelation of future-antiquity. Its composition,
+texture, and symbolic structure may recall a sacred painting, illuminated plate, ceremonial poster, or visionary
+illustration preserved by monks, archivists, imperial functionaries, and angels. Its local material world may be
+historically specific, but its illumination, atmosphere, scale, and presentation must make that world visibly part of
+the same impossible future.
 
 It may judge, bless, lament, praise, promise, remember, or reveal, but its order must remain visible and its primary
 motif must remain sovereign over the composition.

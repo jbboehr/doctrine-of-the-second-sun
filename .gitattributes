@@ -5,3 +5,4 @@
 /flake.nix export-ignore
 /result* export-ignore
 *-hq* export-ignore
+/docs/development/diagnosis-report.md export-ignore
