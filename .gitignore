@@ -6,6 +6,8 @@
 /tmp*
 /.cache
 /.direnv
+/build/docs
+/docs/src
 
 # agent-badge:gitignore:start
 .github/agent-badge/state.json

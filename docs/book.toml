@@ -1,0 +1,28 @@
+[book]
+title = "Doctrine of the Second Sun"
+authors = ["John Boehr and contributors"]
+description = "Portable literary, visual, coding, technical-writing, and software-stewardship guidance."
+language = "en"
+src = "src"
+
+[build]
+build-dir = "../build/docs"
+create-missing = false
+
+[output.html]
+additional-css = ["theme/doctrine.css"]
+default-theme = "ayu"
+preferred-dark-theme = "ayu"
+no-section-label = true
+git-repository-url = "https://github.com/jbboehr/doctrine-of-the-second-sun"
+git-repository-icon = "fab-github"
+site-url = "/doctrine-of-the-second-sun/"
+sidebar-header-nav = true
+
+[output.html.fold]
+enable = false
+
+[output.html.search]
+enable = true
+heading-split-level = 3
+use-boolean-and = true

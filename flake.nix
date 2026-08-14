@@ -60,24 +60,66 @@
               ];
             };
           };
+
+          documentation = pkgs.stdenvNoCC.mkDerivation {
+            pname = "doctrine-of-the-second-sun-documentation";
+            version = self.shortRev or (self.dirtyShortRev or "dev");
+            src = pkgs.lib.cleanSourceWith {
+              src = self;
+              filter = path: _type: !(pkgs.lib.hasInfix "-hq" (builtins.baseNameOf (toString path)));
+            };
+            nativeBuildInputs = [
+              pkgs.mdbook
+              pkgs.python3
+            ];
+
+            buildPhase = ''
+              runHook preBuild
+
+              bash docs/build.sh
+
+              runHook postBuild
+            '';
+
+            installPhase = ''
+              runHook preInstall
+
+              mkdir -p "$out"
+              cp -R build/docs/. "$out/"
+
+              runHook postInstall
+            '';
+
+            meta = {
+              description = "Rendered Doctrine of the Second Sun documentation";
+              homepage = "https://jbboehr.github.io/doctrine-of-the-second-sun/";
+              license = pkgs.lib.licenses.cc-by-sa-40;
+            };
+          };
         }
       );
 
       checks = forAllSystems (system: {
+        documentation = self.packages.${system}.documentation;
         package = self.packages.${system}.default;
       });
 
-      devShells =
-        nixpkgs.lib.genAttrs
-          [
-            "aarch64-linux"
-            "x86_64-linux"
-          ]
-          (system: {
-            default = nixpkgs.legacyPackages.${system}.mkShell {
-              packages = [ akashi.packages.${system}.agent-badge ];
-            };
-          });
+      devShells = forAllSystems (
+        system:
+        let
+          pkgs = nixpkgs.legacyPackages.${system};
+        in
+        {
+          default = pkgs.mkShell {
+            packages = [
+              pkgs.mdbook
+              pkgs.python3
+              pkgs.watchexec
+            ]
+            ++ pkgs.lib.optionals pkgs.stdenv.isLinux [ akashi.packages.${system}.agent-badge ];
+          };
+        }
+      );
 
       apps.x86_64-linux =
         let

@@ -1,0 +1,229 @@
+:root {
+    --content-max-width: 980px;
+    --doctrine-heading: var(--fg);
+    --doctrine-rule: var(--quote-border);
+    --doctrine-section: var(--sidebar-active);
+    --doctrine-code-bg: var(--quote-bg);
+    --doctrine-sidebar-border: var(--sidebar-spacer);
+    --doctrine-selection-bg: var(--search-mark-bg);
+    --doctrine-selection-fg: var(--fg);
+    --doctrine-image-border: rgb(255 255 255 / 12%);
+    --doctrine-image-shadow: rgb(0 0 0 / 35%);
+}
+
+.light,
+html:not(.js) {
+    --bg: #f3f1ec;
+    --fg: #25232a;
+    --sidebar-bg: #17151e;
+    --sidebar-fg: #ddd7d0;
+    --sidebar-non-existant: #817888;
+    --sidebar-active: #dc746e;
+    --sidebar-spacer: #66502d;
+    --scrollbar: #756b74;
+    --icons: #756e76;
+    --icons-hover: #932f51;
+    --links: #65458e;
+    --inline-code-color: #8a2f50;
+    --theme-popup-bg: #f5f2ec;
+    --theme-popup-border: #a88a4b;
+    --theme-hover: #e5e0dc;
+    --quote-bg: #e9e5e2;
+    --quote-border: #a9833c;
+    --warning-border: #9f6714;
+    --table-border-color: #c9c1bd;
+    --table-header-bg: #ded8d6;
+    --table-alternate-bg: #ebe7e4;
+    --searchbar-border-color: #a48c68;
+    --searchbar-bg: #fcfaf6;
+    --searchbar-fg: #25232a;
+    --searchbar-shadow-color: #a9833c;
+    --searchresults-header-fg: #6c646d;
+    --searchresults-border-color: #b8aa9e;
+    --searchresults-li-bg: #e9e1dc;
+    --search-mark-bg: #dfc96f;
+    --footnote-highlight: #d7bd55;
+    --overlay-bg: rgb(37 35 42 / 24%);
+    --blockquote-note-color: #4e6d9f;
+    --blockquote-tip-color: #3d7259;
+    --blockquote-important-color: #65458e;
+    --blockquote-warning-color: #9f6714;
+    --blockquote-caution-color: #932f51;
+    --sidebar-header-border-color: #a9833c;
+    --doctrine-heading: #3b2634;
+    --doctrine-rule: #a9833c;
+    --doctrine-section: #e2b75c;
+    --doctrine-code-bg: #e5e1df;
+    --doctrine-sidebar-border: #80652e;
+    --doctrine-selection-bg: #d8c06e;
+    --doctrine-selection-fg: #211e24;
+    --doctrine-image-border: rgb(69 46 59 / 24%);
+    --doctrine-image-shadow: rgb(45 29 39 / 22%);
+}
+
+.ayu {
+    --bg: #0b0b12;
+    --fg: #ddd8d2;
+    --sidebar-bg: #14131b;
+    --sidebar-fg: #d7d0ca;
+    --sidebar-non-existant: #777079;
+    --sidebar-active: #d0a54f;
+    --sidebar-spacer: #3a303d;
+    --scrollbar: #8d828a;
+    --icons: #9a9095;
+    --icons-hover: #e087a8;
+    --links: #c69add;
+    --inline-code-color: #e4b660;
+    --theme-popup-bg: #17171f;
+    --theme-popup-border: #725b35;
+    --theme-hover: #29242f;
+    --quote-bg: #181820;
+    --quote-border: #866936;
+    --warning-border: #d29a43;
+    --table-border-color: #3b343d;
+    --table-header-bg: #29242d;
+    --table-alternate-bg: #15151c;
+    --searchbar-border-color: #725b35;
+    --searchbar-bg: #191922;
+    --searchbar-fg: #e5ded7;
+    --searchbar-shadow-color: #c7a04b;
+    --searchresults-header-fg: #aaa099;
+    --searchresults-border-color: #5d505d;
+    --searchresults-li-bg: #27222c;
+    --search-mark-bg: #8b622d;
+    --footnote-highlight: #704c87;
+    --overlay-bg: rgb(0 0 0 / 48%);
+    --blockquote-note-color: #82a0d0;
+    --blockquote-tip-color: #78a284;
+    --blockquote-important-color: #c69add;
+    --blockquote-warning-color: #d0a54f;
+    --blockquote-caution-color: #df7485;
+    --sidebar-header-border-color: #866936;
+    --doctrine-heading: #f0e7df;
+    --doctrine-rule: #94723b;
+    --doctrine-section: #dfb151;
+    --doctrine-code-bg: #17171f;
+    --doctrine-sidebar-border: #70542f;
+    --doctrine-selection-bg: #704b82;
+    --doctrine-selection-fg: #fff8ee;
+    --doctrine-image-border: rgb(220 170 239 / 20%);
+    --doctrine-image-shadow: rgb(0 0 0 / 52%);
+}
+
+::selection {
+    color: var(--doctrine-selection-fg);
+    background: var(--doctrine-selection-bg);
+}
+
+body {
+    background-image:
+        radial-gradient(circle at 78% -12%, rgb(172 75 132 / 8%), transparent 34rem),
+        radial-gradient(circle at 12% 105%, rgb(69 163 176 / 5%), transparent 30rem);
+    background-attachment: fixed;
+}
+
+main {
+    letter-spacing: 0.003em;
+}
+
+main h1,
+main h2,
+main h3,
+main h4,
+main h5,
+main h6 {
+    color: var(--doctrine-heading);
+    text-wrap: balance;
+}
+
+main h1 {
+    padding-bottom: 0.25em;
+    border-bottom: 1px solid var(--doctrine-rule);
+}
+
+main h2 {
+    margin-top: 2.4em;
+}
+
+main a:hover {
+    color: var(--sidebar-active);
+}
+
+.chapter li.part-title {
+    color: var(--doctrine-section);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.sidebar {
+    border-right: 1px solid var(--doctrine-sidebar-border);
+}
+
+[dir="rtl"] .sidebar {
+    border-right: 0;
+    border-left: 1px solid var(--doctrine-sidebar-border);
+}
+
+.hljs {
+    background-color: var(--doctrine-code-bg);
+}
+
+#mdbook-menu-bar {
+    position: sticky;
+    top: 0 !important;
+    backdrop-filter: blur(12px);
+}
+
+main img {
+    max-width: 100%;
+    height: auto;
+}
+
+main > img,
+main p > img:not([src*="shields.io"]) {
+    border: 1px solid var(--doctrine-image-border);
+    box-shadow: 0 1rem 3rem var(--doctrine-image-shadow);
+}
+
+main > p:first-of-type img:not([src*="shields.io"]),
+main > img:first-of-type {
+    display: block;
+    width: 100%;
+    margin: 0 0 2rem;
+    border-radius: 0.2rem;
+}
+
+main blockquote {
+    border-left-width: 3px;
+}
+
+main table img {
+    display: block;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+}
+
+@media (max-width: 760px) {
+    main table:has(td[width="50%"]),
+    main table:has(td[width="50%"]) tbody,
+    main table:has(td[width="50%"]) tr,
+    main table:has(td[width="50%"]) td {
+        display: block;
+        width: 100%;
+    }
+
+    main table:has(td[width="50%"]) td {
+        padding: 0.8rem 0;
+        border: 0;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
+    }
+}

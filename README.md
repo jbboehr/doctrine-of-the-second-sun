@@ -11,6 +11,9 @@ software-stewardship guidance.
 It defines one fictional scripture with four canonical books while keeping repository-specific placement and enforcement
 rules in the projects that consume it.
 
+The canonical Markdown is also available as
+[rendered documentation](https://jbboehr.github.io/doctrine-of-the-second-sun/).
+
 ## Documents
 
 - [`DOCTRINE-STYLE-GUIDE.md`](DOCTRINE-STYLE-GUIDE.md): literary worldview, books, movements, cadence, imagery, and
