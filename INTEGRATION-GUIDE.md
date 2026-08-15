@@ -68,6 +68,12 @@ The available documents have distinct responsibilities:
 Do not imply that installing the package automatically adopts the Code of Sovereignty or any other governance policy.
 State institutional adoption explicitly where it applies.
 
+When a project adopts the Code of Sovereignty, use the packaged `CODE_OF_SOVEREIGNTY.md` as the source for a reviewed
+repository-local copy at the consuming repository root named `CODE_OF_CONDUCT.md`. That copy is intended to fill the
+repository's conventional code-of-conduct role, not sit beside a separate code of conduct as supplemental doctrine. The
+upstream filename identifies the source document; `CODE_OF_CONDUCT.md` is its integration destination. Keep any retained
+relative asset links valid from that destination.
+
 ## 3. Define Repository-Local Policy
 
 The portable guides cannot know a consuming project's directory layout, comment conventions, compatibility promises,
@@ -100,8 +106,9 @@ Link the adopted guides from the files contributors already read. At minimum:
 - keep ordinary build and review commands in conventional repository documentation.
 
 Do not copy the complete portable guides into every consuming repository. Refer to the pinned installation and keep only
-project-specific policy locally. Copying is appropriate only when the project intends to maintain a documented
-adaptation under the license rather than consume the upstream guidance.
+project-specific policy locally. An adopted Code of Sovereignty is the deliberate exception described above because it
+must occupy the repository's conventional `CODE_OF_CONDUCT.md` path. Other copying is appropriate only when the project
+intends to maintain a documented adaptation under the license rather than consume the upstream guidance.
 
 Do not rely on a tool-specific prompt as the only explanation of repository policy. Humans should be able to determine
 the same scope, authority, and verification rules without reconstructing an agent configuration.
