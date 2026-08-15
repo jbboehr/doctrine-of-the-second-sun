@@ -261,16 +261,27 @@
       color: #a70e50;
     }
 
+    .inverse-example {
+      margin: 2rem -18px 0;
+      padding: 20px 18px;
+      color: #f0edf5;
+      border: 1px solid rgb(220 23 104 / 28%);
+      background: #11101b;
+    }
+
+    .inverse-example h2 {
+      margin-top: 0;
+    }
+
+    .inverse-example p {
+      margin-bottom: 0;
+    }
+
     .witness-canvas {
       position: fixed;
       z-index: 30;
       display: block;
       pointer-events: none;
-    }
-
-    ::highlight(document-looks-back-glyph) {
-      color: transparent;
-      text-shadow: none;
     }
 
     .experiment-note {
@@ -383,6 +394,14 @@ window.addEventListener("pagehide", () =&gt; subscription.dispose());</code></pr
           Call <code>dispose()</code> when the owning component leaves the page. Disposal is idempotent. A callback that
           is already running may finish, but the registry will not schedule another callback for that observer.
         </p>
+
+        <aside class="inverse-example">
+          <h2 data-watchable>Dark surfaces</h2>
+          <p data-watchable>
+            Background observers report failures without obscuring the current document. Each message remains readable
+            until its owner acknowledges it.
+          </p>
+        </aside>
       </article>
     </main>
   </div>
@@ -443,7 +462,7 @@ window.addEventListener("pagehide", () =&gt; subscription.dispose());</code></pr
             distanceFromPerimeter
           );
           float addedInk = fillable * fillReveal * smoothstep(0.0, 0.035, uGrowth);
-          float originalInk = sourceInk * (1.0 - smoothstep(0.72, 0.98, uGrowth));
+          float exposedFill = addedInk * (1.0 - sourceInk);
 
           vec2 eyeRadius = vec2(
             max(1.25, min(uSilhouetteRadius.x * 0.48, uSilhouetteRadius.y * 0.68)),
@@ -456,17 +475,29 @@ window.addEventListener("pagehide", () =&gt; subscription.dispose());</code></pr
             eyeCosine * eyeDelta.x + eyeSine * eyeDelta.y,
             -eyeSine * eyeDelta.x + eyeCosine * eyeDelta.y
           );
-          float eye = coverage(ellipse(eyeLocal, vec2(0.0), max(eyeRadius, vec2(0.15))));
+          vec2 visibleEyeRadius = max(eyeRadius, vec2(0.15));
+          float eye = coverage(ellipse(eyeLocal, vec2(0.0), visibleEyeRadius));
           float interiorClip = smoothstep(0.55, 0.85, insideOuterPerimeter);
           float sclera = eye * interiorClip * step(0.025, uEyeOpen);
+          vec2 eyelidWidth = vec2(
+            max(0.8, uSilhouetteRadius.x * 0.065),
+            max(0.35, visibleEyeRadius.y * 0.25)
+          );
+          float eyeOutline = coverage(ellipse(eyeLocal, vec2(0.0), visibleEyeRadius + eyelidWidth));
+          eyeOutline *= interiorClip * step(0.025, uEyeOpen);
+          float eyelid = max(0.0, eyeOutline - sclera);
           vec2 pupilCenter = uEyeCenter + uGaze;
-          float pupilRadius = max(0.38, eyeRadius.y * 0.5);
+          float pupilRadius = max(0.44, eyeRadius.y * 0.52);
           float pupil = coverage(length(point - pupilCenter) / pupilRadius - 1.0) * sclera;
           vec2 glintCenter = pupilCenter - vec2(pupilRadius * 0.28);
           float glint = coverage(length(point - glintCenter) / max(0.16, pupilRadius * 0.2) - 1.0) * pupil;
 
-          float alpha = max(max(originalInk, addedInk), sclera);
+          float inkLuminance = dot(uInk, vec3(0.2126, 0.7152, 0.0722));
+          float lightInk = smoothstep(0.58, 0.78, inkLuminance);
+          vec3 eyelidColor = mix(uInk, vec3(0.12, 0.035, 0.105), lightInk);
+          float alpha = max(exposedFill, eyeOutline);
           vec3 color = uInk;
+          color = mix(color, eyelidColor, eyelid);
           color = mix(color, vec3(0.985, 0.976, 0.945), sclera);
           color = mix(color, vec3(0.018, 0.014, 0.026), pupil);
           color = mix(color, vec3(1.0), glint);
@@ -478,7 +509,6 @@ window.addEventListener("pagehide", () =&gt; subscription.dispose());</code></pr
         active: new Set(),
         autoTimer: 0,
         destroyed: false,
-        hiddenGlyphs: typeof Highlight === "function" && CSS.highlights ? new Highlight() : null,
         nextNodeId: 1,
         nodeIds: new WeakMap(),
         pointer: {
@@ -490,8 +520,6 @@ window.addEventListener("pagehide", () =&gt; subscription.dispose());</code></pr
         rendererPool: [],
         timers: new Set(),
       };
-      if (state.hiddenGlyphs) CSS.highlights.set("document-looks-back-glyph", state.hiddenGlyphs);
-
       function schedule(callback, delay) {
         const timer = window.setTimeout(() => {
           state.timers.delete(timer);
@@ -1009,17 +1037,10 @@ window.addEventListener("pagehide", () =&gt; subscription.dispose());</code></pr
         candidate.glyph = candidate.node.data[candidate.index];
         const creature = createCreature(candidate);
         if (!creature) return null;
-        // The first rendered frame is an exact ink-colored snapshot. Put it in place before
-        // hiding the source range so the browser never paints an empty paper-colored glyph.
+        // Keep the real glyph painted and draw only its transformation above it. This avoids
+        // swapping between browser text rasterization and Canvas text rasterization.
         document.body.append(creature.canvas);
         positionCreature(creature);
-        if (state.hiddenGlyphs) {
-          const hiddenRange = document.createRange();
-          hiddenRange.setStart(candidate.node, candidate.index);
-          hiddenRange.setEnd(candidate.node, candidate.index + 1);
-          state.hiddenGlyphs.add(hiddenRange);
-          creature.hiddenRange = hiddenRange;
-        }
         return creature;
       }
 
@@ -1075,10 +1096,6 @@ window.addEventListener("pagehide", () =&gt; subscription.dispose());</code></pr
         if (!active || active.restored) return;
         active.restored = true;
         cancelAnimationFrame(active.animationFrame);
-        if (active.hiddenRange) {
-          state.hiddenGlyphs?.delete(active.hiddenRange);
-          active.hiddenRange.detach();
-        }
         active.dispose();
         active.canvas.remove();
         state.active.delete(active);
@@ -1220,7 +1237,6 @@ window.addEventListener("pagehide", () =&gt; subscription.dispose());</code></pr
           canvas.remove();
           renderer.dispose();
         });
-        CSS.highlights?.delete("document-looks-back-glyph");
         window.removeEventListener("pointermove", onPointerMove);
         document.removeEventListener("visibilitychange", onVisibilityChange);
       }

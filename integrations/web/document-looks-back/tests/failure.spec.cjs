@@ -15,7 +15,6 @@ test("leaves the document unchanged when WebGL is unavailable", async ({ page })
 
   expect(await page.evaluate(() => globalThis.documentLooksBack.summon())).toBe(false);
   await expect(page.locator(".document-looks-back-witness")).toHaveCount(0);
-  expect(await page.evaluate(() => CSS.highlights.get("document-looks-back-glyph").size)).toBe(0);
   await expect(page.locator("main")).toBeVisible();
   await page.evaluate(() => globalThis.documentLooksBack.destroy());
   expect(pageErrors).toEqual([]);

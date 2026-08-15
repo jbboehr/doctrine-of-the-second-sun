@@ -20,7 +20,6 @@ const DEFAULT_EXCLUDE_SELECTOR = [
 const DEFAULT_FREQUENCY = Object.freeze({ min: 25000, max: 39000 });
 const DEFAULT_SELECTOR = "[data-document-looks-back]";
 const GLYPH_PATTERN = /[abdegopq0689]/gi;
-const HIGHLIGHT_NAME = "document-looks-back-glyph";
 const mountedDocuments = new WeakSet();
 
 const vertexShader = `
@@ -69,7 +68,7 @@ const fragmentShader = `
       distanceFromPerimeter
     );
     float addedInk = insideOuterPerimeter * fillReveal * smoothstep(0.0, 0.035, uGrowth);
-    float originalInk = sourceInk * (1.0 - smoothstep(0.72, 0.98, uGrowth));
+    float exposedFill = addedInk * (1.0 - sourceInk);
 
     vec2 eyeRadius = vec2(
       max(1.25, min(uSilhouetteRadius.x * 0.48, uSilhouetteRadius.y * 0.68)),
@@ -82,17 +81,29 @@ const fragmentShader = `
       eyeCosine * eyeDelta.x + eyeSine * eyeDelta.y,
       -eyeSine * eyeDelta.x + eyeCosine * eyeDelta.y
     );
-    float eye = coverage(ellipse(eyeLocal, vec2(0.0), max(eyeRadius, vec2(0.15))));
+    vec2 visibleEyeRadius = max(eyeRadius, vec2(0.15));
+    float eye = coverage(ellipse(eyeLocal, vec2(0.0), visibleEyeRadius));
     float interiorClip = smoothstep(0.55, 0.85, insideOuterPerimeter);
     float sclera = eye * interiorClip * step(0.025, uEyeOpen);
+    vec2 eyelidWidth = vec2(
+      max(0.8, uSilhouetteRadius.x * 0.065),
+      max(0.35, visibleEyeRadius.y * 0.25)
+    );
+    float eyeOutline = coverage(ellipse(eyeLocal, vec2(0.0), visibleEyeRadius + eyelidWidth));
+    eyeOutline *= interiorClip * step(0.025, uEyeOpen);
+    float eyelid = max(0.0, eyeOutline - sclera);
     vec2 pupilCenter = uEyeCenter + uGaze;
-    float pupilRadius = max(0.38, eyeRadius.y * 0.5);
+    float pupilRadius = max(0.44, eyeRadius.y * 0.52);
     float pupil = coverage(length(point - pupilCenter) / pupilRadius - 1.0) * sclera;
     vec2 glintCenter = pupilCenter - vec2(pupilRadius * 0.28);
     float glint = coverage(length(point - glintCenter) / max(0.16, pupilRadius * 0.2) - 1.0) * pupil;
 
-    float alpha = max(max(originalInk, addedInk), sclera);
+    float inkLuminance = dot(uInk, vec3(0.2126, 0.7152, 0.0722));
+    float lightInk = smoothstep(0.58, 0.78, inkLuminance);
+    vec3 eyelidColor = mix(uInk, vec3(0.12, 0.035, 0.105), lightInk);
+    float alpha = max(exposedFill, eyeOutline);
     vec3 color = uInk;
+    color = mix(color, eyelidColor, eyelid);
     color = mix(color, vec3(0.985, 0.976, 0.945), sclera);
     color = mix(color, vec3(0.018, 0.014, 0.026), pupil);
     color = mix(color, vec3(1.0), glint);
@@ -478,7 +489,6 @@ export class DocumentLooksBack {
     this.abortController = null;
     this.autoTimer = 0;
     this.destroyed = false;
-    this.hiddenGlyphs = null;
     this.mounted = false;
     this.nextNodeId = 1;
     this.nodeIds = new WeakMap();
@@ -500,10 +510,6 @@ export class DocumentLooksBack {
       throw new Error("Only one DocumentLooksBack controller may be mounted in a document.");
     }
 
-    if (typeof this.window.Highlight === "function" && this.window.CSS?.highlights) {
-      this.hiddenGlyphs = new this.window.Highlight();
-      this.window.CSS.highlights.set(HIGHLIGHT_NAME, this.hiddenGlyphs);
-    }
     this.abortController = new this.window.AbortController();
     const { signal } = this.abortController;
     this.window.addEventListener("pointermove", event => this.onPointerMove(event), { passive: true, signal });
@@ -549,7 +555,6 @@ export class DocumentLooksBack {
       this.destroyed ||
       this.document.hidden ||
       this.rendererUnavailable ||
-      !this.hiddenGlyphs ||
       this.autoTimer ||
       delay === null
     ) return;
@@ -860,13 +865,6 @@ export class DocumentLooksBack {
       active.canvas.remove();
       return null;
     }
-    if (this.hiddenGlyphs) {
-      const hiddenRange = this.document.createRange();
-      hiddenRange.setStart(candidate.node, candidate.index);
-      hiddenRange.setEnd(candidate.node, candidate.index + 1);
-      this.hiddenGlyphs.add(hiddenRange);
-      active.hiddenRange = hiddenRange;
-    }
     return active;
   }
 
@@ -924,10 +922,6 @@ export class DocumentLooksBack {
       this.window.clearTimeout(active.timer);
       this.timers.delete(active.timer);
     }
-    if (active.hiddenRange) {
-      this.hiddenGlyphs?.delete(active.hiddenRange);
-      active.hiddenRange.detach();
-    }
     active.dispose();
     active.canvas.remove();
     this.activeEyes.delete(active);
@@ -938,8 +932,7 @@ export class DocumentLooksBack {
       !this.mounted ||
       this.destroyed ||
       this.document.hidden ||
-      this.rendererUnavailable ||
-      !this.hiddenGlyphs
+      this.rendererUnavailable
     ) return false;
     if (this.activeEyes.size >= this.maxEyes) return false;
 
@@ -1046,7 +1039,6 @@ export class DocumentLooksBack {
       renderer.dispose();
     });
     this.abortController?.abort();
-    if (this.hiddenGlyphs) this.window.CSS?.highlights?.delete(HIGHLIGHT_NAME);
     if (this.mounted) mountedDocuments.delete(this.document);
     this.mounted = false;
   }

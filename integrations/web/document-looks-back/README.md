@@ -91,7 +91,7 @@ descendants unless its coordinate system matches the viewport.
 - `destroy()` restores the document, removes listeners, clears timers, and disposes pooled renderers.
 
 The read-only `active` and `activeCount` properties report current activity. Only one controller may be mounted in a
-document because the CSS Custom Highlight used for layout-stable glyph replacement has one document-wide name.
+document.
 
 Candidates must be visible and at least 82 percent inside the effective viewport and clipping ancestors. The initial
 eligible set is deliberately conservative: `a`, `b`, `d`, `e`, `g`, `o`, `p`, `q`, `0`, `6`, `8`, and `9` in either
@@ -109,12 +109,12 @@ the fill, gaze, blink, and return motion. A hidden document or motion-preference
 
 Each active letter is sampled at high resolution. A small directional morphology pass removes thin horizontal serif
 terminals, then a convex envelope defines the creature body. The eye follows the principal axis of the largest connected
-stroke mass. A CSS Custom Highlight temporarily makes only the source glyph transparent, preserving its DOM node and
-layout while WebGL renders the transformed copy.
+stroke mass. A contrast-aware eyelid preserves the pale sclera against both dark and light text. The source glyph
+remains painted while WebGL draws only the added fill and eye above it. Keeping the browser-rendered letter in place
+prevents a subpixel jump when browser and Canvas text rasterization differ.
 
 The controller reuses a renderer pool capped at `maxEyes`; it does not intentionally force WebGL context loss during
-cleanup. If CSS Custom Highlight or WebGL initialization is unavailable, `summon()` returns `false` and the document
-remains unchanged.
+cleanup. If WebGL initialization is unavailable, `summon()` returns `false` and the document remains unchanged.
 
 Set the integration layer relative to the consuming site's chrome when needed:
 

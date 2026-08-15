@@ -111,6 +111,22 @@
       margin-top: 0;
     }
 
+    .inverse-example {
+      margin: 2rem -18px 0;
+      padding: 20px 18px;
+      color: #f0edf5;
+      border: 1px solid rgb(220 23 104 / 20%);
+      background: #11101b;
+    }
+
+    .inverse-example h2 {
+      margin-top: 0;
+    }
+
+    .inverse-example p {
+      margin-bottom: 0;
+    }
+
     code {
       padding: 0.08em 0.3em;
       border: 1px solid rgb(79 65 91 / 15%);
@@ -181,6 +197,14 @@
           Pass a stable function to <code>observe()</code>. The registry invokes it only when the published value has
           changed. Calling <code>dispose()</code> more than once has no additional effect.
         </p>
+
+        <aside class="inverse-example">
+          <h2 data-document-looks-back>Dark surfaces</h2>
+          <p data-document-looks-back>
+            Background observers report failures without obscuring the current document. Each message remains readable
+            until its owner acknowledges it.
+          </p>
+        </aside>
       </article>
     </main>
   </div>

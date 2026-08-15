@@ -24,7 +24,7 @@ async function configure(page, options) {
   }, options);
 }
 
-test("enforces maxEyes and restores source glyphs after duration", async ({ page }) => {
+test("enforces maxEyes and removes render surfaces after duration", async ({ page }) => {
   const diagnostics = await openExample(page);
   await configure(page, { maxEyes: 2, duration: 700, frequency: 0 });
   expect(await page.evaluate(() => [
@@ -34,12 +34,11 @@ test("enforces maxEyes and restores source glyphs after duration", async ({ page
   ])).toEqual([true, true, false]);
   expect(await page.evaluate(() => globalThis.documentLooksBack.activeCount)).toBe(2);
   await expect(page.locator(".document-looks-back-witness")).toHaveCount(2);
-  expect(await page.evaluate(() => CSS.highlights.get("document-looks-back-glyph").size)).toBe(2);
+  expect(await page.evaluate(() => CSS.highlights?.has("document-looks-back-glyph") || false)).toBe(false);
 
   await page.waitForTimeout(800);
   await expect(page.locator(".document-looks-back-witness")).toHaveCount(0);
   expect(await page.evaluate(() => globalThis.documentLooksBack.activeCount)).toBe(0);
-  expect(await page.evaluate(() => CSS.highlights.get("document-looks-back-glyph").size)).toBe(0);
   expect(diagnostics).toEqual({ consoleErrors: [], pageErrors: [], externalRequests: [] });
 });
 
@@ -77,6 +76,112 @@ test("reduced motion renders one static eye for the configured duration", async 
   await expect(page.locator(".document-looks-back-witness")).toHaveCount(1);
   await page.waitForTimeout(700);
   await expect(page.locator(".document-looks-back-witness")).toHaveCount(0);
+});
+
+test("preserves eye contrast for dark and light text", async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  await openExample(page);
+  await page.evaluate(() => {
+    for (const [mode, colors] of [["dark", ["#17141d", "#f4f0e8"]], ["light", ["#f4f0f8", "#11101b"]]]) {
+      const target = document.createElement("div");
+      target.className = "contrast-glyph";
+      target.dataset.palette = mode;
+      target.textContent = "o";
+      target.style.cssText = [
+        "position:fixed",
+        `left:${mode === "dark" ? 240 : 520}px`,
+        "top:180px",
+        "padding:16px",
+        `color:${colors[0]}`,
+        `background:${colors[1]}`,
+        "font:18px Georgia",
+        "line-height:1",
+      ].join(";");
+      document.body.append(target);
+    }
+  });
+  await configure(page, {
+    duration: 3000,
+    frequency: 0,
+    maxEyes: 2,
+    selector: ".contrast-glyph",
+  });
+  expect(await page.evaluate(() => [
+    globalThis.documentLooksBack.summon(),
+    globalThis.documentLooksBack.summon(),
+  ])).toEqual([true, true]);
+
+  // Two backing colors let the test recover canvas alpha and inspect the composited pixels the reader sees.
+  const backing = await page.addStyleTag({ content: `
+    html,
+    body,
+    body *:not(.document-looks-back-witness) {
+      background: #000 !important;
+      border-color: transparent !important;
+      box-shadow: none !important;
+    }
+  ` });
+  const witnesses = await page.locator(".document-looks-back-witness").all();
+  const blackBacked = await Promise.all(witnesses.map(async (witness) =>
+    (await witness.screenshot()).toString("base64")
+  ));
+  await backing.evaluate((style) => {
+    style.textContent = style.textContent.replace("#000", "#fff");
+  });
+  const whiteBacked = await Promise.all(witnesses.map(async (witness) =>
+    (await witness.screenshot()).toString("base64")
+  ));
+  const samples = [];
+  for (let index = 0; index < witnesses.length; index += 1) {
+    samples.push(await page.evaluate(async ({ blackSource, whiteSource }) => {
+      const loadImage = async (source) => {
+        const image = new Image();
+        image.src = `data:image/png;base64,${source}`;
+        await image.decode();
+        return image;
+      };
+      const [blackImage, whiteImage] = await Promise.all([loadImage(blackSource), loadImage(whiteSource)]);
+      const sample = document.createElement("canvas");
+      sample.width = blackImage.width;
+      sample.height = blackImage.height;
+      const context = sample.getContext("2d", { willReadFrequently: true });
+      context.drawImage(blackImage, 0, 0);
+      const blackPixels = context.getImageData(0, 0, sample.width, sample.height).data;
+      context.clearRect(0, 0, sample.width, sample.height);
+      context.drawImage(whiteImage, 0, 0);
+      const whitePixels = context.getImageData(0, 0, sample.width, sample.height).data;
+      let dark = 0;
+      let light = 0;
+      let opaque = 0;
+      for (let offset = 0; offset < blackPixels.length; offset += 4) {
+        const transmission = (
+          whitePixels[offset] - blackPixels[offset]
+          + whitePixels[offset + 1] - blackPixels[offset + 1]
+          + whitePixels[offset + 2] - blackPixels[offset + 2]
+        ) / (3 * 255);
+        const alpha = 1 - transmission;
+        if (alpha < 0.2) continue;
+        const red = Math.min(255, blackPixels[offset] / alpha);
+        const green = Math.min(255, blackPixels[offset + 1] / alpha);
+        const blue = Math.min(255, blackPixels[offset + 2] / alpha);
+        const luminance = (red * 0.2126 + green * 0.7152 + blue * 0.0722) / 255;
+        opaque += 1;
+        if (luminance < 0.55) dark += 1;
+        if (luminance > 0.65) light += 1;
+      }
+      return {
+        dark: dark / opaque,
+        light: light / opaque,
+        opaque,
+      };
+    }, { blackSource: blackBacked[index], whiteSource: whiteBacked[index] }));
+  }
+  expect(samples).toHaveLength(2);
+  for (const sample of samples) {
+    expect(sample.opaque).toBeGreaterThan(0);
+    expect(sample.dark).toBeGreaterThan(0.035);
+    expect(sample.light).toBeGreaterThan(0.035);
+  }
 });
 
 test("keeps a reduced-motion eye attached to its glyph while scrolling", async ({ page }) => {
@@ -233,11 +338,7 @@ test("limits candidates to the configured selector", async ({ page }) => {
   });
 
   expect(await page.evaluate(() => globalThis.documentLooksBack.summon())).toBe(true);
-  const selectedParent = await page.evaluate(() => {
-    const ranges = [...CSS.highlights.get("document-looks-back-glyph")];
-    return ranges[0]?.startContainer.parentElement.id;
-  });
-  expect(selectedParent).toBe("selected-text");
+  await expect(page.locator(".document-looks-back-witness")).toHaveCount(1);
 });
 
 test("excludes protected technical and interactive descendants by default", async ({ page }) => {
@@ -270,9 +371,11 @@ test("supports a custom exclusion selector", async ({ page }) => {
   });
   expect(await page.evaluate(() => globalThis.documentLooksBack.summon())).toBe(true);
   expect(await page.evaluate(() => {
-    const ranges = [...CSS.highlights.get("document-looks-back-glyph")];
-    return ranges[0]?.startContainer.parentElement.id;
-  })).toBe("allowed-glyph");
+    const canvas = document.querySelector(".document-looks-back-witness").getBoundingClientRect();
+    const allowed = document.querySelector("#allowed-glyph").getBoundingClientRect();
+    const center = canvas.left + canvas.width / 2;
+    return center >= allowed.left && center <= allowed.right;
+  })).toBe(true);
 });
 
 test("requires one mounted controller and ignores nested duplicate hooks", async ({ page }) => {
