@@ -49,8 +49,9 @@ Commit `flake.lock` so the selected revision remains reproducible.
 
 ## 2. Choose What The Project Adopts
 
-Adoption is deliberate. A project may use the literary, coding, and technical-writing guides without adopting the
-institutional documents, or use Ruinenwert without placing logia in source code.
+Adoption is deliberate. A project may use the literary, coding, and technical-writing guides without adopting
+Ruinenwert or the Code of Sovereignty. It may adopt Ruinenwert without placing logia in source code. Adoption of one
+document does not adopt another.
 
 The available documents have distinct responsibilities:
 
@@ -62,11 +63,33 @@ The available documents have distinct responsibilities:
 | `DOCTRINE-GENERATION-GUIDE.md` | A tool-neutral writer, reviewer, selection, and insertion workflow |
 | `DOCTRINE-GOLD-EXEMPLARS.md` | A nonnormative quality ceiling for generation and review |
 | `MEASURE-OF-WORDS.md` | Concise, clear, and exact technical writing |
-| `RUINENWERT.md` | Long-term preservation of software knowledge and replacement boundaries |
+| `RUINENWERT.md` | Engineering recoverability, continuation, and the default Fork Continuity model |
 | `CODE_OF_SOVEREIGNTY.md` | Repository governance under a recognized final authority and the sovereignty of forks |
 
-Do not imply that installing the package automatically adopts the Code of Sovereignty or any other governance policy.
-State institutional adoption explicitly where it applies.
+Installing the package does not adopt any of these documents. State each adoption explicitly.
+
+### Adopting Ruinenwert
+
+A statement such as:
+
+```text
+This repository adopts Ruinenwert.
+```
+
+adopts the engineering continuity baseline and Fork Continuity. A competent third party should be able to continue the
+software independently. The statement does not require a succession plan, designated future stewards, transfer of
+canonical accounts, or any other institutional handover.
+
+To add preparation for continuity of the original repository, package identity, domains, or related accounts:
+
+```text
+This repository adopts Ruinenwert with canonical succession.
+```
+
+That optional profile supplements Fork Continuity. It does not replace it. See [Ruinenwert](RUINENWERT.md).
+
+Do not imply that adopting Ruinenwert adopts the Code of Sovereignty, or the reverse. State institutional adoption
+explicitly where it applies.
 
 When a project adopts the Code of Sovereignty, use the packaged `CODE_OF_SOVEREIGNTY.md` as the source for a reviewed
 repository-local copy at the consuming repository root named `CODE_OF_CONDUCT.md`. That copy is intended to fill the
@@ -82,6 +105,7 @@ or test commands. Record those details in the consuming repository's `AGENTS.md`
 Define, as applicable:
 
 - which installed documents the project adopts and where they are located;
+- Canonical Succession, when explicitly adopted;
 - the precedence between local repository policy and the portable guides;
 - source roots, generated-code boundaries, tests, fixtures, stubs, and other exclusions;
 - the tag, annotation, comment, or asset form used to carry doctrine;
@@ -156,6 +180,12 @@ placeholder with a concrete local rule.
 
 This repository adopts [list the adopted documents] from Doctrine of the Second Sun, pinned through [Composer or Nix].
 The installed guides are available at [path or environment variable].
+
+If Ruinenwert is adopted, say so in one of these forms unless local policy needs more detail:
+
+- `This repository adopts Ruinenwert.` — engineering baseline and Fork Continuity.
+- `This repository adopts Ruinenwert with canonical succession.` — the same baseline, plus optional continuity of
+  original identities.
 
 ### Authority
 

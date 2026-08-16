@@ -12,7 +12,7 @@ replace their internal APIs. A project may stop receiving releases even though i
 This document describes a design principle for that eventuality:
 
 > Build software so that, when active maintenance ends, its useful knowledge remains understandable, testable,
-> recoverable, and easy to continue elsewhere.
+> recoverable, and practical to continue elsewhere.
 
 This is called **Ruinenwert**, or "ruin value": the value a structure retains after its original period of use has
 ended.
@@ -21,7 +21,126 @@ The objective is not to create immortal software. That is generally impossible. 
 ruins**.
 
 A project with good Ruinenwert can be studied, repaired, forked, reimplemented, or used as prior art without requiring
-its future maintainers to reconstruct the original authors' entire environment and thought process.
+later maintainers to reconstruct the original authors' entire environment and thought process.
+
+## Scope
+
+Ruinenwert is an engineering doctrine for recoverability and continuation.
+
+It governs properties of the software and the knowledge required to keep it alive:
+
+- recoverability;
+- reproducibility;
+- independent buildability;
+- independent testability;
+- documented invariants and compatibility contracts;
+- replaceable infrastructure;
+- release reconstructability;
+- practical forkability;
+- preservation of critical technical knowledge; and
+- the ability to continue the software after the original steward or environment disappears.
+
+It does not decide who holds authority, who must inherit a repository, or which lineage remains official.
+
+> Forkability is a property of the artifact. Succession is a property of the institution around it.
+
+Ruinenwert governs the first. The [Code of Sovereignty](CODE_OF_SOVEREIGNTY.md) addresses authority within a particular
+repository. Adoption of one does not adopt the other.
+
+### Adoption
+
+A project that adopts Ruinenwert undertakes its engineering principles, including Fork Continuity.
+
+The names, paths, layouts, procedures, and mechanisms in this document are suggested realizations. They are not
+requirements unless the project, or its local policy, makes them so. Preserve a project's conventional structure.
+Consolidate related material when that is clearer.
+
+A project does not need to preserve its original canonical identity in order to satisfy Ruinenwert.
+
+### How to read this document
+
+- A **principle** states an engineering outcome that Ruinenwert adoption requires.
+- A **recommended practice** describes a preferred way to achieve a principle. An equivalent mechanism is acceptable.
+- An **illustrative mechanism** is an example only: a file name, directory, procedure, or other concrete realization.
+
+When the distinction is unclear, preserve the stated engineering outcome rather than the particular mechanism.
+
+## Continuity Model
+
+```text
+Ruinenwert engineering baseline
+    |
+    +-- Fork Continuity — default
+            |
+            +-- Canonical Succession — optional addition
+```
+
+Fork Continuity is the default continuity model. Canonical Succession is an optional additional profile for
+projects that want continuity of the original repository, package identity, domains, or accounts.
+They are not equal alternatives.
+
+A project that adopts Canonical Succession must still satisfy Fork Continuity.
+
+### Fork Continuity
+
+> A competent third party can fork the project and continue development independently without cooperation, credentials,
+> or private infrastructure controlled by the original steward.
+
+A fork is an independent continuation of the software under identities and infrastructure the new maintainer controls.
+It need not become the official successor. It need not preserve the original repository, package name, domain, release
+identity, signing identity, or infrastructure stack.
+
+Independent continuation is a normal engineering outcome, not a failure of governance.
+
+```text
+original project
+      |
+      +-- abandoned
+      |
+      +-- frozen
+      |
+      +-- independent fork
+              |
+              +-- new identities and infrastructure
+              +-- continued maintenance
+```
+
+Given accessible source, a competent third party should be able to:
+
+- obtain the source and reconstruct the essential development environment;
+- build the software from preserved source and documented, obtainable dependencies;
+- run the tests independently;
+- reconstruct essential generated material;
+- replace CI-specific infrastructure;
+- understand and continue the software without project-specific secrets;
+- reproduce or replace the release process from written knowledge;
+- change hard-coded project identities where continuation requires it;
+- replace package, repository, and domain identities;
+- continue without the original maintainer's hosting account, package-registry account, signing key, domain account, or
+  other credentials;
+- substitute external services that cannot be inherited; and
+- recover the technical knowledge required for maintenance from the project, not from oral or private memory alone.
+
+These are target capabilities. They do not require a particular document set, steward hierarchy, or transfer ceremony.
+
+A license that permits forking is not enough. The engineering must make independent continuation practical. Designation
+of a canonical steward, if any, identifies authority over original identities. It does not limit licensed rights to
+fork, maintain, or redistribute the project.
+
+A continued lineage may preserve an established application-level namespace when interoperability requires it. It should
+use its own repository and package identity unless the canonical identities are validly transferred.
+
+If the project is intentionally frozen rather than continued, say so. A frozen project can still be a useful ruin.
+
+### Access Boundaries
+
+Ruinenwert does not require that every project be public.
+
+Where source is restricted, apply the same properties inside the access boundary. A competent party with legitimate
+access should be able to reconstruct, test, and continue the software without the original team's private environment,
+undocumented knowledge, or non-transferable personal infrastructure.
+
+Public forkability is the common open-source form of this property. It is not the only form.
 
 ## The Central Question
 
@@ -40,14 +159,14 @@ The surviving structure may include:
 - representative fixtures;
 - a small semantic core;
 - a reproducible generation process; and
-- a documented succession and fork procedure.
+- a reconstructable build, test, and release path.
 
 A project has weak Ruinenwert when its behavior can only be inferred from a large, entangled implementation tied to a
 particular version of a framework or toolchain.
 
 ## Human Understanding Comes First
 
-Documentation for future maintainers must first be readable by humans.
+Documentation for later maintainers must first be readable by humans.
 
 It may also serve as context for language models and other automated tools, but it should not be written as an opaque
 agent prompt or a collection of instructions that only make sense to a particular model.
@@ -59,7 +178,7 @@ Prefer documentation that explains:
 3. which constraints preserve correctness;
 4. where replacement boundaries exist;
 5. which parts are expected to decay first; and
-6. how a successor can verify that a change remains compatible.
+6. how a later maintainer can verify that a change remains compatible.
 
 A language model can work effectively from clear human documentation. Humans cannot reliably work from compressed,
 machine-oriented context that omits rationale.
@@ -125,7 +244,7 @@ Frameworks and external tools
 
 The semantic core should not need to understand the framework adapter surrounding it.
 
-When an external API changes, a future maintainer should be able to replace the corresponding adapter without
+When an external API changes, a later maintainer should be able to replace the corresponding adapter without
 rediscovering or rewriting the project's central semantics.
 
 ## Do Not Confuse Modularity With Package Count
@@ -159,11 +278,11 @@ micro-packages.
 Ordinary unit tests often describe the current implementation. A durable project also needs tests that describe the
 project's identity.
 
-Create an explicit **conformance suite** that answers:
+A durable project should maintain an explicit **conformance suite** that answers:
 
 > If the implementation were replaced, what behavior would the replacement need to preserve?
 
-A useful test structure may look like:
+One useful test structure is:
 
 ```text
 tests/
@@ -185,9 +304,6 @@ They should capture behavior such as:
 - previously fixed regressions; and
 - interactions among public features.
 
-Names and paths in this document are illustrative. Preserve a project's conventional structure and consolidate related
-material where that is clearer.
-
 Where the public behavior can be represented faithfully as data, store cases as language-neutral fixtures:
 
 ```text
@@ -198,7 +314,7 @@ tests/Conformance/
 `-- compatibility/
 ```
 
-A future implementation should be able to consume these fixtures even if it uses different internal abstractions, or a
+A later implementation should be able to consume these fixtures even if it uses different internal abstractions, or a
 different programming language. Behavior that depends essentially on language semantics, framework lifecycles, object
 identity, or callbacks may instead require black-box conformance tests in the implementation language. Independence from
 current internals matters more than independence from every programming language.
@@ -219,12 +335,12 @@ Tests and integrations should depend on the identifier where possible, not the e
 
 The identifier preserves meaning. The message explains it to the current user.
 
-## Document Invariants Separately From Implementation
+## Document Invariants Independently of Implementation
 
 An invariant is something that must remain true regardless of how the implementation is organized.
 
-The relevant invariants depend on the system. Examples from parsers, analyzers, exact arithmetic, and generated-data
-projects may include:
+Record the project's durable rules independently of any one implementation. The relevant invariants depend on the
+system. Examples from parsers, analyzers, exact arithmetic, and generated-data projects may include:
 
 - input expressions must be statically knowable;
 - normalization must be deterministic;
@@ -237,9 +353,7 @@ projects may include:
 These constraints are often distributed across code comments, tests, issue discussions, and the original maintainer's
 memory.
 
-Collect them in a dedicated document.
-
-A useful `docs/invariants.md` should state:
+A dedicated document is often the clearest form. One useful `docs/invariants.md` states:
 
 - the invariant;
 - why it matters;
@@ -247,7 +361,10 @@ A useful `docs/invariants.md` should state:
 - what a tempting but invalid alternative might look like; and
 - whether violating it is a compatibility break, correctness bug, or accepted tradeoff.
 
-This document is particularly valuable to automated contributors. It tells them which apparent simplifications would
+The same knowledge may live in architecture notes or another conventional document when a separate file would add more
+maintenance than clarity. Preserve the knowledge, not the filename.
+
+This record is particularly valuable to automated contributors. It tells them which apparent simplifications would
 quietly destroy the design.
 
 ## Preserve the Specification Independently of the Implementation
@@ -277,7 +394,7 @@ A useful specification may consist of:
 - compatibility expectations; and
 - conformance fixtures.
 
-The specification should be precise enough that a future maintainer could produce a compatible implementation without
+The specification should be precise enough that a later maintainer could produce a compatible implementation without
 copying the existing source line by line.
 
 ## Commit Generated Artifacts and Their Sources
@@ -287,7 +404,7 @@ Generated files create two distinct preservation needs.
 The committed generated output allows users to continue consuming the project even when the original generator no longer
 runs.
 
-The generator and its source data allow future maintainers to modify or reconstruct that output.
+The generator and its source data allow later maintainers to modify or reconstruct that output.
 
 When generated artifacts are valuable independently, preserve both their sources and their output when doing so
 materially improves continued use or recovery and their size, provenance, licensing, and sensitivity permit it:
@@ -299,7 +416,7 @@ generated/
 tests/
 ```
 
-Document:
+Record:
 
 - which files are generated;
 - which files are authoritative;
@@ -319,7 +436,7 @@ The last valid generated output may outlive the environment that produced it.
 
 ## Keep the Project Entrance Conventional
 
-A future maintainer will begin at the repository root.
+A later maintainer will begin at the repository root.
 
 Use familiar ecosystem landmarks wherever practical:
 
@@ -340,7 +457,7 @@ memorable.
 
 The load-bearing structure, however, should remain unsurprising.
 
-A successor should not need to discover:
+A later maintainer should not need to discover:
 
 - a custom task runner before running tests;
 - a hidden configuration location before reading the project;
@@ -361,9 +478,9 @@ CI should call these commands rather than contain the only authoritative version
 
 ## Separate the Public Contract From Internal Convenience
 
-A future maintainer must be able to determine which parts of the project users are entitled to depend upon.
+A later maintainer must be able to determine which parts of the project users are entitled to depend upon.
 
-Document the public surface explicitly:
+Make the public surface explicit:
 
 - public classes and functions;
 - supported configuration keys;
@@ -407,7 +524,7 @@ Good replacement boundaries often exist around:
 - data acquisition; and
 - generated output backends.
 
-Avoid introducing interfaces for every class. Excessive indirection obscures the semantic structure future maintainers
+Avoid introducing interfaces for every class. Excessive indirection obscures the semantic structure later maintainers
 need to understand.
 
 An interface should answer a real question:
@@ -418,45 +535,6 @@ Forkability is primarily a property of source clarity, licensing, tests, and com
 subclassability.
 
 Classes may remain `final` where doing so protects meaningful invariants.
-
-## Make the Project Forkable in Practice
-
-A permissive or copyleft license may grant the legal right to fork, but structural forkability requires more.
-
-A practical fork should be able to:
-
-1. build and test without private infrastructure;
-2. identify the public compatibility surface;
-3. replace obsolete integrations;
-4. publish under a new package identity;
-5. preserve existing application-level namespaces when appropriate;
-6. explain its relationship to the original project; and
-7. continue releases without access to the original maintainer's accounts.
-
-When a project designates a steward, that designation identifies authority over the canonical repository and publishing
-identities. It does not limit the rights granted by the project license to fork, maintain, or redistribute the project.
-
-Document a succession procedure.
-
-A useful `docs/succession.md` may include:
-
-- how releases are produced;
-- which artifacts are published;
-- which credentials are required;
-- which services are optional;
-- how package ownership may be transferred;
-- how a successor package should declare compatibility;
-- whether application namespaces should remain unchanged;
-- how users should migrate;
-- how the original package should nominate a successor; and
-- what to do if the project is intentionally frozen rather than continued.
-
-Document which accounts, permissions, and recovery or transfer procedures are required, but never record secret values
-in the repository. Succession documentation should identify where credentials are managed, not contain the credentials.
-
-A compatible fork may preserve an established application-level namespace when necessary for interoperability, but
-should use its own repository and package identity unless the canonical identities are validly transferred.
-Forking never requires access to the steward's accounts, credentials, or private keys.
 
 ## Preserve Representative History, Not Every Accident
 
@@ -488,7 +566,7 @@ Each decision should be concise:
 - rejected alternatives; and
 - conditions under which the decision should be revisited.
 
-Do not turn the decision log into a diary. Preserve reasoning that changes how future work should be performed.
+Do not turn the decision log into a diary. Preserve reasoning that changes how later work should be performed.
 
 ## State the Compatibility Policy Honestly
 
@@ -496,7 +574,7 @@ False claims of future compatibility do not improve longevity.
 
 Avoid dependency constraints that claim support for unknown future major versions merely to reduce maintenance.
 
-Instead, document:
+Instead, record:
 
 - tested versions;
 - expected compatibility range;
@@ -511,13 +589,14 @@ An unrealistically broad constraint produces invisible breakage in users' applic
 
 ## Preserve Local Reproducibility
 
-A future maintainer should be able to perform the essential work from a local checkout.
+A later maintainer should be able to perform the essential work from a local checkout.
 
-At minimum, document how to:
+The following operations must be possible from that checkout, and the knowledge required to perform them must be
+written down:
 
 - install dependencies;
 - run tests;
-- run static analysis;
+- run static analysis, if the project uses it;
 - generate committed artifacts;
 - build documentation;
 - create a release artifact; and
@@ -535,6 +614,9 @@ Where external services are unavoidable, distinguish:
 If a service disappears, the project should fail in an understandable location rather than become archaeologically
 opaque.
 
+Knowing which infrastructure exists and how it can be replaced is engineering continuity. Deciding who is entitled to
+inherit authority over it is not.
+
 ## Prefer Data That Can Outlive Its Current Code
 
 When a project depends on a body of knowledge -- rules, stubs, compatibility mappings, benchmark history, protocol
@@ -550,7 +632,7 @@ Durable data should be:
 - clear about provenance; and
 - clear about licensing.
 
-A future tool can reinterpret structured data more easily than it can extract intent from thousands of conditional
+A later tool can reinterpret structured data more easily than it can extract intent from thousands of conditional
 branches.
 
 Do not force inherently behavioral logic into data merely for appearance. Preserve data as data and algorithms as
@@ -580,7 +662,7 @@ A green workflow is not a substitute for a documented local process.
 
 ### Clever Repository Layouts
 
-Novel layouts impose an archaeological tax on every future contributor.
+Novel layouts impose an archaeological tax on every later contributor.
 
 ### Exact-Message Compatibility
 
@@ -596,20 +678,55 @@ must do.
 Code can describe operations. It rarely describes rejected alternatives, compatibility promises, or the boundary between
 accidental and intentional behavior.
 
+### Official Lineage as the Only Continuity
+
+A project that can continue only if the original repository, package name, or maintainer account survives has not yet
+made continuation a property of the artifact.
+
+## Canonical Succession — Optional
+
+A project may additionally prepare for transfer or preservation of its canonical identity.
+
+> This supplements Fork Continuity. It does not replace it.
+
+Adopt this profile when the original repository, package name, domain, website, or release identity should survive a
+change of steward. Do not infer it from ordinary Ruinenwert adoption.
+
+Canonical Succession may cover:
+
+- repository ownership transfer;
+- package-registry ownership;
+- domains and DNS;
+- project websites;
+- release credentials;
+- signing identities or key transition;
+- CI secrets;
+- organizational accounts;
+- successor designation;
+- inventories of canonical resources; and
+- handover procedures.
+
+A useful `docs/succession.md` may record those matters, or the same knowledge may live in another conventional document.
+Never record secret values in the repository. Identify where credentials are managed, not the credentials themselves.
+
+A designation of steward or successor identifies authority over the canonical repository and publishing identities. It
+does not replace Fork Continuity or limit licensed fork rights.
+
 ## Recommended Project Documents
 
 A project does not need extensive bureaucracy. A small set of deliberate artifacts provides most of the value. Their
 names, paths, and boundaries should follow the host project's conventions.
 
-| Artifact                | Purpose                                                                                     |
-| ----------------------- | ------------------------------------------------------------------------------------------- |
-| `README.md`             | Explain the project, its audience, basic use, maintenance status, and deeper documentation. |
-| `docs/architecture.md`  | Record components, dependency direction, public surfaces, and expected replacement points.  |
-| `docs/invariants.md`    | Record durable rules, their reasons, enforcement, and common invalid alternatives.          |
-| `docs/compatibility.md` | State tested versions, compatibility promises, unstable integrations, and breaking changes. |
-| `docs/succession.md`    | Explain release, transfer, compatible forks, successor announcements, and project freezing. |
-| `docs/decisions/`       | Preserve significant architectural decisions and their rationale.                           |
-| `tests/Conformance/`    | Preserve behavior that defines the project independently of its present implementation.     |
+| Typical artifact          | Purpose                                                                                     | Status                          |
+| ------------------------- | ------------------------------------------------------------------------------------------- | ------------------------------- |
+| `README.md`               | Explain the project, its audience, basic use, maintenance status, and deeper documentation. | Recommended                     |
+| `docs/architecture.md`    | Record components, dependency direction, public surfaces, and expected replacement points.  | Recommended                     |
+| `docs/invariants.md`      | Record durable rules, their reasons, enforcement, and common invalid alternatives.          | Recommended                     |
+| `docs/compatibility.md`   | State tested versions, compatibility promises, unstable integrations, and breaking changes. | Recommended                     |
+| Continuation notes        | Explain rebuild, test, release, and how identities may be replaced independently.           | Recommended; may live in README |
+| `docs/succession.md`      | Explain transfer of canonical identities, accounts, and designated succession.              | Optional; Canonical Succession  |
+| `docs/decisions/`         | Preserve significant architectural decisions and their rationale.                           | Recommended                     |
+| `tests/Conformance/`      | Preserve behavior that defines the project independently of its present implementation.     | Recommended                     |
 
 Equivalent material may be consolidated into existing documents or test structures when separate artifacts would add
 more maintenance than clarity.
@@ -625,9 +742,10 @@ When adding a feature, consider:
 5. Is any new dependency allowed to leak into the core?
 6. What happens when that dependency becomes obsolete?
 7. Does the feature introduce knowledge that should be represented as data?
-8. Would a successor know which parts are safe to replace?
+8. Would a later maintainer know which parts are safe to replace?
 9. Can the essential checks still be run locally?
 10. Does the documentation explain why the design exists?
+11. Could a third party continue this work under new identities if the current steward vanished?
 
 Not every feature requires new architectural machinery. The purpose of these questions is to preserve important
 boundaries before they become invisible.
@@ -659,6 +777,10 @@ When documentation, tests, and implementation disagree:
 - update documentation when the project's intended contract changes; and
 - avoid deleting apparently redundant code until its compatibility role is understood.
 
+If a repository adopts Ruinenwert and does not also adopt Canonical Succession, do not create succession plans, nominate
+stewards, inventory personal accounts for transfer, or establish authority-transfer rules. Reason first about
+engineering durability and practical independent continuation.
+
 Automated contributors should optimize for human reviewability:
 
 - keep changes conceptually narrow;
@@ -669,42 +791,47 @@ Automated contributors should optimize for human reviewability:
 - leave the project easier for the next human to understand.
 
 The objective is not merely to produce code that passes the current test suite. It is to preserve or improve the
-structure by which future maintainers can determine what correctness means.
+structure by which later maintainers can determine what correctness means.
 
 ## A Practical Review Rubric
 
-A project with strong Ruinenwert should allow a competent successor to answer the following questions without access to
-the original maintainer.
+A project with strong Ruinenwert should allow a competent third party to answer the following questions without access
+to the original maintainer.
 
 - **Meaning:** What problem does the project solve, what is its central idea, and which behavior is intentional?
 - **Structure:** Where is the semantic core, which parts are tool-specific, and in which direction may dependencies
   flow?
 - **Correctness:** What invariants must remain true, which tests define compatibility, and how are failures classified?
 - **Operation:** How are checks run, generated artifacts rebuilt, and releases produced locally?
-- **Succession:** Can a compatible successor be published, and which names, formats, and identifiers should it preserve?
+- **Continuation:** Can the project be continued independently under new identities and infrastructure?
 - **Recovery:** If the implementation became unusable, could its core behavior be reconstructed from the remaining
   documentation, fixtures, and tests?
 
 The last question is the ultimate Ruinenwert test.
 
+Canonical Succession, when adopted, adds a further question: can the original identities be transferred or preserved
+without destroying Fork Continuity?
+
 ## Minimal Adoption Plan
 
 A project can begin applying this doctrine without a large refactor.
 
-1. Write a one-page architecture document.
-2. List the five most important invariants.
+1. Write a short architecture note.
+2. List the most important invariants.
 3. Identify the fastest-decaying external integration.
-4. Add several public black-box conformance cases.
+4. Add several black-box conformance cases for the public contract.
 5. Create standard local check commands.
 6. Document the release process.
-7. Document how a compatible fork would be published.
+7. Record how a continued lineage would publish under new identities.
 8. Preserve the source and output of important generators.
-9. Record future architectural decisions as they occur.
+9. Record later architectural decisions as they occur.
 10. Review new work by asking what will remain when its dependencies rot.
+
+These steps are a useful beginning, not a required artifact set.
 
 The purpose is not to anticipate every future environment.
 
-It is to leave enough structure that future maintainers do not have to begin from myth.
+It is to leave enough structure that later maintainers do not have to begin from myth.
 
 ## Final Principle
 

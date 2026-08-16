@@ -11,10 +11,13 @@
 - [Coding Guide](../DOCTRINE-CODING-GUIDE.md)
 - [Integration Guide](../INTEGRATION-GUIDE.md)
 
-# Technical and Institutional Guides
+# Technical Guides
 
 - [The Measure of Words](../MEASURE-OF-WORDS.md)
 - [Ruinenwert](../RUINENWERT.md)
+
+# Institutional Guides
+
 - [Code of Sovereignty](../CODE_OF_SOVEREIGNTY.md)
 
 # Integrations
