@@ -1,10 +1,11 @@
-<!-- agent-badge:start -->
-[![AI burn](https://img.shields.io/endpoint?url=https%3A%2F%2Fgist.githubusercontent.com%2Fjbboehr%2Fb37af21823641103278208098592134e%2Fraw%2Fagent-badge.json&cacheSeconds=300)](https://github.com/arlegotin/agent-badge)
-<!-- agent-badge:end -->
-
 ![Doctrine of the Second Sun](assets/banner.webp)
 
 # Doctrine of the Second Sun
+
+[![Build](https://github.com/jbboehr/doctrine-of-the-second-sun/actions/workflows/ci.yml/badge.svg)](https://github.com/jbboehr/doctrine-of-the-second-sun/actions/workflows/ci.yml)
+[![Built with Nix](https://img.shields.io/badge/built%20with-Nix-5277C3?logo=nixos&logoColor=white)](https://github.com/jbboehr/doctrine-of-the-second-sun/blob/master/flake.nix)
+[![License: CC-BY-SA-4.0 AND AGPL-3.0-only WITH romic-exception](https://img.shields.io/badge/license-CC--BY--SA--4.0%20AND%20AGPL--3.0--only%20WITH%20romic--exception-blue.svg)](LICENSE.md)
+[![AI burn](https://img.shields.io/endpoint?url=https%3A%2F%2Fgist.githubusercontent.com%2Fjbboehr%2Fb37af21823641103278208098592134e%2Fraw%2Fagent-badge.json&cacheSeconds=300)](https://github.com/arlegotin/agent-badge)
 
 Doctrine of the Second Sun is a portable collection of literary, visual, coding, technical-writing, and
 software-stewardship guidance.

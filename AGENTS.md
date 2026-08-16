@@ -31,8 +31,8 @@ identified by the tool they target. Do not present a Codex TOML file as a portab
 - Avoid broad reformatting during focused changes.
 - Keep repository and primary-document banners at 2172 × 724. Retain each original generated PNG as `*-hq.png` and
   link a same-dimension optimized `.webp` from documentation.
-- Store the README hero at `assets/banner-hq.png` and `assets/banner.webp`. Place the WebP after the badge block and
-  before the H1.
+- Store the README hero at `assets/banner-hq.png` and `assets/banner.webp`. Place the WebP before the H1. Place the
+  badge block immediately after the H1.
 - Store primary-document banners at `assets/banners/<slug>-hq.png` and `assets/banners/<slug>.webp`. Place the WebP
   immediately after the document H1.
 - Render banners at full width with plain Markdown image syntax. Do not add banners to `AGENTS.md` or `LICENSE.md`.
