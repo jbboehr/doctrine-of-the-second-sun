@@ -4,52 +4,58 @@
 
 ## Purpose
 
-Software rarely remains actively maintained forever.
+Software lives in an environment that changes around it.
 
-Maintainers leave. Organizations change direction. Dependencies become obsolete. Toolchains disappear. Frameworks
-replace their internal APIs. A project may stop receiving releases even though its central idea remains valuable.
+Frameworks replace their APIs. Dependencies are abandoned or rewritten. Runtimes remove old behavior. Build tools become
+obsolete. Package registries and hosted services disappear. Formats and protocols evolve. Maintainers leave.
+Organizations change direction. A project may remain actively maintained and still lose useful structure to that drift.
 
-This document describes a design principle for that eventuality:
+This document describes a design principle for that condition:
 
-> Build software so that, when active maintenance ends, its useful knowledge remains understandable, testable,
-> recoverable, and practical to continue elsewhere.
+> Design software so that external change destroys as little accumulated knowledge and useful structure as possible.
 
-This is called **Ruinenwert**, or "ruin value": the value a structure retains after its original period of use has
-ended.
+This is called **Ruinenwert**, or "ruin value": the value a structure retains after the environment or use for which it
+was built has changed.
 
 The objective is not to create immortal software. That is generally impossible. The objective is to produce **good
-ruins**.
+ruins**: software that keeps recognizable structure after parts of its surrounding technological environment have moved
+on.
 
-A project with good Ruinenwert can be studied, repaired, forked, reimplemented, or used as prior art without requiring
-later maintainers to reconstruct the original authors' entire environment and thought process.
+A project with good Ruinenwert can be repaired, migrated, forked, reimplemented, or used as prior art without
+reconstructing the original authors' entire environment and thought process. Maintainer abandonment is the extreme case
+of the same problem.
 
 ## Scope
 
-Ruinenwert is an engineering doctrine for recoverability and continuation.
+Ruinenwert is an engineering doctrine for resilience, recoverability, and continuation under ecosystem change.
 
-It governs properties of the software and the knowledge required to keep it alive:
+It asks what remains useful when the environment around software changes or decays.
 
+It governs properties of the software and the knowledge required to keep that software understandable:
+
+- resilience to ecosystem change and decay;
 - recoverability;
 - reproducibility;
-- independent buildability;
-- independent testability;
+- independent buildability and testability;
 - documented invariants and compatibility contracts;
-- replaceable infrastructure;
+- replaceable infrastructure and dependencies;
 - release reconstructability;
-- practical forkability;
-- preservation of critical technical knowledge; and
+- preservation of critical technical knowledge;
+- practical forkability; and
 - the ability to continue the software after the original steward or environment disappears.
 
 It does not decide who holds authority, who must inherit a repository, or which lineage remains official.
 
 > Forkability is a property of the artifact. Succession is a property of the institution around it.
 
-Ruinenwert governs the first. The [Code of Sovereignty](CODE_OF_SOVEREIGNTY.md) addresses authority within a particular
-repository. Adoption of one does not adopt the other.
+That distinction supports continuation. It is not the whole of Ruinenwert. The
+[Code of Sovereignty](CODE_OF_SOVEREIGNTY.md) addresses authority within a particular repository. Adoption of one does
+not adopt the other.
 
 ### Adoption
 
-A project that adopts Ruinenwert undertakes its engineering principles, including Fork Continuity.
+A project that adopts Ruinenwert undertakes its engineering principles. Those principles include Fork Continuity as the
+default continuation model.
 
 The names, paths, layouts, procedures, and mechanisms in this document are suggested realizations. They are not
 requirements unless the project, or its local policy, makes them so. Preserve a project's conventional structure.
@@ -65,92 +71,68 @@ A project does not need to preserve its original canonical identity in order to 
 
 When the distinction is unclear, preserve the stated engineering outcome rather than the particular mechanism.
 
-## Continuity Model
+## Ecosystem Change and Decay
+
+Ruinenwert concerns resilience to **ecosystem change and decay**: change outside the project's semantic core that can
+make previously working software difficult to build, test, run, release, or maintain.
+
+**Ecosystem drift** is the ordinary accumulation of that change: APIs evolving, toolchains falling out of favor, and
+conventions moving elsewhere. Abrupt loss belongs to the same problem. A package may disappear, a hosted service may
+shut down, a registry may vanish, or maintainers and organizations may disappear.
 
 ```text
-Ruinenwert engineering baseline
+ecosystem resilience
     |
-    +-- Fork Continuity — default
+    +-- recoverability
             |
-            +-- Canonical Succession — optional addition
+            +-- continuation
+                    |
+                    +-- Fork Continuity — default
+                            |
+                            +-- Canonical Succession — optional addition
 ```
 
-Fork Continuity is the default continuity model. Canonical Succession is an optional additional profile for
-projects that want continuity of the original repository, package identity, domains, or accounts.
-They are not equal alternatives.
+**Ecosystem resilience** asks whether the project can adapt when dependencies, frameworks, services, formats, runtimes,
+or tools change.
 
-A project that adopts Canonical Succession must still satisfy Fork Continuity.
+**Recoverability** asks whether enough knowledge remains to reconstruct, replace, or reimplement a part that has become
+unusable.
 
-### Fork Continuity
+**Continuation** asks whether someone else can continue the software if the current maintainers or organization
+disappear.
 
-> A competent third party can fork the project and continue development independently without cooperation, credentials,
-> or private infrastructure controlled by the original steward.
+**Fork Continuity** is the default engineering model for independent continuation. **Canonical Succession** is an
+optional additional profile for continuity of original identities.
 
-A fork is an independent continuation of the software under identities and infrastructure the new maintainer controls.
-It need not become the official successor. It need not preserve the original repository, package name, domain, release
-identity, signing identity, or infrastructure stack.
+Fork Continuity is an important consequence of Ruinenwert, not the entire subject.
 
-Independent continuation is a normal engineering outcome, not a failure of governance.
-
-```text
-original project
-      |
-      +-- abandoned
-      |
-      +-- frozen
-      |
-      +-- independent fork
-              |
-              +-- new identities and infrastructure
-              +-- continued maintenance
-```
-
-Given accessible source, a competent third party should be able to:
-
-- obtain the source and reconstruct the essential development environment;
-- build the software from preserved source and documented, obtainable dependencies;
-- run the tests independently;
-- reconstruct essential generated material;
-- replace CI-specific infrastructure;
-- understand and continue the software without project-specific secrets;
-- reproduce or replace the release process from written knowledge;
-- change hard-coded project identities where continuation requires it;
-- replace package, repository, and domain identities;
-- continue without the original maintainer's hosting account, package-registry account, signing key, domain account, or
-  other credentials;
-- substitute external services that cannot be inherited; and
-- recover the technical knowledge required for maintenance from the project, not from oral or private memory alone.
-
-These are target capabilities. They do not require a particular document set, steward hierarchy, or transfer ceremony.
-
-A license that permits forking is not enough. The engineering must make independent continuation practical. Designation
-of a canonical steward, if any, identifies authority over original identities. It does not limit licensed rights to
-fork, maintain, or redistribute the project.
-
-A continued lineage may preserve an established application-level namespace when interoperability requires it. It should
-use its own repository and package identity unless the canonical identities are validly transferred.
-
-If the project is intentionally frozen rather than continued, say so. A frozen project can still be a useful ruin.
-
-### Access Boundaries
-
-Ruinenwert does not require that every project be public.
-
-Where source is restricted, apply the same properties inside the access boundary. A competent party with legitimate
-access should be able to reconstruct, test, and continue the software without the original team's private environment,
-undocumented knowledge, or non-transferable personal infrastructure.
-
-Public forkability is the common open-source form of this property. It is not the only form.
+Do not spend equal effort on every external surface. Weight the work by how load-bearing the piece is, how likely it is
+to decay, how expensive rediscovery would be, and how valuable the surviving knowledge is.
 
 ## The Central Question
 
 For every important component, ask:
 
-> When this piece eventually rots, what recognizable and independently testable structure will remain?
+> What must survive so that this software remains understandable and recoverable when its environment changes?
 
-A project has strong Ruinenwert when the answer includes more than source code.
+Distinguish durable project knowledge from the current ecosystem embodiment:
 
-The surviving structure may include:
+```text
+durable project knowledge
+        vs.
+current ecosystem embodiment
+```
+
+Durable knowledge commonly includes semantics, invariants, compatibility contracts, protocols, important datasets,
+behavioral tests, and rationale.
+
+More replaceable embodiment commonly includes framework adapters, CI providers, package publication plumbing, hosting
+providers, specific build tools, and external API clients.
+
+Some ecosystem-specific behavior is itself part of the public contract. Treat that as durable knowledge, not as
+disposable embodiment.
+
+A project has strong Ruinenwert when the surviving structure includes more than source code. It may include:
 
 - a clearly stated public contract;
 - an executable conformance suite;
@@ -166,7 +148,7 @@ particular version of a framework or toolchain.
 
 ## Human Understanding Comes First
 
-Documentation for later maintainers must first be readable by humans.
+Documentation must first be readable by humans.
 
 It may also serve as context for language models and other automated tools, but it should not be written as an opaque
 agent prompt or a collection of instructions that only make sense to a particular model.
@@ -178,7 +160,7 @@ Prefer documentation that explains:
 3. which constraints preserve correctness;
 4. where replacement boundaries exist;
 5. which parts are expected to decay first; and
-6. how a later maintainer can verify that a change remains compatible.
+6. how an engineer can verify that a change remains compatible.
 
 A language model can work effectively from clear human documentation. Humans cannot reliably work from compressed,
 machine-oriented context that omits rationale.
@@ -197,7 +179,8 @@ Not every part of a system ages at the same rate.
 Framework adapters, build scripts, CI configuration, editor integrations, and tool-specific extension points often decay
 quickly. Domain models, parsers, algorithms, formats, and behavioral examples usually decay more slowly.
 
-A Ruinenwert-oriented design separates these according to their expected rate of decay.
+A Ruinenwert-oriented design separates these according to their expected rate of decay. That is the main way the design
+absorbs ecosystem change.
 
 ### The Stone
 
@@ -244,8 +227,8 @@ Frameworks and external tools
 
 The semantic core should not need to understand the framework adapter surrounding it.
 
-When an external API changes, a later maintainer should be able to replace the corresponding adapter without
-rediscovering or rewriting the project's central semantics.
+When an external API changes, an engineer should be able to replace the corresponding adapter without rediscovering or
+rewriting the project's central semantics.
 
 ## Do Not Confuse Modularity With Package Count
 
@@ -281,6 +264,8 @@ project's identity.
 A durable project should maintain an explicit **conformance suite** that answers:
 
 > If the implementation were replaced, what behavior would the replacement need to preserve?
+
+That question is useful during ordinary migrations, not only after abandonment.
 
 One useful test structure is:
 
@@ -339,8 +324,9 @@ The identifier preserves meaning. The message explains it to the current user.
 
 An invariant is something that must remain true regardless of how the implementation is organized.
 
-Record the project's durable rules independently of any one implementation. The relevant invariants depend on the
-system. Examples from parsers, analyzers, exact arithmetic, and generated-data projects may include:
+Record the project's durable rules independently of any one implementation. Those rules preserve design knowledge when
+implementation details or ecosystem conventions change. The relevant invariants depend on the system. Examples from
+parsers, analyzers, exact arithmetic, and generated-data projects may include:
 
 - input expressions must be statically knowable;
 - normalization must be deterministic;
@@ -394,8 +380,8 @@ A useful specification may consist of:
 - compatibility expectations; and
 - conformance fixtures.
 
-The specification should be precise enough that a later maintainer could produce a compatible implementation without
-copying the existing source line by line.
+The specification should be precise enough that an engineer could produce a compatible implementation without copying
+the existing source line by line, including after a language or toolchain change.
 
 ## Commit Generated Artifacts and Their Sources
 
@@ -436,7 +422,7 @@ The last valid generated output may outlive the environment that produced it.
 
 ## Keep the Project Entrance Conventional
 
-A later maintainer will begin at the repository root.
+An engineer who does not share the project's historical environment will begin at the repository root.
 
 Use familiar ecosystem landmarks wherever practical:
 
@@ -457,7 +443,7 @@ memorable.
 
 The load-bearing structure, however, should remain unsurprising.
 
-A later maintainer should not need to discover:
+An engineer should not need to discover:
 
 - a custom task runner before running tests;
 - a hidden configuration location before reading the project;
@@ -478,7 +464,7 @@ CI should call these commands rather than contain the only authoritative version
 
 ## Separate the Public Contract From Internal Convenience
 
-A later maintainer must be able to determine which parts of the project users are entitled to depend upon.
+An engineer must be able to determine which parts of the project users are entitled to depend upon.
 
 Make the public surface explicit:
 
@@ -524,8 +510,10 @@ Good replacement boundaries often exist around:
 - data acquisition; and
 - generated output backends.
 
-Avoid introducing interfaces for every class. Excessive indirection obscures the semantic structure later maintainers
-need to understand.
+These are places where ecosystem change can be absorbed.
+
+Avoid introducing interfaces for every class. Excessive indirection obscures the semantic structure engineers need to
+understand.
 
 An interface should answer a real question:
 
@@ -535,6 +523,49 @@ Forkability is primarily a property of source clarity, licensing, tests, and com
 subclassability.
 
 Classes may remain `final` where doing so protects meaningful invariants.
+
+## Know What a Dependency Supplies
+
+Ruinenwert does not require avoiding dependencies. A well-chosen dependency may improve Ruinenwert.
+
+Know, for each load-bearing dependency:
+
+- what semantics the project obtains from it;
+- what would break if it disappeared or changed incompatibly;
+- what replacement boundary exists;
+- how much project knowledge is trapped inside its specific APIs; and
+- whether tests and specifications would permit a migration.
+
+The question is not whether the dependency can be predicted away. The question is whether its replacement would require
+rediscovering the project's semantics from scratch.
+
+Do not introduce abstraction layers, extra implementations, or local replicas merely to imagine a future change.
+
+## State the Compatibility Policy Honestly
+
+False claims of future compatibility do not improve longevity.
+
+Ruinenwert is not speculative compatibility. It does not mean claiming support for unknown future major versions,
+setting artificially broad dependency constraints, suppressing version checks, or maintaining abstractions for
+hypothetical future ecosystems.
+
+Prepare the project so that incompatible change is understandable and repairable.
+
+A clean failure at a documented boundary may have better Ruinenwert than silently pretending to support an ecosystem
+version that has never been tested.
+
+Record:
+
+- tested versions;
+- expected compatibility range;
+- known dependency on unstable APIs;
+- what failures are likely when dependencies change;
+- which adapter would need replacement; and
+- which conformance tests demonstrate continued correctness.
+
+A narrow but truthful constraint produces a visible maintenance task.
+
+An unrealistically broad constraint produces invisible breakage in users' applications.
 
 ## Preserve Representative History, Not Every Accident
 
@@ -568,28 +599,9 @@ Each decision should be concise:
 
 Do not turn the decision log into a diary. Preserve reasoning that changes how later work should be performed.
 
-## State the Compatibility Policy Honestly
-
-False claims of future compatibility do not improve longevity.
-
-Avoid dependency constraints that claim support for unknown future major versions merely to reduce maintenance.
-
-Instead, record:
-
-- tested versions;
-- expected compatibility range;
-- known dependency on unstable APIs;
-- what failures are likely when dependencies change;
-- which adapter would need replacement; and
-- which conformance tests demonstrate continued correctness.
-
-A narrow but truthful constraint produces a visible maintenance task.
-
-An unrealistically broad constraint produces invisible breakage in users' applications.
-
 ## Preserve Local Reproducibility
 
-A later maintainer should be able to perform the essential work from a local checkout.
+An engineer should be able to perform the essential work from a local checkout.
 
 The following operations must be possible from that checkout, and the knowledge required to perform them must be
 written down:
@@ -621,6 +633,9 @@ inherit authority over it is not.
 
 When a project depends on a body of knowledge -- rules, stubs, compatibility mappings, benchmark history, protocol
 cases, translations, or classifications -- represent that knowledge as inspectable data where practical.
+
+Structured, documented data may survive implementation and tooling changes more cheaply than knowledge embedded only in
+current code.
 
 Durable data should be:
 
@@ -683,6 +698,73 @@ accidental and intentional behavior.
 A project that can continue only if the original repository, package name, or maintainer account survives has not yet
 made continuation a property of the artifact.
 
+## Fork Continuity
+
+Independent continuation is the extreme case of resilience under change.
+
+If a dependency disappears, replace the dependency. If infrastructure disappears, replace the infrastructure. If the
+original steward disappears, replace the steward and, if necessary, the project identities. Loss of the original
+steward is another change in the environment the project must be able to survive.
+
+> A competent third party can fork the project and continue development independently without cooperation, credentials,
+> or private infrastructure controlled by the original steward.
+
+A fork is an independent continuation of the software under identities and infrastructure the new maintainer controls.
+It need not become the official successor. It need not preserve the original repository, package name, domain, release
+identity, signing identity, or infrastructure stack.
+
+Independent continuation is a normal engineering outcome, not a failure of governance.
+
+```text
+original project
+      |
+      +-- abandoned
+      |
+      +-- frozen
+      |
+      +-- independent fork
+              |
+              +-- new identities and infrastructure
+              +-- continued maintenance
+```
+
+Given accessible source, a competent third party should be able to:
+
+- obtain the source and reconstruct the essential development environment;
+- build the software from preserved source and documented, obtainable dependencies;
+- run the tests independently;
+- reconstruct essential generated material;
+- replace CI-specific infrastructure;
+- understand and continue the software without project-specific secrets;
+- reproduce or replace the release process from written knowledge;
+- change hard-coded project identities where continuation requires it;
+- replace package, repository, and domain identities;
+- continue without the original maintainer's hosting account, package-registry account, signing key, domain account, or
+  other credentials;
+- substitute external services that cannot be inherited; and
+- recover the technical knowledge required for maintenance from the project, not from oral or private memory alone.
+
+These are target capabilities. They do not require a particular document set, steward hierarchy, or transfer ceremony.
+
+A license that permits forking is not enough. The engineering must make independent continuation practical. Designation
+of a canonical steward, if any, identifies authority over original identities. It does not limit licensed rights to
+fork, maintain, or redistribute the project.
+
+A continued lineage may preserve an established application-level namespace when interoperability requires it. It should
+use its own repository and package identity unless the canonical identities are validly transferred.
+
+If the project is intentionally frozen rather than continued, say so. A frozen project can still be a useful ruin.
+
+### Access Boundaries
+
+Ruinenwert does not require that every project be public.
+
+Where source is restricted, apply the same properties inside the access boundary. A competent party with legitimate
+access should be able to reconstruct, test, and continue the software without the original team's private environment,
+undocumented knowledge, or non-transferable personal infrastructure.
+
+Public forkability is the common open-source form of this property. It is not the only form.
+
 ## Canonical Succession — Optional
 
 A project may additionally prepare for transfer or preservation of its canonical identity.
@@ -740,12 +822,13 @@ When adding a feature, consider:
 3. Which invariant does the implementation rely upon?
 4. Can the behavior be expressed as a conformance case?
 5. Is any new dependency allowed to leak into the core?
-6. What happens when that dependency becomes obsolete?
-7. Does the feature introduce knowledge that should be represented as data?
-8. Would a later maintainer know which parts are safe to replace?
-9. Can the essential checks still be run locally?
-10. Does the documentation explain why the design exists?
-11. Could a third party continue this work under new identities if the current steward vanished?
+6. If this dependency or service changes substantially or disappears, what must change with it?
+7. Does this change move durable project knowledge into an external framework or service?
+8. Does the feature introduce knowledge that should be represented as data?
+9. Would a later engineer know which parts are safe to replace?
+10. Can the essential checks still be run locally?
+11. Does the documentation explain why the design exists?
+12. Could a third party continue this work under new identities if the current steward vanished?
 
 Not every feature requires new architectural machinery. The purpose of these questions is to preserve important
 boundaries before they become invisible.
@@ -778,8 +861,8 @@ When documentation, tests, and implementation disagree:
 - avoid deleting apparently redundant code until its compatibility role is understood.
 
 If a repository adopts Ruinenwert and does not also adopt Canonical Succession, do not create succession plans, nominate
-stewards, inventory personal accounts for transfer, or establish authority-transfer rules. Reason first about
-engineering durability and practical independent continuation.
+stewards, inventory personal accounts for transfer, or establish authority-transfer rules. Reason first about resilience
+to ecosystem change and decay, recoverability, and practical independent continuation.
 
 Automated contributors should optimize for human reviewability:
 
@@ -791,23 +874,25 @@ Automated contributors should optimize for human reviewability:
 - leave the project easier for the next human to understand.
 
 The objective is not merely to produce code that passes the current test suite. It is to preserve or improve the
-structure by which later maintainers can determine what correctness means.
+structure by which later engineers can determine what correctness means.
 
 ## A Practical Review Rubric
 
-A project with strong Ruinenwert should allow a competent third party to answer the following questions without access
-to the original maintainer.
+A project with strong Ruinenwert should allow a competent engineer to answer the following questions from the project
+itself.
 
 - **Meaning:** What problem does the project solve, what is its central idea, and which behavior is intentional?
 - **Structure:** Where is the semantic core, which parts are tool-specific, and in which direction may dependencies
   flow?
+- **Resilience:** Which external components are most likely to change, and can they be replaced without rediscovering
+  the project's semantics?
 - **Correctness:** What invariants must remain true, which tests define compatibility, and how are failures classified?
 - **Operation:** How are checks run, generated artifacts rebuilt, and releases produced locally?
 - **Continuation:** Can the project be continued independently under new identities and infrastructure?
 - **Recovery:** If the implementation became unusable, could its core behavior be reconstructed from the remaining
   documentation, fixtures, and tests?
 
-The last question is the ultimate Ruinenwert test.
+Resilience is the ordinary test. Recovery is the extreme one.
 
 Canonical Succession, when adopted, adds a further question: can the original identities be transferred or preserved
 without destroying Fork Continuity?
@@ -818,26 +903,26 @@ A project can begin applying this doctrine without a large refactor.
 
 1. Write a short architecture note.
 2. List the most important invariants.
-3. Identify the fastest-decaying external integration.
+3. Identify the fastest-decaying external integration and what it supplies.
 4. Add several black-box conformance cases for the public contract.
 5. Create standard local check commands.
 6. Document the release process.
 7. Record how a continued lineage would publish under new identities.
 8. Preserve the source and output of important generators.
 9. Record later architectural decisions as they occur.
-10. Review new work by asking what will remain when its dependencies rot.
+10. Review new work by asking what remains useful when the environment changes.
 
 These steps are a useful beginning, not a required artifact set.
 
 The purpose is not to anticipate every future environment.
 
-It is to leave enough structure that later maintainers do not have to begin from myth.
+It is to leave enough structure that later engineers do not have to begin from myth.
 
 ## Final Principle
 
-Ruinenwert does not mean resisting all change.
+Ruinenwert does not mean resisting all change or predicting every future environment.
 
-It means arranging change so that the project's accumulated knowledge is not destroyed when one implementation,
-dependency, maintainer, or institution disappears.
+It means arranging the project so that accumulated knowledge is not destroyed when an implementation, dependency,
+service, toolchain, maintainer, or institution disappears.
 
-> Do not attempt to build immortal software. Build software whose death does not destroy its knowledge.
+> Do not attempt to build immortal software. Build software that can lose its environment without losing its knowledge.

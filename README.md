@@ -26,12 +26,13 @@ The canonical Markdown is also available as
   ceiling for generation and review.
 - [`INTEGRATION-GUIDE.md`](INTEGRATION-GUIDE.md): adopting the portable guides in a consuming repository for humans and
   coding agents.
-- [`RUINENWERT.md`](RUINENWERT.md): engineering recoverability, continuation, and a useful afterlife for software.
+- [`RUINENWERT.md`](RUINENWERT.md): engineering resilience, recoverability, and continuation under ecosystem change.
 - [`MEASURE-OF-WORDS.md`](MEASURE-OF-WORDS.md): concise, clear, and exact writing for technical artifacts.
 - [`CODE_OF_SOVEREIGNTY.md`](CODE_OF_SOVEREIGNTY.md): repository governance and the sovereignty of forks.
 
-Ruinenwert is engineering guidance for recoverability and continuation. The Code of Sovereignty is an institutional
-document. The Measure of Words is technical-writing guidance. None is a book or teaching within the fictional canon.
+Ruinenwert is engineering guidance for resilience, recoverability, and continuation under ecosystem change. The Code of
+Sovereignty is an institutional document. The Measure of Words is technical-writing guidance. None is a book or teaching
+within the fictional canon.
 
 ## Composer
 

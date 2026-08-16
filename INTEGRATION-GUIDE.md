@@ -63,7 +63,7 @@ The available documents have distinct responsibilities:
 | `DOCTRINE-GENERATION-GUIDE.md` | A tool-neutral writer, reviewer, selection, and insertion workflow |
 | `DOCTRINE-GOLD-EXEMPLARS.md` | A nonnormative quality ceiling for generation and review |
 | `MEASURE-OF-WORDS.md` | Concise, clear, and exact technical writing |
-| `RUINENWERT.md` | Engineering recoverability, continuation, and the default Fork Continuity model |
+| `RUINENWERT.md` | Engineering resilience, recoverability, and continuation under ecosystem change |
 | `CODE_OF_SOVEREIGNTY.md` | Repository governance under a recognized final authority and the sovereignty of forks |
 
 Installing the package does not adopt any of these documents. State each adoption explicitly.
@@ -76,9 +76,9 @@ A statement such as:
 This repository adopts Ruinenwert.
 ```
 
-adopts the engineering continuity baseline and Fork Continuity. A competent third party should be able to continue the
-software independently. The statement does not require a succession plan, designated future stewards, transfer of
-canonical accounts, or any other institutional handover.
+adopts the engineering baseline, including resilience under ecosystem change and Fork Continuity. The statement does
+not require a succession plan, designated future stewards, transfer of canonical accounts, or any other institutional
+handover.
 
 To add preparation for continuity of the original repository, package identity, domains, or related accounts:
 
@@ -183,7 +183,7 @@ The installed guides are available at [path or environment variable].
 
 If Ruinenwert is adopted, say so in one of these forms unless local policy needs more detail:
 
-- `This repository adopts Ruinenwert.` — engineering baseline and Fork Continuity.
+- `This repository adopts Ruinenwert.` — engineering baseline, including Fork Continuity.
 - `This repository adopts Ruinenwert with canonical succession.` — the same baseline, plus optional continuity of
   original identities.
 
