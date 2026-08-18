@@ -44,6 +44,7 @@
               destination="$out/share/doctrine-of-the-second-sun"
               mkdir -p "$destination"
               cp ./*.md "$destination/"
+              cp -R ./apotheosis "$destination/"
               cp -R ./assets "$destination/"
               cp -R ./integrations "$destination/"
 

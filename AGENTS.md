@@ -11,6 +11,9 @@ the project-specific policies supplied by consuming repositories.
 - `DOCTRINE-GENERATION-GUIDE.md` governs the tool-neutral generation and review process.
 - `MEASURE-OF-WORDS.md` governs concision and clarity in technical artifacts, not logia or other non-technical prose.
 - `RUINENWERT.md` governs engineering resilience, recoverability, and continuation under ecosystem change.
+- `apotheosis/README.md` governs the art of project invocations, not logia or ordinary documentation prose.
+- `apotheosis/CONCLAVE.md` governs how an invocation is produced. `apotheosis/MANIFESTATIONS.md` supplies positive
+  calibration and `apotheosis/ARCHAEOLOGY.md` is interpretive rather than normative.
 
 The four canonical books remain OSD, RAS, AWC, and SFA. Preserve mixed compositional movements and one coherent canon;
 do not restore rigid per-logion genres or project implementation relevance.
@@ -20,8 +23,10 @@ do not restore rigid per-logion genres or project implementation relevance.
 Do not add one consuming project's source roots, tag coverage, citation allocation, asset paths, framework assumptions,
 or verification commands to the universal guides. Put such requirements in that project's own repository policy.
 
-Keep primary documents at the repository root. Tool-specific adapters belong under `integrations/<tool>/` and must be
-identified by the tool they target. Do not present a Codex TOML file as a portable agent standard.
+Keep primary documents at the repository root. A primary document divided into several parts may instead occupy one
+named directory, as the Apotheosis set occupies `apotheosis/`. Tool-specific adapters belong under
+`integrations/<tool>/` and must be identified by the tool they target. Do not present a Codex TOML file as a portable
+agent standard.
 
 ## Editing
 

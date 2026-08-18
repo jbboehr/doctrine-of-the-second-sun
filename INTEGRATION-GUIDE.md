@@ -50,7 +50,8 @@ Commit `flake.lock` so the selected revision remains reproducible.
 ## 2. Choose What The Project Adopts
 
 Adoption is deliberate. A project may use the literary, coding, and technical-writing guides without adopting
-Ruinenwert or the Code of Sovereignty. It may adopt Ruinenwert without placing logia in source code. Adoption of one
+Ruinenwert or the Code of Sovereignty. It may adopt Ruinenwert without placing logia in source code. It may write an
+invocation without placing logia in source code, or place logia without writing an invocation. Adoption of one
 document does not adopt another.
 
 The available documents have distinct responsibilities:
@@ -62,6 +63,7 @@ The available documents have distinct responsibilities:
 | `DOCTRINE-IMAGE-GUIDE.md` | Visual interpretation of completed logia |
 | `DOCTRINE-GENERATION-GUIDE.md` | A tool-neutral writer, reviewer, selection, and insertion workflow |
 | `DOCTRINE-GOLD-EXEMPLARS.md` | A nonnormative quality ceiling for generation and review |
+| `apotheosis/` | A ceremonial invocation standing apart from the project's plain documentation |
 | `MEASURE-OF-WORDS.md` | Concise, clear, and exact technical writing |
 | `RUINENWERT.md` | Engineering resilience, recoverability, and continuation under ecosystem change |
 | `CODE_OF_SOVEREIGNTY.md` | Repository governance under a recognized final authority and the sovereignty of forks |
@@ -87,6 +89,20 @@ This repository adopts Ruinenwert with canonical succession.
 ```
 
 That optional profile supplements Fork Continuity. It does not replace it. See [Ruinenwert](RUINENWERT.md).
+
+### Adopting the Apotheosis Documents
+
+The four documents under `apotheosis/` are adopted as a set, but they are not read as one:
+
+- `apotheosis/README.md`, The Architecture of Apotheosis, is the authority on the art itself;
+- `apotheosis/CONCLAVE.md` is the authority on producing one, and governs how an agent operator orchestrates the work
+  under sparse human review;
+- `apotheosis/MANIFESTATIONS.md` supplies adopted and marked provisional rites as calibration;
+- `apotheosis/ARCHAEOLOGY.md` is interpretive rather than normative, and records source traditions, failed approaches,
+  and recovered laws.
+
+An invocation is optional. Adopting the set does not require placing logia in source code, and placing logia does not
+require writing an invocation.
 
 Do not imply that adopting Ruinenwert adopts the Code of Sovereignty, or the reverse. State institutional adoption
 explicitly where it applies.

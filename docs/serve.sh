@@ -17,6 +17,7 @@ watch_paths=(
     "$repository_root/DOCTRINE-IMAGE-GUIDE.md"
     "$repository_root/DOCTRINE-GENERATION-GUIDE.md"
     "$repository_root/DOCTRINE-CODING-GUIDE.md"
+    "$repository_root/apotheosis"
     "$repository_root/INTEGRATION-GUIDE.md"
     "$repository_root/MEASURE-OF-WORDS.md"
     "$repository_root/RUINENWERT.md"

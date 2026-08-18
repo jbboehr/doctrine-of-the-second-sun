@@ -25,6 +25,15 @@ The canonical Markdown is also available as
 - [`DOCTRINE-GENERATION-GUIDE.md`](DOCTRINE-GENERATION-GUIDE.md): tool-neutral writer, reviewer, and insertion workflow.
 - [`DOCTRINE-GOLD-EXEMPLARS.md`](DOCTRINE-GOLD-EXEMPLARS.md): exceptional reference logia establishing the quality
   ceiling for generation and review.
+- [`apotheosis/`](apotheosis/README.md): writing a project invocation, the ceremonial work attached to a project's
+  identity, in four documents:
+  - [`apotheosis/README.md`](apotheosis/README.md): The Architecture of Apotheosis, the aesthetic doctrine itself.
+  - [`apotheosis/CONCLAVE.md`](apotheosis/CONCLAVE.md): The Conclave of Apotheosis, orchestration for agent-run
+    production under sparse human review.
+  - [`apotheosis/MANIFESTATIONS.md`](apotheosis/MANIFESTATIONS.md): The Manifestations of Apotheosis, adopted works
+    and marked provisional works kept as calibration.
+  - [`apotheosis/ARCHAEOLOGY.md`](apotheosis/ARCHAEOLOGY.md): The Archaeology of Apotheosis, source traditions, failed
+    approaches, and recovered laws.
 - [`INTEGRATION-GUIDE.md`](INTEGRATION-GUIDE.md): adopting the portable guides in a consuming repository for humans and
   coding agents.
 - [`RUINENWERT.md`](RUINENWERT.md): engineering resilience, recoverability, and continuation under ecosystem change.
@@ -32,8 +41,8 @@ The canonical Markdown is also available as
 - [`CODE_OF_SOVEREIGNTY.md`](CODE_OF_SOVEREIGNTY.md): repository governance and the sovereignty of forks.
 
 Ruinenwert is engineering guidance for resilience, recoverability, and continuation under ecosystem change. The Code of
-Sovereignty is an institutional document. The Measure of Words is technical-writing guidance. None is a book or teaching
-within the fictional canon.
+Sovereignty is an institutional document. The Measure of Words is technical-writing guidance. The Apotheosis documents
+are craft guidance for project invocations. None is a book or teaching within the fictional canon.
 
 ## Composer
 

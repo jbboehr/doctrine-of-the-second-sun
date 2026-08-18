@@ -11,6 +11,13 @@
 - [Coding Guide](../DOCTRINE-CODING-GUIDE.md)
 - [Integration Guide](../INTEGRATION-GUIDE.md)
 
+# Project Invocations
+
+- [The Architecture of Apotheosis](../apotheosis/README.md)
+  - [The Conclave of Apotheosis](../apotheosis/CONCLAVE.md)
+  - [The Manifestations of Apotheosis](../apotheosis/MANIFESTATIONS.md)
+  - [The Archaeology of Apotheosis](../apotheosis/ARCHAEOLOGY.md)
+
 # Technical Guides
 
 - [The Measure of Words](../MEASURE-OF-WORDS.md)

@@ -36,6 +36,17 @@ install -Dm0644 "$repository_root/docs/SUMMARY.md" "$stage_root/SUMMARY.md"
 # The committed summary resolves from docs/. The staged copy resolves from docs/src/.
 sed -i.bak 's#](\.\./#](#g' "$stage_root/SUMMARY.md"
 
+apotheosis_documents=(
+    apotheosis/README.md
+    apotheosis/CONCLAVE.md
+    apotheosis/MANIFESTATIONS.md
+    apotheosis/ARCHAEOLOGY.md
+)
+
+for document in "${apotheosis_documents[@]}"; do
+    install -Dm0644 "$repository_root/$document" "$stage_root/$document"
+done
+
 integration_documents=(
     integrations/codex/README.md
     integrations/phpstan/README.md
@@ -68,7 +79,16 @@ while IFS= read -r -d '' document; do
         -e 's#integrations/web/heliogenesis/README\.md#integrations/web/heliogenesis/#g' \
         -e 's#integrations/web/document-looks-back/README\.md#integrations/web/document-looks-back/#g' \
         -e 's#\.\./\.\./\.\./experiments/README\.md#../../../experiments/#g' \
+        -e 's#apotheosis/README\.md#apotheosis/#g' \
         "$document"
 done < <(find "$stage_root" -type f -name '*.md' ! -name 'SUMMARY.md' -print0)
+
+# Links between the Apotheosis documents name their sibling index directly.
+while IFS= read -r -d '' document; do
+    sed -i.bak \
+        -e 's%](README\.md)%](./)%g' \
+        -e 's%](README\.md#%](./#%g' \
+        "$document"
+done < <(find "$stage_root/apotheosis" -type f -name '*.md' -print0)
 
 find "$stage_root" -type f -name '*.bak' -delete
