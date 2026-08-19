@@ -17,6 +17,7 @@
   - [The Conclave of Apotheosis](../apotheosis/CONCLAVE.md)
   - [The Manifestations of Apotheosis](../apotheosis/MANIFESTATIONS.md)
   - [The Archaeology of Apotheosis](../apotheosis/ARCHAEOLOGY.md)
+  - [A Short Walkthrough for ChatGPT.com](../apotheosis/WALKTHROUGH.md)
 
 # Technical Guides
 

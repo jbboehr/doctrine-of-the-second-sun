@@ -11,6 +11,8 @@ answers*
 
 This document implements [The Architecture of Apotheosis](README.md).
 
+A compact ChatGPT.com operating path is available in [A Short Walkthrough for ChatGPT.com](WALKTHROUGH.md).
+
 The Conclave is normative for orchestration and production process. The Architecture remains normative for artistic
 adoption, including the sole [Minimum Standard for Adoption](README.md#12-minimum-standard-for-adoption).
 
@@ -51,6 +53,9 @@ Human Commission
     → Desire Generators
     → independent curation
 → Human Desire Review
+    → Cultural Researchers
+    → independent curation
+→ Human Cultural Inheritance Review
     → Premise Builders
     → independent curation
 → Human Premise Review
@@ -78,12 +83,13 @@ Continuing in one contaminated thread does not.
 
 This is the default.
 
-The human supplies a sparse Commission and reviews four irreversible creative selections:
+The human supplies a sparse Commission and reviews five irreversible creative selections:
 
 1. **Desire selection**
-2. **Premise selection**
-3. **Invocation or spine selection**
-4. **Final adoption**
+2. **Cultural inheritance selection**
+3. **Premise selection**
+4. **Invocation or spine selection**
+5. **Final adoption**
 
 The Agent Operator performs everything else:
 
@@ -103,6 +109,7 @@ The human is not expected to:
 
 - invent the desires;
 - formulate complete premises;
+- research or compare cultural sources unaided;
 - choose models or agents;
 - prepare packets;
 - manage contexts;
@@ -113,6 +120,8 @@ The human is not expected to:
 The human may respond with as little as:
 
 > 2 and 5. Mostly 5.
+
+> Noh as the primary inheritance. Keep the final Office as a secondary echo.
 
 > The sculptor. Keep the red veil.
 
@@ -155,6 +164,7 @@ A human may perform the same stages personally:
 
 ```text
 desire
+→ cultural inheritance
 → premise
 → invocation variants
 → selection
@@ -180,7 +190,7 @@ The following are not separate operating forms:
 
 They are local instructions within one of the three forms.
 
-The default remains the primary form with four human review boundaries.
+The default remains the primary form with five human review boundaries.
 
 A final-only run must be requested explicitly and is treated as **fully agent** for that run.
 
@@ -195,15 +205,18 @@ A final-only run must be requested explicitly and is treated as **fully agent** 
 3. Isolated Desire Generators produce several batches.
 4. An independent Selector curates a diverse desire shortlist.
 5. The human selects one or more desires.
-6. Premise Builders develop the selected desires.
-7. An independent Selector curates distinct premise finalists.
-8. The human selects one premise or direction.
-9. Independent Ritual Writers produce substantially different invocations.
-10. An independent Selector curates the strongest invocation finalists.
-11. The human chooses the spine and may protect exact lines or a release direction.
-12. The Agent Operator runs binding when needed, criticism, local integration, and the Poetic Pass.
-13. The human adopts, rejects, or requests a revision.
-14. The Agent Operator routes any reaction to the smallest stage capable of correcting it.
+6. Cultural Researchers investigate specific inherited forms capable of carrying the selected desire.
+7. An independent Selector curates a balanced inheritance shortlist.
+8. The human selects one primary inheritance and, optionally, one secondary echo.
+9. Premise Builders develop the selected desire through the selected inheritance.
+10. An independent Selector curates distinct premise finalists.
+11. The human selects one premise or direction.
+12. Independent Ritual Writers produce substantially different invocations.
+13. An independent Selector curates the strongest invocation finalists.
+14. The human chooses the spine and may protect exact lines or a release direction.
+15. The Agent Operator runs binding when needed, criticism, local integration, and the Poetic Pass.
+16. The human adopts, rejects, or requests a revision.
+17. The Agent Operator routes any reaction to the smallest stage capable of correcting it.
 
 The human reviews the creative narrowing.
 
@@ -225,6 +238,30 @@ For each, provide:
 - its principal risk.
 
 The human may choose by number.
+
+#### Cultural Inheritance Review
+
+Show approximately four to six specific inheritances capable of carrying the selected desire.
+
+Unless the Commission points elsewhere, the field should normally include both Western and Japanese traditions.
+
+For each, provide:
+
+- the exact myth, rite, liturgy, theater, poetic form, court art, or craft lineage;
+- the original situation;
+- the native human pressure;
+- the ritual grammar and hardware;
+- the apotheotic possibility;
+- the principal risk;
+- two or three authoritative sources retained in the workshop record.
+
+The human may select one primary inheritance and, at most, one secondary echo.
+
+A response such as:
+
+> 2 and 5. Mostly 2. Use the responsorial structure from 5, not its theology.
+
+is sufficient.
 
 #### Premise Review
 
@@ -293,6 +330,8 @@ At each boundary, the Selector preserves:
 4. **Highest Spectacle**
 5. **Wild Card**
 
+At the cultural-inheritance boundary, it also preserves **Strongest Structural Inheritance**.
+
 The Agent Operator chooses one or more candidates to advance and records the reason.
 
 Autonomous adoption occurs only under the Architecture’s standard.
@@ -324,6 +363,7 @@ The Human Reviewer:
 
 - provides the initial Commission;
 - selects desires;
+- selects a cultural inheritance;
 - selects a premise;
 - selects the invocation or spine;
 - grants or refuses final adoption;
@@ -337,6 +377,7 @@ The Reviewer is not expected to:
 - choose agents or models;
 - prepare internal packets;
 - manage context isolation;
+- perform source research or verify cultural claims unaided;
 - choose every internal candidate;
 - direct ordinary criticism;
 - resolve minor editorial decisions;
@@ -357,6 +398,8 @@ Useful reactions include:
 - “Too tasteful.”
 - “Keep this exact line.”
 - “The character became a victim again.”
+- “The inheritance is only decorative. Rebuild from the actual ritual grammar.”
+- “Use the Noh ghost-role, but not generic mask imagery.”
 - “The premise works; the English is flat.”
 - “Do not redeem them.”
 - “The spectacle is imported rather than earned.”
@@ -374,6 +417,7 @@ The Reviewer may provide detailed direction at any checkpoint.
 Examples:
 
 - mandate a particular exemplar tradition;
+- choose a specific inherited myth, rite, theater, or court art;
 - request a new premise around rivalry rather than grief;
 - specify the hierarchy to reverse;
 - name the exact object that must recur;
@@ -431,7 +475,8 @@ The Operator should infer optional fields from:
 - banners and visual assets;
 - sibling-project conventions;
 - adopted manifestations;
-- prior user feedback.
+- prior user feedback;
+- the cultural domain suggested by the project’s name, visual identity, and existing mythology.
 
 The Commission should not become a questionnaire when the missing information is optional.
 
@@ -449,6 +494,8 @@ The Agent Operator:
 - curates compact human review surfaces in the primary form;
 - preserves dangerous variance;
 - routes human selections into the next stage;
+- commissions and verifies cultural-inheritance research after desire selection;
+- carries only the selected inheritance grammar into premise construction;
 - identifies one spine draft after human invocation review;
 - protects the speaker’s stance toward victory and price;
 - decides whether late binding is needed;
@@ -466,6 +513,8 @@ The Agent Operator must not:
 - replace mandatory human review with internal selection in the primary form;
 - choose solely by aggregate compliance score;
 - hide meaningful variance from the human shortlist;
+- substitute generic cultural flavor for a specific inherited form;
+- combine unrelated Western and Japanese traditions without a stated reason;
 - summarize away source prose before criticism;
 - let the Critic replace the premise without authorization;
 - let the Integrator average several drafts into a median;
@@ -475,7 +524,7 @@ The Agent Operator must not:
 
 ### 4.4 Additional Escalation
 
-The four principal human checkpoints are mandatory in the primary form.
+The five principal human checkpoints are mandatory in the primary form.
 
 The Operator may request an additional checkpoint only when:
 
@@ -528,7 +577,46 @@ Each role has a narrow purpose and receives only the context required to perform
 
 **Hands off to:** internal Selector.
 
-### 5.2 Premise Builder
+### 5.2 Cultural Researcher
+
+**Purpose:** Find exact inherited forms capable of carrying a human-selected desire.
+
+**Receives:**
+
+- the selected desire;
+- the Project Identity Packet;
+- the requested cultural scope;
+- a short taboo list;
+- instructions to use primary or authoritative sources.
+
+**Produces:**
+
+- four to six Cultural Inheritance Dossiers;
+- a balanced field, normally including Western and Japanese options unless the Commission indicates otherwise;
+- workshop citations or source links for later verification.
+
+Each dossier contains:
+
+- exact anchor;
+- original situation;
+- native human pressure;
+- ritual grammar;
+- ritual hardware;
+- apotheotic possibility;
+- principal risk;
+- sources.
+
+**Must not:**
+
+- write fictional premises;
+- invent civilizations, fantasy names, or magical technologies;
+- treat “cathedral,” “mask,” “shrine,” “Latin,” or “court music” as sufficient inheritance;
+- combine unrelated traditions into a synthetic mood board;
+- quote modern copyrighted works at length.
+
+**Hands off to:** internal Selector, then Human Cultural Inheritance Review.
+
+### 5.3 Premise Builder
 
 **Purpose:** Turn selected desires into fictional foundations for ultimate rites.
 
@@ -536,6 +624,7 @@ Each role has a narrow purpose and receives only the context required to perform
 
 - the human-selected desires in the primary form;
 - the agent-selected desires in the fully agent form;
+- the selected Cultural Inheritance Packet;
 - limited diversity requirements;
 - a short taboo list.
 
@@ -556,11 +645,13 @@ Each role has a narrow purpose and receives only the context required to perform
 - automatically punish desire;
 - default to victimhood;
 - write the finished invocation;
-- explain software symbolism.
+- explain software symbolism;
+- use the inheritance as costume rather than structure;
+- invent an unrelated world around the selected tradition.
 
 **Hands off to:** internal Selector.
 
-### 5.3 Selector
+### 5.4 Selector
 
 **Purpose:** Preserve and rank possibilities without rewriting them.
 
@@ -578,6 +669,7 @@ Each role has a narrow purpose and receives only the context required to perform
 - Most Original;
 - Highest Spectacle;
 - Strongest Project Affinity, when relevant;
+- Strongest Structural Inheritance, at the cultural-inheritance stage;
 - Wild Card;
 - exact language or ideas responsible for each selection.
 
@@ -596,13 +688,14 @@ In the fully agent form, the Selector makes or recommends the boundary decision 
 
 **Hands off to:** Agent Operator.
 
-### 5.4 Ritual Writer
+### 5.5 Ritual Writer
 
 **Purpose:** Turn one selected premise into invocations.
 
 **Receives:**
 
 - one Premise Packet;
+- one selected Cultural Inheritance Packet;
 - one or two short exemplar summaries;
 - required output forms;
 - a short taboo list.
@@ -612,7 +705,8 @@ In the fully agent form, the Selector makes or recommends the boundary decision 
 - the complete corpus;
 - the full candidate history;
 - every prior critique;
-- a demand to explain project relevance.
+- a demand to explain project relevance;
+- the Cultural Researcher’s full research dump.
 
 **Produces:**
 
@@ -623,7 +717,7 @@ In the fully agent form, the Selector makes or recommends the boundary decision 
 
 **Hands off to:** Selector and Agent Operator.
 
-### 5.5 Binder
+### 5.6 Binder
 
 **Purpose:** Bind a living autonomous rite to the project minimally.
 
@@ -648,7 +742,7 @@ In the fully agent form, the Selector makes or recommends the boundary decision 
 
 **Hands off to:** Agent Operator.
 
-### 5.6 Critic
+### 5.7 Critic
 
 **Purpose:** Diagnose the actual draft before revision.
 
@@ -657,6 +751,7 @@ In the fully agent form, the Selector makes or recommends the boundary decision 
 - the complete corpus or relevant critical sections;
 - the actual draft;
 - the selected premise;
+- the selected Cultural Inheritance Packet;
 - a preserve list;
 - project identity;
 - Human Reviewer reactions when available.
@@ -667,6 +762,7 @@ In the fully agent form, the Selector makes or recommends the boundary decision 
 - local diagnosis;
 - cut recommendations;
 - the smallest decisive correction;
+- a verdict on whether the inheritance remains structural and accurately transformed;
 - a verdict on premise viability.
 
 **Must not:**
@@ -679,7 +775,7 @@ In the fully agent form, the Selector makes or recommends the boundary decision 
 
 **Hands off to:** Agent Operator and Integrator.
 
-### 5.7 Poetic Editor
+### 5.8 Poetic Editor
 
 **Purpose:** Improve the English after the structure and outcome are stable.
 
@@ -700,7 +796,7 @@ In the fully agent form, the Selector makes or recommends the boundary decision 
 
 **Hands off to:** Agent Operator or Integrator.
 
-### 5.8 Integrator
+### 5.9 Integrator
 
 **Purpose:** Perform the final authorized synthesis.
 
@@ -732,7 +828,7 @@ In the fully agent form, the Selector makes or recommends the boundary decision 
 - one final invocation;
 - no commentary unless requested.
 
-### 5.9 Implementer
+### 5.10 Implementer
 
 **Purpose:** Insert the approved invocation into the project.
 
@@ -763,7 +859,7 @@ A valid boundary requires:
 3. selected candidates are named explicitly;
 4. selection is grounded in exact language, images, desires, or acts;
 5. no rewrite occurs during selection;
-6. the human makes the final choice at the four principal boundaries in the primary form.
+6. the human makes the final choice at the five principal boundaries in the primary form.
 
 ### 6.1 Internal Curation
 
@@ -791,7 +887,21 @@ The shortlist should contain approximately five to eight desires.
 
 The Operator should not develop premises until the human has selected one or more desires.
 
-### 6.3 Premise Boundary
+### 6.3 Cultural Inheritance Boundary
+
+The cultural-inheritance boundary is mandatory in the primary form unless the Human Reviewer explicitly waives it or
+selects a deliberately modern, autonomous ritual grammar.
+
+The shortlist should contain approximately four to six exact inheritances.
+
+The Operator should not commission premise construction until the human has selected:
+
+- one primary inheritance; and
+- at most one secondary echo.
+
+The selected inheritance must be carried forward as structure, not decorative vocabulary.
+
+### 6.4 Premise Boundary
 
 The premise boundary is mandatory in the primary form.
 
@@ -805,7 +915,7 @@ The shortlist should contain approximately three to five premises with genuinely
 
 The Operator should not commission invocations until the human has selected a premise or direction.
 
-### 6.4 Invocation Boundary
+### 6.5 Invocation Boundary
 
 The invocation boundary is mandatory in the primary form.
 
@@ -817,7 +927,7 @@ The human chooses the spine and may protect exact elements.
 
 No integration should occur before this selection.
 
-### 6.5 Adoption Boundary
+### 6.6 Adoption Boundary
 
 Final adoption belongs to the human in the primary form.
 
@@ -825,7 +935,7 @@ The Operator may assess whether the Architecture’s standard appears satisfied.
 
 That assessment does not itself adopt the work.
 
-### 6.6 Human Feedback Routing
+### 6.7 Human Feedback Routing
 
 The human may react at any checkpoint or after the final draft.
 
@@ -834,6 +944,8 @@ The Operator routes the feedback to the smallest stage capable of correcting it.
 | Human reaction | Default route |
 |---|---|
 | “Wrong desires.” | Desire Generator |
+| “The inheritance is wrong.” | Cultural Researcher or inheritance shortlist |
+| “This is only cultural decoration.” | Cultural Researcher, then Premise Builder |
 | “The premise is weak.” | Premise Builder or premise shortlist |
 | “The premise works; the rite does not.” | Ritual Writer |
 | “This is the spine.” | Preserve and continue |
@@ -878,15 +990,25 @@ The Operator presents the shortlist and asks the human to select one or more.
 
 The checkpoint must not contain the orchestration transcript.
 
-### 7.4 Premise Production and Review
+### 7.4 Cultural Inheritance Research and Review
 
-Premise Builders develop only the selected desires.
+Cultural Researchers investigate exact inherited forms capable of carrying the selected desire.
+
+An independent Selector curates a balanced field rather than a list of aesthetic costumes.
+
+The human selects one primary inheritance and, optionally, one secondary echo.
+
+### 7.5 Premise Production and Review
+
+Premise Builders develop only the selected desires through the selected cultural inheritance.
 
 An independent Selector curates distinct finalists.
 
 The human chooses the premise that advances.
 
-### 7.5 Invocation Production and Review
+The selected inheritance must remain visible in the premise’s role, conflict, ritual grammar, hardware, or release.
+
+### 7.6 Invocation Production and Review
 
 Ritual Writers produce substantially different forms from the selected premise.
 
@@ -898,7 +1020,7 @@ The human selects:
 - protected lines or images when desired;
 - an optional release direction.
 
-### 7.6 Autonomous Refinement
+### 7.7 Autonomous Refinement
 
 After spine selection, the Agent Operator normally proceeds without another checkpoint through:
 
@@ -910,7 +1032,7 @@ After spine selection, the Agent Operator normally proceeds without another chec
 
 The Operator may request an extra checkpoint only under the conditions in [§4.4](#44-additional-escalation).
 
-### 7.7 Adoption Review
+### 7.8 Adoption Review
 
 The human receives:
 
@@ -935,11 +1057,12 @@ Only explicit human adoption moves a work into Admitted Manifestations in the pr
 
 The Agent Operator performs the same stages as the primary form.
 
-At the four principal boundaries, independent agent Selectors replace the Human Reviewer.
+At the five principal boundaries, independent agent Selectors replace the Human Reviewer.
 
 The Operator must:
 
 - preserve complete candidate sets;
+- verify cultural sources and retain the research record;
 - use external selection boundaries;
 - preserve dangerous variance;
 - record exact reasons for selection;
@@ -1045,7 +1168,27 @@ Selectors, critics, and integrators must receive the actual text when cadence or
 
 Do not substitute summaries for drafts.
 
-### 9.4 Framework Leakage
+### 9.4 Research Compression
+
+The Cultural Researcher may receive source texts and external research.
+
+The Premise Builder should receive only the selected Cultural Inheritance Packet and the source notes required to
+avoid distortion.
+
+The Ritual Writer should receive an even smaller inheritance brief:
+
+- exact role or situation;
+- native human pressure;
+- ritual grammar;
+- hardware;
+- permitted transformation;
+- taboos against distortion.
+
+Do not forward entire articles, research transcripts, or six rejected traditions into the creative context.
+
+The source should supply gravity without becoming another rubric dump.
+
+### 9.5 Framework Leakage
 
 Creative agents must not output:
 
@@ -1148,10 +1291,70 @@ finalists:
 request: "Choose one or more by number, reject the batch, or react briefly."
 ```
 
-### 10.5 Premise Packet
+### 10.5 Cultural Research Packet
+
+```yaml
+selected_desire: "To sing one aria after which all later song is quotation, echo, or desecration."
+project_identity_ref: "selected_project"
+scope:
+  western_candidates: 3
+  japanese_candidates: 3
+requirements:
+  - exact inherited form
+  - original situation
+  - native human pressure
+  - ritual grammar and hardware
+  - apotheotic possibility
+  - principal risk
+  - authoritative sources
+prohibit:
+  - invented civilizations
+  - generic cathedral or mask aesthetics
+  - finished fictional premises
+  - automatic syncretism
+```
+
+### 10.6 Cultural Inheritance Dossier Packet
+
+```yaml
+anchor: "[exact myth, rite, theater, liturgy, court art, or craft lineage]"
+original_situation: "[what occurs in the inherited source]"
+native_pressure: "[desire, rivalry, grief, sovereignty, devotion, or prohibition]"
+ritual_grammar:
+  - "[structural movement]"
+ritual_hardware:
+  - "[object, garment, instrument, place, or gesture]"
+apotheotic_possibility: "[how a new speaker may complete, invert, usurp, or universalize it]"
+risk:
+  - "[likely cliché, distortion, or decorative misuse]"
+sources:
+  - "[primary or authoritative source]"
+```
+
+### 10.7 Cultural Inheritance Review Packet
+
+```yaml
+stage: "cultural_inheritance"
+selected_desire: "[human-selected desire]"
+finalists:
+  - id: 1
+    anchor: "[exact inheritance]"
+    native_pressure: "[one sentence]"
+    ritual_grammar: "[one sentence]"
+    apotheotic_possibility: "[one sentence]"
+    risk: "[one sentence]"
+human_request:
+  - "Select one primary inheritance and, optionally, one secondary echo."
+  - "Selection by number or brief reaction is sufficient."
+```
+
+### 10.8 Premise Packet
 
 ```yaml
 desire: "To create one form so perfect that nature loses the right to call itself original."
+selected_inheritance:
+  primary: "[exact inherited myth, rite, theater, court art, or craft lineage]"
+  secondary_echo: null
 claim: "Mastery gives the maker greater authority than birth or nature."
 opposition: "The maker's own living face remains the last competing original."
 victory: "The completed work becomes the only face reality recognizes."
@@ -1162,7 +1365,7 @@ final_act: "The maker chisels their own body into the work's final correction."
 release_concept: "MONARCHIA FORMAE"
 ```
 
-### 10.6 Premise Review Packet
+### 10.9 Premise Review Packet
 
 ```yaml
 stage: "premise"
@@ -1170,6 +1373,7 @@ finalists:
   - id: "A"
     desire: "To create the sole original form."
     claim: "Mastery outranks nature."
+    inheritance_use: "A selected craft lineage supplies the maker's office, tools, and final gesture."
     manifested_law: "Art judges creation."
     recurring_image: "A red veil over bleeding marble."
     final_act: "The maker removes their own face as the last false likeness."
@@ -1177,6 +1381,7 @@ finalists:
   - id: "B"
     desire: "To restore the only worthy rival."
     claim: "Victory without resistance is counterfeit."
+    inheritance_use: "A selected heroic contest supplies the terms of challenge, witness, and judgment."
     manifested_law: "Defeated enemies may be summoned until one refuses defeat."
     recurring_image: "A sword casting two shadows, one belonging to the dead."
     final_act: "The speaker sacrifices every victory to restore one final duel."
@@ -1184,10 +1389,11 @@ finalists:
 request: "Choose one direction, combine one narrow element, or reject the set."
 ```
 
-### 10.7 Ritual Draft Packet
+### 10.10 Ritual Draft Packet
 
 ```yaml
 premise_ref: "A"
+inheritance_ref: "selected_inheritance"
 references:
   - "Vocation converges into one final work."
   - "An accepted hierarchy is reversed absolutely."
@@ -1201,7 +1407,7 @@ prohibit:
   - framework labels
 ```
 
-### 10.8 Invocation Review Packet
+### 10.11 Invocation Review Packet
 
 ```yaml
 stage: "invocation"
@@ -1225,7 +1431,7 @@ finalists:
 request: "Choose the spine and any exact lines that must survive."
 ```
 
-### 10.9 Critic Packet
+### 10.12 Critic Packet
 
 ```yaml
 draft: |
@@ -1244,7 +1450,7 @@ operator_reactions:
   - "Do not soften the aesthetic tyranny."
 ```
 
-### 10.10 Integrator Packet
+### 10.13 Integrator Packet
 
 ```yaml
 spine_draft: "candidate_3"
@@ -1269,7 +1475,7 @@ prohibit:
   - moral rehabilitation
 ```
 
-### 10.11 Review Feedback Packet
+### 10.14 Review Feedback Packet
 
 ```yaml
 verbatim_feedback: "The premise works, but the English needs more poetic flourish."
@@ -1309,17 +1515,18 @@ agent-orchestrated invocation conclave.
 Commission:
 [commission]
 
-The human must review four principal selections:
+The human must review five principal selections:
 
 1. desire;
-2. premise;
-3. invocation or spine;
-4. final adoption.
+2. cultural inheritance;
+3. premise;
+4. invocation or spine;
+5. final adoption.
 
 You perform all generation, internal curation, orchestration, criticism,
 binding, integration, and poetic revision.
 
-At each of the first three boundaries:
+At each of the first four boundaries:
 
 - preserve the complete candidate set internally;
 - use an independent Selector to curate meaningful variance;
@@ -1331,6 +1538,8 @@ Do not ask the human to prepare packets or manage roles.
 Do not replace a mandatory human selection with your own preference.
 Do not expose the full orchestration transcript.
 Do not print framework labels inside creative work.
+
+After desire selection, commission Cultural Researchers and stop for inheritance selection before premise work.
 
 After the human selects the invocation spine, continue autonomously through:
 
@@ -1370,12 +1579,60 @@ ultimate release.
 Output only the twelve desires.
 ```
 
-### 11.3 Premise Builder
+### 11.3 Cultural Researcher
 
 ```text
-Develop eight fictional premises from the selected desires below.
+The selected desire is:
 
-[selected desires]
+[selected desire]
+
+Do not generate fictional premises yet.
+
+Research six specific cultural inheritances capable of carrying this desire:
+
+- three from premodern or early-modern Western culture;
+- three from traditional Japanese culture.
+
+When the Project Identity Packet strongly indicates another cultural field,
+adjust the balance deliberately rather than mechanically.
+
+Use real myths, liturgies, ritual performances, poetic traditions, historical
+figures, court arts, or inherited craft forms. Prefer primary texts and
+authoritative cultural or scholarly sources.
+
+For each inheritance, provide:
+
+1. Exact anchor
+2. Original situation
+3. Native human pressure
+4. Ritual grammar
+5. Ritual hardware
+6. Apotheotic possibility
+7. Risk
+8. Two or three authoritative sources
+
+The source must be capable of governing the premise structurally.
+
+Do not invent civilizations, fantasy names, magical technologies, or finished
+characters.
+Do not treat a generic cathedral, shrine, mask, court, or Latin phrase as an
+inheritance.
+Do not combine Western and Japanese traditions into one premise.
+Do not write the invocation.
+
+Output only the six cultural-inheritance dossiers.
+```
+
+### 11.4 Premise Builder
+
+```text
+Develop eight fictional premises from the selected desire and cultural inheritance below.
+
+Selected desire:
+[selected desire]
+
+Selected cultural inheritance:
+[selected Cultural Inheritance Packet]
 
 For each premise, provide:
 
@@ -1388,6 +1645,11 @@ For each premise, provide:
 - Recurring image
 - Final act
 - Release concept
+
+The inheritance must govern the role, conflict, ritual grammar, hardware,
+and path to release. It must not function as decorative vocabulary.
+
+Use one primary inheritance and at most one selected secondary echo.
 
 Requirements:
 
@@ -1406,13 +1668,16 @@ Do not print framework labels.
 Output only the premise set.
 ```
 
-### 11.4 Selector
+### 11.5 Selector
 
 ```text
 Evaluate the complete candidate set below without rewriting it.
 
 Operating form:
 [human-reviewed / fully-agent]
+
+Stage:
+[desire / cultural-inheritance / premise / invocation]
 
 Return:
 
@@ -1423,6 +1688,9 @@ Return:
 5. Wild Card
 
 When project identity is supplied, also return Strongest Project Affinity.
+
+At the cultural-inheritance stage, also return Strongest Structural Inheritance and flag any option that is only
+aesthetic costume.
 
 For each selection, identify:
 
@@ -1444,13 +1712,13 @@ Do not rewrite candidates.
 Do not summarize away their original language.
 ```
 
-### 11.5 Human Review Checkpoint
+### 11.6 Human Review Checkpoint
 
 ```text
 Prepare a compact human review checkpoint.
 
 Stage:
-[desire / premise / invocation]
+[desire / cultural-inheritance / premise / invocation]
 
 Candidate set:
 [candidates and selector report]
@@ -1458,7 +1726,7 @@ Candidate set:
 Requirements:
 
 - expose meaningful variance;
-- present no more than eight desires, five premises, or four invocations;
+- present no more than eight desires, six inheritances, five premises, or four invocations;
 - preserve exact creative language where it matters;
 - include the reason each candidate remains alive;
 - include one principal risk;
@@ -1470,13 +1738,16 @@ Do not rewrite candidates.
 Do not expose irrelevant orchestration details.
 ```
 
-### 11.6 Ritual Writer
+### 11.7 Ritual Writer
 
 ```text
 Write three substantially different versions of this character's ultimate
 invocation:
 
 [premise packet]
+
+Selected cultural inheritance:
+[compact Cultural Inheritance Packet]
 
 Reference principles:
 [one or two short exemplar summaries]
@@ -1497,6 +1768,9 @@ The final release must perform an irreversible act. It must express the
 speaker's particular desire, pride, devotion, vocation, hatred, love, or
 madness rather than summarize the setting.
 
+Let the selected inheritance govern role, ritual movement, hardware, and authority.
+Do not merely add traditional nouns to an unrelated fantasy premise.
+
 Do not mention the software project.
 Do not explain the symbolism.
 Do not identify the writing method.
@@ -1507,7 +1781,7 @@ Do not include a preamble or postscript.
 Output only the three invocations.
 ```
 
-### 11.7 Binder
+### 11.8 Binder
 
 ```text
 The invocation below is already alive as an autonomous fictional rite.
@@ -1537,7 +1811,7 @@ Do not weaken the speaker.
 Output only the three minimal proposals.
 ```
 
-### 11.8 Critic
+### 11.9 Critic
 
 ```text
 Review the attached invocation as a hostile literary editor.
@@ -1554,22 +1828,24 @@ Identify:
 6. whether the speaker is permitted to win;
 7. whether the price has become accidental punishment;
 8. whether self-destruction functions as completion or condemnation;
-9. any generic AI fantasy or prestige-fiction language;
-10. any abstract sentence explaining the metaphysics;
-11. whether recurring objects return with changed meaning;
-12. whether the spectacle grows from the premise;
-13. whether the release names an act rather than a setting;
-14. whether the formal name and poetic epithet perform different jobs;
-15. what must be preserved;
-16. what should be cut;
-17. the smallest decisive correction.
+9. whether the selected cultural inheritance governs the rite structurally or survives only as costume;
+10. whether the inherited source has been distorted beyond the chosen transformation;
+11. any generic AI fantasy or prestige-fiction language;
+12. any abstract sentence explaining the metaphysics;
+13. whether recurring objects return with changed meaning;
+14. whether the spectacle grows from the premise;
+15. whether the release names an act rather than a setting;
+16. whether the formal name and poetic epithet perform different jobs;
+17. what must be preserved;
+18. what should be cut;
+19. the smallest decisive correction.
 
 Do not praise rubric compliance.
 Do not demand moral health.
 Do not rewrite the premise unless it is fundamentally dead.
 ```
 
-### 11.9 Poetic Editor
+### 11.10 Poetic Editor
 
 ```text
 Perform a poetic revision of the invocation below.
@@ -1601,7 +1877,7 @@ Do not include commentary.
 Output only the revised invocation.
 ```
 
-### 11.10 Integrator
+### 11.11 Integrator
 
 ```text
 Produce the final invocation from the packet below.
@@ -1636,7 +1912,7 @@ Do not include commentary.
 Output only the final invocation.
 ```
 
-### 11.11 Feedback Router
+### 11.12 Feedback Router
 
 ```text
 Interpret the Human Reviewer's feedback and route it to the smallest stage
@@ -1660,6 +1936,7 @@ Return an internal Review Feedback Packet containing:
 Default routing:
 
 - wrong desires → new desire batch;
+- wrong or decorative inheritance → Cultural Researcher or inheritance shortlist;
 - weak premise → premise production or premise shortlist;
 - living premise, weak rite → Ritual Writer;
 - flat English → Poetic Editor;
@@ -1673,7 +1950,7 @@ Do not rewrite the invocation.
 Do not broaden a local complaint into a complete restart without evidence.
 ```
 
-### 11.12 Fully Agent Operator
+### 11.13 Fully Agent Operator
 
 ```text
 Act as the Agent Operator of a fully agent invocation conclave.
@@ -1684,7 +1961,10 @@ Commission:
 Use isolated specialist roles and selection boundaries external to each
 generator.
 
-At desire, premise, and invocation selection:
+At desire, cultural-inheritance, premise, and invocation selection:
+
+- use a Cultural Researcher before premise construction;
+- verify and retain the selected source record;
 
 - preserve the complete candidate set internally;
 - use an independent Selector;
@@ -1727,16 +2007,28 @@ A desire shortlist is ready when:
 - each finalist has a concise force and risk statement;
 - the human can choose without reading the internal workshop.
 
-### 12.2 Premise Review Readiness
+### 12.2 Cultural Inheritance Review Readiness
+
+A cultural-inheritance shortlist is ready when:
+
+- every option names an exact inherited form rather than a generic aesthetic;
+- the sources have been verified and retained in the workshop record;
+- the options differ in ritual grammar, not merely geography;
+- each dossier identifies native pressure, hardware, apotheotic possibility, and risk;
+- at least one Western and one Japanese option remain unless the Commission deliberately narrows the field;
+- the human can select one primary inheritance without reading the full research transcript.
+
+### 12.3 Premise Review Readiness
 
 A premise shortlist is ready when:
 
 - the premises differ in more than imagery;
 - each has a clear claim, victory, manifested law, image, and final act;
 - the selected desire remains recognizable;
+- the selected inheritance governs role, conflict, ritual grammar, hardware, or release rather than decoration;
 - the shortlist does not consist only of tasteful moral parables.
 
-### 12.3 Invocation Review Readiness
+### 12.4 Invocation Review Readiness
 
 An invocation shortlist is ready when:
 
@@ -1746,7 +2038,7 @@ An invocation shortlist is ready when:
 - the Operator states the real choice and the principal risk;
 - no integration has hidden the differences before human selection.
 
-### 12.4 Human Adoption
+### 12.5 Human Adoption
 
 In the primary form, only the Human Reviewer grants final adoption.
 
@@ -1754,7 +2046,7 @@ The Operator may recommend adoption and assess the Architecture’s standard.
 
 The recommendation is not adoption.
 
-### 12.5 Fully Agent Adoption
+### 12.6 Fully Agent Adoption
 
 In the fully agent form, the Agent Operator may adopt only when:
 
@@ -1775,15 +2067,16 @@ A solitary author may perform the same stages personally:
 
 1. generate raw desires;
 2. imagine complete victory;
-3. build several premises;
-4. select one with force;
-5. draft without the guide;
-6. write several forms;
-7. choose one spine;
-8. bind to the project minimally;
-9. criticize locally;
-10. perform the Poetic Pass;
-11. adopt or abandon.
+3. select and study a cultural inheritance;
+4. build several premises through that inheritance;
+5. select one with force;
+6. draft without the guide;
+7. write several forms;
+8. choose one spine;
+9. bind to the project minimally;
+10. criticize locally;
+11. perform the Poetic Pass;
+12. adopt or abandon.
 
 The human should still separate creation from criticism.
 
@@ -1811,9 +2104,13 @@ The human must see the possibilities before they are irreversibly narrowed.
 
 The Desire Generators open the field.
 
-The Human Reviewer chooses what deserves a premise.
+The Human Reviewer chooses what deserves an inheritance.
 
-The Premise Builders give desire a claim, an opposition, and a victory.
+The Cultural Researchers return what the dead have already made available.
+
+The Human Reviewer chooses the old form capable of bearing the new desire.
+
+The Premise Builders give desire a claim, an opposition, and a victory through that inheritance.
 
 The Human Reviewer chooses what deserves a voice.
 

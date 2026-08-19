@@ -3,8 +3,9 @@
 *Sources, ruins, failed rites, and the recovered laws of ceremonial spectacle*
 
 This document accompanies [The Architecture of Apotheosis](README.md),
-[The Conclave of Apotheosis](CONCLAVE.md), and
-[The Manifestations of Apotheosis](MANIFESTATIONS.md).
+[The Conclave of Apotheosis](CONCLAVE.md),
+[The Manifestations of Apotheosis](MANIFESTATIONS.md), and
+[A Short Walkthrough for ChatGPT.com](WALKTHROUGH.md).
 
 It is interpretive rather than normative.
 
@@ -15,6 +16,7 @@ The Archaeology records why that law exists.
 It preserves:
 
 - source traditions whose methods proved fertile;
+- inherited myths, rites, theaters, liturgies, court arts, and craft forms that can carry new desire;
 - contradictory models that should remain contradictory;
 - failed approaches that exposed hidden requirements;
 - recurring model pathologies;
@@ -623,9 +625,46 @@ The new work must contain at least one image, law, command, or release unmistaka
 
 ---
 
+### 25. Inheritance Is Generative Grammar
+
+The most persuasive ceremonial works rarely invent every layer of meaning at once.
+
+They inherit a situation whose authority precedes the new speaker:
+
+- contest and judgment;
+- descent and forbidden return;
+- office and responsory;
+- masked role and chorus;
+- divine withdrawal and restored light;
+- court ceremony and sovereign order;
+- lineage, initiation, funeral, enthronement, or sacred craft.
+
+The new rite then completes, inverts, usurps, profanes, or universalizes the inherited form.
+
+**Recovered law**
+
+> Desire should meet an inheritance before it becomes a premise.
+
+The source supplies role, pressure, ritual grammar, hardware, and authority. The new desire supplies the reason that
+the old form can no longer remain what it was.
+
+Useful research territories include a musical contest and judgment, an underworld descent and forbidden return, the
+canonical Hours and responsory, a masked ghost-role with chorus, a divine withdrawal answered by performance, or a
+court music whose ceremony binds sovereign and world. These are starting points for research, not templates.
+
+**Misreading to avoid**
+
+Do not confuse inheritance with atmosphere. A generic cathedral is not a liturgy. A generic mask is not a theater.
+A foreign phrase is not a tradition.
+
+Do not combine Western and Japanese inheritances merely to make the result denser. One primary inheritance should
+govern. A secondary echo must perform a distinct and necessary function.
+
+---
+
 ## Part V — The Ruins
 
-### 25. Mechanism in Robes
+### 26. Mechanism in Robes
 
 The invocation replaces technical nouns with fantasy nouns.
 
@@ -645,7 +684,7 @@ Seek a living desire, autonomous myth, or adopted rite.
 
 ---
 
-### 26. The Project Explained More Loudly
+### 27. The Project Explained More Loudly
 
 The rite says:
 
@@ -664,7 +703,7 @@ The invocation need not teach the feature.
 
 ---
 
-### 27. The Order-versus-Chaos Overcorrection
+### 28. The Order-versus-Chaos Overcorrection
 
 The Doctrine’s commitment to order was mistaken for a mandatory plot in which a chaotic speaker learns proper harmony.
 
@@ -678,7 +717,7 @@ The Doctrine governs composition, not every imagined soul.
 
 ---
 
-### 28. The Therapeutic Parable
+### 29. The Therapeutic Parable
 
 A vulnerable person possesses a respectable need.
 
@@ -694,7 +733,7 @@ The universe is not automatically a therapist.
 
 ---
 
-### 29. Victimhood as the Default Source of Depth
+### 30. Victimhood as the Default Source of Depth
 
 Every speaker is bereaved, displaced, dying, powerless, or defined by what was done to them.
 
@@ -716,7 +755,7 @@ Danger is not victimhood.
 
 ---
 
-### 30. The Karmic Universe
+### 31. The Karmic Universe
 
 Every desire receives an ironic punishment:
 
@@ -734,7 +773,7 @@ Use punishment only when the premise requires it.
 
 ---
 
-### 31. Prestige-Fiction Brain
+### 32. Prestige-Fiction Brain
 
 Premises repeatedly appeared as tasteful speculative miniatures:
 
@@ -764,7 +803,7 @@ The problem is that it became the only imagination available.
 
 ---
 
-### 32. Generic Lost-Lover Multiverse
+### 33. Generic Lost-Lover Multiverse
 
 A beloved appears differently across incompatible worlds.
 
@@ -782,7 +821,7 @@ If no precise conflict appears, abandon the premise.
 
 ---
 
-### 33. Ornamental Surrealism
+### 34. Ornamental Surrealism
 
 Beautiful images appear without causal relation.
 
@@ -796,7 +835,45 @@ Let every image descend from it.
 
 ---
 
-### 34. The Rubric Demonstration
+### 35. The Culturally Orphaned Premise
+
+A premise batch may contain fluent novelty and no inherited gravity.
+
+The agent invents, in one pass:
+
+- a civilization;
+- an ecclesiastical or courtly office;
+- a magical technology;
+- a symbolic object;
+- a body-horror mechanism;
+- a ceremonial vocabulary;
+- a release name.
+
+The result resembles gacha-event lore or prestige speculative worldbuilding: salt cities, porcelain masks, prenatal
+prophets, impossible theaters, and elegant systems whose authority began three paragraphs ago.
+
+The problem is not invention itself.
+
+The problem is that nothing in the premise has been received.
+
+**Recovered law**
+
+Insert a cultural-inheritance boundary between desire and premise construction.
+
+The Cultural Researcher should return exact myths, liturgies, ritual performances, theater forms, court arts, poetic
+traditions, or craft lineages. The Human Reviewer then selects the inherited grammar capable of carrying the desire.
+
+A new speaker may complete, invert, usurp, profane, or universalize that grammar.
+
+**Diagnostic question**
+
+> If every invented proper noun were removed, what older human form would remain?
+
+When the answer is “none,” the premise may still be viable, but its rootlessness must be chosen rather than accidental.
+
+---
+
+### 36. The Rubric Demonstration
 
 The draft contains one obvious unit of each requested feature:
 
@@ -819,7 +896,7 @@ The Human Reviewer need not inspect it, and the creative writer receives only th
 
 ---
 
-### 35. The Beautiful Preface
+### 37. The Beautiful Preface
 
 The text contains solemn reflection and a strong logion.
 
@@ -839,7 +916,7 @@ An invocation activates.
 
 ---
 
-### 36. Imported Spectacle
+### 38. Imported Spectacle
 
 A gate, choir, sword, angel, or apocalypse appears in the final movement because the first draft felt quiet.
 
@@ -851,7 +928,7 @@ Do not import a new climax.
 
 ---
 
-### 37. The Metaphysics Essay
+### 39. The Metaphysics Essay
 
 The invocation explains its system:
 
@@ -868,7 +945,7 @@ Convert explanation into judgment, image, or action.
 
 ---
 
-### 38. Ritual Props Without Ritual Function
+### 40. Ritual Props Without Ritual Function
 
 A veil, mirror, crown, key, or sword appears because it looks ceremonial.
 
@@ -882,7 +959,7 @@ Ritual hardware should make the rite performable.
 
 ---
 
-### 39. The Missing Pivot of Consent
+### 41. The Missing Pivot of Consent
 
 The rite reveals a horrifying consequence, but the speaker’s stance remains unclear.
 
@@ -896,7 +973,7 @@ The pivot distinguishes sovereign completion from accidental curse.
 
 ---
 
-### 40. Accidental Punishment
+### 42. Accidental Punishment
 
 The speaker dies, disappears, or loses everything because the writer assumes excessive desire must be punished.
 
@@ -915,7 +992,7 @@ The same destruction may be:
 
 ---
 
-### 41. Distributed Project Symbolism
+### 43. Distributed Project Symbolism
 
 A living autonomous rite is revised until every stanza references the project.
 
@@ -927,7 +1004,7 @@ Then stop.
 
 ---
 
-### 42. The Doubled Release
+### 44. The Doubled Release
 
 The formal title and English epithet say the same thing twice.
 
@@ -943,7 +1020,7 @@ The other shows what kneels before it.
 
 ---
 
-### 43. The Essay-Heading Release
+### 45. The Essay-Heading Release
 
 The release sounds like the title of a reflective document or chapter.
 
@@ -957,7 +1034,7 @@ Or choose a compact tradition in which the name alone already carries the event.
 
 ---
 
-### 44. The Integrator’s Smooth Corpse
+### 46. The Integrator’s Smooth Corpse
 
 Several drafts are averaged into one polished median.
 
@@ -969,7 +1046,7 @@ Distinctive voices, strange images, and dangerous commitments cancel one another
 
 ---
 
-### 45. Endless Revision
+### 47. Endless Revision
 
 Each version becomes cleaner, longer, more poetic, and more compliant without becoming more alive.
 
@@ -983,7 +1060,7 @@ When the desire is dead, replace it.
 
 ## Part VI — Case Study: The Road to *Monarchia Formae*
 
-### 46. The Initial Mirror
+### 48. The Initial Mirror
 
 The first attempts treated Yumemi’s technical principle as the premise:
 
@@ -1009,7 +1086,7 @@ Technical fidelity cannot substitute for desire.
 
 ---
 
-### 47. The Human-Wound Turn
+### 49. The Human-Wound Turn
 
 The next attempts translated dimensional distinction into human wrongs:
 
@@ -1029,7 +1106,7 @@ The analogue must produce a desire someone would actually release as power.
 
 ---
 
-### 48. The Doctrinal Correction
+### 50. The Doctrinal Correction
 
 The conflict between sovereign desire and the Doctrine’s order led to rites in which the speaker learned that
 plurality was not chaos and submitted to proper measure.
@@ -1046,7 +1123,7 @@ The Doctrine should govern form, not require itself as the subject.
 
 ---
 
-### 49. The Spectacle Correction
+### 51. The Spectacle Correction
 
 The guide then required:
 
@@ -1068,7 +1145,7 @@ The full guide is a critical instrument, not a one-shot generation prompt.
 
 ---
 
-### 50. The Echo and Adoption Turn
+### 52. The Echo and Adoption Turn
 
 The project connection was loosened.
 
@@ -1085,7 +1162,7 @@ A rite still requires a private law.
 
 ---
 
-### 51. Desire Before Wound
+### 53. Desire Before Wound
 
 Premise generation was redirected away from victimhood and ironic punishment toward:
 
@@ -1116,7 +1193,7 @@ Imagine victory before inventing cost.
 
 ---
 
-### 52. The Living Draft
+### 54. The Living Draft
 
 The sculptor rite introduced several elements that previous guides had not named clearly enough:
 
@@ -1137,7 +1214,34 @@ The result is preserved in [The Manifestations of Apotheosis](MANIFESTATIONS.md)
 
 ---
 
-### 53. The Reviewer–Operator Distinction
+### 55. The Missing Inheritance
+
+*Monarchia Formae* proved that autonomous desire could produce a living rite. It did not prove that autonomous
+invention supplied sufficient cultural gravity.
+
+The draft inherited a broad classical sculptural atmosphere:
+
+- marble and bronze;
+- unveiling;
+- gallery and apprenticeship;
+- art competing with nature;
+- the perfected work surpassing its maker.
+
+No exact myth, rite, workshop lineage, philosophical episode, or ceremonial form had been selected and researched.
+
+The weakness became obvious when later premise generators produced salt cities, porcelain masks, fetal prophets, and
+ornate systems whose entire authority had been invented moments earlier.
+
+**Recovered law**
+
+> Broad cultural familiarity is not yet inheritance.
+
+A living premise may be bound late to an exact inheritance, but the binding must deepen role, ritual grammar, hardware,
+or authority rather than decorate the surface. Until that work is done, *Monarchia Formae* remains provisional.
+
+---
+
+### 56. The Reviewer–Operator Distinction
 
 The first orchestration model placed a human at every selection boundary but also expected the human to manage the
 machinery.
@@ -1169,7 +1273,13 @@ Human Reviewer
     ↓ selects desires
 
 Agent Operator
-    ↓ develops and curates premises
+    ↓ researches and curates cultural inheritances
+
+Human Reviewer
+    ↓ selects one primary inheritance and an optional secondary echo
+
+Agent Operator
+    ↓ develops and curates premises through the selected inheritance
 
 Human Reviewer
     ↓ selects a premise
@@ -1215,7 +1325,8 @@ The corpus therefore recognizes only three forms:
 
 - Human authority does not require human orchestration.
 - Low human labor does not require eliminating human selection.
-- Desire, premise, and spine selection are aesthetic judgments, not project-management work.
+- Desire, cultural inheritance, premise, and spine selection are aesthetic judgments, not project-management
+  work.
 - The Agent Operator should curate compact candidate surfaces rather than expose the workshop.
 - A human may select with one number, one line, or one reaction.
 - Fully agent creation replaces the human selector; it does not collapse selection into generation.
@@ -1225,7 +1336,7 @@ The corpus therefore recognizes only three forms:
 
 ## Part VII — Source Handling and Future Work
 
-### 54. Inherited Language
+### 57. Inherited Language
 
 Existing poetry, scripture, opera, mythology, and liturgy may be used as relics.
 
@@ -1244,7 +1355,7 @@ Do not treat remembered mistranslations as authoritative merely because they sou
 
 ---
 
-### 55. The Archaeology Must Not Become the Prompt
+### 58. The Archaeology Must Not Become the Prompt
 
 This document contains more contamination than any other text in the corpus.
 
@@ -1270,14 +1381,14 @@ Its purpose is to remember the ruins so the next conclave need not inhabit them.
 
 ---
 
-### 56. Open Questions
+### 59. Open Questions
 
 The following remain worth testing:
 
 - How much project affinity is necessary before Adoption feels pasted on?
 - Which models best generate raw sovereign desires without converting them into parables?
-- Can an Agent Operator preserve dangerous variance while a human reviews each principal narrowing gate without
-  becoming responsible for orchestration?
+- Can an Agent Operator preserve dangerous variance while the human remains a final reviewer rather than a director at
+  every gate?
 - How many positive manifestations are needed before examples begin to constrain more than they inspire?
 - Which projects benefit from compact releases rather than great arias?
 - Can a shared project family develop recurring ritual law without collapsing into one mythology?
@@ -1285,6 +1396,8 @@ The following remain worth testing:
 - How should inherited public-domain fragments be documented inside the repository without cluttering the invocation
   itself?
 - Which sparse reviewer reactions can be routed reliably without reopening the wrong stage?
+- How much inherited culture does a rite need before invention becomes rootlessness?
+- When should a deliberately modern or autonomous ritual grammar waive the inheritance gate?
 
 These are workshop questions.
 
@@ -1292,7 +1405,7 @@ They should be answered through new works, not by indefinitely extending the doc
 
 ---
 
-### 57. Final Archaeological Law
+### 60. Final Archaeological Law
 
 The ruins do not exist to shame the failed rite.
 
@@ -1303,9 +1416,11 @@ apocalypse—all were attempts to create force after the animating will had gone
 
 The recovery also required a change in authorship architecture.
 
-The human was not meant to operate every instrument. Nor was the human meant to see only the finished result after
-agents had already chosen every desire, premise, and voice. The human judges the principal narrowing points; the Agent
-Operator governs everything required to bring those judgments into form.
+The human was not meant to operate every instrument merely because the human retained the authority to judge the result.
+
+The recovery required another correction: desire needed an inheritance before invention became premise.
+
+The Cultural Researcher returned old forms still capable of bearing dangerous answers.
 
 The recovery began when the questions changed.
 

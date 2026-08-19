@@ -2,16 +2,17 @@
 
 *Admitted rites, provisional calibration, and forms in which the Architecture has become visible*
 
-This document accompanies [The Architecture of Apotheosis](README.md) and
-[The Conclave of Apotheosis](CONCLAVE.md).
+This document accompanies [The Architecture of Apotheosis](README.md),
+[The Conclave of Apotheosis](CONCLAVE.md), and
+[A Short Walkthrough for ChatGPT.com](WALKTHROUGH.md).
 
 It is non-normative calibration. The Architecture alone defines artistic adoption; the Conclave governs the process
 by which a work is produced and reviewed.
 
 The Architecture states what an invocation may become.
 
-The Conclave governs how agents may produce one while a Human Reviewer selects the desires, premises, draft spine,
-and final adoption without taking over the orchestration.
+The Conclave governs how agents may produce one while a Human Reviewer selects the desire, cultural inheritance,
+premise, draft spine, and final adoption without taking over the orchestration.
 
 The Manifestations answer the remaining question:
 
@@ -24,7 +25,7 @@ statement of what to inherit. The specialist should not receive the complete por
 
 In the default operating form, the Human Reviewer need not inspect this calibration material or manage the conclave.
 The Agent Operator selects any relevant witness, withholds the rest from creative roles, and presents only the compact
-candidate sets required at the desire, premise, invocation, and adoption checkpoints.
+candidate sets required at the desire, cultural-inheritance, premise, invocation, and adoption checkpoints.
 
 Each admitted work should contain a life of its own, a decisive act, and a release that completes rather than explains
 it.
@@ -41,15 +42,15 @@ An unadopted work may appear only under **Provisional Calibration** when:
 - its provisional status is explicit;
 - it remains useful for criticism or calibration;
 - it is not presented to creative specialists as an admitted manifestation or settled house style;
-- final adoption remains visibly unresolved.
+- final adoption remains visibly unresolved;
+- any claimed cultural inheritance is recorded accurately and its provisional limitations remain explicit.
 
 Commentary follows the finished work.
 
 Commentary must not interrupt it.
 
-In the primary operating form, the Agent Operator recommends admission and the Human Reviewer approves or rejects it
-at the final adoption boundary. In the fully agent form, an authorized Agent Operator may adopt only under the
-Architecture’s standard.
+In the default operating form, the Agent Operator recommends admission and the Human Reviewer approves or rejects it.
+An explicitly authorized Agent Operator may adopt autonomously only under the Architecture’s standard.
 
 ---
 
@@ -67,6 +68,9 @@ Provisional works preserve useful progress without pretending that the corpus ha
 
 **Project:** Iudex Mensurarum Mysticarum『夢見』〜ＹＵＭＥＭＩ〜  
 **Status:** Provisional calibration; not adopted. Final adoption remains subject to the Human Reviewer’s judgment.
+
+**Cultural inheritance:** Broad classical sculptural grammar only; no exact researched tradition was selected. This
+is a known provisional limitation.
 
 #### Invocation
 
@@ -231,6 +235,20 @@ The line binds the rite to 夢見 without converting the aria into an allegory o
 
 The invocation remains autonomous.
 
+##### Cultural Inheritance and Its Limit
+
+The rite draws on broad classical sculptural ideas: perfected form, the authority of the maker, unveiling, gallery,
+marble, bronze, and the rivalry between art and nature.
+
+It does not yet descend from one exact inherited myth, rite, workshop lineage, philosophical episode, or ceremonial
+form.
+
+That absence does not make the draft worthless. It does make it dangerous as sole calibration. An Agent Operator must
+not infer that a cluster of culturally familiar objects is equivalent to researched inheritance.
+
+A future revision may discover a precise source capable of deepening the sculptor’s authority without rebuilding the
+living premise. Until then, this work remains provisional for that reason among others.
+
 ##### Poetic English
 
 The strongest English alternates between ceremony and blunt verdict:
@@ -274,7 +292,8 @@ A writer may inherit:
 - one-word consent;
 - self-erasure as completion;
 - formal title plus image-bearing English epithet;
-- late and minimal project binding.
+- late and minimal project binding;
+- an example of why broad cultural grammar is not yet the same as exact inheritance.
 
 A writer should not inherit:
 
@@ -303,6 +322,10 @@ The corpus should eventually admit several sharply different forms:
 2. **A techno-occult activation** — proving that procedure can roar without an autobiographical aria.
 3. **A collective or covenantal rite** — proving that a shared will may manifest without a solitary sovereign speaker.
 4. **A renunciatory or devotional release** — proving that victory may consist of surrender, return, or departure.
+5. **A Western inheritance made structurally new** — proving that myth, liturgy, theater, or court art can govern a
+   rite without becoming costume.
+6. **A Japanese inheritance made structurally new** — proving that traditional performance, myth, court art, or
+   poetic form can carry a new sovereign desire without generic shrine-and-mask aesthetics.
 
 New works should enter **Admitted Manifestations** only after adoption. Unadopted works may appear only under the
 explicitly marked **Provisional Calibration** exception above and must remain visibly non-authoritative.

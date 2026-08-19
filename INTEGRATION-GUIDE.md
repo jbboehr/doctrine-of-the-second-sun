@@ -92,14 +92,15 @@ That optional profile supplements Fork Continuity. It does not replace it. See [
 
 ### Adopting the Apotheosis Documents
 
-The four documents under `apotheosis/` are adopted as a set, but they are not read as one:
+The documents under `apotheosis/` are adopted as a set, but they are not read as one:
 
 - `apotheosis/README.md`, The Architecture of Apotheosis, is the authority on the art itself;
 - `apotheosis/CONCLAVE.md` is the authority on producing one, and governs how an agent operator orchestrates the work
-  under sparse human review;
+  while a human selects at each creative boundary;
 - `apotheosis/MANIFESTATIONS.md` supplies adopted and marked provisional rites as calibration;
 - `apotheosis/ARCHAEOLOGY.md` is interpretive rather than normative, and records source traditions, failed approaches,
-  and recovered laws.
+  and recovered laws;
+- `apotheosis/WALKTHROUGH.md` is a tool-specific operating path for ChatGPT.com and carries no doctrine of its own.
 
 An invocation is optional. Adopting the set does not require placing logia in source code, and placing logia does not
 require writing an invocation.

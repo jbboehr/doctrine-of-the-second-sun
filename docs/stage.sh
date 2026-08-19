@@ -41,6 +41,7 @@ apotheosis_documents=(
     apotheosis/CONCLAVE.md
     apotheosis/MANIFESTATIONS.md
     apotheosis/ARCHAEOLOGY.md
+    apotheosis/WALKTHROUGH.md
 )
 
 for document in "${apotheosis_documents[@]}"; do

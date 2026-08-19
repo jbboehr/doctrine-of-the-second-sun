@@ -26,14 +26,16 @@ The canonical Markdown is also available as
 - [`DOCTRINE-GOLD-EXEMPLARS.md`](DOCTRINE-GOLD-EXEMPLARS.md): exceptional reference logia establishing the quality
   ceiling for generation and review.
 - [`apotheosis/`](apotheosis/README.md): writing a project invocation, the ceremonial work attached to a project's
-  identity, in four documents:
+  identity, in five documents:
   - [`apotheosis/README.md`](apotheosis/README.md): The Architecture of Apotheosis, the aesthetic doctrine itself.
   - [`apotheosis/CONCLAVE.md`](apotheosis/CONCLAVE.md): The Conclave of Apotheosis, orchestration for agent-run
-    production under sparse human review.
+    production under human selection at each creative boundary.
   - [`apotheosis/MANIFESTATIONS.md`](apotheosis/MANIFESTATIONS.md): The Manifestations of Apotheosis, adopted works
     and marked provisional works kept as calibration.
   - [`apotheosis/ARCHAEOLOGY.md`](apotheosis/ARCHAEOLOGY.md): The Archaeology of Apotheosis, source traditions, failed
     approaches, and recovered laws.
+  - [`apotheosis/WALKTHROUGH.md`](apotheosis/WALKTHROUGH.md): A Short Walkthrough for ChatGPT.com, the compact
+    human-review path for operating the conclave.
 - [`INTEGRATION-GUIDE.md`](INTEGRATION-GUIDE.md): adopting the portable guides in a consuming repository for humans and
   coding agents.
 - [`RUINENWERT.md`](RUINENWERT.md): engineering resilience, recoverability, and continuation under ecosystem change.

@@ -22,6 +22,8 @@ the ruins from which the doctrine was recovered.
   calibration.
 - [**The Archaeology of Apotheosis**](ARCHAEOLOGY.md) — source traditions, failed approaches, model pathologies,
   and recovered laws.
+- [**A Short Walkthrough for ChatGPT.com**](WALKTHROUGH.md) — the compact human-review path for operating the
+  conclave with fresh specialist chats.
 
 ### Corpus Authority
 
@@ -31,6 +33,7 @@ the ruins from which the doctrine was recovered.
 | **Conclave** | Normative for orchestration, delivery states, and agent conduct. |
 | **Manifestations** | Non-normative positive and provisional calibration. |
 | **Archaeology** | Non-normative interpretation, source study, and history. |
+| **Walkthrough** | Non-normative operational primer for ChatGPT.com. |
 
 When the corpus conflicts, this allocation governs. The
 [Minimum Standard for Adoption](#12-minimum-standard-for-adoption) belongs to the Architecture alone; companion
@@ -54,6 +57,7 @@ In the primary form, the human is neither the writer nor the Operator. The human
 principal narrowing points:
 
 - desire selection;
+- cultural inheritance selection;
 - premise selection;
 - invocation or spine selection;
 - final adoption.
@@ -64,7 +68,8 @@ selection, candidate curation, criticism, integration, late binding, and poetic 
 > **The agents make the possibilities.  
 > The human decides which possibility earns another form.**
 
-The exact process is defined in [The Conclave of Apotheosis](CONCLAVE.md).
+The exact process is defined in [The Conclave of Apotheosis](CONCLAVE.md). A compact practical path is available
+in [A Short Walkthrough for ChatGPT.com](WALKTHROUGH.md).
 
 ## 1. Purpose
 
@@ -89,6 +94,7 @@ That belonging may arise from:
 - its kanji;
 - its banner and visual identity;
 - one emotional or philosophical affinity;
+- a specific inherited myth, rite, liturgy, theater, poetic form, court art, or craft tradition;
 - an invented character, event, or legend adopted by the project;
 - a private association held by the author;
 - meaning accumulated through repeated use.
@@ -597,7 +603,76 @@ A complete premise contains:
 - **Final act:** the irreversible release.
 - **Release concept:** the proper name of that act.
 
-### 7.4 The Heaven Test
+### 7.4 Cultural Inheritance Before Premise
+
+Agent-written invocations often become culturally orphaned when they invent every layer at once:
+
+- civilization;
+- religion;
+- ritual office;
+- costume;
+- magical mechanism;
+- ceremonial object;
+- metaphysical vocabulary;
+- release name.
+
+The result may be novel and still feel weightless. A salt city, porcelain mask, dream prophet, or impossible theater
+has no inherited gravity merely because it is strange.
+
+For substantial agent-written rites, the normal sequence is:
+
+```text
+desire
+    ↓
+selected cultural inheritance
+    ↓
+premise
+    ↓
+invocation
+```
+
+A cultural inheritance is not “Western flavor,” “Japanese flavor,” incense, masks, Latin, shrines, cathedrals, or
+courtly vocabulary. It is a specific inherited form whose structure can generate the new rite.
+
+Useful inheritances include:
+
+- a named mythic contest, descent, covenant, or return;
+- a specific liturgy or canonical office;
+- a traditional theatrical role and performance grammar;
+- a courtly or sacred musical form;
+- a poetic sequence, ritual calendar, initiation, funeral, enthronement, or craft lineage.
+
+The inheritance should supply several of the following:
+
+- an existing human pressure;
+- a role the speaker may occupy, inherit, usurp, complete, or profane;
+- a ritual grammar;
+- concrete ceremonial hardware;
+- a relation between soloist, chorus, witness, rival, god, sovereign, or dead;
+- a native path toward release.
+
+The source is generative grammar, not decoration.
+
+A generic abbess in a generic basilica remains invented fantasy. A rite built from the actual logic of an Office,
+responsory, canonical hour, or funeral service has inherited structure.
+
+A generic black mask remains a prop. A rite built from the role of mask, chorus, ghost, and return within a specific
+traditional theater has inherited authority.
+
+Unless the project already possesses an established mythic grammar or deliberately selects a modern techno-occult
+form, the Agent Operator should place a cultural-inheritance review between desire selection and premise generation.
+A waiver is a deliberate aesthetic choice, not the accidental absence of roots.
+The Human Reviewer normally selects one primary inheritance and, at most, one secondary echo.
+
+Do not combine Western and Japanese traditions by default. Syncretism must be chosen for a reason rather than used as
+a shortcut to density.
+
+The inheritance must be researched accurately. Creative transformation may complete, invert, usurp, profane, or
+universalize the source. It must first know what it is transforming.
+
+The finished invocation need not quote or visibly name the source. Inherited structure may remain beneath the work.
+
+### 7.5 The Heaven Test
 
 Ask:
 
@@ -607,7 +682,7 @@ Then ask:
 
 > Why does the speaker no longer recognize that authority?
 
-### 7.5 The Magnificently Wrong Test
+### 7.6 The Magnificently Wrong Test
 
 At least some candidate sets should contain a speaker whose desire is coherent, grand, specific, morally alarming, and
 pursued without apology.
@@ -632,8 +707,8 @@ Do not turn them into another checklist.
 
 Someone or something must possess the right, will, mastery, madness, rank, or ceremonial position required to speak.
 
-Authority may belong to the self, a god, a sovereign, an order, a contract, a machine, a lineage, the dead, an inherited
-text, a collective, or the True Name itself.
+Authority may belong to the self, a god, a sovereign, an order, a contract, a machine, a lineage, the dead, an
+inherited text, a ritual office, a traditional role, a collective, or the True Name itself.
 
 Authority need not be morally legitimate.
 
@@ -1047,6 +1122,7 @@ An invocation is ready when:
 - at least one image or line belongs particularly to the work;
 - the release completes the desire or final act rather than summarizing the setting;
 - the project can claim it without an explanatory paragraph;
+- when it claims an inherited tradition, that inheritance is exact, verified, and structural rather than decorative;
 - further revision is more likely to polish away force than uncover new life.
 
 It does not need to employ every optional method in this document.
@@ -1139,6 +1215,10 @@ Find the desire that cannot tolerate remaining private.
 Find the claim by which the speaker places it above ordinary law.
 
 Find the hierarchy waiting to be overturned.
+
+Find what the dead have already sung, enacted, buried, crowned, or forbidden.
+
+Choose the inheritance whose old form can bear the new desire.
 
 Find the object through which the rite may be performed.
 
