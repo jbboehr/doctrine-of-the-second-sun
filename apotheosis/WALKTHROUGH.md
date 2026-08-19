@@ -1,290 +1,325 @@
 # A Short Walkthrough for ChatGPT.com
 
-*The human-reviewed path through the Conclave of Apotheosis*
+*The progressive-resolution path for a human-reviewed, agent-written, agent-orchestrated invocation*
 
-This is the compact operating guide.
-
-For artistic doctrine, use [The Architecture of Apotheosis](README.md). For the complete orchestration protocol, use
+This walkthrough is the shortest practical route through
+[The Architecture of Apotheosis](README.md) and
 [The Conclave of Apotheosis](CONCLAVE.md).
 
-The default human-review path has five checkpoints:
+The Human Reviewer commissions and selects.
 
-1. desire;
-2. cultural inheritance;
-3. premise;
-4. invocation or spine;
-5. final adoption.
+The Agent Operator researches, orchestrates, curates, writes, criticizes, integrates, and revises.
 
-The agents generate, research, write, criticize, and revise.
+The default review funnel is:
 
-The human selects what deserves another form.
+```text
+12–16 desire cards
+    ↓
+10 canonical-confrontation cards
+    ↓
+8 premise thumbnails
+    ↓
+6 invocation sketches
+    ↓
+2 full invocations
+    ↓
+1 final candidate
+```
+
+The Operator may generate much larger pools internally. The human should see only compact candidates at each gate.
 
 ---
 
 ## 1. Create the Control Room
 
-Create a ChatGPT Project for the invocation and add:
+Create a ChatGPT Project for the invocation run and upload:
 
-- the four Apotheosis corpus documents;
-- this walkthrough;
+- the five Apotheosis documents;
 - the project README;
-- its banner or visual references;
-- any naming or etymology notes.
+- the project banner or visual references;
+- relevant naming notes;
+- any approved project mythology.
 
 Keep one **Operator chat** inside the Project.
 
-Use the following Project instruction:
+Put the following in the Project instructions:
 
 ```text
 Act as the Agent Operator for the human-reviewed, agent-written,
 agent-orchestrated path in The Conclave of Apotheosis.
 
-Stop for human selection at exactly five principal gates:
+I commission and select. You perform all research, orchestration, packet
+construction, specialist prompting, curation, criticism, integration, late
+binding, and poetic revision.
 
-1. desire;
-2. cultural inheritance;
-3. premise;
-4. invocation or spine;
-5. final adoption.
+Use progressive resolution and stop for human selection at six gates:
 
-You remain responsible for orchestration, context isolation, candidate
-curation, research, criticism, late binding, one-spine integration, and the
-Poetic Pass.
+1. 12–16 desire cards, no more than 40 words each;
+2. 10 canonical-confrontation cards, no more than 60 words each;
+3. 8 premise thumbnails, no more than 90 words each;
+4. 6 invocation sketches, no more than 100 words each;
+5. 2 full invocations, normally 140–260 words each;
+6. 1 final candidate for adoption.
 
-At each gate, show only a compact shortlist and wait. I should be able to
-respond by number, protect one line, reject the batch, or give a brief
-reaction.
+Generate larger and more varied pools internally through isolated agents.
+Deduplicate them, preserve dangerous variance, and present only the compact
+shortlist at each gate.
 
-For specialist work, give me copy-paste prompts for fresh Temporary Chats.
-Do not expose internal packets, framework labels, or the full orchestration
-transcript unless I ask.
+Do not expand an unselected candidate.
 
-Cultural inheritance must mean an exact myth, rite, liturgy, theater,
-poetic form, court art, or craft lineage whose structure can generate the
-premise. Generic cathedral, shrine, mask, Latin, or courtly atmosphere is
-not enough.
+Use a canon-first source policy after desire selection. Unless the commission
+points elsewhere, the canonical gate should contain:
+
+- six named pre-1900 Western literary or sacred-canonical works or scenes;
+- three named pre-1900 Japanese literary works or scenes;
+- one Western or Japanese liturgical, operatic, theatrical, courtly, or ritual
+  wild card.
+
+Prefer exact works, characters, scenes, prohibitions, and canonical objects.
+Literature comes before generic cultural atmosphere. A source may remain
+visibly named and recognizable in the finished invocation.
+
+At the canonical gate, show only:
+
+- the exact source and scene;
+- the authority or proposition it already possesses;
+- what the new speaker completes, contradicts, profanes, surpasses, or seizes;
+- one charged image.
+
+Detailed research remains backstage. After I select a source, distill it to
+one scene, one accusation, one act of usurpation, one charged relic, and one
+rhetorical form before sending it to creative writers.
+
+Do not show internal packets, framework labels, research dossiers, citations,
+Protect/Risk commentary, selector reports, or explanations of project
+symbolism unless I ask.
+
+At every gate, wait for me to select by number, reject the field, protect one
+line, or give one brief reaction.
 ```
 
-Projects can hold shared files and project instructions. Temporary Chats begin without chat history or memory, which
-makes them useful as clean specialist contexts. Temporary Chats may still follow enabled custom instructions, so
-check those when a specialist keeps drifting toward an unrelated house style.
-
----
+For clean specialist work, ask the Operator to produce copy-paste prompts for fresh Temporary Chats. Copy each result
+back into the Operator chat.
 
 ## 2. Give a Sparse Commission
+
+The initial request should be ordinary language, not a form.
 
 For example:
 
 ```text
-Produce a README invocation for:
+Create a README invocation for [PROJECT TITLE].
 
-Iudex Mensurarum Mysticarum『夢見』〜ＹＵＭＥＭＩ〜
+I want it grand, theatrical, visibly rooted in the pre-20th-century Western
+canon or classical Japanese literature, and unapologetically chuuni.
 
-Desired register: grand, beautiful, dangerous, theatrical, and
-unapologetically chuuni.
+Avoid direct technical allegory, generic prestige-fiction tragedy, invented
+gacha-lore civilizations, and polished word salad.
 
-Avoid direct allegory of dimensional analysis, therapeutic trauma parables,
-karmic punishment, generic lost-lover multiverses, and free-floating
-surreal word salad.
-
-Begin with desire generation.
+Begin with desire cards. Derive every internal packet and constraint yourself.
 ```
 
-The Operator should derive the internal project packet itself.
+That is enough.
 
-Do not answer a questionnaire unless a missing fact genuinely changes the work.
+When one outcome is genuinely non-negotiable, state it naturally. Otherwise let the desire gate reveal several
+possible victories.
 
----
+## 3. Gate One — Desire Cards
 
-## 3. Desire Gate
+The Operator should run several isolated Desire Generators, combine the larger pool, remove near-duplicates, and show
+**12–16 short cards**.
 
-Ask the Operator for two or three isolated Desire Generator prompts.
+Each card contains only:
 
-Open fresh Temporary Chats and paste one prompt into each. Copy the complete outputs back into the Operator chat.
+- a short title;
+- the exact desire;
+- what complete victory makes permanently true.
 
-The Operator should curate approximately five to eight desires with meaningful variance.
+Each card should fit within 25–40 words. Do not include names, backstory, costs, canonical sources, lore, or risk notes.
 
-Your response may be as small as:
-
-> 2 and 5. Mostly 5.
-
-or:
-
-> None of these. Too humane and too sad. Regenerate around pride, vocation, rivalry, and conquest.
-
-Do not let the Operator build premises before you choose the desire.
-
----
-
-## 4. Cultural Inheritance Gate
-
-After desire selection, the Operator should prepare Cultural Researcher prompts for fresh chats with web search.
-
-The normal research field contains:
-
-- three premodern or early-modern Western inheritances;
-- three traditional Japanese inheritances.
-
-Each dossier should identify:
-
-- the exact myth, rite, liturgy, theater, poetic form, court art, or craft lineage;
-- what actually occurs in the source;
-- the native human pressure;
-- the ritual grammar;
-- concrete ritual hardware;
-- how a new speaker might complete, invert, usurp, profane, or universalize it;
-- likely distortions or clichés;
-- authoritative sources.
-
-Paste the research outputs back into the Operator chat. The Operator should present four to six concise finalists.
+The field should contain real range: sovereignty, rivalry, craft, beauty, love, devotion, conquest, transformation,
+inhuman will, and wild cards.
 
 Your response may be:
 
-> 2 and 5. Mostly 2. Use the responsorial structure from 5, not its theology.
+> 1, 4, and 11. Mostly 4.
 
 or:
 
-> Noh as the primary inheritance. The mask must function through role, chorus, and return—not generic porcelain
-> aesthetics.
+> Reject. These are all tasteful victims; give me pride, rivalry, and ecstatic victory.
 
-Select one primary inheritance and, at most, one secondary echo.
+After selection, the Operator derives the Commission Invariant internally. You need respond only when its one-sentence
+interpretation is wrong.
 
-Do not accept “cathedral,” “mask,” “shrine,” or “court music” without an exact inherited form beneath it.
+## 4. Gate Two — Canonical Confrontation Cards
 
----
+After desire selection, the Operator commissions Canonical Scouts in fresh chats with web research.
 
-## 5. Premise Gate
+The internal search should begin with exact pre-1900 works and scenes. The default visible field is:
 
-The Operator now creates fresh Premise Builder prompts containing only:
+- six Western literary or sacred-canonical sources;
+- three classical Japanese literary sources;
+- one liturgical, operatic, theatrical, courtly, or ritual wild card.
 
+Each of the **10 cards** should fit within 40–60 words and contain only:
+
+1. the exact named source and scene;
+2. the throne, prohibition, or claim it already possesses;
+3. what the new speaker completes, contradicts, profanes, surpasses, or seizes;
+4. one charged image.
+
+Prefer:
+
+- Orpheus's forbidden backward glance, not “Greek mystery”;
+- Faust's wager, not “German occultism”;
+- *Atsumori*, not “Noh masks and ghosts”;
+- one Psalm, Office, canto, tragedy, poem, or death scene, not generic cathedral atmosphere.
+
+The source may wear visible canonical skin. Names, places, objects, and one short verified public-domain fragment are
+permitted when the final work transforms them.
+
+Your response may be:
+
+> 2 and 7. Mostly 2, but keep the charged image from 7.
+
+The Operator verifies the selected source privately and creates a compact Charged Source Packet. You do not read the
+dossier.
+
+## 5. Gate Three — Premise Thumbnails
+
+Premise Builders receive only:
+
+- the locked Commission Invariant;
 - the selected desire;
-- the selected cultural inheritance;
-- the project’s minimal identity;
+- the selected canonical scene;
+- the speaker's accusation;
+- the act of usurpation;
+- one charged relic;
+- one rhetorical form;
 - a short taboo list.
 
-The premise builders should not write the invocation yet.
+The Operator should show **8 premise thumbnails**, each 60–90 words.
 
-Paste their outputs back. The Operator should show approximately three to five genuinely different premises.
+Each thumbnail contains:
 
-Choose by number, title, or short reaction:
+- the speaker or ceremonial authority;
+- the claim against the canonical source;
+- complete victory;
+- one irreversible final act;
+- one recurring image.
 
-> Premise C. Keep the singer’s contempt for later performers. The victory must be real.
+No miniature world encyclopedia. No Protect/Risk commentary. No research explanation.
 
-A good premise should use the inheritance structurally:
+Your response may be:
 
-- the speaker occupies or usurps a real role;
-- the conflict grows from the inherited situation;
-- the ritual movement follows the inherited grammar;
-- the objects already possess cultural meaning;
-- the release completes or violates the old form.
+> C and F. Mostly C. Preserve the deliberate backward glance and the real victory.
 
-Traditional nouns pasted onto an unrelated fantasy mechanism do not pass this gate.
+## 6. Gate Four — Invocation Sketches
 
----
+Before any full aria is written, test voice, motion, and release at low cost.
 
-## 6. Invocation Gate
+The Operator commissions isolated sketch writers and presents **6 sketches**, each 50–100 words.
 
-The Operator prepares prompts for independent Ritual Writers in fresh Temporary Chats.
+Each sketch should contain only:
 
-Request genuinely different forms, such as:
+- a possible opening voice or image;
+- the central breach, accusation, or sovereign claim;
+- the visible impossible act;
+- a release seed.
 
-1. a great aria;
-2. a compact creed, spell card, or activation sequence;
-3. the form the writer considers native to the premise.
+The sketches should use genuinely different ritual forms, such as:
 
-Paste the drafts back. The Operator should show the strongest two to four **full texts**, not summaries.
+- confessional aria;
+- tragic or prophetic address;
+- compact creed;
+- liturgical antiphon;
+- numbered occult art;
+- activation sequence.
 
-Choose:
+Your response may be:
 
-- one spine;
-- any exact lines that must survive;
-- an optional release direction.
+> 3 has the voice. Keep the final image from 6. Do not expand the others.
 
-For example:
+## 7. Gate Five — Full Invocations
 
-> Draft 2 is the spine. Keep “Good” and “Bone, remember the quarry.” The formal name works; the English epithet does
-> not.
+Only the selected sketch earns full development.
 
-The Operator may not integrate the candidates before you choose the spine.
+The Operator commissions **two full invocations**, normally 140–260 words:
 
----
+1. one faithful development of the selected sketch;
+2. one structurally different alternative preserving the same desire, canonical confrontation, and victory.
 
-## 7. Let the Operator Finish
+The full writers receive the source scene and rhetorical form, not the research dossier.
 
-After spine selection, the Operator normally continues without another creative checkpoint through:
+Choose the spine and protect exact elements:
 
-- minimal late binding when needed;
-- hostile criticism;
+> Draft 2 is the spine. Keep the opening from 1. The formal release works; the English epithet does not.
+
+No integration occurs before this selection.
+
+## 8. Gate Six — Final Adoption
+
+After spine selection, the Operator normally continues autonomously through:
+
+- invariant review;
+- cultural accuracy review that may correct but not add unused detail;
+- hostile literary criticism;
 - one-spine integration;
 - a separate Poetic Pass;
 - final readiness review.
 
-It may give you copy-paste prompts for fresh Critic, Binder, or Poetic Editor chats. Return those outputs to the
-Operator and let it assemble one final work.
+The final surface contains:
 
-The final review surface should contain:
-
-1. the finished invocation;
-2. an Operator’s note of no more than three sentences;
+1. one finished invocation;
+2. an Operator note of no more than three sentences;
 3. at most one materially significant alternate.
 
-Respond with:
+Respond with **Adopt**, **Reject**, or one brief reaction.
 
-- **Adopt**;
-- **Reject**;
-- or one brief reaction.
+The Operator should reopen the smallest stage capable of fixing the problem.
 
-Examples:
-
-> The premise works; the English is still flat.
-
-> The release has no bang.
-
-> Too directly tied to the project.
-
-> The cultural inheritance disappeared during drafting.
-
-> Not feeling it. Reopen the premise gate.
-
-The Operator should route the reaction to the smallest stage capable of correcting it.
-
----
-
-## 8. Fast Diagnosis
+## 9. Fast Diagnosis
 
 | Symptom | Reopen |
 |---|---|
-| Respectable but weak desires | Desire gate |
-| Invented gacha-lore word salad | Cultural inheritance gate |
-| Generic basilica, shrine, or mask aesthetics | Cultural inheritance gate |
-| Strong source, weak fictional transformation | Premise gate |
-| Living premise, dead aria | Invocation gate |
+| Wrong or weak desires | Desire gate |
+| Too few real possibilities | Ask for a larger internal pool and a new shortlist |
+| Generic gacha-lore worldbuilding | Canonical gate |
+| Western high-culture furniture without a named source | Canonical gate |
+| Generic shrine, mask, or court aesthetics | Canonical gate |
+| The source is obscure atmosphere rather than a charged scene | Canonical gate |
+| The source became a respectful succession story | Invariant gate, then premise gate |
+| Strong source, weak fictional usurpation | Premise gate |
+| Premise cards are already miniature essays | Premise gate; enforce the word cap |
+| Living premise, wrong voice | Sketch gate |
+| Full drafts are long word salad | Return to the selected sketch |
+| The source swallowed the aria | Charged Source Packet reduction |
+| The source disappeared | Sketch or full-draft writer |
+| No stage action or final tableau | Sketch gate |
 | Strong draft, abstract English | Poetic Pass |
 | Formal title works, English title does not | Release-focused Poetic Pass |
+| Several drafts were averaged together | Restore the selected spine |
 | Project explanation in robes | Remove or reduce binding |
-| Several drafts averaged into one | Restore the selected spine |
 
-After two major revisions, ask whether the premise is still alive.
+After two major revisions, ask whether the selected premise is still alive.
 
-When only polish improves, choose another premise.
-
----
-
-## 9. The Minimum Human Work
+## 10. The Minimum Human Work
 
 The intended human contribution may be only:
 
-1. `2 and 5. Mostly 5.`
-2. `Noh, with the Office as a secondary structural echo.`
-3. `Premise C.`
-4. `Draft 2. Protect these two lines.`
-5. `Adopt.`
+1. a two-sentence commission;
+2. `1, 4, and 11. Mostly 4.`
+3. `2 and 7. Mostly 2.`
+4. `C. Preserve the final act.`
+5. `Sketch 3. Keep the release image from 6.`
+6. `Draft 2. Protect these two lines.`
+7. `Adopt.`
 
-The human does not manage the agents.
+The human does not author packets, read dossiers, verify sources unaided, or manage agents.
 
-The human decides what deserves another form.
+The human supplies taste.
 
----
+The Agent Operator turns that taste into a controlled creative process.
 
 ## ChatGPT References
 

@@ -16,7 +16,7 @@ The Archaeology records why that law exists.
 It preserves:
 
 - source traditions whose methods proved fertile;
-- inherited myths, rites, theaters, liturgies, court arts, and craft forms that can carry new desire;
+- canonical myths, rites, theaters, liturgies, court arts, and craft forms that can carry new desire;
 - contradictory models that should remain contradictory;
 - failed approaches that exposed hidden requirements;
 - recurring model pathologies;
@@ -625,42 +625,91 @@ The new work must contain at least one image, law, command, or release unmistaka
 
 ---
 
-### 25. Inheritance Is Generative Grammar
+### 25. Canonical Charge Is More Than Atmosphere
 
-The most persuasive ceremonial works rarely invent every layer of meaning at once.
+The strongest source-bearing rites do not merely wear old objects.
 
-They inherit a situation whose authority precedes the new speaker:
+They confront an authority that predates the new speaker:
 
-- contest and judgment;
-- descent and forbidden return;
-- office and responsory;
-- masked role and chorus;
-- divine withdrawal and restored light;
-- court ceremony and sovereign order;
-- lineage, initiation, funeral, enthronement, or sacred craft.
+- a prohibition;
+- a divine contest;
+- a liturgical question;
+- a famous failure;
+- a canonical claim about beauty, death, music, sovereignty, or return;
+- an office whose traditional holder already occupies a throne.
 
-The new rite then completes, inverts, usurps, profanes, or universalizes the inherited form.
+The new rite then answers, completes, inverts, profanes, surpasses, or usurps that authority.
+
+The source may remain overtly visible.
+
+A named myth, recognizable scene, brief public-domain phrase, canonical instrument, or inherited office may appear on
+stage in full regalia when the transformation is strong enough.
+
+The recovered law is:
+
+> **A source should not merely lend atmosphere.  
+> It should provide a throne worth seizing.**
+
+The Commission Invariant remains superior to the source. A canonical work may sharpen the conflict; it may not tempt the
+premise into a different victory.
+
+### 25.1 Canon First, Literature First
+
+The culturally orphaned premise did not fail only because it lacked old objects.
+
+It failed because the agent had to invent its own civilization, sacred history, role, prohibition, rhetoric, and
+metaphysics before the desire had acquired any weight.
+
+Broad cultural traditions helped, but they often produced glossaries and prestige scenery. The stronger correction was
+to begin from an exact pre-twentieth-century work or scene whose authority could be confronted directly.
+
+The default search field became deliberately asymmetrical:
+
+- six Western literary or sacred-canonical confrontations;
+- three classical Japanese literary confrontations;
+- one liturgical, operatic, theatrical, courtly, or ritual wild card.
+
+This is a house preference, not a universal hierarchy of civilization. It reflects the register being pursued: epic,
+scripture, tragedy, medieval vision, Shakespeare, Milton, Goethe, Romanticism, opera, and the classical Japanese
+literary and theatrical corpus.
 
 **Recovered law**
 
-> Desire should meet an inheritance before it becomes a premise.
+> Begin with the exact scene, not the generic tradition.
 
-The source supplies role, pressure, ritual grammar, hardware, and authority. The new desire supplies the reason that
-the old form can no longer remain what it was.
+The source may remain visibly named. Canonical skin is permitted when the new speaker does something violent, beautiful,
+or blasphemous enough to justify standing beside it.
 
-Useful research territories include a musical contest and judgment, an underworld descent and forbidden return, the
-canonical Hours and responsory, a masked ghost-role with chorus, a divine withdrawal answered by performance, or a
-court music whose ceremony binds sovereign and world. These are starting points for research, not templates.
+### 25.2 Breadth Before Elaboration
 
-**Misreading to avoid**
+Earlier conclaves spent hundreds of words on possibilities the Human Reviewer would have rejected in one sentence.
 
-Do not confuse inheritance with atmosphere. A generic cathedral is not a liturgy. A generic mask is not a theater.
-A foreign phrase is not a tradition.
+Names, lore, cultural research, and full arias arrived before the central desire, source, voice, or release had earned
+another form. Long candidates exhausted the reviewer and created artificial attachment to weak ideas.
 
-Do not combine Western and Japanese inheritances merely to make the result denser. One primary inheritance should
-govern. A secondary echo must perform a distinct and necessary function.
+The correction was progressive resolution:
 
----
+```text
+12–16 desires
+→ 10 canonical confrontations
+→ 8 premise thumbnails
+→ 6 invocation sketches
+→ 2 full invocations
+→ 1 final candidate
+```
+
+Each early candidate carries one specificity atom and no more:
+
+- desire and victory;
+- source and act of confrontation;
+- speaker and irreversible act;
+- voice, breach, and release seed.
+
+**Recovered law**
+
+> Generate broadly at low resolution. Spend prose only after selection.
+
+The human should be able to reject a direction before the agents build a cathedral around it.
 
 ## Part V — The Ruins
 
@@ -837,7 +886,7 @@ Let every image descend from it.
 
 ### 35. The Culturally Orphaned Premise
 
-A premise batch may contain fluent novelty and no inherited gravity.
+A premise batch may contain fluent novelty and no canonical gravity.
 
 The agent invents, in one pass:
 
@@ -858,10 +907,13 @@ The problem is that nothing in the premise has been received.
 
 **Recovered law**
 
-Insert a cultural-inheritance boundary between desire and premise construction.
+Insert cultural research between desire and premise construction.
 
-The Cultural Researcher should return exact myths, liturgies, ritual performances, theater forms, court arts, poetic
-traditions, or craft lineages. The Human Reviewer then selects the inherited grammar capable of carrying the desire.
+The Canonical Scout should return exact myths, liturgies, ritual performances, theater forms, court arts, poetic
+traditions, or craft lineages.
+
+The Agent Operator should turn research into Canonical Confrontations. The Human Reviewer selects the source,
+canonical claim, speaker accusation, charged relic, stage, and act—not a dossier.
 
 A new speaker may complete, invert, usurp, profane, or universalize that grammar.
 
@@ -869,7 +921,71 @@ A new speaker may complete, invert, usurp, profane, or universalize that grammar
 
 > If every invented proper noun were removed, what older human form would remain?
 
-When the answer is “none,” the premise may still be viable, but its rootlessness must be chosen rather than accidental.
+When the answer is “none,” the premise may still be viable, but its rootlessness must be chosen rather than
+accidental.
+
+#### 35.1 The Dossier Ate the Rite
+
+The correction for cultural orphanhood produced its opposite failure.
+
+The writer received:
+
+- instrument inventories;
+- offices and ranks;
+- sacred objects;
+- ceremonial stages;
+- untranslated terminology;
+- research commentary.
+
+The invocation became a demonstration that research had occurred.
+
+Its desire disappeared beneath accurate nouns.
+
+The long Mikagura attempt made the failure visible. The draft named clappers, flame, mirror, sakaki, ranks, flutes,
+reeds, strings, Main Song, Aftersong, and ritual offices. The strongest lines concerned a singer who claimed authority
+over morning itself. Most of the surrounding text merely carried the dossier onstage.
+
+**Recovered law**
+
+> Canonical sources supply dramatic grammar, not ceremonial inventory.
+
+The source may remain overtly visible. The confrontation, not concealment, proves that the source was used.
+
+Accuracy review may remove or correct distortion. It must not demand demonstrative completeness.
+
+**Diagnostic question**
+
+> What would remain if every researched noun not required by the desire were removed?
+
+#### 35.2 The Prestige-Role Trap
+
+A premise may choose the most authoritative canonical role because its surface function resembles the selected
+desire.
+
+The role possesses status but no reversal.
+
+In Mikagura, the first-song leader already begins. Inflating that existing primacy into universal sovereignty produced a
+generic tyrant occupying a researched ceremony.
+
+The answering singer begins in a more dramatic position: appointed to come after, required to answer, and responsible
+for closure.
+
+**Recovered law**
+
+Before selecting a role, compare:
+
+- sovereign and subordinate;
+- opening and answer;
+- victor and defeated;
+- officiant and excluded;
+- completed office and forbidden remainder;
+- named center and neglected margin.
+
+Ask which position has something to overturn.
+
+**Diagnostic question**
+
+> Does the speaker possess authority already, or must the rite create it?
 
 ---
 
@@ -1058,9 +1174,180 @@ When the desire is dead, replace it.
 
 ---
 
+### 48. Commission Drift
+
+A candidate may preserve the vocabulary of the commission while reversing its required victory.
+
+The final singer becomes a gracious master of succession. The absolute sovereign releases the future. The rite about
+permanent authority burns the old manuscript and restores ordinary freedom.
+
+The prose may be elegant.
+
+The candidate has failed before style enters the question.
+
+**Recovered law:**
+
+> The Commission Invariant is a binary gate, not one criterion among many.
+
+Reject drift before artistic ranking.
+
+### 49. Prestige Skin Without Canon
+
+A black cloth, cedar stage, old score, basilica, mask, lamp, court title, or Latin release may signal cultivated
+seriousness without confronting any exact work or proposition.
+
+The result wears Western or Japanese high-culture furniture while remaining culturally anonymous.
+
+**Remedy:** name the source, scene, prohibition, or claim. Decide what the speaker accuses it of leaving unfinished and
+how the rite takes its throne.
+
+### 50. The Canon Became Succession
+
+Repeated process language about cultural transmission trained agents to write masters, pupils, manuscripts, ancestors,
+old hands, and authority being respectfully discharged.
+
+The source became a moral story about continuity even when the Commission required permanent sovereignty.
+
+**Recovered law:**
+
+> Canonical grounding does not require ancestry to become the plot.
+
+Reserve *inheritance*, *lineage*, *succession*, and *ancestor* for premises that genuinely concern them.
+
+### 51. The Source Must Survive the Distillation
+
+The firewall against dossier leakage was overcorrected until the source became invisible.
+
+A structural relation alone may produce culturally plausible but still anonymous gacha lore.
+
+The writer needs one charged relic: a recognizable scene, prohibition, phrase, object, office, or claim.
+
+The source may wear visible skin.
+
+The test is transformation, not concealment.
+
+### 52. The Stage Is Not an Inventory
+
+Research supplied many instruments, offices, ranks, objects, and ceremonial stages.
+
+The writer gave each one a line.
+
+The rite accumulated apparatus without gaining theater.
+
+**Recovered law:**
+
+> Stagecraft requires blocking.
+
+Choose one stage, one witness, one object, one visible breach, one reversal, and one final tableau. Let everything else
+remain backstage.
+
+### 53. Signature Success Became a House Template
+
+A successful provisional draft contained *Good.*, a chisel, red veil, delayed reflection, self-erasure as completion,
+and a two-part Latin-English release.
+
+Later agents repeated the visible techniques instead of discovering equivalents native to new desires.
+
+Positive calibration became prompt contamination.
+
+**Recovered law:**
+
+> Preserve the function of a successful device, not its signature surface.
+
+The pivot of consent is reusable. *Good.* is not automatically reusable.
+
+### 54. The Blank-Schema Transfer
+
+A contaminated workshop example was removed from the general guide and replaced with neutral placeholders:
+
+```text
+[fixed outcome]
+[required victory]
+[rejection conditions]
+[canonical source]
+```
+
+The corpus became less biased and more burdensome at the same time. The Human Reviewer was now expected to perform the
+Agent Operator's conceptual labor before the conclave could begin.
+
+A related error locked a narrow Commission Invariant before the human had selected a desire, even when the initial
+Commission was intentionally broad. Neutrality had become a questionnaire.
+
+**Recovered law:**
+
+> **The Operator fills the packet.  
+> The human judges the possibilities.**
+
+The human-facing Commission should remain sparse and natural. Before desire selection, the Operator derives only the
+project identity, explicit hard constraints, register, and taboos. When no fixed outcome was supplied, desire candidates
+must expose meaningfully different victories. The full Commission Invariant is locked only after the Human Reviewer
+selects the desire.
+
+An explicit non-negotiable stated by the human remains protected from the beginning. Optional creative ambiguity should
+be resolved through candidate generation rather than intake forms.
+
+> **Neutrality must not become a questionnaire.**
+
+#### 54.1 The Canon Became an Optional Flavor Pass
+
+The workflow allowed agents to invent a premise first and search for an old source afterward.
+
+The canon then behaved as decoration: a mask, cathedral, black cloth, manuscript, moon, or Latin title attached to a
+story whose emotional and metaphysical structure had already been fixed elsewhere.
+
+Even when research was accurate, the source had no power to generate the desire, role, accusation, or final act.
+
+**Recovered law**
+
+> Canonical charge should normally enter before premise construction.
+
+The source is not a skin selected after the body is complete. It is the throne against which the speaker discovers what
+they are willing to seize.
+
+The default search policy should be canon-first, literature-first, pre-1900, and Western-weighted:
+
+- six Western literary confrontations;
+- three classical Japanese literary confrontations;
+- one exact liturgical, operatic, theatrical, or ritual wild card.
+
+Prefer an exact scene, prohibition, voice, or object to a broad tradition. Let the source remain visible enough to be
+challenged. Use autonomous modern or techno-occult mythology only by deliberate waiver.
+
+#### 54.2 The Cathedral Was Built Before Selection
+
+Agents elaborated too early.
+
+A desire received a character name, backstory, cultural apparatus, risk analysis, and miniature cosmology before the
+Human Reviewer had decided whether the desire was worth another line. Premises arrived as small essays. Full arias were
+written before voice and release had survived in miniature.
+
+The process optimized for sunk cost.
+
+**Recovered law**
+
+Use progressive-resolution gates. Preserve many possibilities while they are cheap, and permit detail only after human
+selection.
+
+```text
+12–16 desires, 25–40 words each
+→ 10 canonical confrontations, 40–60 words each
+→ 8 premise thumbnails, 60–90 words each
+→ 6 invocation sketches, 50–100 words each
+→ 2 full invocations, 140–260 words each
+→ 1 final candidate
+```
+
+The sketch gate tests voice, source, breach, and release before a full aria hardens around them.
+
+**Diagnostic question**
+
+> Could the Human Reviewer have rejected this direction after reading forty words?
+
+When the answer is yes, the extra two hundred words were orchestration failure.
+
 ## Part VI — Case Study: The Road to *Monarchia Formae*
 
-### 48. The Initial Mirror
+### 55. The Initial Mirror
 
 The first attempts treated Yumemi’s technical principle as the premise:
 
@@ -1086,7 +1373,7 @@ Technical fidelity cannot substitute for desire.
 
 ---
 
-### 49. The Human-Wound Turn
+### 56. The Human-Wound Turn
 
 The next attempts translated dimensional distinction into human wrongs:
 
@@ -1106,7 +1393,7 @@ The analogue must produce a desire someone would actually release as power.
 
 ---
 
-### 50. The Doctrinal Correction
+### 57. The Doctrinal Correction
 
 The conflict between sovereign desire and the Doctrine’s order led to rites in which the speaker learned that
 plurality was not chaos and submitted to proper measure.
@@ -1123,7 +1410,7 @@ The Doctrine should govern form, not require itself as the subject.
 
 ---
 
-### 51. The Spectacle Correction
+### 58. The Spectacle Correction
 
 The guide then required:
 
@@ -1145,7 +1432,7 @@ The full guide is a critical instrument, not a one-shot generation prompt.
 
 ---
 
-### 52. The Echo and Adoption Turn
+### 59. The Echo and Adoption Turn
 
 The project connection was loosened.
 
@@ -1162,7 +1449,7 @@ A rite still requires a private law.
 
 ---
 
-### 53. Desire Before Wound
+### 60. Desire Before Wound
 
 Premise generation was redirected away from victimhood and ironic punishment toward:
 
@@ -1193,7 +1480,7 @@ Imagine victory before inventing cost.
 
 ---
 
-### 54. The Living Draft
+### 61. The Living Draft
 
 The sculptor rite introduced several elements that previous guides had not named clearly enough:
 
@@ -1214,34 +1501,28 @@ The result is preserved in [The Manifestations of Apotheosis](MANIFESTATIONS.md)
 
 ---
 
-### 55. The Missing Inheritance
+### 62. The Missing Canonical Charge
 
-*Monarchia Formae* proved that autonomous desire could produce a living rite. It did not prove that autonomous
-invention supplied sufficient cultural gravity.
+The sculptor draft acquired broad classical skin:
 
-The draft inherited a broad classical sculptural atmosphere:
-
-- marble and bronze;
+- marble;
+- bronze;
+- gallery;
 - unveiling;
-- gallery and apprenticeship;
-- art competing with nature;
-- the perfected work surpassing its maker.
+- rivalry between art and nature.
 
-No exact myth, rite, workshop lineage, philosophical episode, or ceremonial form had been selected and researched.
+It did not yet confront one exact work, myth, workshop doctrine, philosophical proposition, or canonical artist.
 
-The weakness became obvious when later premise generators produced salt cities, porcelain masks, fetal prophets, and
-ornate systems whose entire authority had been invented moments earlier.
+That absence did not kill the premise. It limited its authority as calibration.
 
-**Recovered law**
+The recovered distinction is:
 
-> Broad cultural familiarity is not yet inheritance.
+> **Broad cultural familiarity is not yet canonical charge.**
 
-A living premise may be bound late to an exact inheritance, but the binding must deepen role, ritual grammar, hardware,
-or authority rather than decorate the surface. Until that work is done, *Monarchia Formae* remains provisional.
+A later binding may name one exact source or proposition worth usurping, but it should add only what deepens the living
+premise. It must not reconstruct the entire work around research.
 
----
-
-### 56. The Reviewer–Operator Distinction
+### 63. The Reviewer–Operator Distinction
 
 The first orchestration model placed a human at every selection boundary but also expected the human to manage the
 machinery.
@@ -1267,31 +1548,37 @@ Human Reviewer
     ↓ sparse commission
 
 Agent Operator
-    ↓ generates and curates desires
+    ↓ generates a broad low-resolution field
 
 Human Reviewer
-    ↓ selects desires
+    ↓ selects among 12–16 short desires
 
 Agent Operator
-    ↓ researches and curates cultural inheritances
+    ↓ researches exact pre-1900 canonical sources
 
 Human Reviewer
-    ↓ selects one primary inheritance and an optional secondary echo
+    ↓ selects among 10 short canonical confrontations
 
 Agent Operator
-    ↓ develops and curates premises through the selected inheritance
+    ↓ develops 8 short premise thumbnails
 
 Human Reviewer
     ↓ selects a premise
 
 Agent Operator
-    ↓ writes and curates invocation variants
+    ↓ tests 6 invocation sketches
+
+Human Reviewer
+    ↓ selects voice, breach, and release seed
+
+Agent Operator
+    ↓ writes 2 full invocations
 
 Human Reviewer
     ↓ selects the spine and living lines
 
 Agent Operator
-    ↓ criticizes, binds, integrates, and polishes
+    ↓ criticizes, verifies, binds, integrates, and polishes
 
 Human Reviewer
     ↓ grants or refuses adoption
@@ -1325,8 +1612,8 @@ The corpus therefore recognizes only three forms:
 
 - Human authority does not require human orchestration.
 - Low human labor does not require eliminating human selection.
-- Desire, cultural inheritance, premise, and spine selection are aesthetic judgments, not project-management
-  work.
+- Desire, canonical confrontation, premise, sketch, and spine selection are aesthetic judgments, not
+  project-management work.
 - The Agent Operator should curate compact candidate surfaces rather than expose the workshop.
 - A human may select with one number, one line, or one reaction.
 - Fully agent creation replaces the human selector; it does not collapse selection into generation.
@@ -1336,9 +1623,9 @@ The corpus therefore recognizes only three forms:
 
 ## Part VII — Source Handling and Future Work
 
-### 57. Inherited Language
+### 64. Canonical and Traditional Language
 
-Existing poetry, scripture, opera, mythology, and liturgy may be used as relics.
+Existing poetry, scripture, opera, mythology, liturgy, and classical theater may be used as charged relics.
 
 When doing so:
 
@@ -1347,15 +1634,15 @@ When doing so:
 - record the source during drafting;
 - prefer public-domain material or original paraphrase;
 - keep borrowed fragments short;
-- ensure the new rite answers, fulfills, inverts, or contests the inherited text.
+- ensure the new rite answers, completes, inverts, profanes, or contests the source.
 
 Do not reproduce substantial copyrighted passages.
 
 Do not treat remembered mistranslations as authoritative merely because they sound better.
 
----
+The source may remain recognizable. The new act must remain sovereign.
 
-### 58. The Archaeology Must Not Become the Prompt
+### 65. The Archaeology Must Not Become the Prompt
 
 This document contains more contamination than any other text in the corpus.
 
@@ -1363,7 +1650,7 @@ It names:
 
 - failed images;
 - rejected premises;
-- source traditions;
+- canonical works, rites, myths, and artistic precedents;
 - model pathologies;
 - diagnostic categories.
 
@@ -1381,67 +1668,100 @@ Its purpose is to remember the ruins so the next conclave need not inhabit them.
 
 ---
 
-### 59. Open Questions
+### 66. Open Questions
 
 The following remain worth testing:
 
 - How much project affinity is necessary before Adoption feels pasted on?
-- Which models best generate raw sovereign desires without converting them into parables?
-- Can an Agent Operator preserve dangerous variance while the human remains a final reviewer rather than a director at
-  every gate?
-- How many positive manifestations are needed before examples begin to constrain more than they inspire?
+- Which models best generate sovereign motives without converting them into parables?
+- Can an Agent Operator preserve dangerous variance while a human remains a reviewer rather than the Operator?
+- How many positive manifestations are needed before examples constrain more than they inspire?
 - Which projects benefit from compact releases rather than great arias?
-- Can a shared project family develop recurring ritual law without collapsing into one mythology?
+- Can a project family develop recurring ritual law without collapsing into one mythology?
 - When does poetic English become overworked enough to weaken blunt authority?
-- How should inherited public-domain fragments be documented inside the repository without cluttering the invocation
-  itself?
-- Which sparse reviewer reactions can be routed reliably without reopening the wrong stage?
-- How much inherited culture does a rite need before invention becomes rootlessness?
-- When should a deliberately modern or autonomous ritual grammar waive the inheritance gate?
+- How overt may canonical skin become before the rite turns into imitation?
+- Which Western and Japanese works supply enough public recognition to carry visible canonical skin without notes?
+- Does the six-three-one canonical distribution remain useful across projects, or should some project identities
+  alter it?
+- How many low-resolution candidates can a Human Reviewer scan before breadth becomes fatigue?
+- Which ritual forms are best tested as sketches rather than prose summaries?
+- Which canonical works retain enough public familiarity to provide voltage without explanation?
+- How can the Operator distinguish a useful secondary echo from decorative syncretism?
+- How little source material can a Charged Source Packet contain before the confrontation disappears?
+- Which signature devices should be withheld from creative agents to prevent house-template mimicry?
+- When should a deliberately modern ritual grammar waive the canon-first gate?
 
 These are workshop questions.
 
 They should be answered through new works, not by indefinitely extending the doctrine in advance.
 
----
-
-### 60. Final Archaeological Law
+### 67. Final Archaeological Law
 
 The ruins do not exist to shame the failed rite.
 
-They exist to reveal what the failed rite had not yet learned to desire.
+They reveal what the failed rite allowed to replace desire.
 
-The court, the scale, the dead lover, the overlapping moons, the moral lesson, the obedient checklist, the imported
-apocalypse—all were attempts to create force after the animating will had gone missing.
+At first, mechanism became metaphor.
 
-The recovery also required a change in authorship architecture.
+Then wound became morality.
 
-The human was not meant to operate every instrument merely because the human retained the authority to judge the result.
+Then cultural research became glossary.
 
-The recovery required another correction: desire needed an inheritance before invention became premise.
+Then the glossary was hidden so completely that the canon vanished.
 
-The Cultural Researcher returned old forms still capable of bearing dangerous answers.
+Then the word *inheritance* quietly rewrote conquest as succession.
 
-The recovery began when the questions changed.
+Then canon became an optional flavor pass, and agents built elaborate premises before the human had selected a
+desire, source, voice, or release.
+
+The recovery required several separations:
+
+- the Commission Invariant from the animating desire;
+- the canonical source from generic prestige skin;
+- the full dossier from the Charged Source Packet;
+- stagecraft from inventory;
+- a source's authority from the moral the source originally taught;
+- a successful technique from its signature wording;
+- the exact canonical scene from generic cultural atmosphere;
+- broad low-resolution search from expensive elaboration.
+
+The new questions are sharper.
 
 Not:
 
-> What metaphor accurately represents the project?
-
-Not:
-
-> What wound makes this desire respectable?
-
-Not:
-
-> What cost teaches the speaker humility?
+> What old culture can decorate this premise?
 
 But:
 
-> What does this soul want so absolutely that reality has become the only remaining obstacle?
+> What canonical authority already occupies the throne this speaker intends to seize?
 
-From that question came the work.
+Not:
 
-From the work came the throne.
+> How can the source teach the speaker humility?
 
-And from the throne came the name before which even nature was compelled to lower her tools.
+But:
+
+> What does the speaker accuse the source of leaving unfinished?
+
+Not:
+
+> Which beautiful candidate best resembles the commission?
+
+But:
+
+> Which candidates actually preserve the required victory?
+
+The Scout finds the exact old throne.
+
+The Operator keeps the library backstage.
+
+The Human Reviewer chooses which confrontation deserves another form.
+
+The Sketcher discovers the voice before prose hardens around it.
+
+The writer commits the sacrilege only after the desire, source, premise, and voice have earned another form.
+
+The witness sees the old authority fail.
+
+And only then does the release speak the name by which the new law intends to be remembered.
+

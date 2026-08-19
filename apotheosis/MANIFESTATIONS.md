@@ -11,8 +11,8 @@ by which a work is produced and reviewed.
 
 The Architecture states what an invocation may become.
 
-The Conclave governs how agents may produce one while a Human Reviewer selects the desire, cultural inheritance,
-premise, draft spine, and final adoption without taking over the orchestration.
+The Conclave governs how agents may produce one while a Human Reviewer selects the animating desire, canonical
+confrontation, premise, invocation sketch, full-draft spine, and final adoption without taking over orchestration.
 
 The Manifestations answer the remaining question:
 
@@ -20,12 +20,14 @@ The Manifestations answer the remaining question:
 
 This is not a pattern library to be copied line by line.
 
-The Agent Operator may provide a creative specialist, at most, one relevant manifestation together with a short
-statement of what to inherit. The specialist should not receive the complete portfolio as another rubric.
+The Agent Operator may provide a full manifestation only after premise and invocation-sketch selection, and then at
+most one relevant work together with a short statement of what structural principle to study. The specialist
+should not receive the complete portfolio as another rubric.
 
 In the default operating form, the Human Reviewer need not inspect this calibration material or manage the conclave.
 The Agent Operator selects any relevant witness, withholds the rest from creative roles, and presents only the compact
-candidate sets required at the desire, cultural-inheritance, premise, invocation, and adoption checkpoints.
+candidate sets required at the desire, canonical-confrontation, premise, invocation-sketch, full-draft, and adoption
+checkpoints.
 
 Each admitted work should contain a life of its own, a decisive act, and a release that completes rather than explains
 it.
@@ -40,10 +42,11 @@ A work enters **Admitted Manifestations** only after adoption under the Architec
 An unadopted work may appear only under **Provisional Calibration** when:
 
 - its provisional status is explicit;
+- its Commission Invariant is recorded, or its absence is named as a limitation;
 - it remains useful for criticism or calibration;
 - it is not presented to creative specialists as an admitted manifestation or settled house style;
 - final adoption remains visibly unresolved;
-- any claimed cultural inheritance is recorded accurately and its provisional limitations remain explicit.
+- any claimed canonical anchoring is recorded accurately and its provisional limitations remain explicit.
 
 Commentary follows the finished work.
 
@@ -69,8 +72,10 @@ Provisional works preserve useful progress without pretending that the corpus ha
 **Project:** Iudex Mensurarum Mysticarum『夢見』〜ＹＵＭＥＭＩ〜  
 **Status:** Provisional calibration; not adopted. Final adoption remains subject to the Human Reviewer’s judgment.
 
-**Cultural inheritance:** Broad classical sculptural grammar only; no exact researched tradition was selected. This
-is a known provisional limitation.
+**Commission Invariant:** Not preserved in the surviving workshop record. This is a provisional limitation.
+
+**Canonical anchoring:** None. The work uses broad classical sculptural grammar, but it does not confront one exact
+work, scene, myth, workshop doctrine, or philosophical claim. This is a known provisional limitation.
 
 #### Invocation
 
@@ -235,19 +240,19 @@ The line binds the rite to 夢見 without converting the aria into an allegory o
 
 The invocation remains autonomous.
 
-##### Cultural Inheritance and Its Limit
+##### Canonical Charge and Its Limit
 
 The rite draws on broad classical sculptural ideas: perfected form, the authority of the maker, unveiling, gallery,
 marble, bronze, and the rivalry between art and nature.
 
-It does not yet descend from one exact inherited myth, rite, workshop lineage, philosophical episode, or ceremonial
+It does not yet confront one exact canonical work, myth, workshop doctrine, philosophical episode, or ceremonial
 form.
 
 That absence does not make the draft worthless. It does make it dangerous as sole calibration. An Agent Operator must
-not infer that a cluster of culturally familiar objects is equivalent to researched inheritance.
+not infer that a cluster of culturally familiar objects is equivalent to canonical charge.
 
-A future revision may discover a precise source capable of deepening the sculptor’s authority without rebuilding the
-living premise. Until then, this work remains provisional for that reason among others.
+A future revision may discover a precise source or proposition worth confronting without rebuilding the living
+premise. Until then, this work remains provisional for that reason among others.
 
 ##### Poetic English
 
@@ -284,7 +289,7 @@ The other shows what kneels before it.
 
 #### How to Use This Manifestation for Calibration
 
-A writer may inherit:
+A writer may study:
 
 - vocation as the complete emotional engine;
 - hierarchy reversal;
@@ -293,9 +298,9 @@ A writer may inherit:
 - self-erasure as completion;
 - formal title plus image-bearing English epithet;
 - late and minimal project binding;
-- an example of why broad cultural grammar is not yet the same as exact inheritance.
+- an example of why broad classical skin is not yet the same as canonical charge.
 
-A writer should not inherit:
+A writer should not copy:
 
 - sculpture as the default metaphor for craft;
 - the red veil;
@@ -312,6 +317,10 @@ The lesson is:
 
 > Find the object, reversal, consent, and final act that belong only to the chosen desire.
 
+The lines and devices praised here are not a construction kit. A creative agent should not receive *Good.*, the red
+veil, the delayed reflection, or the chisel as reusable prompt ingredients unless a Human Reviewer explicitly protects
+them for the same work.
+
 ---
 
 ## Future Manifestations
@@ -322,10 +331,22 @@ The corpus should eventually admit several sharply different forms:
 2. **A techno-occult activation** — proving that procedure can roar without an autobiographical aria.
 3. **A collective or covenantal rite** — proving that a shared will may manifest without a solitary sovereign speaker.
 4. **A renunciatory or devotional release** — proving that victory may consist of surrender, return, or departure.
-5. **A Western inheritance made structurally new** — proving that myth, liturgy, theater, or court art can govern a
-   rite without becoming costume.
-6. **A Japanese inheritance made structurally new** — proving that traditional performance, myth, court art, or
-   poetic form can carry a new sovereign desire without generic shrine-and-mask aesthetics.
+5. **A pre-1900 Western literary source confronted and made structurally new** — proving that an exact scene,
+   prohibition, claim, or voice can remain visibly canonical without becoming quotation or costume.
+6. **A pre-1900 Japanese literary source confronted and made structurally new** — proving that a named poem, tale,
+   play, or mythic episode can carry a new sovereign desire without generic shrine-and-mask aesthetics.
+7. **A liturgical, operatic, theatrical, or ritual wild card** — proving that non-literary forms can govern a rite when
+   the exact work and scene matter more than ceremonial inventory.
+
+
+The admitted portfolio should eventually reflect the corpus's canon-first search policy: Western literary sources
+should form the largest single group, classical Japanese literature should remain a substantial second field, and
+ritual or autonomous techno-occult forms should appear as deliberate alternatives rather than accidental defaults.
+
+No weak work should be admitted merely to satisfy this distribution.
+
+The next major calibration priority should be one exact Western literary confrontation and one exact classical
+Japanese literary confrontation, each unmistakably rooted in a named work or scene.
 
 New works should enter **Admitted Manifestations** only after adoption. Unadopted works may appear only under the
 explicitly marked **Provisional Calibration** exception above and must remain visibly non-authoritative.

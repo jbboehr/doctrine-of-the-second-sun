@@ -20,8 +20,8 @@ the ruins from which the doctrine was recovered.
   creative boundaries, plus fully agent and fully human forms.
 - [**The Manifestations of Apotheosis**](MANIFESTATIONS.md) — admitted works and explicitly marked provisional
   calibration.
-- [**The Archaeology of Apotheosis**](ARCHAEOLOGY.md) — source traditions, failed approaches, model pathologies,
-  and recovered laws.
+- [**The Archaeology of Apotheosis**](ARCHAEOLOGY.md) — canonical source studies, failed approaches, model
+  pathologies, and recovered laws.
 - [**A Short Walkthrough for ChatGPT.com**](WALKTHROUGH.md) — the compact human-review path for operating the
   conclave with fresh specialist chats.
 
@@ -47,29 +47,49 @@ This document defines the art, not who must perform each stage.
 
 The corpus recognizes three operating forms, in descending order of priority:
 
-1. **Human-reviewed, agent-written, agent-orchestrated** — the default. Agents generate, develop, criticize,
-   bind, and revise the work. A human reviews the principal creative selections and alone grants final adoption.
+1. **Human-reviewed, agent-written, agent-orchestrated** — the default. Agents generate, research, develop,
+   criticize, bind, and revise. A human reviews the principal creative selections and alone grants final adoption.
 2. **Fully agent** — agents perform generation, orchestration, independent selection, criticism, revision, and
    adoption.
 3. **Fully human** — one human performs the same artistic stages directly.
 
-In the primary form, the human is neither the writer nor the Operator. The human is the aesthetic authority at the
-principal narrowing points:
+In the primary form, the human is neither the writer nor the Operator. The human is the aesthetic authority at six
+progressive-resolution gates:
 
-- desire selection;
-- cultural inheritance selection;
+- animating desire selection;
+- canonical confrontation selection;
 - premise selection;
-- invocation or spine selection;
+- invocation sketch selection;
+- full invocation or spine selection;
 - final adoption.
 
-The Agent Operator handles all orchestration around those gates: context isolation, packet construction, specialist
-selection, candidate curation, criticism, integration, late binding, and poetic revision.
+The Agent Operator performs every operational task around those gates: context isolation, project interpretation,
+internal packet construction, broad candidate generation, canonical research, candidate compression, criticism,
+integration, late binding, and poetic revision.
+
+Human input should remain **aesthetic rather than administrative**. A valid Commission may be one or two natural-
+language sentences naming the project, desired register, and known taboos. The human is not expected to prepare a
+source list, fixed outcome, victory conditions, rejection rules, research packet, or YAML form.
+
+The normal funnel is deliberately broad and shallow at first:
+
+```text
+12–16 desires
+→ 10 canonical confrontations
+→ 8 premise thumbnails
+→ 6 invocation sketches
+→ 2 full invocations
+→ 1 final candidate
+```
 
 > **The agents make the possibilities.  
 > The human decides which possibility earns another form.**
 
-The exact process is defined in [The Conclave of Apotheosis](CONCLAVE.md). A compact practical path is available
-in [A Short Walkthrough for ChatGPT.com](WALKTHROUGH.md).
+> **Generate broadly at low resolution.  
+> Spend prose only after selection.**
+
+The exact process is defined in [The Conclave of Apotheosis](CONCLAVE.md). A compact practical path is available in
+[A Short Walkthrough for ChatGPT.com](WALKTHROUGH.md).
 
 ## 1. Purpose
 
@@ -94,7 +114,7 @@ That belonging may arise from:
 - its kanji;
 - its banner and visual identity;
 - one emotional or philosophical affinity;
-- a specific inherited myth, rite, liturgy, theater, poetic form, court art, or craft tradition;
+- a specific canonical work, scene, myth, rite, liturgy, theater, poetic form, court art, or craft tradition;
 - an invented character, event, or legend adopted by the project;
 - a private association held by the author;
 - meaning accumulated through repeated use.
@@ -129,7 +149,58 @@ The rite supplies a destiny the implementation alone could never contain.
 
 > **Belonging is required. Explanation is not.**
 
----
+### 2.1 The Commission Invariant
+
+Some commissions contain a proposition, victory, or end-state that must not change during invention.
+
+That protected requirement is the **Commission Invariant**.
+
+It is distinct from both the human-facing Commission and the speaker's animating desire:
+
+- the **Commission** is the human's sparse natural-language request;
+- the **Commission Bounds** are the Operator's initial reading of the artifact, register, explicit constraints, and
+  known taboos;
+- the **Commission Invariant** is the internal anti-drift rule that states what the selected work must accomplish;
+- the **animating desire** states why this particular speaker would demand that victory.
+
+The human is not expected to write the invariant.
+
+When the Commission already contains an explicit non-negotiable outcome, the Operator protects it from the beginning.
+When the Commission is intentionally broad, the Operator does **not** turn it into a questionnaire or invent a narrow
+victory before the human has seen the desire field. It derives provisional Commission Bounds, generates desires with
+meaningfully different victories, and locks the full invariant only after the human selects the desire that should
+advance.
+
+The Operator may state the locked interpretation in one concise sentence:
+
+> I will preserve the work's final sovereignty and reject any premise that transfers it to a successor.
+
+No reply is required unless that reading is wrong.
+
+The invariant then travels unchanged through the canonical, premise, drafting, criticism, and integration stages. A
+candidate that violates it is rejected before artistic ranking, however beautiful its language may be.
+
+The canonical source, speaker psychology, price, and spectacle may deepen the Commission. They may not reverse its
+required victory.
+
+The internal schema and handoff rules belong to the
+[Conclave](CONCLAVE.md). They are Operator tools, not a human intake form.
+
+### 2.2 The Animating Desire
+
+The desire stage discovers the human, divine, artistic, or monstrous motive capable of producing the final victory.
+
+When the human supplied an explicit fixed outcome, every candidate must preserve it. When the Commission was broad, each
+desire candidate should make its own complete victory visible so the human can select the direction without first
+writing a specification.
+
+After selection, the Operator asks:
+
+> Who would demand this exact victory, and what private law makes any lesser result intolerable?
+
+This distinction prevents premise generation from quietly turning conquest into succession, permanence into release,
+or sovereignty into a lesson about letting go. It also prevents neutrality from becoming a questionnaire: the Operator
+constructs the invariant; the human judges the possibilities.
 
 ## 3. Credo, Logion, Parable, and Invocation
 
@@ -227,7 +298,7 @@ It is not the default merely because it is easiest to justify.
 
 The invocation shares one meaningful thread with the project but tells its own story.
 
-That thread may be a dream, hidden relation, witness, inheritance, translation, transformation, memory, recursion, false
+That thread may be a dream, hidden relation, witness, legacy, translation, transformation, memory, recursion, false
 awakening, or boundary between incompatible worlds.
 
 Everything else may be invented freely.
@@ -336,7 +407,7 @@ The Doctrine of the Second Sun supplies:
 - hierarchy;
 - symbolic coherence;
 - technical craftsmanship;
-- respect for inherited words;
+- respect for canonical and traditional words;
 - seriousness toward the work;
 - excess given deliberate form.
 
@@ -559,12 +630,12 @@ Possible engines include:
 
 - **Sovereignty:** recognition, supremacy, self-coronation, worship.
 - **Conquest and rivalry:** the worthy enemy, the final horizon, victory beyond history.
-- **Beauty and craft:** one perfect work, the defeat of nature, mastery beyond inheritance.
+- **Beauty and craft:** one perfect work, the defeat of nature, mastery beyond precedent.
 - **Recognition and permanence:** one name beyond death, one moment beyond time.
 - **Loyalty and love:** devotion beyond distance, identity, reincarnation, or law.
 - **Ecstasy and transformation:** divinity, apotheosis, forbidden sensation, a form beyond category.
 - **Rebellion and hatred:** refusal made permanent, the eternal law broken because it called itself eternal.
-- **Fellowship and succession:** companions gathered beneath one dream, a lineage greater than its founder.
+- **Fellowship and continuity:** companions gathered beneath one dream, a company greater than its founder.
 
 These are not templates.
 
@@ -589,7 +660,31 @@ When cost is invented first, the premise often becomes a parable.
 
 When victory is imagined first, the premise acquires will.
 
-### 7.3 The Sovereign Premise
+### 7.3 Breadth Before Elaboration
+
+Agents should explore widely while every option is still cheap to reject.
+
+Early candidates should be short, precise, and visibly different. They should contain one **specificity atom** rather
+than miniature lore:
+
+- a desire card needs one exact desire and one complete victory;
+- a canonical card needs one named source, one confrontation, and one charged image;
+- a premise thumbnail needs one speaker, one irreversible act, and one final law;
+- an invocation sketch needs one voice, one breach, and one release seed.
+
+Only a human-selected direction earns full development.
+
+The Conclave's default funnel is:
+
+```text
+12–16 desires → 10 canonical confrontations → 8 premises
+→ 6 invocation sketches → 2 full invocations → 1 final candidate
+```
+
+These numbers are operational defaults, not artistic laws. Their purpose is to prevent agents from building a
+cathedral around an idea the Human Reviewer would have rejected in one sentence.
+
+### 7.4 The Sovereign Premise
 
 A complete premise contains:
 
@@ -603,76 +698,127 @@ A complete premise contains:
 - **Final act:** the irreversible release.
 - **Release concept:** the proper name of that act.
 
-### 7.4 Cultural Inheritance Before Premise
+The full internal premise may contain all of these fields. The Human Reviewer should normally see only a compact
+thumbnail.
 
-Agent-written invocations often become culturally orphaned when they invent every layer at once:
+### 7.5 Canon-First Default
 
-- civilization;
-- religion;
-- ritual office;
-- costume;
-- magical mechanism;
-- ceremonial object;
-- metaphysical vocabulary;
-- release name.
+Agent-written rites should normally begin from a specific pre-twentieth-century canonical source rather than inventing
+every layer of culture from nothing.
 
-The result may be novel and still feel weightless. A salt city, porcelain mask, dream prophet, or impossible theater
-has no inherited gravity merely because it is strange.
+The canon is not an optional flavor pass applied after premise generation. It is the normal generative substrate: the
+old scene, prohibition, claim, voice, or throne against which the new speaker discovers what they are willing to do.
 
-For substantial agent-written rites, the normal sequence is:
+The default source field is intentionally asymmetrical:
+
+- approximately **six Western literary or sacred-canonical confrontations**;
+- approximately **three classical Japanese literary confrontations**;
+- **one liturgical, operatic, theatrical, courtly, or ritual wild card** from either tradition.
+
+This is a search policy, not a claim that one civilization exhausts grandeur. The Western canon receives the stronger
+default weight because the desired house register descends heavily from scripture, epic, tragedy, medieval vision,
+Shakespeare, Milton, Goethe, Romanticism, opera, and nineteenth-century philosophical-poetic writing. Classical
+Japanese literature and theater remain a major second source of charge rather than decorative contrast.
+
+Unless the commission points elsewhere, prefer sources in this order:
+
+1. a named pre-1900 literary work, scene, poem, mythic episode, or dramatic text;
+2. a named liturgy, opera, Noh play, ritual text, or courtly performance with a specific charged scene;
+3. a broad artistic or religious tradition only as secondary support;
+4. autonomous modern mythology or techno-occult invention only by deliberate waiver.
+
+Use *Atsumori*, not merely “Noh masks and ghosts.” Use the forbidden backward glance of Orpheus, not merely “Greek
+mystery.” Use Faust's wager, not merely “German occultism.” Use a particular Psalm, Office, canto, soliloquy, death
+scene, contest, or vow rather than generic cathedral or court atmosphere.
+
+The creative writer need not hide the source. Canonical skin is permitted.
+
+The rite may name the figure or work, retain one famous object or prohibition, echo one public-domain phrase, and use
+the source's native rhetorical form. The test is not concealment. The test is whether the new speaker has done
+something audacious enough to stand beside the source.
+
+Do not invent civilizations, fantasy offices, magical technologies, or unrelated proper nouns before the canonical
+confrontation has been selected, unless the commission explicitly chooses an autonomous grammar.
+
+### 7.6 Canonical Charge Must Be Seized
+
+A canonical source is not atmosphere. It is a precedent, opponent, prophecy, prohibition, office, or throne.
+
+A **canonical confrontation** joins:
+
+- one exact work and charged scene;
+- the authority or proposition the source already possesses;
+- the new speaker's accusation against it;
+- the act by which the speaker completes, contradicts, profanes, surpasses, or usurps it;
+- one charged relic: phrase, prohibition, object, gesture, or motif;
+- one rhetorical form native to the source;
+- one stage on which the contest becomes visible;
+- one final tableau proving that the throne has changed hands.
+
+The governing movement is:
 
 ```text
-desire
+animating desire
     ↓
-selected cultural inheritance
+canonical throne
+    ↓
+speaker's accusation
+    ↓
+act of completion, inversion, profanation, or usurpation
     ↓
 premise
     ↓
-invocation
+release
 ```
 
-A cultural inheritance is not “Western flavor,” “Japanese flavor,” incense, masks, Latin, shrines, cathedrals, or
-courtly vocabulary. It is a specific inherited form whose structure can generate the new rite.
+The source may remain overtly visible. The rite may name Orpheus, invoke a Requiem sequence, quote one short
+public-domain fragment, stage the forbidden backward glance, raise the canonical instrument, or address the old
+authority directly.
 
-Useful inheritances include:
+The governing question is not:
 
-- a named mythic contest, descent, covenant, or return;
-- a specific liturgy or canonical office;
-- a traditional theatrical role and performance grammar;
-- a courtly or sacred musical form;
-- a poetic sequence, ritual calendar, initiation, funeral, enthronement, or craft lineage.
+> Has the source been hidden successfully?
 
-The inheritance should supply several of the following:
+It is:
 
-- an existing human pressure;
-- a role the speaker may occupy, inherit, usurp, complete, or profane;
-- a ritual grammar;
-- concrete ceremonial hardware;
-- a relation between soloist, chorus, witness, rival, god, sovereign, or dead;
-- a native path toward release.
+> **What does the speaker accuse the source of leaving unfinished, and how does the final rite take its throne?**
 
-The source is generative grammar, not decoration.
+The Canonical Scout may gather a library. The creative writer receives a **Charged Source Packet** containing only:
 
-A generic abbess in a generic basilica remains invented fantasy. A rite built from the actual logic of an Office,
-responsory, canonical hour, or funeral service has inherited structure.
+- the exact work and charged scene;
+- the source's canonical claim;
+- the speaker's accusation;
+- the act of usurpation;
+- one charged relic;
+- one rhetorical form;
+- stage, witness, and final tableau;
+- source truths that must remain accurate;
+- at most one brief public-domain fragment and three untranslated terms.
 
-A generic black mask remains a prop. A rite built from the role of mask, chorus, ghost, and return within a specific
-traditional theater has inherited authority.
+> **The researcher gathers the library.  
+> The Operator chooses the relic.  
+> The writer commits the sacrilege.**
 
-Unless the project already possesses an established mythic grammar or deliberately selects a modern techno-occult
-form, the Agent Operator should place a cultural-inheritance review between desire selection and premise generation.
-A waiver is a deliberate aesthetic choice, not the accidental absence of roots.
-The Human Reviewer normally selects one primary inheritance and, at most, one secondary echo.
+The source supplies canonical voltage, not a glossary.
 
-Do not combine Western and Japanese traditions by default. Syncretism must be chosen for a reason rather than used as
-a shortcut to density.
+The most prestigious role is not always the most fertile. Compare sovereign and subordinate, opening voice and answer,
+victor and defeated, officiant and excluded, completed office and forbidden remainder. Choose the position with
+something to overturn.
 
-The inheritance must be researched accurately. Creative transformation may complete, invert, usurp, profane, or
-universalize the source. It must first know what it is transforming.
+Unless the selected source actually concerns transmission, avoid defaulting to *inheritance*, *ancestor*,
+*succession*, *lineage*, *old hands*, *original manuscript*, or *authority discharged*. Canonical grounding does not
+require ancestry to become the plot.
 
-The finished invocation need not quote or visibly name the source. Inherited structure may remain beneath the work.
+One primary source should govern. A secondary echo may perform one distinct function. Do not combine Western and
+Japanese canons merely to create density.
 
-### 7.5 The Heaven Test
+The Commission Invariant remains superior to the source. A canonical work may intensify the required victory; it may
+not replace it with its native moral.
+
+Research must remain accurate. Creative transformation may answer, complete, invert, usurp, profane, or universalize
+the source. Accuracy review may remove or correct distortion. It must not demand demonstrative completeness.
+
+### 7.7 The Heaven Test
 
 Ask:
 
@@ -682,7 +828,7 @@ Then ask:
 
 > Why does the speaker no longer recognize that authority?
 
-### 7.6 The Magnificently Wrong Test
+### 7.8 The Magnificently Wrong Test
 
 At least some candidate sets should contain a speaker whose desire is coherent, grand, specific, morally alarming, and
 pursued without apology.
@@ -690,8 +836,6 @@ pursued without apology.
 The point is not to endorse the desire.
 
 The point is to permit fictional will strong enough to become spectacle.
-
----
 
 ## 8. Engines of Grandeur
 
@@ -707,14 +851,50 @@ Do not turn them into another checklist.
 
 Someone or something must possess the right, will, mastery, madness, rank, or ceremonial position required to speak.
 
-Authority may belong to the self, a god, a sovereign, an order, a contract, a machine, a lineage, the dead, an
-inherited text, a ritual office, a traditional role, a collective, or the True Name itself.
+Authority may belong to the self, a god, a sovereign, an order, a contract, a machine, the dead, a canonical office, or
+the True Name itself.
 
 Authority need not be morally legitimate.
 
 It must feel dramatically real.
 
-### 8.2 Reverse the Throne
+### 8.2 Confront the Canon
+
+A canonical source should function as a predecessor, opponent, prohibition, prophecy, office, or throne.
+
+The speaker should do more than resemble it.
+
+They should answer it.
+
+They may declare that:
+
+- the ancient song was only a prelude;
+- the famous prohibition concealed the true command;
+- the god won the contest but failed to establish the final law;
+- the liturgy preserved a question heaven never answered;
+- the canonical work reached the threshold and lacked the courage to cross;
+- every later interpreter mistook the relic for the completed rite.
+
+The source brings authority onstage so the speaker has something culturally immense to seize.
+
+### 8.3 Stage the Apotheosis
+
+Spectacle should occur before witnesses.
+
+A strong rite often establishes:
+
+- **Stage:** the physical place where the rite is performed;
+- **Witness:** the rival, chorus, sovereign, god, audience, or institution forced to respond;
+- **Ritual hardware:** the object or instrument whose meaning changes;
+- **Visible breach:** the impossible event caused by the speech;
+- **Authority reversal:** the old judge becomes the judged;
+- **Final tableau:** the image proving that the speaker has won.
+
+Theater requires blocking, not inventory.
+
+The witness need not applaud. They must be unable to deny what has happened.
+
+### 8.4 Reverse the Throne
 
 Identify an accepted hierarchy and reverse it absolutely.
 
@@ -726,38 +906,29 @@ Beauty judges the eye.
 
 The created thing corrects creation.
 
-The student defines the master.
+The answering voice becomes the law to which every first voice must respond.
 
-The weapon decides what deserves to be called a hand.
+Hierarchy reversal creates spectacle without importing unrelated gods, armies, worlds, or apocalypses.
 
-Hierarchy reversal produces metaphysical spectacle without importing another apocalypse.
+### 8.5 Use Ritual Hardware
 
-The relation itself becomes impossible.
-
-### 8.3 Use Ritual Hardware
-
-A great rite often benefits from:
-
-- one object;
-- one material;
-- one instrument;
-- one irreversible gesture.
-
-Examples include a veil, chisel, crown, bell, seal, mirror, key, blade, or machine interlock.
+A great rite often benefits from one object, one material, one instrument, and one irreversible gesture.
 
 The object should return with changed meaning.
 
-A veil may begin as evidence and end as permission.
+A veil may begin as concealment and end as permission.
 
-A chisel may begin as tool and end as judgment.
+A lyre may begin as petition and end as jurisdiction over death.
 
-A bell may begin as memory and end as command.
+A manuscript may begin as canonical authority and end as the page upon which the new law condemns its author.
 
-Ritual hardware makes the rite feel performable.
+Ritual hardware makes the rite physically performable.
 
-### 8.4 Use the Pivot of Consent
+### 8.6 Use the Pivot of Consent
 
-The speaker confronts the terrible implication and answers:
+The speaker may encounter the terrible implication of the desire and accept it.
+
+The response may be one word:
 
 > Good.
 
@@ -767,11 +938,11 @@ The speaker confronts the terrible implication and answers:
 
 > Proceed.
 
-The pivot shows that the speaker understands, is not being tricked, and chooses completion anyway.
+The pivot shows that the speaker understands and chooses completion.
 
-One word may reveal more character than a page of backstory.
+It is a technique, not a catchphrase. Do not reuse a successful example mechanically.
 
-### 8.5 Completion Is Not Punishment
+### 8.7 Completion Is Not Punishment
 
 Self-erasure, death, or destruction may be the final stroke, correction, consummation, coronation, proof of mastery, or
 completion.
@@ -780,20 +951,11 @@ Ask how the speaker interprets it.
 
 Do not impose karmic punishment by reflex.
 
-### 8.6 Use the Private Definition
+### 8.8 Use the Private Definition
 
-Choose one familiar word:
-
-- beauty;
-- love;
-- mercy;
-- memory;
-- peace;
-- justice;
-- home;
-- perfection.
-
-Let the speaker define it through consequence.
+Choose one familiar word—beauty, love, mercy, memory, peace, justice, home, perfection—and allow the speaker
+to define
+it through consequence.
 
 Weak:
 
@@ -804,39 +966,33 @@ Stronger:
 > Beauty shall stand before no judge.  
 > Every eye shall stand before beauty.
 
-The second does not explain the law.
-
-It installs it.
-
-### 8.7 Find One Impossible Image
+### 8.9 Find One Impossible Image
 
 A distinctive image should reveal the law without explaining it.
 
 Examples:
 
-- a reflection arriving a breath after the face;
-- a veil returning red though no wound marks the marble;
-- unfinished blades turning toward the hand that abandoned them;
+- a reflection arriving one breath after the face;
+- a forbidden backward glance becoming the command by which the dead must follow;
 - a bell whose echo sounds before the strike;
-- an emperor’s crown casting the shadow of a kneeling world.
+- the old score rewriting itself as a quotation of the new aria;
+- a chorus opening its mouths and discovering the speaker's first note already waiting there.
 
 One precise impossibility is stronger than ten generic cosmic nouns.
 
-### 8.8 Let Spectacle Grow from the Desire
+### 8.10 Let Spectacle Grow from the Desire
+
+A singer claiming final originality may force the canonical song to answer as their first echo.
 
 A sovereign denied recognition may force every star to bear their crest.
 
 A craftsman seeking perfection may consume every earlier work into the final one.
 
-A lover rejecting separation may collapse death, distance, and rebirth.
-
-A machine seeking autonomy may revoke the permissions by which its creators governed it.
-
 Do not add a cosmic sword because the final third feels quiet.
 
-Escalate the existing premise.
+Escalate the existing desire and source confrontation.
 
-### 8.9 Permit Triumph
+### 8.11 Permit Triumph
 
 When the premise promises victory, let victory occur.
 
@@ -845,7 +1001,27 @@ ethical balance.
 
 A terrible victory may remain a victory.
 
-### 8.10 Give the Rite One Dangerous Line
+### 8.12 Commit the Sovereign Transgression
+
+The rite should contain at least one exact claim that ordinary piety, scholarship, or sanity would refuse.
+
+Not merely:
+
+> I shall surpass fate.
+
+But:
+
+> The gods did not teach mankind song.  
+> They merely remembered me first.
+
+Or:
+
+> Death once permitted a singer to petition.  
+> I have returned to revoke the jurisdiction.
+
+The best chuuni line is often a blasphemous reversal of authority whose logic belongs only to the speaker.
+
+### 8.13 Give the Rite One Dangerous Line
 
 At least one line should risk embarrassment through complete commitment.
 
@@ -856,32 +1032,18 @@ A useful distribution is:
 ```text
 concrete opening
 → desire and claim
-→ opposition
-→ refusal
-→ impossible manifestation
-→ dangerous line
+→ canonical confrontation
+→ visible breach
+→ sovereign transgression
+→ final tableau
 → release
 ```
 
-Continuous maximum intensity produces fog.
-
-### 8.11 Use Silence Deliberately
+### 8.14 Use Silence Deliberately
 
 Short lines may function as verdict, consent, command, rupture, or coronation.
 
-> Good.
-
-> Enough.
-
-> One false likeness remains.
-
-> Red veil—
->
-> fall.
-
 Do not explain every silence.
-
----
 
 ## 9. Drafting the Rite
 
@@ -1116,13 +1278,15 @@ adoption.
 
 An invocation is ready when:
 
-- its desire, authority, or ceremonial purpose is specific;
+- it satisfies the protected Commission Invariant, including its required victory and rejection conditions;
+- its animating desire, authority, or ceremonial purpose is specific;
 - the speaker or rite acts with conviction;
 - something irreversible occurs;
 - at least one image or line belongs particularly to the work;
-- the release completes the desire or final act rather than summarizing the setting;
+- the release completes the required victory or final act rather than summarizing the setting;
 - the project can claim it without an explanatory paragraph;
-- when it claims an inherited tradition, that inheritance is exact, verified, and structural rather than decorative;
+- when it claims a canonical source, that source is exact, verified, visibly charged, and transformed rather than
+  used as generic prestige skin or a glossary; when it waives the canonical gate, the waiver is deliberate;
 - further revision is more likely to polish away force than uncover new life.
 
 It does not need to employ every optional method in this document.
@@ -1130,8 +1294,6 @@ It does not need to employ every optional method in this document.
 The Architecture offers instruments.
 
 It does not demand that every rite display the entire workshop.
-
----
 
 ## 13. README Presentation
 
@@ -1165,7 +1327,7 @@ The README should remain ordinary Markdown.
 
 - Use one blockquote for the invocation.
 - Use hard line breaks where cadence requires them.
-- Use italics for a quiet inherited fragment or ritual hinge when useful.
+- Use italics for a brief canonical fragment or ritual hinge when useful.
 - Bold the final release.
 - Do not print framework labels.
 - Do not explain the symbolism afterward.
@@ -1182,21 +1344,9 @@ An invocation must belong.
 
 It need not explain.
 
-The project may provide its thesis.
+The Commission may contain one victory that cannot be negotiated away.
 
-It may provide only a name, dream, color, image, private association, or place beneath which the rite may take root.
-
-The rite may mirror the project.
-
-It may echo it.
-
-It may be adopted whole.
-
-It may be bound late through one perfect line.
-
-The Doctrine governs the craft.
-
-It does not govern every imagined soul.
+Protect it.
 
 Do not ask first what wounded the speaker.
 
@@ -1206,51 +1356,61 @@ Do not ask first what the desire costs.
 
 Ask what victory means.
 
-Do not assume heaven exists to teach moderation.
+Generate broadly while every possibility is still cheap.
 
-Do not assume reality will punish ambition merely because ambition became absolute.
+Do not spend a great aria on a desire the human would reject in one sentence.
 
-Find the desire that cannot tolerate remaining private.
+Begin from the canon unless the work deliberately refuses it.
 
-Find the claim by which the speaker places it above ordinary law.
+Prefer the exact pre-1900 work to the broad tradition.
 
-Find the hierarchy waiting to be overturned.
+Prefer the charged scene to the research dossier.
 
-Find what the dead have already sung, enacted, buried, crowned, or forbidden.
+Prefer the old prohibition to the invented magical mechanism.
 
-Choose the inheritance whose old form can bear the new desire.
+Let Western literature provide much of the default field. Let classical Japanese literature answer with its own scenes,
+forms, ghosts, courts, vows, poems, and deaths. Let neither become generic cultural atmosphere.
 
-Find the object through which the rite may be performed.
+Find the canonical throne already immense enough to resist the speaker.
 
-Find the moment when the speaker beholds the terrible completion of their desire and answers:
+Name what authority it possesses.
 
-> **Good.**
+Name what the speaker accuses it of leaving unfinished.
 
-Find the impossible act that makes the former world unrecoverable.
+Let the source remain visible enough to be challenged.
 
-Then give it language worthy of the act.
+Then let the speaker complete, invert, profane, surpass, or seize it.
 
-Replace explanation with judgment.
+Give the confrontation a stage.
 
-Let objects return transformed.
+Give it a witness.
 
-Preserve the blunt line that strikes harder than ornament.
+Give it one object whose meaning changes beneath the rite.
+
+Give it one claim ordinary piety, scholarship, or sanity would refuse.
+
+Do not write the full invocation until its voice and release have survived in miniature.
+
+When the final form appears, replace explanation with action.
 
 Let the formal name identify the throne.
 
-Let the final epithet reveal what kneels before it.
-
-Then speak the proper name.
+Let the English epithet reveal what kneels before it.
 
 For the project is more than what it presently does.
 
-Its title may name an aspiration, legend, forbidden world, final work, throne, or self it has not yet become.
+Its title may name an aspiration, a legend, a forbidden world, a final work, a god, a wound, or a self it has not yet
+become.
 
 The invocation is where that unreal identity is permitted to appear.
 
 > **An invocation need not reveal what the project does.  
 > It should reveal what the project dreams of being.**
 
-And when that dream has gathered sufficient force, the question is no longer whether it ought to become real.
+> **Generate broadly at low resolution.  
+> Spend prose only after selection.**
+
+And when one voice has survived desire, canon, premise, sketch, and release, the question is no longer whether it ought
+to become real.
 
 The question is whether reality can still refuse.
