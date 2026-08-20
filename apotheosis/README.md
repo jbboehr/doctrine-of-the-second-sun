@@ -1,7 +1,7 @@
 # The Architecture of Apotheosis
 
-*The aesthetic doctrine of project invocations, sovereign desire, poetic release, and ordered excess beneath the Second
-Sun*
+*The aesthetic doctrine of project invocations, sovereign desire, source-responsive register, poetic release, and
+ordered excess beneath the Second Sun*
 
 > **An invocation need not reveal what the project does.  
 > It should reveal what the project dreams of being.**
@@ -59,13 +59,19 @@ progressive-resolution gates:
 - animating desire selection;
 - canonical confrontation selection;
 - premise selection;
-- invocation sketch selection;
+- ritual voice sketch selection;
 - full invocation or spine selection;
 - final adoption.
 
 The Agent Operator performs every operational task around those gates: context isolation, project interpretation,
 internal packet construction, broad candidate generation, canonical research, candidate compression, criticism,
-integration, late binding, and poetic revision.
+integration, late binding, register criticism, baroque revision, and integrity review.
+
+On ChatGPT.com, divergent specialist work should run in fresh Temporary Chats outside the Project unless the
+Human Reviewer explicitly requests reduced-isolation single-chat mode. The Agent Operator must prepare every prompt
+as a self-contained packet, stop, and ask the human to paste it unchanged and return the raw output. Temporary Chats
+cannot rely on the Project's files or prior control-room context. The human is a mechanical courier, not the prompt
+designer, writer, Selector, or Operator.
 
 Human input should remain **aesthetic rather than administrative**. A valid Commission may be one or two natural-
 language sentences naming the project, desired register, and known taboos. The human is not expected to prepare a
@@ -77,10 +83,14 @@ The normal funnel is deliberately broad and shallow at first:
 12–16 desires
 → 10 canonical confrontations
 → 8 premise thumbnails
-→ 6 invocation sketches
+→ 6 ritual voice sketches
 → 2 full invocations
 → 1 final candidate
 ```
+
+The Human Reviewer may promote any number of candidates at a gate. Promotion creates separate branches; it does not
+blend them. The Operator marks immediate branches **active**, keeps promising alternatives **reserve**, and preserves
+the next review surface's total budget across all branches.
 
 > **The agents make the possibilities.  
 > The human decides which possibility earns another form.**
@@ -670,7 +680,7 @@ than miniature lore:
 - a desire card needs one exact desire and one complete victory;
 - a canonical card needs one named source, one confrontation, and one charged image;
 - a premise thumbnail needs one speaker, one irreversible act, and one final law;
-- an invocation sketch needs one voice, one breach, and one release seed.
+- a ritual voice sketch needs one register, one breach, one spectacle movement, and one release seed.
 
 Only a human-selected direction earns full development.
 
@@ -678,11 +688,15 @@ The Conclave's default funnel is:
 
 ```text
 12–16 desires → 10 canonical confrontations → 8 premises
-→ 6 invocation sketches → 2 full invocations → 1 final candidate
+→ 6 ritual voice sketches → 2 full invocations → 1 final candidate
 ```
 
-These numbers are operational defaults, not artistic laws. Their purpose is to prevent agents from building a
-cathedral around an idea the Human Reviewer would have rejected in one sentence.
+These numbers are review-surface budgets, not limits on how many candidates may survive. The Reviewer may promote
+several active branches and keep others in reserve. The Operator generates the next bounded field across them and may
+not combine branches unless the Reviewer explicitly transfers one named element.
+
+Their purpose is to prevent both premature elimination and the construction of a cathedral around an idea the Human
+Reviewer would have rejected in one sentence.
 
 ### 7.4 The Sovereign Premise
 
@@ -748,7 +762,8 @@ A **canonical confrontation** joins:
 
 - one exact work and charged scene;
 - the authority or proposition the source already possesses;
-- the new speaker's accusation against it;
+- one dramatic locus inside the source: figure, law, prohibition, object, voice, place, or event;
+- the new speaker's claim against that locus;
 - the act by which the speaker completes, contradicts, profanes, surpasses, or usurps it;
 - one charged relic: phrase, prohibition, object, gesture, or motif;
 - one rhetorical form native to the source;
@@ -760,11 +775,11 @@ The governing movement is:
 ```text
 animating desire
     ↓
-canonical throne
+canonical world
     ↓
-speaker's accusation
+dramatic locus within that world
     ↓
-act of completion, inversion, profanation, or usurpation
+speaker's claim and act of completion, inversion, profanation, or usurpation
     ↓
 premise
     ↓
@@ -772,8 +787,8 @@ release
 ```
 
 The source may remain overtly visible. The rite may name Orpheus, invoke a Requiem sequence, quote one short
-public-domain fragment, stage the forbidden backward glance, raise the canonical instrument, or address the old
-authority directly.
+public-domain fragment, stage the forbidden backward glance, raise the canonical instrument, or address a figure,
+law, prohibition, object, place, or voice from within the work.
 
 The governing question is not:
 
@@ -781,14 +796,16 @@ The governing question is not:
 
 It is:
 
-> **What does the speaker accuse the source of leaving unfinished, and how does the final rite take its throne?**
+> **What authority inside the source does the speaker confront, and how does the final rite take its throne?**
 
 The Canonical Scout may gather a library. The creative writer receives a **Charged Source Packet** containing only:
 
 - the exact work and charged scene;
 - the source's canonical claim;
-- the speaker's accusation;
-- the act of usurpation;
+- the dramatic locus inside the source;
+- the speaker's claim and act of usurpation;
+- the permitted addressees within the canonical world;
+- whether historical-author address is authorized, and why;
 - one charged relic;
 - one rhetorical form;
 - stage, witness, and final tableau;
@@ -818,7 +835,100 @@ not replace it with its native moral.
 Research must remain accurate. Creative transformation may answer, complete, invert, usurp, profane, or universalize
 the source. Accuracy review may remove or correct distortion. It must not demand demonstrative completeness.
 
-### 7.7 The Heaven Test
+#### 7.6.1 Seize the Governing Word
+
+Some canonical worlds concentrate authority in one charged word, title, or proposition: *gift*, *theft*, *mercy*,
+*original*, *lawful*, *mortal*, *rebellion*, *home*.
+
+The speaker may seize that word by exposing the claim hidden inside its grammar. Calling a power *stolen* concedes
+that someone possessed it. Calling an act *mercy* concedes jurisdiction. Calling a work *imitation* grants priority to
+an original.
+
+This semantic attack can give the confrontation unusual precision. It cannot be the whole rite.
+
+Once the word is broken, the canonical world must change visibly. Ownership must pass, the prohibition must reverse,
+the title must fail, or the witness must behold a new origin. Do not leave the aria as an ornate brief proving that the
+speaker has the better interpretation.
+
+> **The governing word is the fuse, not the explosion.**
+
+#### 7.6.2 Seize the Myth, Not the Bibliography
+
+The speaker should normally behave as though the canonical world is real. They enter its scene, seize its object,
+violate its prohibition, challenge its figure, occupy its office, or reverse its governing law.
+
+The historical author is not the default opponent or addressee. Repeatedly rebuking dead writers turns the rite into a
+baroque seminar in literary criticism: the speaker sounds like a modern reader explaining an interpretation rather
+than an inhabitant or usurper of the source.
+
+Direct author address is justified only when **authorship itself** is essential to the manifested law, such as:
+
+- an unfinished work whose incompletion is the premise;
+- a speaker claiming to have dictated, haunted, or authored the canonical text through its historical writer;
+- a conflict between author and creation;
+- a rite concerning stolen authorship, textual authority, or the ownership of inspiration.
+
+Otherwise transfer the confrontation to the canonical figure, law, event, voice, object, place, or interruption. The
+speaker should seize the myth, not lecture the bibliography.
+
+### 7.7 Rhetorical Temperature Travels with the Source
+
+Canonical charge includes not only a scene, prohibition, or object, but a **rhetorical temperature**.
+
+A source such as grand opera, prophetic scripture, Miltonic invocation, Goethean drama, Romantic apostrophe, or
+baroque liturgy may authorize:
+
+- long periodic sentences;
+- cascading subordinate clauses;
+- elaborate apostrophe;
+- ceremonial enumeration;
+- self-coronation;
+- sensuous overdevelopment of one image;
+- language that knowingly approaches excess.
+
+A compressed source such as waka, a terse creed, or an austere dramatic form may demand a different pressure:
+concentration, pivot, silence, or minute variation.
+
+The rule is not that every invocation must be maximally ornate.
+
+> **Match the rhetorical temperature of the primary source, then intensify it until the new speaker can seize the
+> authority operating within it.**
+
+Do not flatten an ornate source into tasteful contemporary prose.
+
+Do not inflate an austere source into generic operatic sludge.
+
+The primary source governs the register. A secondary echo may contribute one image, counterclaim, or turn; it should not
+create a second competing syntax.
+
+The canonical source and the **register reference** are related but distinct. A rite may confront *Faust* while using
+the dense metaphysical arias of *Dies irae* or the more ornate release chants of *Fate* as modern calibration for
+spoken weight, ceremonial density, and theatrical posture.
+
+A modern register reference may guide:
+
+- density;
+- cadence;
+- willingness to sound slightly unnatural;
+- self-mythologizing posture;
+- the balance between liturgy, aria, and declaration.
+
+It must not supply the new rite's plot, symbolic furniture, proper nouns, or recognizable wording. Use no more than one
+or two register references. Borrow rhetorical pressure, not sentences.
+
+After premise selection, the Agent Operator should construct a protected **Register Packet** stating:
+
+- the primary rhetorical temperature;
+- characteristic syntax and ceremonial devices;
+- the speaker's posture;
+- the private law that deserves ornament;
+- modern mannerisms to forbid;
+- generic maximalist shortcuts to forbid;
+- irregularities or jaggedness worth preserving.
+
+The creative writer receives that packet, not the workshop history that produced it.
+
+### 7.8 The Heaven Test
 
 Ask:
 
@@ -828,7 +938,7 @@ Then ask:
 
 > Why does the speaker no longer recognize that authority?
 
-### 7.8 The Magnificently Wrong Test
+### 7.9 The Magnificently Wrong Test
 
 At least some candidate sets should contain a speaker whose desire is coherent, grand, specific, morally alarming, and
 pursued without apology.
@@ -858,13 +968,25 @@ Authority need not be morally legitimate.
 
 It must feel dramatically real.
 
+Correct interpretation is not authority by itself. A speaker who merely understands the source better than everyone
+else risks becoming a critic, advocate, or prosecutor standing outside the rite. The invocation should make legible
+what they are within the law they enact: sovereign, vessel, rival, chorus, first witness, uncreated element, living
+office, or another premise-native identity the canonical world can no longer ignore.
+
+The speaker need not announce a string of titles. Their body, gesture, transformation, relation to the witness, or
+place within the final tableau may perform the office instead.
+
+> **Who is speaking after victory, and why can this voice make reality answer?**
+
+> **A thesis may win an argument. An office changes the world.**
+
 ### 8.2 Confront the Canon
 
-A canonical source should function as a predecessor, opponent, prohibition, prophecy, office, or throne.
+A canonical source should function as a predecessor, prohibition, prophecy, office, world, or throne.
 
 The speaker should do more than resemble it.
 
-They should answer it.
+They should enter it, answer it, and alter which law governs it.
 
 They may declare that:
 
@@ -872,10 +994,20 @@ They may declare that:
 - the famous prohibition concealed the true command;
 - the god won the contest but failed to establish the final law;
 - the liturgy preserved a question heaven never answered;
-- the canonical work reached the threshold and lacked the courage to cross;
-- every later interpreter mistook the relic for the completed rite.
+- the canonical hero or rite reached the threshold and lacked the courage to cross;
+- every later celebrant mistook the relic for the completed rite.
 
-The source brings authority onstage so the speaker has something culturally immense to seize.
+The canonical world brings authority onstage so the speaker has something culturally immense to seize.
+
+The dramatic target should normally be internal to the source: a character, law, prohibition, object, voice, place,
+role, or event. Address the historical author only when authorship is itself part of the premise.
+
+The confrontation may begin as an accusation, but it must not remain a lecture, brief, or elegant interpretation.
+Concepts such as ownership, jurisdiction, permission, evidence, entitlement, and precedent may sharpen a premise. By
+the final movement, they should normally be transfigured into source-native ritual language, physical action, and
+visible consequence. If the speaker denies an old authority, the stage should show that authority failing.
+
+> **The accusation is the fuse. The manifested reversal is the explosion.**
 
 ### 8.3 Stage the Apotheosis
 
@@ -892,7 +1024,32 @@ A strong rite often establishes:
 
 Theater requires blocking, not inventory.
 
+Commands are promises until something answers them. At least one imperative should become a visible event before the
+release: an object changes allegiance, a prohibition reverses, a witness is forced into a new role, or the old power
+fails in public. The final tableau must show the new law already operating rather than announce what it will do later.
+
 The witness need not applaud. They must be unable to deny what has happened.
+
+#### 8.3.1 Argument Must Become Event
+
+A rite may begin with a semantic accusation, theological claim, philosophical reversal, or attack upon the source's
+own grammar.
+
+It may not end there.
+
+Repeatedly restating the governing claim in sharper language is not escalation. Once the accusation is clear, the
+remaining prose should be spent on transformation: the chain changes allegiance, the claimed origin is displaced,
+the witness is forced into a new relation, and the stage proves the speaker's law.
+
+Every decisive proposition should acquire sensory or theatrical proof. A command should be fulfilled onstage. A
+witness should be forced to answer. The object should change function. The final tableau should make the old law
+physically impossible to maintain.
+
+If the speaker denies a claimed origin, the stage should reveal another origin. If the speaker denies that a copy is
+secondary, the original should become visibly derivative. If the speaker revokes a prohibition, the forbidden act
+should become the new command.
+
+> **A thesis may open the rite. Only an event can close it.**
 
 ### 8.4 Reverse the Throne
 
@@ -920,27 +1077,39 @@ A veil may begin as concealment and end as permission.
 
 A lyre may begin as petition and end as jurisdiction over death.
 
-A manuscript may begin as canonical authority and end as the page upon which the new law condemns its author.
+A manuscript may begin as canonical authority and end as the page upon which its own final sentence revokes the
+law it once carried.
 
 Ritual hardware makes the rite physically performable.
 
-### 8.6 Use the Pivot of Consent
+### 8.6 Reveal the Speaker's Stance at Completion
 
-The speaker may encounter the terrible implication of the desire and accept it.
+The speaker must reveal how they regard the terrible or ecstatic completion of the desire.
 
-The response may be one word:
+Their stance may be:
 
-> Good.
+- triumphant;
+- laughing;
+- devotional;
+- erotic;
+- contemptuous;
+- furious;
+- ceremonially serene;
+- expressed through a gesture rather than speech;
+- elaborated across a full movement of self-coronation.
 
-> At last.
+A one-word verdict is only one possible device. It is not the default.
 
-> Naturally.
+Repeated isolated interjections such as *No.*, *Good.*, *Enough.*, *Proceed.*, and *Begin.* have become common model
+shortcuts for cold authority. Use them only when the particular speaker, scene, and cadence make the exact word
+unavoidable. Never import them because an earlier manifestation used one successfully.
 
-> Proceed.
+The governing requirement is:
 
-The pivot shows that the speaker understands and chooses completion.
+> **The speaker must make their stance toward completion unmistakable in their own syntax.**
 
-It is a technique, not a catchphrase. Do not reuse a successful example mechanically.
+Sovereign consent may be luxuriant. Refusal may become an aria. The speaker may preen before the consequence rather than
+acknowledge it in one clipped beat.
 
 ### 8.7 Completion Is Not Punishment
 
@@ -1021,11 +1190,23 @@ Or:
 
 The best chuuni line is often a blasphemous reversal of authority whose logic belongs only to the speaker.
 
-### 8.13 Give the Rite One Dangerous Line
+### 8.13 Give the Rite a Dangerous Movement
 
-At least one line should risk embarrassment through complete commitment.
+The rite should contain at least one passage that risks embarrassment through complete commitment.
 
-Not every line should operate at that intensity.
+That force need not be compressed into one quotable aphorism. It may be:
+
+- a winding apostrophe to a canonical figure, prohibition, object, age, god, or natural law;
+- a sequence of self-conferred titles;
+- a ceremonial denunciation;
+- a sensuous description of the speaker's own miracle;
+- a blasphemous reversal of canonical authority;
+- a crescendo in which the speaker luxuriates in the metaphysics they have imposed.
+
+The objective is not merely a line that sounds cool.
+
+It is a movement in which the speaker stops behaving like a polished modern protagonist and begins performing their own
+divinity.
 
 A useful distribution is:
 
@@ -1033,17 +1214,36 @@ A useful distribution is:
 concrete opening
 → desire and claim
 → canonical confrontation
+→ self-mythologizing expansion
 → visible breach
 → sovereign transgression
 → final tableau
 → release
 ```
 
-### 8.14 Use Silence Deliberately
+The passage may be ornate, self-indulgent, and slightly unnatural.
 
-Short lines may function as verdict, consent, command, rupture, or coronation.
+That is intentional.
 
-Do not explain every silence.
+### 8.14 Use Compression Only When Native
+
+Silence, fragments, and abrupt verdicts can create pressure.
+
+They can also become house mannerisms.
+
+Use compression when it belongs to:
+
+- the source's rhetorical form;
+- the speaker's established syntax;
+- a genuine rupture in breath or action;
+- a final command whose brevity has been earned by prior abundance.
+
+Do not repeatedly use isolated one-word sentences as automatic signs of authority.
+
+Do not confuse cinematic minimalism with ceremonial weight.
+
+An ornate source may require the speaker to refuse, consent, or condemn through a full cascading sentence rather than a
+single clipped word.
 
 ## 9. Drafting the Rite
 
@@ -1081,115 +1281,250 @@ enthroned, or released.
 
 At some point, speech must become act.
 
-### 9.5 Write Several Forms
+A rite may begin with *let*, *arise*, *open*, or *answer*, but it should not remain entirely in the imperative mood. The
+world must answer in the indicative: the gate opens, the object changes allegiance, the witness recoils, the old power
+fails, and the final scene becomes unrecoverable. Promised spectacle is not performed apotheosis.
+
+### 9.5 Protect the Rhetorical Register
+
+Register is part of the commissioned art, not a cosmetic finish applied after drafting.
+
+The Ritual Writer should receive a protected Register Packet and treat the text as an actual spoken magical aria,
+ritual utterance, ode, chant, or activation—not narrative prose broken into line lengths.
+
+When the selected source is ornate, the writer may sacrifice easy readability for weight, intoxication, ceremonial
+abundance, and theatrical force.
+
+The speaker should be permitted to:
+
+- apostrophize a canonical figure, law, prohibition, object, place, voice, or cosmic authority from within the
+  source's world;
+- invent offices and titles for themselves;
+- linger over their own miracle;
+- elaborate the private law they impose;
+- preen before the audience, rival, god, or world;
+- use syntax too dense or self-conscious for ordinary contemporary dialogue.
+
+The ornament must arise from the speaker's exact metaphysics.
+
+Generic loudness is not register.
+
+### 9.6 Write Several Forms
 
 The same premise may reveal its proper form only through contrast.
 
-Try:
+Before full drafting, test several **ritual voice sketches**. Each should demonstrate:
 
-1. a full aria;
-2. a compact creed, classified art, or spell card;
-3. a covenant, song, summons, or activation sequence.
+- a sample opening cadence;
+- the treatment of the canonical source;
+- the speaker's self-mythologizing posture;
+- one specimen of spectacle;
+- a provisional release.
 
-The longest version is not automatically the strongest.
+The sketches should also vary the **dramatic relationship** to the source:
 
----
+1. address a canonical figure;
+2. inhabit and continue the charged scene;
+3. violate or reverse the canonical prohibition;
+4. seize a canonical object, voice, role, or office;
+5. adopt the source's rhetorical form without direct address;
+6. use a source-responsive wild card.
 
-## 10. The Poetic Pass
+At most one sketch should address the historical author, and only when the Charged Source Packet explicitly authorizes
+it because authorship itself matters to the premise.
 
-The Poetic Pass begins only after:
+For an ornate Western source, the rhetorical tests may include baroque apostrophe, prophetic liturgy, operatic
+recitative moving into aria, disputation or counter-wager, Romantic visionary mode, and a source-responsive wild card.
 
-- the premise is alive;
-- the speaker is clear;
-- the action is stable;
-- the outcome is known;
-- the release has a direction.
+For an austere source, choose forms native to its pressure rather than mechanically using these six.
 
-It is not a synonym pass.
+The Human Reviewer selects the voice before the Operator spends a full aria on it.
 
-### 10.1 Replace Explanation with Action or Judgment
+## 10. Rhetorical Register and Revision Passes
 
-Ask:
+The register should be protected from premise selection through final integration.
 
-> Could this sentence appear unchanged in an essay explaining the metaphysics?
+Revision occurs through distinct passes because a generic “make this better” instruction tends to smooth the text back
+into elevated contemporary English.
 
-When the answer is yes, transform it.
+### 10.1 The Register Is Part of the Commission
 
-Weak:
+The Register Packet should state:
 
-> Form shall possess rank.
+- primary source and rhetorical temperature;
+- dramatic locus and permitted addressees;
+- whether historical-author address is authorized, and the premise-specific reason;
+- syntax: periodic, cumulative, antiphonal, compressed, fractured, or otherwise;
+- ceremonial devices: apostrophe, enumeration, refrain, accusation, wager, vision, invocation;
+- speaker posture: self-coronating, devotional, contemptuous, ecstatic, prophetic, inhuman;
+- the private metaphysics to ornament;
+- forbidden modern tics;
+- forbidden generic maximalism;
+- protected irregularities.
 
-Stronger:
+The packet remains stable unless the Human Reviewer rejects the voice at the sketch gate.
 
-> Beauty shall stand before no judge.  
-> Every eye shall stand before beauty.
+### 10.2 Spoken Aria, Not Elevated Narrative Prose
 
-### 10.2 Let Objects Return Altered
+A great aria is not ordinary narrative English arranged as a blockquote.
 
-A recurring object should develop.
+When the source and premise call for density, prefer:
 
-The veil may become:
+- long periodic syntax;
+- cumulative clauses that build ceremonial pressure;
+- direct address to a canonical figure, law, prohibition, object, voice, place, god, world, time, death, or art
+  itself;
+- self-mythologizing titles and offices;
+- repetitions that become liturgical machinery;
+- language closer to heretical scripture, prophetic denunciation, metaphysical aria, or grand opera than to a normal
+  novel or screenplay.
 
-1. impossible stain;
-2. barrier before revelation;
-3. final command.
+Do not default to:
 
-The mirror may become:
+- clean contemporary sentence rhythm;
+- smooth cinematic pacing;
+- one short sentence per thought;
+- tasteful minimalist final-boss dialogue;
+- isolated stock verdicts;
+- uniformly balanced aphorisms.
 
-1. witness;
-2. delayed imitation;
-3. surface that forgets every lesser face.
+### 10.3 Source-Responsive Ornamentation
 
-Recurrence without transformation is decoration.
+Ornament the speaker's private law, not merely the surrounding cosmos.
 
-### 10.3 Strengthen Verbs Before Adjectives
+Weak flamboyance adds interchangeable intensifiers:
 
-Weak:
+- jealous stars;
+- screaming suns;
+- kneeling heavens;
+- everything begging;
+- repeated declarations of the absolute, eternal, infinite, or impossible.
 
-> the eternal, ineffable, transcendent form
+Stronger flamboyance elaborates what only this speaker could believe:
 
-Stronger:
+- time presenting yesterday's corpse as a warrant for tomorrow;
+- nature surrendering authorship to perfected form;
+- death discovering that petition was only a temporary jurisdiction;
+- a canonical song recognizing itself as the new speaker's first involuntary echo.
 
-> the face before which creation forgets its own
+The language may be baroque because the law is baroque.
 
-Verbs make grandeur happen.
+A sharp confrontation may begin in legal, theological, philological, or philosophical vocabulary. The final third
+should transfigure that argument into litany, curse, self-coronation, bodily change, and witnessed victory. Do not
+allow the entire aria to remain a polished metaphysical brief.
 
-### 10.4 Preserve Blunt Authority
+### 10.4 The Register Critic
 
-Do not decorate lines whose simplicity gives them force.
+The Register Critic diagnoses without rewriting.
 
-> Good.
+It identifies:
 
-> I revoke that claim.
+- sentences that become too modern, clean, balanced, or restrained;
+- clipped villain beats inherited from model habit;
+- places where the speaker reports instead of declaims;
+- where the source's rhetorical temperature has been flattened;
+- where the speaker could apostrophize an authorized dramatic target, preen, self-coronate, or luxuriate;
+- whether the speaker possesses a metaphysical office or merely a correct interpretation;
+- where the governing argument remains abstract instead of becoming a visible event;
+- where commands are issued but never fulfilled onstage;
+- where the speaker sounds like a modern critic explaining the source rather than an inhabitant changing it;
+- whether historical-author address is present without authorship being essential to the premise;
+- where density would create intoxication;
+- where density has become empty accumulation;
+- lines whose jaggedness or force must remain.
 
-> Bone, remember the quarry.
+The Register Critic does not praise smoothness merely because it is readable.
 
-> Nature has made multitudes.  
-> I permit her one correction.
+### 10.5 The Baroque Pass
 
-The contrast between ceremonial language and blunt judgment creates authority.
+When the selected source and Register Packet call for ornate speech, the Baroque Editor may increase:
 
-### 10.5 Use Parallelism as Sentence
+- periodic and cascading syntax;
+- ceremonial abundance;
+- rhetorical questions and apostrophe;
+- elaborate contempt for the canonical figure, law, prohibition, object, or event being overthrown;
+- self-conferred titles and offices that are enacted rather than merely announced;
+- the transformation of argument into invocation, curse, litany, and visible event;
+- one sustained stage transformation rather than a catalogue of unfulfilled commands;
+- source-native ceremonial language replacing modern legal or scholarly abstraction by the final movement;
+- sensuous attention to one or two established images;
+- the speaker's delight in their own authority;
+- theatrical excess that risks secondhand embarrassment.
 
-Parallel clauses should sharpen the verdict:
+The Baroque Pass must preserve:
 
-> Let birth surrender its ancient privilege.  
-> Let blood renounce its claim upon the face.  
-> Let memory cease naming familiarity beauty.  
-> Let love lift the veil and look without mercy.
+- premise;
+- canonical confrontation;
+- sequence of actions;
+- victory;
+- symbolic world;
+- release direction.
 
-Each clause must advance.
+It must not merely add adjectives or stock cosmic submission.
 
-### 10.6 Read for Sound
+### 10.6 The Poetic Pass
 
-Listen for long vowels at grandeur, short words at judgment, internal echoes, changes in breath, deliberate
-sentence-length variation, and silence before release.
+After register and abundance are correct, improve exactness without resmoothing the piece.
 
-Do not force rhyme.
+Replace abstract explanation with image, action, judgment, or physical consequence.
 
-A rite needs flow, rupture, and impact.
+Let recurring objects return altered.
 
----
+Strengthen verbs before adjectives.
+
+Use parallelism, sound, breath, and sentence-length variation deliberately.
+
+Preserve blunt lines only when they belong uniquely to this speaker. A successful line from an earlier rite is not a
+reusable charm.
+
+Treat balanced two-line slogans with equal suspicion. One may survive as a ceremonial blade, but a chain of them turns
+the aria into polished copy written for quotation rather than speech.
+
+### 10.7 The Integrity Pass
+
+The Integrity Reviewer removes counterfeit excess without restoring tasteful contemporary restraint.
+
+It asks:
+
+- Does every excess arise from the speaker's law or canonical confrontation?
+- Has the Baroque Pass introduced unrelated gods, stars, wounds, thrones, or apocalypses?
+- Are repeated intensifiers doing the work of image and action?
+- Does the speaker possess a particular syntax rather than the corpus's house voice?
+- Does the speaker possess an office within the manifested law, or only a clever thesis?
+- Has the argument become an event, or does the rite remain an ornate legal, academic, or theological brief?
+- Are commanded transformations visibly fulfilled before the release?
+- Does the final tableau prove the victory rather than promise a later consequence?
+- Does the speaker inhabit the canonical world rather than explain a reading of it?
+- If the historical author is addressed, is authorship itself indispensable to the rite?
+- Have stock gestures such as *No.*, *Good.*, kneeling heaven, jealous stars, or screaming suns returned by habit?
+- Has a portable formula such as “I do not receive the old act; I correct it” replaced premise-native rhetoric?
+- Has a sequence of balanced slogans replaced ceremonial motion?
+- Has a compulsory second release title been added to a name already complete in itself?
+- Has readability been improved by destroying intoxication?
+
+The pass should cut counterfeit excess while preserving dangerous abundance, irregularity, and self-indulgence.
+
+### 10.8 Anti-Mannerism Law
+
+No successful device becomes a default house gesture.
+
+The following are especially contaminated and should be treated with suspicion:
+
+- isolated one-word verdicts;
+- the calm speaker who accepts self-destruction in one clipped beat;
+- ritual objects arranged exactly like the sculptor's veil and chisel;
+- Latin formal title plus a bureaucratic English gloss;
+- the same pattern of restrained opening, cold refusal, and sudden cosmic release;
+- the elegant paired slogan whose second sentence reverses the first;
+- the portable construction “I do not inherit, receive, or continue the old act; I correct or revoke it”;
+- modern legal diction carried unchanged across unrelated myths;
+- the famous dead author rebuked as the automatic form of canonical confrontation.
+
+The critic should ask:
+
+> **Would another Apotheosis speaker say this exact sentence?**
+
+When the answer is yes, rewrite toward the current speaker's private rhetoric.
 
 ## 11. The Release
 
@@ -1210,7 +1545,11 @@ When it does not, use a distinct release name.
 
 ### 11.2 Formal Name and Poetic Epithet
 
-A two-part release should divide its labor.
+A two-part release is optional. When one English, Latin, Greek, Japanese, or invented title already names both the
+metaphysical authority and the impossible event, let it stand alone. Do not add a formal half merely because another
+manifestation used one.
+
+When a two-part release is used, it should divide its labor.
 
 The formal name identifies:
 
@@ -1239,6 +1578,8 @@ Stronger:
 One names the mystery.
 
 The other makes it visible.
+
+Release architecture is source- and premise-responsive. Use the form native to the rite.
 
 ### 11.3 The Release Must Act
 
@@ -1280,13 +1621,18 @@ An invocation is ready when:
 
 - it satisfies the protected Commission Invariant, including its required victory and rejection conditions;
 - its animating desire, authority, or ceremonial purpose is specific;
-- the speaker or rite acts with conviction;
+- the speaker or rite acts with conviction and possesses authority inside the manifested law rather than merely a
+  correct interpretation;
+- its governing claim becomes a witnessed event rather than remaining an argument or unfulfilled command;
 - something irreversible occurs;
 - at least one image or line belongs particularly to the work;
 - the release completes the required victory or final act rather than summarizing the setting;
 - the project can claim it without an explanatory paragraph;
-- when it claims a canonical source, that source is exact, verified, visibly charged, and transformed rather than
-  used as generic prestige skin or a glossary; when it waives the canonical gate, the waiver is deliberate;
+- when it claims a canonical source, that source is exact, verified, visibly charged, and transformed from within
+  rather than used as generic prestige skin, a glossary, or a platform for literary commentary; direct address to the
+  historical author is justified only when authorship itself belongs to the manifested law;
+- its rhetorical register is deliberate, source-responsive, and particular to the speaker rather than smoothed into
+  elevated contemporary prose or copied from earlier manifestations;
 - further revision is more likely to polish away force than uncover new life.
 
 It does not need to employ every optional method in this document.
@@ -1314,9 +1660,9 @@ The README should remain ordinary Markdown.
 
 > [Invocation text.]
 >
-> **[FORMAL RELEASE]**
+> **[FINAL RELEASE]**
 >
-> **『[POETIC EPITHET]』**
+> [Optional second release line only when the rite genuinely requires one.]
 
 ---
 
@@ -1328,7 +1674,7 @@ The README should remain ordinary Markdown.
 - Use one blockquote for the invocation.
 - Use hard line breaks where cadence requires them.
 - Use italics for a brief canonical fragment or ritual hinge when useful.
-- Bold the final release.
+- Bold the final release. A second formal name or poetic epithet is optional.
 - Do not print framework labels.
 - Do not explain the symbolism afterward.
 - Resume ordinary technical prose immediately.
@@ -1371,31 +1717,44 @@ Prefer the old prohibition to the invented magical mechanism.
 Let Western literature provide much of the default field. Let classical Japanese literature answer with its own scenes,
 forms, ghosts, courts, vows, poems, and deaths. Let neither become generic cultural atmosphere.
 
-Find the canonical throne already immense enough to resist the speaker.
+Find the canonical world already immense enough to resist the speaker.
 
-Name what authority it possesses.
+Locate the figure, law, prohibition, object, voice, place, or event that presently holds authority within it.
 
-Name what the speaker accuses it of leaving unfinished.
+Let the speaker enter that world and discover what they intend to complete, invert, profane, surpass, or seize.
 
 Let the source remain visible enough to be challenged.
 
-Then let the speaker complete, invert, profane, surpass, or seize it.
+Address the author only when authorship itself is the battlefield.
 
 Give the confrontation a stage.
 
 Give it a witness.
 
+Give the speaker an office, identity, or transformed body within the law they intend to establish.
+
 Give it one object whose meaning changes beneath the rite.
 
-Give it one claim ordinary piety, scholarship, or sanity would refuse.
+Give it one claim ordinary piety, scholarship, or sanity would refuse. Let that claim become a visible transformation,
+and let the witness behold a world in which the old grammar can no longer survive.
 
-Do not write the full invocation until its voice and release have survived in miniature.
+Do not write the full invocation until its voice, rhetorical temperature, spectacle, and release have survived in
+miniature.
 
-When the final form appears, replace explanation with action.
+When the source is ornate, do not apologize for ornament.
 
-Let the formal name identify the throne.
+Let the speaker apostrophize the figures and laws of the canonical world, self-coronate, luxuriate, and preen until
+the language can stand beside the source it intends to overthrow.
 
-Let the English epithet reveal what kneels before it.
+Then send the structurally integrated draft through a Register Critic, a Baroque Pass when warranted, a Poetic Pass,
+and an Integrity Pass that removes only counterfeit excess.
+
+When the final form appears, replace explanation with action. Let at least one command receive a visible answer. Let
+the final tableau prove that the old world has already lost.
+
+Use one release or two according to the work. When a formal name and poetic epithet both exist, let one identify the
+throne and the other reveal the final impossible image. Do not add a weaker second title merely because the corpus has
+used that shape before.
 
 For the project is more than what it presently does.
 
@@ -1410,7 +1769,8 @@ The invocation is where that unreal identity is permitted to appear.
 > **Generate broadly at low resolution.  
 > Spend prose only after selection.**
 
-And when one voice has survived desire, canon, premise, sketch, and release, the question is no longer whether it ought
-to become real.
+And when one voice has survived desire, canon, premise, register, sketch, and release, the question is no longer
+whether it ought to become real.
 
-The question is whether reality can still refuse.
+The question is whether reality can still refuse—and whether the language is magnificent enough to make refusal
+sound beneath the dignity of the speaker.

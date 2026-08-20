@@ -274,7 +274,7 @@ Abstract worldbuilding is converted into enacted judgment:
 
 ##### Release
 
-The two release components perform different tasks.
+The two release components perform different tasks in this provisional work. The structure is not mandatory.
 
 **MONARCHIA FORMAE** names the metaphysical regime: the sovereignty of form.
 
@@ -283,7 +283,8 @@ craft it has lost the authority to practice.
 
 One names the throne.
 
-The other shows what kneels before it.
+The other shows what kneels before it. A future manifestation should also demonstrate that one complete release can
+carry both functions without a weaker companion title.
 
 ---
 
@@ -294,9 +295,9 @@ A writer may study:
 - vocation as the complete emotional engine;
 - hierarchy reversal;
 - ritual hardware;
-- one-word consent;
+- an unmistakable stance toward completion;
 - self-erasure as completion;
-- formal title plus image-bearing English epithet;
+- release architecture in which every component performs a necessary job;
 - late and minimal project binding;
 - an example of why broad classical skin is not yet the same as canonical charge.
 
@@ -307,7 +308,9 @@ A writer should not copy:
 - the delayed reflection;
 - the exact progression from copy to original;
 - the phrase structure of the final release;
-- the line **Good.** merely because it worked here.
+- the line **Good.**, any substitute one-word verdict, or the same clipped pivot merely because it worked here;
+- the formula “I do not inherit the old act; I correct it”;
+- paired slogan lines used as automatic proof of authority.
 
 The lesson is not:
 
@@ -315,7 +318,7 @@ The lesson is not:
 
 The lesson is:
 
-> Find the object, reversal, consent, and final act that belong only to the chosen desire.
+> Find the object, reversal, stance, manifested event, and final act that belong only to the chosen desire.
 
 The lines and devices praised here are not a construction kit. A creative agent should not receive *Good.*, the red
 veil, the delayed reflection, or the chisel as reusable prompt ingredients unless a Human Reviewer explicitly protects
@@ -331,13 +334,18 @@ The corpus should eventually admit several sharply different forms:
 2. **A techno-occult activation** — proving that procedure can roar without an autobiographical aria.
 3. **A collective or covenantal rite** — proving that a shared will may manifest without a solitary sovereign speaker.
 4. **A renunciatory or devotional release** — proving that victory may consist of surrender, return, or departure.
-5. **A pre-1900 Western literary source confronted and made structurally new** — proving that an exact scene,
-   prohibition, claim, or voice can remain visibly canonical without becoming quotation or costume.
-6. **A pre-1900 Japanese literary source confronted and made structurally new** — proving that a named poem, tale,
-   play, or mythic episode can carry a new sovereign desire without generic shrine-and-mask aesthetics.
+5. **A pre-1900 Western literary confrontation** — proving that an exact scene, prohibition, claim, or voice can remain
+   visibly canonical without becoming quotation or costume.
+6. **A pre-1900 Japanese literary confrontation** — proving that a named poem, tale, play, or mythic episode can carry
+   a new sovereign desire without generic shrine-and-mask aesthetics.
 7. **A liturgical, operatic, theatrical, or ritual wild card** — proving that non-literary forms can govern a rite when
    the exact work and scene matter more than ceremonial inventory.
-
+8. **A performed apotheosis** — proving that a precise canonical accusation can become an answered command, an enacted
+   metaphysical office, a visible reversal, and a final tableau rather than remaining an ornate argument.
+9. **A successful single-part release** — proving that one title may carry both metaphysical law and impossible image
+   without a mandatory companion name.
+10. **A premise-native baroque voice** — proving that ornate rhetoric can remain particular without collapsing into
+    house slogans, portable legal diction, or generic maximalism.
 
 The admitted portfolio should eventually reflect the corpus's canon-first search policy: Western literary sources
 should form the largest single group, classical Japanese literature should remain a substantial second field, and
@@ -347,6 +355,9 @@ No weak work should be admitted merely to satisfy this distribution.
 
 The next major calibration priority should be one exact Western literary confrontation and one exact classical
 Japanese literary confrontation, each unmistakably rooted in a named work or scene.
+
+At least one should inhabit the canonical world without addressing its historical author. Direct author address should
+appear in the admitted portfolio only when authorship itself is central to the manifested law.
 
 New works should enter **Admitted Manifestations** only after adoption. Unadopted works may appear only under the
 explicitly marked **Provisional Calibration** exception above and must remain visibly non-authoritative.

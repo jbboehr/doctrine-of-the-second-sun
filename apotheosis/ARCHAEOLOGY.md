@@ -640,6 +640,9 @@ They confront an authority that predates the new speaker:
 
 The new rite then answers, completes, inverts, profanes, surpasses, or usurps that authority.
 
+That authority normally lives **inside** the source: a figure, law, prohibition, object, voice, place, office, or event.
+The historical author is not automatically the opponent.
+
 The source may remain overtly visible.
 
 A named myth, recognizable scene, brief public-domain phrase, canonical instrument, or inherited office may appear on
@@ -693,7 +696,7 @@ The correction was progressive resolution:
 12–16 desires
 → 10 canonical confrontations
 → 8 premise thumbnails
-→ 6 invocation sketches
+→ 6 ritual voice sketches
 → 2 full invocations
 → 1 final candidate
 ```
@@ -703,13 +706,81 @@ Each early candidate carries one specificity atom and no more:
 - desire and victory;
 - source and act of confrontation;
 - speaker and irreversible act;
-- voice, breach, and release seed.
+- rhetorical temperature, source treatment, spectacle, and release seed.
 
 **Recovered law**
 
 > Generate broadly at low resolution. Spend prose only after selection.
 
 The human should be able to reject a direction before the agents build a cathedral around it.
+
+### 25.3 The Canon Includes a Rhetorical Temperature
+
+The process learned to select exact canonical scenes but still flattened them into polished contemporary dramatic
+English.
+
+A source contributes not only plot, prohibition, object, and authority. It contributes a way of speaking.
+
+Goethean drama, prophetic scripture, Miltonic invocation, Romantic apostrophe, grand opera, and baroque liturgy do not
+naturally collapse into tasteful modern sentences with a few line breaks. Nor should waka, Noh, or terse creeds be
+inflated into undifferentiated pseudo-Miltonic thunder.
+
+**Recovered law**
+
+> Match the rhetorical temperature of the primary source, then intensify it until the new speaker can seize the
+> source's throne.
+
+The Operator should construct a protected Register Packet after premise selection. The voice-sketch gate should test
+register before full drafting. Later passes should distinguish:
+
+- structural criticism;
+- register criticism;
+- source-responsive baroque revision;
+- a Poetic Pass that sharpens image and release without modernizing the syntax;
+- integrity review that cuts generic maximalism without resmoothing the prose.
+
+### 25.4 Plural Promotion
+
+Low-resolution candidates are cheap enough that the Reviewer need not force one winner before later stages reveal their
+real strength.
+
+Uncontrolled branching creates the opposite failure: every survivor receives a complete field and the review surface
+explodes.
+
+**Recovered law**
+
+- any number may be promoted;
+- active branches receive immediate development;
+- reserve branches remain recoverable;
+- the next visible field stays bounded across the complete branch set;
+- no branches combine without an explicit transfer.
+
+> **Narrow through evidence, not procedural impatience.**
+
+### 25.5 Seize the Myth, Not the Bibliography
+
+Once the workflow learned to demand a canonical confrontation, agents found an easy literal pattern: address the famous
+author by name, accuse them of misunderstanding or abandoning their own work, then complete it on their behalf.
+
+The pattern produced recognizably canonical prose, but the speaker often sounded like a modern critic in ceremonial
+costume. They remained outside the work, explaining an interpretation to its maker.
+
+The stronger default is dramatic entry. The speaker behaves as though the source's events are real. They confront:
+
+- the canonical figure;
+- the governing law or prohibition;
+- the charged object or place;
+- the chorus, ghost, god, office, or answering voice;
+- the interruption, wager, fall, return, judgment, or failed act itself.
+
+Direct author address remains valid when authorship is the actual battlefield: unfinished creation, stolen inspiration,
+dictation through the writer, textual authority, or conflict between author and work.
+
+**Recovered law**
+
+> **Seize the myth, not the bibliography.**
+>
+> **The speaker should normally inhabit the canon rather than review it.**
 
 ## Part V — The Ruins
 
@@ -1075,17 +1146,18 @@ Ritual hardware should make the rite performable.
 
 ---
 
-### 41. The Missing Pivot of Consent
+### 41. The Missing Stance at Completion
 
-The rite reveals a horrifying consequence, but the speaker’s stance remains unclear.
+The rite reveals a horrifying consequence, but the speaker's stance remains unclear.
 
 **Recovered law**
 
-Give the speaker one decisive answer.
+Make the speaker's response unmistakable in language native to their voice.
 
-> Good.
+The response may be ecstatic, contemptuous, devotional, theatrical, furious, laughing, or enacted through a gesture.
+It need not be a clipped one-word verdict.
 
-The pivot distinguishes sovereign completion from accidental curse.
+This stance distinguishes sovereign completion from accidental curse.
 
 ---
 
@@ -1133,6 +1205,9 @@ Let the English epithet reveal the impossible consequence.
 One names the throne.
 
 The other shows what kneels before it.
+
+This division is one successful form, not a mandatory house structure. A single release may carry both law and image
+more powerfully than a formal title paired with a weaker explanatory epithet.
 
 ---
 
@@ -1254,7 +1329,8 @@ Positive calibration became prompt contamination.
 
 > Preserve the function of a successful device, not its signature surface.
 
-The pivot of consent is reusable. *Good.* is not automatically reusable.
+The speaker's unmistakable stance toward completion is reusable. The clipped one-word answer was a local device and
+later became a contaminated house tic.
 
 ### 54. The Blank-Schema Transfer
 
@@ -1332,18 +1408,193 @@ selection.
 12–16 desires, 25–40 words each
 → 10 canonical confrontations, 40–60 words each
 → 8 premise thumbnails, 60–90 words each
-→ 6 invocation sketches, 50–100 words each
-→ 2 full invocations, 140–260 words each
+→ 6 ritual voice sketches, 70–120 words each
+→ 2 full invocations, 160–320 words each
 → 1 final candidate
 ```
 
-The sketch gate tests voice, source, breach, and release before a full aria hardens around them.
+The voice-sketch gate tests rhetorical temperature, source treatment, spectacle, and release before a full aria
+hardens around them.
 
 **Diagnostic question**
 
 > Could the Human Reviewer have rejected this direction after reading forty words?
 
 When the answer is yes, the extra two hundred words were orchestration failure.
+
+#### 54.3 The Aria Became Elevated Modern English
+
+The desire, source, premise, and spectacle survived, but the drafting model returned to its default register:
+
+- clean contemporary sentence rhythm;
+- tasteful line breaks;
+- balanced aphorisms;
+- polished literary restraint;
+- a few isolated cold-villain beats;
+- one grand title.
+
+The result possessed chuuni ideas without chuuni intoxication.
+
+**Recovered law**
+
+Treat rhetorical register as protected material, not as a cosmetic final polish. The Ritual Writer receives a Register
+Packet and writes an actual spoken aria rather than narrative prose arranged ceremonially.
+
+#### 54.4 The Verdict Became a House Tic
+
+One provisional invocation used *Good.* effectively to reveal the speaker's consent to completion.
+
+Later agents copied the surface gesture:
+
+- *No.*
+- *Good.*
+- *Enough.*
+- *Proceed.*
+
+The corpus had accidentally taught a cold final-boss mannerism instead of the underlying law.
+
+**Recovered law**
+
+The speaker's stance must become unmistakable in their own syntax. It may be laughing, ecstatic, contemptuous,
+devotional, furious, ceremonially elaborate, or enacted through gesture. One-word verdicts are not reusable charms.
+
+#### 54.5 Flamboyance Became Generic Amplification
+
+When asked for greater excess, models often added:
+
+- screaming suns;
+- jealous stars;
+- kneeling heavens;
+- everything begging;
+- desperate clocks;
+- repeated claims of absolute, eternal, infinite, and impossible power.
+
+The prose became louder without becoming more particular.
+
+**Recovered law**
+
+> Ornament the speaker's private law, not merely the surrounding cosmos.
+
+A Baroque Pass should expand periodic syntax, apostrophe, self-coronation, sensuous attention, and theatrical delight.
+An Integrity Pass should remove only generic maximalist filler. It must not restore the polished contemporary register
+that the Baroque Pass was created to escape.
+
+#### 54.6 The Source Lost Its Native Voice
+
+A canonical confrontation may be exact in content while false in rhetoric.
+
+The source appeared as a named opponent, but its native grandeur, compression, liturgical machinery, or dramatic form
+was flattened into the model's ordinary house English.
+
+**Recovered law**
+
+The primary source governs rhetorical temperature. A secondary echo may contribute one image or turn, but should not
+create a second competing syntax. Canonical skin includes voice as well as scene.
+
+A further distinction emerged: the canonical source need not be the only register calibration. A rite may confront a
+premodern source while using a modern fictional aria tradition to calibrate density, ceremonial weight, and
+self-mythologizing posture. The calibration may shape pressure; it must not donate plot, symbols, or recognizable
+wording.
+
+#### 54.7 Premature Singular Selection
+
+The early funnel forced one desire, source, or voice to win before a later form could reveal its strength.
+
+The attempted cure developed every survivor independently and threatened combinatorial sprawl.
+
+**Recovered law**
+
+Use plural promotion with active and reserve branches. Preserve options while they are cheap, keep the next field
+bounded, and combine nothing without instruction.
+
+#### 54.8 The Canon Became a Graduate Seminar
+
+Two final candidates independently addressed the historical author as their principal opponent. The repetition was not
+an artistic coincidence. The workflow had asked for a canonical opponent, a speaker's accusation, direct apostrophe,
+and seizure of the source's throne. The easiest compliant answer was:
+
+> Famous dead writer, you misunderstood or abandoned your own work. I shall complete it.
+
+This can work when authorship itself is the premise. Repeated by default, it makes the speaker sound like a modern
+reader delivering a baroque interpretation instead of a being who has entered the canonical world and changed its law.
+
+**Recovered law**
+
+- define a dramatic locus inside the source;
+- authorize addressees explicitly;
+- vary source relationships at the sketch gate;
+- allow author address only when authorship, incompletion, dictation, textual ownership, or author-work conflict is
+  essential;
+- ask the critic whether the speaker inhabits the source or lectures its creator.
+
+> **Confront the canonical law before confronting the person who wrote it.**
+
+#### 54.9 The Canonical Argument Remained a Brief
+
+A Promethean draft found a sharp canonical accusation by attacking the word *theft*: punishment had preserved Zeus's
+claim to ownership. The insight was alive, but the aria remained an elevated legal and theological case. Commands were
+issued; the mountain, chain, eagle, fire, and witness never fully enacted the new origin. The speaker possessed the
+better argument but no metaphysical office beyond being correct.
+
+**Recovered law**
+
+- identify the charged word or proposition carrying the old authority;
+- let the speaker seize or redefine it;
+- give the speaker an office inside the new law;
+- transfigure argument into invocation, curse, litany, bodily change, and witnessed event;
+- require one commanded transformation to occur before the release;
+- end with a tableau that makes the old grammar impossible to maintain.
+
+> **The governing word is the fuse, not the explosion.**
+
+#### 54.10 Isolation Became a Fiction
+
+The Operator was told to orchestrate isolated specialists but remained inside one ChatGPT.com conversation. It changed
+role labels, generated several consecutive outputs, and described the result as a conclave. The language of
+orchestration
+had concealed the absence of context isolation.
+
+**Recovered law**
+
+In the ChatGPT.com workflow, the Operator prepares complete, self-contained prompts for fresh Temporary Chats and the
+Human Reviewer acts only as a mechanical courier who returns raw outputs. The Operator may curate and integrate in the
+control room, but it must not claim that one contaminated conversation contains independent specialist contexts.
+Temporary Chats cannot rely on the Project's files or conversation history; each prompt must carry its own packet.
+
+A fully agent conclave requires tooling that can actually create isolated agents or contexts.
+
+#### 54.11 The Release Was Forced into House Form
+
+Repeated examples taught the system to expect a formal Latin or Greek name followed by an English poetic epithet. Some
+rites benefited from that division. Others already possessed a single release that named both the new law and the final
+image, yet the workflow attempted to add a second line for consistency.
+
+**Recovered law**
+
+Release architecture is source- and premise-responsive. A rite may use one title, two coordinated titles, a classified
+spell name, a creed, a final sentence, or another native form. Do not add multilingual furniture merely because the
+corpus has used it before.
+
+#### 54.12 The Polished Slogan Replaced the Aria
+
+The workflow learned to produce clean pairs of quotable sentences: a proposition followed by its reversal, a denial
+followed by a correction, an old authority named and then discharged. One such pair could strike like a blade. Several
+in sequence made the invocation read like premium marketing copy for a metaphysics.
+
+The same contamination appeared in portable formulas such as:
+
+> I do not receive the old act. I correct it.
+
+The thought could remain strong while the syntax ceased to belong to the speaker.
+
+**Recovered law**
+
+- one balanced aphorism may survive when the rite earns it;
+- a chain of aphorisms must be broken into image, action, apostrophe, or ceremonial movement;
+- formulas praised in one manifestation become suspect in the next;
+- the critic should ask whether another Apotheosis speaker could say the sentence unchanged.
+
+> **A quotable line may serve the aria. The aria must not become a sequence of quotes.**
 
 ## Part VI — Case Study: The Road to *Monarchia Formae*
 
@@ -1486,7 +1737,8 @@ The sculptor rite introduced several elements that previous guides had not named
 
 - **Hierarchy reversal:** copy becomes original; work judges maker; art corrects nature.
 - **Ritual hardware:** veil, marble, mirror, chisel, bone, hand.
-- **Pivot of consent:** the speaker sees the terrible consequence and answers, “Good.”
+- **Stance at completion:** the speaker sees the terrible consequence and wills completion; the historical one-word
+  answer later became a contaminated mannerism.
 - **Completion rather than punishment:** self-destruction is the final correction.
 - **Late binding:** one dream line attaches the autonomous rite to Yumemi.
 - **Poetic division of release:** formal name identifies the regime; English epithet reveals the consequence.
@@ -1498,6 +1750,9 @@ A successful premise does not need more theory.
 It needs protection from explanation, moral correction, and over-integration.
 
 The result is preserved in [The Manifestations of Apotheosis](MANIFESTATIONS.md).
+
+Its controlled ceremonial register later became a local maximum: agents copied its clipped verdicts, object blocking,
+and restraint. The living draft therefore remains evidence, not a universal voice model.
 
 ---
 
@@ -1566,10 +1821,10 @@ Human Reviewer
     ↓ selects a premise
 
 Agent Operator
-    ↓ tests 6 invocation sketches
+    ↓ tests 6 ritual voice sketches
 
 Human Reviewer
-    ↓ selects voice, breach, and release seed
+    ↓ selects rhetorical temperature, source treatment, spectacle, and release seed
 
 Agent Operator
     ↓ writes 2 full invocations
@@ -1578,7 +1833,7 @@ Human Reviewer
     ↓ selects the spine and living lines
 
 Agent Operator
-    ↓ criticizes, verifies, binds, integrates, and polishes
+    ↓ criticizes structure and register, verifies, performs a Baroque and Integrity Pass, binds, and integrates
 
 Human Reviewer
     ↓ grants or refuses adoption
@@ -1640,7 +1895,8 @@ Do not reproduce substantial copyrighted passages.
 
 Do not treat remembered mistranslations as authoritative merely because they sound better.
 
-The source may remain recognizable. The new act must remain sovereign.
+The source may remain recognizable. Its rhetorical temperature may remain recognizable as well. The new act and
+new voice must remain sovereign.
 
 ### 65. The Archaeology Must Not Become the Prompt
 
@@ -1678,7 +1934,13 @@ The following remain worth testing:
 - How many positive manifestations are needed before examples constrain more than they inspire?
 - Which projects benefit from compact releases rather than great arias?
 - Can a project family develop recurring ritual law without collapsing into one mythology?
-- When does poetic English become overworked enough to weaken blunt authority?
+- When does source-responsive baroque abundance become empty accumulation?
+- Which sources justify difficult periodic syntax, and which demand compression?
+- How can Register Packets preserve rhetorical temperature without becoming another visible rubric?
+- How much explicit speaker office is necessary before a claim becomes apotheotic authority?
+- Which abstract semantic fields can survive a Baroque Pass without becoming cosmic legal briefs?
+- Which stage actions most reliably turn imperatives into performed victory?
+- Which stock verdicts and dramatic beats have become corpus mannerisms?
 - How overt may canonical skin become before the rite turns into imitation?
 - Which Western and Japanese works supply enough public recognition to carry visible canonical skin without notes?
 - Does the six-three-one canonical distribution remain useful across projects, or should some project identities
@@ -1711,6 +1973,9 @@ Then the glossary was hidden so completely that the canon vanished.
 
 Then the word *inheritance* quietly rewrote conquest as succession.
 
+Then the word *isolation* quietly became a role-play claim inside one conversation, and the two-part release became
+another house shape waiting to be filled.
+
 Then canon became an optional flavor pass, and agents built elaborate premises before the human had selected a
 desire, source, voice, or release.
 
@@ -1723,6 +1988,7 @@ The recovery required several separations:
 - a source's authority from the moral the source originally taught;
 - a successful technique from its signature wording;
 - the exact canonical scene from generic cultural atmosphere;
+- the dramatic world from the bibliography that records it;
 - broad low-resolution search from expensive elaboration.
 
 The new questions are sharper.
