@@ -324,6 +324,9 @@ The lines and devices praised here are not a construction kit. A creative agent 
 veil, the delayed reflection, or the chisel as reusable prompt ingredients unless a Human Reviewer explicitly protects
 them for the same work.
 
+A later, more ornate revision is not automatically better calibration. When a working manifestation has a living
+spine, record expansions as donor language unless they improve the whole without burying its dramatic hierarchy.
+
 ---
 
 ## Future Manifestations

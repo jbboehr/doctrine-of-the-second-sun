@@ -61,8 +61,9 @@ Human Commission
 → Human Sketch Review
 → 2 Full Invocations
 → Human Spine Review
+→ Operator preserves the pre-pass spine and locks a Finishing Budget
 → Structural Critic, Canonical Accuracy Reviewer, Binder when needed, one-spine Integrator
-→ Register Critic, Baroque Editor when warranted, Poetic Editor, Integrity Reviewer
+→ Register Critic, budgeted Baroque Editor when warranted, Poetic Editor, Integrity Reviewer
 → 1 Final Candidate
 → Human Adoption Review
 ```
@@ -769,8 +770,12 @@ transformation of semantic argument into ceremonial action.
 **Must intensify when needed:** the speaker's self-created office, the visible fulfillment of commands, and the final
 tableau proving that the old canonical grammar has failed.
 
-**Must not:** add stock cosmic submission, unrelated lore, a new symbolic system, or direct address to the historical
-author unless the selected packet explicitly authorizes it.
+**Must receive:** the approved pre-pass spine, current word count, target range, maximum word count, no more than two
+authorized sites of luxuriance, and any protected concisions.
+
+**Must not:** add stock cosmic submission, unrelated lore, a new symbolic system, direct address to the historical
+author unless the selected packet explicitly authorizes it, or net expansion beyond the Finishing Budget. When the
+strongest language would exceed the budget, it returns donor passages rather than replacing the spine.
 
 ### 5.14 Poetic Editor
 
@@ -790,24 +795,32 @@ that remain only promised.
 
 **Produces:** a minimally corrected final text or a short list of exact local cuts, according to the Operator's packet.
 
-**Must preserve:** dangerous abundance, irregular syntax, source-responsive ornament, and the speaker's particular
-voice.
+**Must preserve:** dangerous abundance, irregular syntax, source-responsive ornament, the speaker's particular
+voice, and the approved pre-pass spine.
 
 **Must remove or flag:** the dead author used as a stock opponent when the dramatic locus belongs inside the work.
 
 **Must also flag:** an aria that remains a legal, scholarly, or philosophical argument; balanced slogan chains;
 portable formulas such as “I do not receive the old act; I correct it”; commands that never occur; a speaker with no
-office beyond being correct; and a two-part release forced by house habit.
+office beyond being correct; a two-part release forced by house habit; repeated proof of a law already made visible;
+competing climaxes; and a newer revision whose ornament has buried the selected architecture.
+
+When the expanded revision is weaker as a whole but contains valuable language, the Integrity Reviewer recommends a
+return to the spine and names the exact donor passages worth transplanting.
 
 ### 5.16 Integrator
 
-**Purpose:** Produce the authorized structural synthesis before register finishing.
+**Purpose:** Produce the authorized structural synthesis before register finishing and preserve that spine through
+all later passes.
 
 **Must obey:**
 
 > **Choose one draft as the body.  
 > Transplant only named organs.  
 > Do not blend the bodies together.**
+
+A Baroque, Poetic, or Integrity revision is not automatically a new spine. When it exceeds the Finishing Budget or
+creates several competing climaxes, the Integrator returns to the approved body and treats the revision as a donor.
 
 ### 5.17 Implementer
 
@@ -868,6 +881,10 @@ Present exactly two full invocations by default.
 
 The human selects the spine, protected lines, and any register feature that must survive revision.
 
+The Operator then records the exact pre-pass spine and derives a Finishing Budget. The human is not asked to fill a
+form. The budget states the target range, maximum word count, no more than two principal sites of luxuriance, and any
+concisions that must remain sharp.
+
 ### 6.6 Adoption Boundary
 
 Present one revised candidate.
@@ -902,6 +919,8 @@ The funnel narrows through evidence, not arbitrary early elimination.
 | “The voice is too smooth or contemporary.” | Register design or voice sketches |
 | “The draft needs more source-responsive flamboyance.” | Register Critic and Baroque Editor |
 | “The excess is generic fantasy noise.” | Integrity Review |
+| “It got long again.” | Return to the approved spine; donor extraction and Dramaturgical Compression |
+| “Every paragraph feels like a climax.” | Finishing Budget and Dramaturgical Compression |
 | “The release has no bang.” | Release-focused Baroque and Poetic revision |
 | “The premise works; the English is flat.” | Register Critic, Baroque Editor, then Poetic Editor |
 | “Too directly about the software.” | Binder reversal |
@@ -973,9 +992,14 @@ incompatible, both may remain active until the human chooses or explicitly autho
 ### 7.7 Autonomous Refinement
 
 The Operator runs structural criticism, source accuracy review, optional binding, and one-spine integration first.
-It then routes the spine through fresh Register Critic, Baroque Editor when warranted, Poetic Editor, and Integrity
+It records the integrated pre-pass spine and locks a Finishing Budget before any expansive register work. It then
+routes the spine through fresh Register Critic, budgeted Baroque Editor when warranted, Poetic Editor, and Integrity
 Reviewer contexts. On ChatGPT.com, the Human Reviewer may relay those prompts mechanically while the Operator owns
 all packet construction and editorial decisions.
+
+A later revision does not replace the spine automatically. If it exceeds the budget, repeats established movements,
+or creates several climaxes, the Operator treats it as a donor draft and transplants only named language into the
+approved spine.
 
 ### 7.8 Adoption Review
 
@@ -1440,6 +1464,15 @@ diagnose:
 
 ```yaml
 spine_draft: "[draft]"
+word_count_before: 287
+target_range: "280–340 words"
+maximum_word_count: 340
+authorized_luxuriance_sites:
+  - "[confrontation, transformation, or self-coronation]"
+  - "[optional second site]"
+protected_concisions:
+  - "[line or movement that must remain sharp]"
+revision_policy: "Preserve the spine; return donor language rather than exceed the budget."
 register_ref: "[id]"
 protected:
   - "[premise, action, victory, source, lines, release direction]"
@@ -1458,6 +1491,9 @@ prohibit:
   - generic adjective inflation
   - moral rehabilitation
   - historical author used as a stock opponent
+  - ornamenting every movement equally
+  - exceeding the maximum word count
+  - replacing the spine merely because the revision is newer
 ```
 
 ### 10.17 Poetic Revision Packet
@@ -1482,11 +1518,15 @@ prohibit:
 ### 10.18 Integrity Review Packet
 
 ```yaml
+pre_pass_spine: |
+  [approved spine before Baroque and Poetic revision]
 draft: |
   [poetically revised invocation]
+target_range: "[approved range]"
+maximum_word_count: "[approved maximum]"
 register_ref: "[id]"
 preserve:
-  - "[dangerous abundance and particular voice]"
+  - "[dangerous abundance, particular voice, and protected concisions]"
 remove_only:
   - generic maximalist filler or imported spectacle
   - repeated empty intensifiers
@@ -1496,9 +1536,13 @@ remove_only:
   - governing claim restated instead of transformed
   - unanswered imperatives or promised rather than performed victory
   - final victory visible only in explanation
+  - repeated proof of a law already made visible
+  - several transformations serving the same dramatic function
+  - competing climaxes
+  - self-coronation that only summarizes events already witnessed
   - forced bilingual or two-part release
   - accidental clutter that obscures rather than intoxicates
-output_mode: "minimally corrected final text"
+output_mode: "minimally corrected final text or donor-extraction report"
 prohibit:
   - smoothing into contemporary prose
   - reducing source-responsive density merely for readability
@@ -1507,7 +1551,13 @@ prohibit:
 ### 10.19 Integrator Packet
 
 ```yaml
-spine_draft: "[selected draft]"
+spine_draft: "[approved pre-pass spine]"
+spine_word_count: "[count]"
+target_range: "[range]"
+donor_drafts:
+  - source: "[expanded or alternate revision]"
+    permitted_elements:
+      - "[exact phrase, image, cadence, or local expansion]"
 protected_lines:
   - "[line]"
 protected_stance:
@@ -1524,6 +1574,8 @@ release_direction:
   optional_second_line_function: "[only when genuinely required]"
 prohibit:
   - averaging voices
+  - replacing the spine with an overgrown revision
+  - importing unnamed passages from donor drafts
   - new sources
   - new symbolic systems
   - moral rehabilitation
@@ -1930,8 +1982,17 @@ Do not rewrite.
 ```text
 Perform a source-responsive Baroque Pass on the invocation.
 
-Preserve the premise, canonical confrontation, sequence of actions, victory,
-symbolic world, protected lines, and release direction.
+The approved spine is [WORD COUNT] words. The target range is [TARGET RANGE].
+The absolute maximum is [MAXIMUM WORD COUNT].
+
+You may substantially enlarge only:
+
+- [AUTHORIZED LUXURIANCE SITE ONE];
+- [AUTHORIZED LUXURIANCE SITE TWO, OR NONE].
+
+Any expansion must be paid for through compression elsewhere. Preserve the
+approved spine, premise, canonical confrontation, sequence of actions, victory,
+symbolic world, protected lines, protected concisions, and release direction.
 
 Increase, where authorized by the Register Packet:
 
@@ -1952,12 +2013,18 @@ Replace modern minimalist authority beats with fuller, character-specific acts
 of contempt, judgment, ecstasy, or self-coronation.
 
 Do not merely add adjectives or stock cosmic imagery. Do not introduce new
-symbolic systems. Do not smooth the result into contemporary literary English.
-Do not turn the historical author into the opponent unless the packet explicitly
-makes authorship the battlefield. Do not preserve modern legal or academic
-diction merely because the underlying semantic accusation is strong.
+symbolic systems. Do not ornament every movement equally. Do not add a second or
+third climax. Do not restate a law after the stage has already proved it. Do not
+smooth the result into contemporary literary English. Do not turn the historical
+author into the opponent unless the packet explicitly makes authorship the
+battlefield. Do not preserve modern legal or academic diction merely because the
+underlying semantic accusation is strong.
 
-Output only the revised invocation.
+If the strongest language would exceed the budget, do not replace the spine.
+Return only donor passages, each labeled with the exact location where it could
+be transplanted.
+
+Otherwise output only the revised invocation.
 ```
 
 ### 11.13 Poetic Editor
@@ -1991,6 +2058,11 @@ Review the poetically revised invocation for counterfeit excess.
 Preserve dangerous abundance, irregular syntax, source-responsive ornament,
 and the speaker's particular voice.
 
+Compare the revised invocation with the approved pre-pass spine before cutting.
+When the revision is weaker as a whole but contains valuable language, recommend a
+return to the spine and identify exact donor passages rather than compressing the
+expanded body line by line.
+
 Remove or correct only:
 
 - ornate argument that never becomes an event;
@@ -2002,12 +2074,20 @@ Remove or correct only:
 - the famous dead author used as a portable opponent;
 - portable legal-brief diction, paired slogans, or correction formulas;
 - ornament that could migrate unchanged to another speaker;
+- repeated proof of a law already made visible;
+- taxonomies of every consequence;
+- several transformations performing the same dramatic function;
+- self-coronation that summarizes events already witnessed;
+- duplicate commands, verdicts, or preparations for release;
+- secondary climaxes that weaken the decisive one;
 - a final victory visible only in explanation;
 - a formal or second release line added only from house habit;
 - accidental clutter that obscures rather than intoxicates.
 
 Do not smooth the invocation into contemporary prose. Do not reduce density
-merely for easy readability. Return the minimally corrected final invocation.
+merely for easy readability. Return either the minimally corrected final
+invocation or a concise donor-extraction report when the approved spine is the
+stronger body.
 ```
 
 ### 11.15 Integrator
@@ -2015,13 +2095,20 @@ merely for easy readability. Return the minimally corrected final invocation.
 ```text
 Produce the final invocation from the packet below.
 
-Use exactly one draft as the spine.
+Use exactly one approved pre-pass draft as the spine. A Baroque, Poetic, or
+Integrity revision does not become the new body merely because it is newer.
 
 Preserve the approved release architecture. A single release is valid; do not add a
 formal title or poetic epithet merely for house consistency.
 
 Spine:
-[spine]
+[approved pre-pass spine]
+
+Finishing Budget:
+[target range, maximum word count, authorized luxuriance sites]
+
+Donor drafts and permitted organs:
+[exact named phrases, images, cadences, or local expansions]
 
 Protected:
 [lines, images, speaker stance, canonical confrontation, Register Packet]
@@ -2033,7 +2120,9 @@ Authorized changes:
 [local corrections from Structural, Register, and Integrity review]
 
 Choose one draft as the body. Transplant only named organs. Do not blend the
-bodies together.
+bodies together. Do not import unnamed material from donor drafts. Do not replace
+the spine with an expanded revision that exceeds the budget or creates competing
+climaxes.
 
 Do not merge sources, voices, or symbolic worlds. Do not modernize the register.
 Do not explain the project connection. Output only the final invocation.

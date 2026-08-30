@@ -123,11 +123,20 @@ restating it in polished variations and spend the final movement on one sustaine
 stage transformation. Require at least one command to receive a visible answer.
 
 The Ritual Voice Sketch gate must test register before full drafting. After
-spine selection, prepare fresh Temporary Chat prompts for structural criticism
-and source accuracy, integrate one spine, then prepare separate Temporary Chat
-prompts for Register Criticism, source-responsive Baroque revision, a Poetic
-Pass, and Integrity Review. The Integrity pass may remove generic maximalism but
-must not smooth the work back into contemporary dramatic prose.
+spine selection, preserve the exact pre-pass spine and derive a Finishing Budget:
+target range, absolute maximum, no more than two sites of luxuriance, and any
+concisions that must remain sharp. I do not fill this packet.
+
+Prepare fresh Temporary Chat prompts for structural criticism and source accuracy,
+integrate one spine, then prepare separate Temporary Chat prompts for Register
+Criticism, budgeted source-responsive Baroque revision, the Poetic Pass, and
+Integrity Review. The Integrity pass compares every later revision with the spine,
+may remove generic maximalism and repeated dramatic proof, and must not smooth the
+work back into contemporary dramatic prose.
+
+A newer or more ornate revision is not automatically the new body. If it exceeds
+the budget or creates several climaxes, treat it as a donor draft and transplant
+only named passages into the approved spine.
 
 Do not force a bilingual or two-part release when one title already detonates.
 Do not expose framework labels, research dossiers, citations, selection reports,
@@ -374,10 +383,18 @@ Choose one spine, or preserve both temporarily when the structures remain genuin
 
 > Draft B is the spine. Keep the opening from A. The English epithet is too bureaucratic.
 
+The Operator records the exact spine and its word count, then derives a Finishing Budget. You do not choose a numeric
+limit unless you want to; the Operator infers one from the selected form and the approved draft. By default, a
+developing draft may grow no more than 15 percent, while a near-final draft may not grow at all unless you authorize
+expansion.
+
 After this gate, the Operator handles structural criticism, source accuracy, minimal binding, and one-spine
-integration first. It then prepares fresh Temporary Chat prompts for Register Criticism, the source-responsive
-Baroque Pass, the Poetic Pass, and Integrity Review when independent context is useful. You relay the text; the
-Operator owns every editorial decision and assembles the final result.
+integration first. It then prepares fresh Temporary Chat prompts for Register Criticism, the budgeted
+source-responsive Baroque Pass, the Poetic Pass, and Integrity Review when independent context is useful. You relay
+the text; the Operator owns every editorial decision and assembles the final result.
+
+If a later pass grows past the budget or gives every paragraph its own climax, the Operator returns to the selected
+spine, treats the expanded version as a donor, and imports only the exact phrases or local expansions worth keeping.
 
 ---
 
@@ -427,7 +444,9 @@ The Operator should route the reaction to the earliest stage that actually faile
 | A canonical name, place, object, or relationship is wrong | Canonical Accuracy Reviewer |
 | Full drafts feel too smooth, modern, or restrained | Register design or voice-sketch gate |
 | Release architecture feels bolted on | Release-focused Poetic Pass |
-| Draft works but English is flat | Register Critic, Baroque Editor, then Poetic Editor |
+| Draft works but English is flat | Register Critic, budgeted Baroque Editor, then Poetic Editor |
+| Draft got long again | Return to the approved spine; donor extraction and Dramaturgical Compression |
+| Every paragraph behaves as a climax | Finishing Budget and Dramaturgical Compression |
 | Release has no bang | Release-focused Baroque revision |
 | Excess is loud but generic | Integrity Review |
 | Rite is too directly about the software | Binder reversal |

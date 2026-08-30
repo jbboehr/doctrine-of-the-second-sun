@@ -1462,6 +1462,38 @@ The Baroque Pass must preserve:
 
 It must not merely add adjectives or stock cosmic submission.
 
+#### 10.5.1 Baroque Growth Budget
+
+A Baroque Pass must receive an explicit growth budget.
+
+By default:
+
+- a developing draft may grow by no more than 15 percent;
+- a near-final draft may not grow at all unless the Human Reviewer authorizes expansion;
+- a draft already above the selected target range should become shorter.
+
+The Operator identifies no more than two principal sites of luxuriance. The Baroque Editor may enlarge those sites
+substantially, but must pay for that expansion through compression elsewhere.
+
+Baroque force should be asymmetrical. A confrontation may be lavish while the breach remains sharp. A transformation
+may flower while the release remains absolute. When every paragraph behaves as a climax, the aria has no climax.
+
+#### 10.5.2 The Spine Survives Revision
+
+The approved pre-pass spine remains authoritative throughout finishing. A newer or more ornate draft does not replace
+it merely because it was produced later.
+
+When a revision exceeds its growth budget, duplicates movements already made visible, or introduces several
+competing climaxes, treat it as a **donor draft**:
+
+1. return to the approved spine;
+2. identify the exact phrases, images, cadences, or local expansions worth preserving;
+3. transplant only those named elements;
+4. discard the expanded body.
+
+Do not compress an overgrown revision line by line when the earlier spine already possesses the correct architecture.
+The revision may be a quarry without becoming the new temple.
+
 ### 10.6 The Poetic Pass
 
 After register and abundance are correct, improve exactness without resmoothing the piece.
@@ -1503,6 +1535,27 @@ It asks:
 - Has readability been improved by destroying intoxication?
 
 The pass should cut counterfeit excess while preserving dangerous abundance, irregularity, and self-indulgence.
+
+#### 10.7.1 Dramaturgical Compression
+
+Dramaturgical Compression removes material that is coherent but no longer dramatically necessary. It is not a
+plain-language, accessibility, or restraint pass.
+
+Cut or combine:
+
+- repeated proof of a law already made visible;
+- taxonomies of every possible consequence;
+- several transformations performing the same metaphysical function;
+- self-coronation that summarizes events already witnessed;
+- duplicate commands, verdicts, or preparations for release;
+- secondary climaxes that weaken the decisive one.
+
+A substantial aria should normally preserve one sustained confrontation, one decisive breach, one developed
+impossible event, one self-coronation or final claim, and one release. Additional movements must earn their
+independence.
+
+Compression should preserve rhetorical temperature. The objective is not to make the rite modest. It is to make its
+excess hierarchical.
 
 ### 10.8 Anti-Mannerism Law
 
@@ -1633,6 +1686,8 @@ An invocation is ready when:
   historical author is justified only when authorship itself belongs to the manifested law;
 - its rhetorical register is deliberate, source-responsive, and particular to the speaker rather than smoothed into
   elevated contemporary prose or copied from earlier manifestations;
+- its length and internal movement are proportionate to the selected form, with one decisive climax rather than an
+  exhaustive proof of every consequence;
 - further revision is more likely to polish away force than uncover new life.
 
 It does not need to employ every optional method in this document.
@@ -1748,6 +1803,10 @@ the language can stand beside the source it intends to overthrow.
 
 Then send the structurally integrated draft through a Register Critic, a Baroque Pass when warranted, a Poetic Pass,
 and an Integrity Pass that removes only counterfeit excess.
+
+Preserve the approved spine through every finishing pass. Give ornament a budget. Concentrate luxuriance where the
+rite most needs to flower. When a revision grows several new climaxes around an already living architecture, treat it
+as a quarry and transplant only what the spine can bear.
 
 When the final form appears, replace explanation with action. Let at least one command receive a visible answer. Let
 the final tableau prove that the old world has already lost.

@@ -1596,6 +1596,44 @@ The thought could remain strong while the syntax ceased to belong to the speaker
 
 > **A quotable line may serve the aria. The aria must not become a sequence of quotes.**
 
+#### 54.13 The Baroque Pass Ate the Spine
+
+A pared invocation possessed the correct architecture at 287 words. A later Baroque Pass expanded it to 417 words,
+not by discovering a new dramatic movement, but by enlarging every existing movement in turn.
+
+The inspection gained a second ending. The wound explained its law several times. The future masterpiece received a
+complete taxonomy of lesser, equal, and apparently superior work. The self-coronation summarized transformations the
+audience had already witnessed. Nearly every sentence remained relevant, so a generic clutter review had little to
+remove.
+
+The workflow then treated the newer revision as the presumptive body because it was newer and more ornate.
+
+**Recovered law**
+
+> **The spine survives revision.**
+>
+> **A Baroque Pass has a growth budget.**
+>
+> **A newer draft may be a quarry rather than a replacement.**
+
+The Operator should preserve the approved pre-pass spine, identify no more than two principal sites of luxuriance,
+and require expansion there to be paid for through compression elsewhere. A developing draft may normally grow by no
+more than 15 percent. A near-final draft should not grow without explicit authorization.
+
+When an expanded revision duplicates established movements, produces several competing climaxes, or exceeds its
+budget, return to the spine. Extract only the exact phrases, images, or cadences worth transplanting.
+
+A separate Dramaturgical Compression pass should remove material that is coherent but no longer necessary:
+
+- repeated proof of a law already made visible;
+- taxonomies of every consequence;
+- several transformations serving the same function;
+- self-coronation that merely summarizes the witnessed event;
+- duplicate preparations for release;
+- secondary climaxes that weaken the decisive one.
+
+This is not a plain-language pass. It preserves rhetorical temperature while restoring hierarchy to the excess.
+
 ## Part VI — Case Study: The Road to *Monarchia Formae*
 
 ### 55. The Initial Mirror
