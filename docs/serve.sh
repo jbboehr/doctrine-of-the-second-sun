@@ -6,8 +6,17 @@ repository_root=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd)
 
 if [[ "${1:-}" == "--serve-once" ]]; then
     shift
-    bash "$repository_root/docs/stage.sh"
-    exec mdbook serve "$repository_root/docs" --hostname 127.0.0.1 "$@"
+    port=3000
+    if (( $# > 0 )); then
+        if [[ "$1" != "--port" || $# -ne 2 ]]; then
+            echo "usage: $0 [--port PORT]" >&2
+            exit 2
+        fi
+        port=$2
+    fi
+
+    bash "$repository_root/docs/build.sh"
+    exec python3 -m http.server "$port" --bind 127.0.0.1 --directory "$repository_root/build/docs"
 fi
 
 watch_paths=(
@@ -27,6 +36,10 @@ watch_paths=(
     "$repository_root/integrations"
     "$repository_root/docs/SUMMARY.md"
     "$repository_root/docs/book.toml"
+    "$repository_root/docs/build.sh"
+    "$repository_root/docs/check-links.py"
+    "$repository_root/docs/check-seo.py"
+    "$repository_root/docs/finalize.py"
     "$repository_root/docs/serve.sh"
     "$repository_root/docs/stage.sh"
     "$repository_root/docs/theme"
