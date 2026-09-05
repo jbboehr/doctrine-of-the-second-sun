@@ -77,10 +77,11 @@ test("reset cancels a pending activation without cancelling its replacement", as
     globalThis.cancelledActivation,
     globalThis.currentActivation,
   ]))).toEqual([false, true]);
-  await page.clock.runFor(600);
+  // Advance lifecycle timers without rendering every intermediate WebGL frame.
+  await page.clock.fastForward(600);
   expect(await page.evaluate(() => globalThis.heliogenesis.state)).toBe("dawning");
   expect(await page.evaluate(() => globalThis.lifecycleEvents)).toEqual([]);
-  await page.clock.runFor(1900);
+  await page.clock.fastForward(1900);
   expect(await page.evaluate(() => globalThis.lifecycleEvents)).toEqual(["radiant", "receding", "idle"]);
   await expect(page.locator("#secondSun")).toBeEnabled();
   expect(diagnostics.pageErrors).toEqual([]);

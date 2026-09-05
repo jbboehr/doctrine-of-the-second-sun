@@ -481,6 +481,83 @@ does not depend on those temporary files.
    separate slice. A standalone reproducer is retained at
    `tmp/project-review-2026-09-04/iframe-link-reproduction.py`.
 
+7. **P3: The Heliogenesis cancellation test exceeds CI's timeout through forced software rendering**
+
+   Sources: [lifecycle test](../../integrations/web/heliogenesis/tests/heliogenesis.spec.cjs), lines 51-88,
+   [test configuration](../../integrations/web/heliogenesis/tests/playwright.config.cjs), and
+   [renderer](../../integrations/web/heliogenesis/heliogenesis-scene.js), `renderFrame()` and `draw()`.
+
+   Investigated on 2026-09-05 at revision `a15d569`. The cancellation/replacement test exceeded its 20-second limit
+   on both attempts in the
+   [latest browser run](https://github.com/jbboehr/doctrine-of-the-second-sun/actions/runs/33993525374).
+   The [preceding run](https://github.com/jbboehr/doctrine-of-the-second-sun/actions/runs/33990439558)
+   failed the same way.
+   The other 18 Heliogenesis tests passed. The reported closed-page error at the final event assertion follows test
+   timeout cleanup and does not establish a spontaneous browser crash.
+
+   At that revision, the test called `page.clock.runFor(600)` and `page.clock.runFor(1900)` while the real scene was
+   animated. Playwright's
+   [`runFor()`](https://playwright.dev/docs/api/class-clock#clock-run-for) executes the callbacks throughout that
+   interval. Its pinned 1.61.1 clock implementation schedules animation frames at 16 ms intervals. The renderer
+   schedules another frame after every draw, so advancing 2.5 seconds forces 156 frames through software WebGL.
+   This makes the lifecycle test's duration depend on rendering throughput.
+
+   The unchanged test passed three times with `CI=1` and the local machine's 32 available logical CPUs. Restricting
+   the same command to two CPUs reproduced the timeout twice, including the same final assertion location as CI:
+
+   ```bash
+   CI=1 taskset -c 0,1 nix run .#test-heliogenesis -- \
+     --grep 'reset cancels a pending activation without cancelling its replacement' \
+     --repeat-each=2 --retries=0
+   ```
+
+   CPU IDs 0 and 1 were verified as available before this experiment. On another Linux host, select CPUs from its
+   allowed affinity set. This models reduced CPU availability without claiming an exact replica of the GitHub runner.
+
+   An instrumented copy with a 90-second diagnostic limit completed successfully on two CPUs. Both activation
+   promises resolved within 0.38 seconds of test start. The first clock advance took 7.36 seconds and rendered 37
+   frames. The second took 21.07 seconds, bringing the total to 156 frames. All lifecycle assertions passed, with
+   events `radiant`, `receding`, and `idle` in order. The longer limit was used only to measure completion.
+
+   | Variant | CPU affinity | Trials | Result | Test duration |
+   | --- | --- | --- | --- | --- |
+   | Unchanged test | 32 logical CPUs | 3 | All passed | 7.58-8.02 s |
+   | Unchanged test | 2 logical CPUs | 2 | Both timed out | 20 s limit |
+   | Instrumented `runFor()`, 90 s limit | 2 logical CPUs | 1 | Passed, 156 frames | 29.31 s |
+   | Instrumented `fastForward()`, original limit | 2 logical CPUs | 3 | All passed, 1 frame each | 1.76-2.12 s |
+
+   The correction tested during the investigation replaced the two clock advances with
+   [`fastForward()`](https://playwright.dev/docs/api/class-clock#clock-fast-forward), which jumps time and executes
+   each due timer at most once. The existing assertions remain: the replacement is still dawning after 600 ms,
+   no stale lifecycle events have occurred, and the expected transitions have completed after 2,500 ms.
+
+   ```diff
+   - await page.clock.runFor(600);
+   + await page.clock.fastForward(600);
+   ...
+   - await page.clock.runFor(1900);
+   + await page.clock.fastForward(1900);
+   ```
+
+   An isolated copy of the full suite with these two substitutions passed all 19 tests under the existing 20-second
+   limit. A control experiment served the controller from revision `afe53e8`, before the lifecycle fix, to the
+   fast-forward variant. It failed the original cancellation assertion, returning `[true, true]` instead of
+   `[false, true]`, confirming that the clock change still detects that bug.
+
+   The investigation used temporary test copies on x86_64 Linux with Chromium 151.0.7922.75 and software WebGL.
+   Probe sources, local traces, CI logs, and `ci-timeout-*.json` results are retained under
+   `tmp/project-review-2026-09-04/`.
+
+   **Sixth remediation slice, 2026-09-05:** The checked-in lifecycle test now uses `fastForward()` for both clock
+   advances, with a comment explaining the rendering cost. Its assertions and 20-second timeout are unchanged.
+   The focused test that previously timed out on two CPUs passed all three fresh trials with retries
+   disabled, taking 1.75-2.14 seconds per test. The full Heliogenesis suite also passed all 19 tests with `CI=1` and
+   retries disabled. Runtime code and workflow configuration are unchanged.
+
+   These checks ran on x86_64 Linux, using Chromium with software WebGL and the suite's Firefox fallback case.
+   The correction has not yet run on GitHub Actions or other platforms. Subsequent reviews found no actionable
+   regressions, and the user approved this slice for commit.
+
 The following baseline checks passed during the original review. The follow-up experiments above ran separately and
 did not rerun the complete suites or change production code:
 
