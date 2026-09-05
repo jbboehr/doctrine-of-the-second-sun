@@ -1,11 +1,13 @@
 #!/usr/bin/env python3
 
-"""Reject broken local href and src targets in rendered mdBook HTML."""
+"""Reject broken local href and src targets in HTML and optionally Markdown."""
 
 from __future__ import annotations
 
+import argparse
 import html.parser
 import pathlib
+import subprocess
 import sys
 import urllib.parse
 
@@ -49,23 +51,36 @@ def resolve_target(site_root: pathlib.Path, page: pathlib.Path, target: str) -> 
 
 
 def main() -> int:
-    if len(sys.argv) != 2:
-        print(f"usage: {sys.argv[0]} BUILD_DIRECTORY", file=sys.stderr)
-        return 2
+    arguments = argparse.ArgumentParser(description=__doc__)
+    arguments.add_argument("directory", type=pathlib.Path)
+    arguments.add_argument(
+        "--markdown", action="store_true", help="also check Markdown files (requires cmark)"
+    )
+    options = arguments.parse_args()
 
-    site_root = pathlib.Path(sys.argv[1]).resolve()
+    site_root = options.directory.resolve()
     failures: list[str] = []
 
-    for page in sorted(site_root.rglob("*.html")):
+    pages = list(site_root.rglob("*.html"))
+    if options.markdown:
+        pages.extend(site_root.rglob("*.md"))
+
+    for page in sorted(pages):
+        if page.suffix == ".md":
+            content = subprocess.run(
+                ["cmark", "--unsafe", str(page)], check=True, capture_output=True, text=True
+            ).stdout
+        else:
+            content = page.read_text(encoding="utf-8")
         parser = LinkParser()
-        parser.feed(page.read_text(encoding="utf-8"))
+        parser.feed(content)
         for target in parser.targets:
             resolved = resolve_target(site_root, page, target)
             if resolved is not None and not resolved.exists():
                 failures.append(f"{page.relative_to(site_root)}: {target}")
 
     if failures:
-        print("Broken rendered-documentation links:", file=sys.stderr)
+        print("Broken documentation links:", file=sys.stderr)
         for failure in failures:
             print(f"- {failure}", file=sys.stderr)
         return 1

@@ -37,6 +37,11 @@
               filter = path: _type: !(pkgs.lib.hasInfix "-hq" (builtins.baseNameOf (toString path)));
             };
             dontBuild = true;
+            nativeInstallCheckInputs = [
+              pkgs.cmark
+              pkgs.python3
+            ];
+            doInstallCheck = true;
 
             installPhase = ''
               runHook preInstall
@@ -46,8 +51,18 @@
               cp ./*.md "$destination/"
               cp -R ./assets "$destination/"
               cp -R ./integrations "$destination/"
+              cp -R ./experiments "$destination/"
 
               runHook postInstall
+            '';
+
+            installCheckPhase = ''
+              runHook preInstallCheck
+
+              python3 -B -m unittest discover -s docs/tests -v
+              python3 docs/check-links.py --markdown "$out/share/doctrine-of-the-second-sun"
+
+              runHook postInstallCheck
             '';
 
             meta = {

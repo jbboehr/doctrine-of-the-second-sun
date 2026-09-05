@@ -427,6 +427,60 @@ does not depend on those temporary files.
    unresolved. Add relative-link validation against the installed documentation tree so package and website coverage
    are both exercised.
 
+   **Fifth remediation slice, 2026-09-05:** The default Nix package now includes `experiments/`, preserving its README
+   and all four linked HTML studies. The existing source filter continues to exclude high-quality image masters.
+   The package's install check runs the [link-checker tests](../tests/test_check_links.py), then checks local links in
+   all installed Markdown and HTML files. This also runs through the existing `nix flake check` package check.
+
+   The [link checker](../check-links.py) accepts `--markdown` to render Markdown through `cmark` before extracting
+   links. This handles reference links and inline images while excluding inline and fenced code examples. The Nix
+   package supplies `cmark` and Python as install-check dependencies. Querying the built output found no Nix store
+   references, confirming that these tools add no runtime dependency. The rendered website keeps its existing
+   HTML-only invocation.
+
+   The missing README was reproduced against revision `0c79c55`. After adding the install check but before changing
+   the copied files, `nix build .#default --no-link --print-build-logs` failed with the exact broken provenance link.
+   After adding `experiments/`, that same build passed. A separate copy of the installed package with only the
+   experiment README retained was rejected for all four missing studies, confirming that a partial copy cannot
+   satisfy the check. All five experiment files in the complete package matched the repository byte for byte, and
+   no `*-hq*` files were installed.
+
+   The five checker tests passed, including cases that remove the provenance README, an archived study, and an
+   image. Before Markdown scanning was implemented, the new missing-file assertions failed because those Markdown
+   links were never checked. The complete installed package passed validation across 19 Markdown and six HTML files.
+   `nix flake check --print-build-logs`, `nix develop --command composer validate --strict`, and
+   `nix fmt -- --check flake.nix` passed on x86_64 Linux. The documentation build also passed its rendered-link checks
+   and SEO validation for 18 pages.
+
+   Independent correctness review found no defects in this slice. The independent test pass added checks for raw
+   HTML image targets in Markdown and for HTML-only validation with `cmark` absent from `PATH`. Both passed. It also
+   identified the preexisting iframe coverage gap recorded in finding 6.
+
+   Coverage is local file existence. Fragment IDs, remote URL availability, experiment rendering, and other platforms
+   remain outside these checks. Subsequent review found no actionable regressions, and the user approved this slice
+   for commit.
+
+6. **P3: The rendered-documentation checker ignores iframe targets**
+
+   Source: [link checker](../check-links.py), `LinkParser.handle_starttag()`. Found during the independent test pass
+   for the fifth remediation slice on 2026-09-05.
+
+   mdBook renders its table of contents through `<iframe src="toc.html">`. The checker collects `src` values only
+   from images and scripts, so a missing table-of-contents document passes validation. Removing `toc.html` from a
+   disposable rendered build left the checker returning status `0`.
+
+   This minimal HTML fixture also passed both the checker at revision `0c79c55` and the current implementation,
+   although its target did not exist:
+
+   ```html
+   <iframe src="missing-toc.html"></iframe>
+   ```
+
+   Extend the supported source tags to include iframes and retain a regression test for a missing target. This gap
+   predates the package fix, and the installed experiments contain no iframe targets. It remains deferred to a
+   separate slice. A standalone reproducer is retained at
+   `tmp/project-review-2026-09-04/iframe-link-reproduction.py`.
+
 The following baseline checks passed during the original review. The follow-up experiments above ran separately and
 did not rerun the complete suites or change production code:
 
