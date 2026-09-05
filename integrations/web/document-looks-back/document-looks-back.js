@@ -936,25 +936,22 @@ export class DocumentLooksBack {
     ) return false;
     if (this.activeEyes.size >= this.maxEyes) return false;
 
+    const candidates = this.chooseCandidates(this.findCandidates());
     const rejected = new Set();
     let active = null;
-    for (let attempt = 0; attempt < 14; attempt += 1) {
-      const candidates = this.chooseCandidates(this.findCandidates()).filter(candidate => {
-        const glyph = candidate.glyph;
-        const computed = candidate.node.parentElement
-          ? this.window.getComputedStyle(candidate.node.parentElement)
-          : null;
-        const signature = computed
-          ? `${glyph}|${computed.fontFamily}|${computed.fontSize}|${computed.fontWeight}`
-          : glyph;
-        candidate.signature = signature;
-        return !rejected.has(signature);
-      });
-      const candidate = candidates[0];
-      if (!candidate) break;
+    for (const candidate of candidates) {
+      const glyph = candidate.glyph;
+      const computed = candidate.node.parentElement
+        ? this.window.getComputedStyle(candidate.node.parentElement)
+        : null;
+      candidate.signature = computed
+        ? `${glyph}|${computed.fontFamily}|${computed.fontSize}|${computed.fontWeight}`
+        : glyph;
+      if (rejected.has(candidate.signature)) continue;
       active = this.prepareCandidate(candidate);
-      if (active) break;
+      if (active || this.rendererUnavailable) break;
       rejected.add(candidate.signature);
+      if (rejected.size >= 14) break;
     }
     if (!active) return false;
 

@@ -24,6 +24,31 @@ async function configure(page, options) {
   }, options);
 }
 
+async function addRetryCandidates(page) {
+  await page.evaluate(() => {
+    const target = document.createElement("div");
+    target.id = "retry-boundary";
+    target.style.cssText = [
+      "position:fixed",
+      "left:160px",
+      "top:240px",
+      "display:flex",
+      "font-size:32px",
+      "line-height:1",
+    ].join(";");
+    for (let signature = 0; signature < 15; signature += 1) {
+      for (let duplicate = 0; duplicate < 2; duplicate += 1) {
+        const candidate = document.createElement("span");
+        candidate.dataset.signature = String(signature);
+        candidate.style.fontFamily = `"retry-${signature}", serif`;
+        candidate.textContent = "o";
+        target.append(candidate);
+      }
+    }
+    document.body.append(target);
+  });
+}
+
 test("enforces maxEyes and removes render surfaces after duration", async ({ page }) => {
   const diagnostics = await openExample(page);
   await configure(page, { maxEyes: 2, duration: 700, frequency: 0 });
@@ -219,6 +244,280 @@ test("scans visible glyphs in containers much taller than the viewport", async (
   });
   await configure(page, { maxEyes: 1, duration: 700, frequency: 0, selector: "#long-container" });
   expect(await page.evaluate(() => globalThis.documentLooksBack.summon())).toBe(true);
+});
+
+test("reuses one discovery pass when a glyph fails on a long document", async ({ page }) => {
+  const diagnostics = await openExample(page);
+  await page.evaluate(() => {
+    const target = document.createElement("div");
+    target.id = "retry-text";
+    target.style.cssText = "position:absolute;left:20px;top:200px;width:800px;font:16px serif";
+    target.textContent = "ooooo "
+      + "Observers receive a stable snapshot after the current transaction commits. ".repeat(1000);
+    document.body.append(target);
+  });
+  await configure(page, { frequency: 0, selector: "#retry-text" });
+
+  const result = await page.evaluate(() => {
+    const controller = globalThis.documentLooksBack;
+    const findCandidates = controller.findCandidates.bind(controller);
+    const fillText = CanvasRenderingContext2D.prototype.fillText;
+    const random = Math.random;
+    let scans = 0;
+    const sampledGlyphs = [];
+    controller.findCandidates = () => {
+      scans += 1;
+      return findCandidates();
+    };
+    // Keep DOM order and simulate a font that supplies no ink for lowercase o.
+    Math.random = () => 0.5;
+    CanvasRenderingContext2D.prototype.fillText = function sampleText(text, ...args) {
+      sampledGlyphs.push(text);
+      if (text === "o") return;
+      return fillText.call(this, text, ...args);
+    };
+    try {
+      return {
+        summoned: controller.summon(),
+        activeCount: controller.activeCount,
+        scans,
+        sampledGlyphs,
+      };
+    } finally {
+      Math.random = random;
+      CanvasRenderingContext2D.prototype.fillText = fillText;
+    }
+  });
+
+  expect(result.summoned).toBe(true);
+  expect(result.activeCount).toBe(1);
+  expect(result.sampledGlyphs).toEqual(["o", "O"]);
+  expect(result.scans).toBe(1);
+  await expect(page.locator(".document-looks-back-witness")).toHaveCount(1);
+  expect(diagnostics).toEqual({ consoleErrors: [], pageErrors: [], externalRequests: [] });
+});
+
+test("allows the fourteenth distinct glyph signature after thirteen preparation failures", async ({ page }) => {
+  await openExample(page);
+  await addRetryCandidates(page);
+  await configure(page, { frequency: 0, selector: "#retry-boundary" });
+
+  const result = await page.evaluate(() => {
+    const controller = globalThis.documentLooksBack;
+    const fillText = CanvasRenderingContext2D.prototype.fillText;
+    const random = Math.random;
+    const sampledSignatures = [];
+    Math.random = () => 0.5;
+    CanvasRenderingContext2D.prototype.fillText = function failFirstThirteen(text, ...args) {
+      const signature = Number(/retry-(\d+)/.exec(this.font)?.[1]);
+      sampledSignatures.push(signature);
+      if (signature < 13) return;
+      return fillText.call(this, text, ...args);
+    };
+    try {
+      const summoned = controller.summon();
+      const [active] = controller.activeEyes;
+      return {
+        activeCount: controller.activeCount,
+        sampledSignatures,
+        selectedSignature: Number(active?.candidate.node.parentElement?.dataset.signature),
+        summoned,
+      };
+    } finally {
+      Math.random = random;
+      CanvasRenderingContext2D.prototype.fillText = fillText;
+    }
+  });
+
+  expect(result).toEqual({
+    activeCount: 1,
+    sampledSignatures: Array.from({ length: 14 }, (_, index) => index),
+    selectedSignature: 13,
+    summoned: true,
+  });
+});
+
+test("stops after fourteen distinct failed glyph signatures", async ({ page }) => {
+  await openExample(page);
+  await addRetryCandidates(page);
+  await configure(page, { frequency: 0, selector: "#retry-boundary" });
+
+  const result = await page.evaluate(() => {
+    const controller = globalThis.documentLooksBack;
+    const findCandidates = controller.findCandidates.bind(controller);
+    const fillText = CanvasRenderingContext2D.prototype.fillText;
+    const random = Math.random;
+    const sampledSignatures = [];
+    let scans = 0;
+    controller.findCandidates = () => {
+      scans += 1;
+      return findCandidates();
+    };
+    Math.random = () => 0.5;
+    CanvasRenderingContext2D.prototype.fillText = function rejectGlyph() {
+      sampledSignatures.push(Number(/retry-(\d+)/.exec(this.font)?.[1]));
+    };
+    try {
+      const summoned = controller.summon();
+      return {
+        activeCount: controller.activeCount,
+        sampledSignatures,
+        scans,
+        summoned,
+      };
+    } finally {
+      Math.random = random;
+      CanvasRenderingContext2D.prototype.fillText = fillText;
+    }
+  });
+
+  expect(result).toEqual({
+    activeCount: 0,
+    sampledSignatures: Array.from({ length: 14 }, (_, index) => index),
+    scans: 1,
+    summoned: false,
+  });
+  await expect(page.locator(".document-looks-back-witness")).toHaveCount(0);
+});
+
+test("revalidates final visibility before retrying the next discovered candidate", async ({ page }) => {
+  await openExample(page);
+  await page.addStyleTag({ content: `
+    body:has(> .document-looks-back-witness) #late-hidden-glyph {
+      visibility: hidden;
+    }
+  ` });
+  await page.evaluate(() => {
+    const target = document.createElement("div");
+    target.id = "late-visibility-candidates";
+    target.style.cssText = "position:fixed;left:240px;top:200px;font:64px Georgia";
+    target.innerHTML = [
+      "<span id='late-hidden-glyph'>o</span>",
+      "<span id='fallback-glyph'>a</span>",
+    ].join("");
+    document.body.append(target);
+  });
+  await configure(page, { frequency: 0, selector: "#late-visibility-candidates" });
+
+  const result = await page.evaluate(() => {
+    const controller = globalThis.documentLooksBack;
+    const findCandidates = controller.findCandidates.bind(controller);
+    const random = Math.random;
+    let scans = 0;
+    controller.findCandidates = () => {
+      scans += 1;
+      return findCandidates();
+    };
+    Math.random = () => 0.5;
+    try {
+      const summoned = controller.summon();
+      const [active] = controller.activeEyes;
+      return {
+        activeCount: controller.activeCount,
+        scans,
+        selected: active?.candidate.node.parentElement?.id,
+        summoned,
+      };
+    } finally {
+      Math.random = random;
+    }
+  });
+
+  expect(result).toEqual({
+    activeCount: 1,
+    scans: 1,
+    selected: "fallback-glyph",
+    summoned: true,
+  });
+  await expect(page.locator(".document-looks-back-witness")).toHaveCount(1);
+});
+
+test("keeps retries inside the centered candidate pool", async ({ page }) => {
+  await openExample(page);
+  await page.evaluate(() => {
+    const centered = document.createElement("span");
+    centered.className = "centering-candidate";
+    centered.textContent = "o";
+    centered.style.cssText = "position:fixed;left:240px;top:240px;font:64px Georgia";
+    const offCenter = document.createElement("span");
+    offCenter.className = "centering-candidate";
+    offCenter.textContent = "a";
+    offCenter.style.cssText = "position:fixed;left:240px;top:20px;font:64px Georgia";
+    document.body.append(centered, offCenter);
+  });
+  await configure(page, { frequency: 0, selector: ".centering-candidate" });
+
+  const result = await page.evaluate(() => {
+    const controller = globalThis.documentLooksBack;
+    const fillText = CanvasRenderingContext2D.prototype.fillText;
+    const sampledGlyphs = [];
+    CanvasRenderingContext2D.prototype.fillText = function failCenteredGlyph(text, ...args) {
+      sampledGlyphs.push(text);
+      if (text === "o") return;
+      return fillText.call(this, text, ...args);
+    };
+    try {
+      const summoned = controller.summon();
+      return {
+        activeCount: controller.activeCount,
+        sampledGlyphs,
+        summoned,
+      };
+    } finally {
+      CanvasRenderingContext2D.prototype.fillText = fillText;
+    }
+  });
+
+  expect(result).toEqual({
+    activeCount: 0,
+    sampledGlyphs: ["o"],
+    summoned: false,
+  });
+  await expect(page.locator(".document-looks-back-witness")).toHaveCount(0);
+});
+
+test("refreshes candidates between summons after occupancy and text changes", async ({ page }) => {
+  await openExample(page);
+  await page.evaluate(() => {
+    const target = document.createElement("div");
+    target.id = "changing-glyph";
+    target.textContent = "o";
+    target.style.cssText = "position:fixed;left:240px;top:160px;font:64px Georgia";
+    document.body.append(target);
+  });
+  await configure(page, { maxEyes: 2, frequency: 0, selector: "#changing-glyph" });
+
+  const result = await page.evaluate(() => {
+    const controller = globalThis.documentLooksBack;
+    const target = document.getElementById("changing-glyph");
+    const first = controller.summon();
+    const occupied = controller.summon();
+    controller.reset();
+    target.textContent = "a";
+    target.style.left = "400px";
+    const replaced = controller.summon();
+    const [active] = controller.activeEyes;
+    return {
+      first,
+      occupied,
+      replaced,
+      activeCount: controller.activeCount,
+      usesReplacement: active?.candidate.node === target.firstChild,
+      glyph: active?.candidate.glyph,
+      left: active?.candidate.rect.left,
+    };
+  });
+
+  expect(result).toEqual({
+    first: true,
+    occupied: false,
+    replaced: true,
+    activeCount: 1,
+    usesReplacement: true,
+    glyph: "a",
+    left: 400,
+  });
+  await expect(page.locator(".document-looks-back-witness")).toHaveCount(1);
 });
 
 test("includes the matched text container in glyph clipping bounds", async ({ page }) => {

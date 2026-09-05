@@ -354,6 +354,43 @@ does not depend on those temporary files.
    Add a realistic long-document workload and verify that unsuccessful candidate preparation does not trigger repeated
    full scans. Treat elapsed-time measurements as performance evidence rather than a tight, machine-dependent CI limit.
 
+   **Implementation, 2026-09-04:** `summon()` now discovers and shuffles candidates once, then tries alternative glyph
+   signatures from that list. It still permits up to fourteen distinct failed signatures and stops immediately when
+   renderer initialization becomes unavailable. The list belongs to one invocation, so later summons recheck the
+   document and occupied glyphs. The final position and visibility check remains in place.
+
+   **Verification of the fix:** The long-document browser regression lets lowercase `o` produce an empty Canvas
+   snapshot, then successfully renders uppercase `O` through the real preparation path. It failed before the fix
+   because discovery ran twice. The strengthened Firefox fallback test failed with fourteen scans and thirteen
+   preparation attempts after renderer unavailability was known. Both now pass, along with a control confirming that
+   occupied glyphs are excluded and replacement text and positions are discovered on later summons.
+
+   Independent correctness and adversarial test reviews found no additional runtime defects. Four retained tests cover
+   both sides of the fourteen-signature retry limit, duplicate signatures, the centered candidate pool, and cleanup
+   when CSS hides a candidate after its canvas is appended. The seven focused cases and all 22 browser tests from
+   `nix run .#test-document-looks-back` passed. JavaScript syntax checks, the documentation build, Composer validation,
+   Nix checks, report links, and the complete diff also passed review on x86_64 Linux. Rendering was tested with
+   Chromium software WebGL and Firefox covered renderer unavailability. Hardware GPUs and other platforms were not
+   tested. Subsequent reviews found no actionable regressions, and the user approved this slice for commit.
+
+   The follow-up repeated the 75,000-character, 200-span workload above three times per browser mode before and after
+   the fix, starting from revision `c608c4072e654b89d613f6fa6d2d5101956e213d`. Each run served a captured copy of the
+   implementation so edits could not affect later trials. All trials found 1,221 candidates per discovery pass.
+   Chromium 151.0.7922.75 used the same viewport and WebGL modes as the original experiment. Results and the measurement
+   script are retained under the ignored experiment directory as `slice-4-before.json`, `slice-4-after.json`, and
+   `slice-4-measure.cjs`.
+
+   | Browser mode | Version | Scans | Preparation attempts | `summon()` time | Queued callback delay |
+   | --- | --- | --- | --- | --- | --- |
+   | Software WebGL | Before | 1 | 1 | 248.5-251.9 ms | 261.8-265.7 ms |
+   | Software WebGL | After | 1 | 1 | 236.5-253.0 ms | 250.5-266.6 ms |
+   | WebGL disabled | Before | 14 | 14 | 3,026.4-3,067.8 ms | 3,027.3-3,068.6 ms |
+   | WebGL disabled | After | 1 | 1 | 221.8-225.0 ms | 222.7-226.5 ms |
+
+   These timings remain measurements of one controlled workload. A single discovery pass still took 216.7-231.5 ms
+   after the fix. Per-character traversal, repeated style reads within that pass, and earlier offscreen pruning remain
+   opportunities for a separate optimization slice.
+
 5. **P3: The Nix package contains a broken documentation link**
 
    Sources: [flake.nix](../../flake.nix), default package installation at lines 41-51, and the
