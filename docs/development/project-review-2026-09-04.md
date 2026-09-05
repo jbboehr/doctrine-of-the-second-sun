@@ -256,6 +256,27 @@ does not depend on those temporary files.
    Review both workflows together after editing. Confirm that the coding guide no longer supplies an alternative
    single-candidate generation process or permits rewriting during selection.
 
+   **Implementation, 2026-09-04:** The coding guide now delegates generation and literary selection to the generation
+   guide, including its portable fallback and batch guidance. It records existing citations before generation,
+   allocates or preserves references after selection and leakage review, and inserts the selected text and book
+   unchanged. Its scope, inventory, source-safety, and verification responsibilities remain in place.
+
+   Follow-up review clarified that generation through insertion repeats per item within small batches, rejected
+   candidate sets return to generation, and allocation and insertion require both reviews to pass. Existing books are
+   supplied as fixed generation constraints. The workflow now explicitly requires reading the generation guide and
+   omits the abbreviated generation sequence. The completion checklist also confirms that its review process was
+   followed and any fallback loss of isolation was disclosed.
+
+   **Verification of the fix:** Document comparison covered multiple new quotations, explicitly requested regeneration
+   with a fixed citation, rejection during literary selection or leakage review, and the portable fallback. A source
+   search confirmed removal of the single-quotation generation and revision instructions. All 17 relative links and
+   anchors in the changed documents resolve. The rendered coding guide also contains all four generation-guide links
+   with valid target anchors. `nix develop --command bash docs/build.sh`,
+   `nix develop --command composer validate --strict`, and `nix flake check --print-build-logs` passed on x86_64 Linux.
+   The complete diff was reviewed. No agent-generation experiment was run, so this verifies document consistency and
+   rendering without measuring agent compliance. The user approved this slice for commit after the review findings
+   were addressed.
+
 4. **P3: Candidate discovery can noticeably stall long documents**
 
    Source: [document-looks-back.js](../../integrations/web/document-looks-back/document-looks-back.js), especially

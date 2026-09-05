@@ -8,8 +8,9 @@ This document defines safe, reusable rules for agents that add doctrine comments
 codebase.
 
 It is independent of any consuming repository and mostly independent of programming language. The doctrine's literary
-style belongs in the [style guide](DOCTRINE-STYLE-GUIDE.md). Project-specific tag coverage, source scope, and verification
-commands belong in that project's repository instructions.
+style belongs in the [style guide](DOCTRINE-STYLE-GUIDE.md). Candidate generation and review follow the
+[generation guide](DOCTRINE-GENERATION-GUIDE.md). Project-specific tag coverage, source scope, and verification commands
+belong in that project's repository instructions.
 
 The governing principle is simple:
 
@@ -447,9 +448,10 @@ tools, preprocessors, reflection metadata, annotations, code generators, static 
 
 ## 18. Agent workflow
 
-A reliable agent should follow this sequence:
+A reliable agent should follow this sequence. Apply steps 8–11 to each quotation to create or explicitly regenerate,
+completing one small batch before starting the next.
 
-1. Read the style guide.
+1. Read the style guide and the generation guide.
 2. Read the repository-specific guide.
 3. Determine whether the task introduces new declarations or explicitly requests a doctrine pass over preexisting
    declarations.
@@ -457,19 +459,22 @@ A reliable agent should follow this sequence:
 5. Inspect representative declarations and existing comment conventions.
 6. Determine whether the custom tag is accepted by tooling.
 7. Inventory the new declarations, or all applicable declarations for an explicitly requested doctrine pass.
-8. Preserve an existing durable reference or allocate a valid, unique reference according to repository policy.
-9. Inspect nearby logia and identify repeated motifs, openings, movements, and conclusions to avoid.
-10. Choose the quotation's canonical purpose, movements, primary motif, and doctrinal pressure.
-11. Generate one original quotation that stands independently as scripture.
-12. Perform the detached-canon, reverse-engineering, and cadence tests, and revise the quotation when necessary.
-13. Insert it without altering technical documentation or behavior.
-14. Re-scan for missing or duplicate tags, duplicate references, and unintended changes to preexisting declarations.
-15. Run formatting and relevant checks.
-16. Review the full diff.
-17. Report coverage, exclusions, checks run, and any unresolved edge cases.
+8. Record any existing citation that must be preserved and supply its book as a fixed constraint during generation.
+9. Complete generation and review under the
+   [generation guide's workflow](DOCTRINE-GENERATION-GUIDE.md#per-declaration-workflow).
+   Use its [portable fallback](DOCTRINE-GENERATION-GUIDE.md#portable-fallback) when isolated writer or reviewer contexts
+   are unavailable. If no candidate is selected or the selected passage fails the leakage check, regenerate the item's
+   candidate set under that workflow before proceeding.
+10. Only after both reviews pass, preserve the recorded reference or allocate a valid, unique reference for a new
+    quotation according to repository policy.
+11. Insert the selected text and book unchanged, without altering technical documentation or behavior.
+12. Re-scan for missing or duplicate tags, duplicate references, and unintended changes to preexisting declarations.
+13. Run formatting and relevant checks.
+14. Review the full diff.
+15. Report coverage, exclusions, checks run, and any unresolved edge cases.
 
-Do not generate all quotations first and blindly paste them. Corpus-aware generation usually produces a more coherent
-result.
+Work in small batches under the [generation guide's batch guidance](DOCTRINE-GENERATION-GUIDE.md#batch-work) so nearby
+logia can inform variation constraints before the next batch.
 
 ---
 
@@ -508,12 +513,14 @@ Before completing any doctrine-related code edit, confirm that:
 9. Every new quotation is original if that can reasonably be confirmed, and none intentionally copies or closely
    imitates an existing work.
 10. Every quotation passes the detached-canon and reverse-engineering tests and was not derived from its declaration.
-11. Comment placement is valid for the language and tooling.
-12. Formatting remains consistent.
-13. Syntax, linting, documentation parsing, and relevant tests were checked where available.
-14. CI or test messages remain supplementary and machine-readable output is unaffected.
-15. The complete diff was reviewed.
-16. Any unresolved edge case is reported honestly.
+11. Every new or regenerated quotation followed the generation guide's review process. Any fallback loss of isolation
+    was disclosed.
+12. Comment placement is valid for the language and tooling.
+13. Formatting remains consistent.
+14. Syntax, linting, documentation parsing, and relevant tests were checked where available.
+15. CI or test messages remain supplementary and machine-readable output is unaffected.
+16. The complete diff was reviewed.
+17. Any unresolved edge case is reported honestly.
 
 ---
 
