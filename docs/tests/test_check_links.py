@@ -22,6 +22,7 @@ class DocumentationLinkTests(unittest.TestCase):
 
 ```html
 <img src="missing-example.webp">
+<iframe src="missing-example.html"></iframe>
 ```
 
 ```markdown
@@ -101,12 +102,35 @@ class DocumentationLinkTests(unittest.TestCase):
         self.assertIn("rendered.html: missing.html", result.stderr)
 
     def test_markdown_mode_checks_raw_html_targets(self):
-        self.write("raw.md", '<img src="missing-raw-image.webp">')
+        for markup, diagnostic in (
+            ('<img src="missing-raw-image.webp">', "raw.md: missing-raw-image.webp"),
+            ('<iframe src="missing-toc.html"></iframe>', "raw.md: missing-toc.html"),
+        ):
+            with self.subTest(markup=markup):
+                self.write("raw.md", markup)
 
-        result = self.check("--markdown")
+                result = self.check("--markdown")
+
+                self.assertEqual(result.returncode, 1, result.stderr)
+                self.assertIn(diagnostic, result.stderr)
+
+    def test_iframe_target_must_exist(self):
+        self.write("nested/page.html", """\
+<iframe src="../toc.html"></iframe>
+<iframe src="https://example.com/embed"></iframe>
+<iframe src="//example.com/embed"></iframe>
+<iframe srcdoc="&lt;p&gt;Inline content&lt;/p&gt;"></iframe>
+""")
+        self.write("toc.html", "<p>Table of contents</p>")
+
+        result = self.check()
+        self.assertEqual(result.returncode, 0, result.stderr)
+
+        (self.root / "toc.html").unlink()
+        result = self.check()
 
         self.assertEqual(result.returncode, 1, result.stderr)
-        self.assertIn("raw.md: missing-raw-image.webp", result.stderr)
+        self.assertIn("nested/page.html: ../toc.html", result.stderr)
 
 
 if __name__ == "__main__":

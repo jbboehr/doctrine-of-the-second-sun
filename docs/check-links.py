@@ -18,7 +18,7 @@ class LinkParser(html.parser.HTMLParser):
         self.targets: list[str] = []
 
     def handle_starttag(self, tag: str, attributes: list[tuple[str, str | None]]) -> None:
-        attribute_name = "href" if tag in {"a", "link"} else "src" if tag in {"img", "script"} else None
+        attribute_name = "href" if tag in {"a", "link"} else "src" if tag in {"img", "script", "iframe"} else None
         if attribute_name is None:
             return
 

@@ -465,21 +465,42 @@ does not depend on those temporary files.
    Source: [link checker](../check-links.py), `LinkParser.handle_starttag()`. Found during the independent test pass
    for the fifth remediation slice on 2026-09-05.
 
-   mdBook renders its table of contents through `<iframe src="toc.html">`. The checker collects `src` values only
-   from images and scripts, so a missing table-of-contents document passes validation. Removing `toc.html` from a
-   disposable rendered build left the checker returning status `0`.
+   mdBook renders its table of contents through `<iframe src="toc.html">`. At discovery, the checker collected `src`
+   values only from images and scripts, so a missing table-of-contents document passed validation. Removing
+   `toc.html` from a disposable rendered build left the checker returning status `0`.
 
-   This minimal HTML fixture also passed both the checker at revision `0c79c55` and the current implementation,
-   although its target did not exist:
+   This minimal HTML fixture also passed the checker at revisions `0c79c55` and `6c4290f`, although its target did
+   not exist:
 
    ```html
    <iframe src="missing-toc.html"></iframe>
    ```
 
    Extend the supported source tags to include iframes and retain a regression test for a missing target. This gap
-   predates the package fix, and the installed experiments contain no iframe targets. It remains deferred to a
-   separate slice. A standalone reproducer is retained at
+   predates the package fix, and the installed experiments contain no iframe targets. It was deferred from the
+   fifth slice. A standalone reproducer is retained at
    `tmp/project-review-2026-09-04/iframe-link-reproduction.py`.
+
+   **Seventh remediation slice, 2026-09-05:** The checker now collects iframe `src` values and validates them through
+   its existing path-resolution rules. This covers rendered HTML and raw HTML in Markdown when `--markdown` is used.
+
+   Before the fix, two regression assertions failed because a missing iframe target returned status `0`: one in
+   rendered HTML and one in raw HTML inside Markdown. After adding `iframe` to the supported source tags, all six
+   checker tests passed. The tests also confirm that an existing target referenced from a nested page passes, external
+   iframe URLs and inline `srcdoc` content need no local file, and fenced iframe examples in Markdown are ignored.
+
+   A separate experiment copied the rendered documentation and removed `toc.html`. The checker from revision
+   `6c4290f` still returned status `0`. The fixed checker returned status `1` and reported 20 broken iframe references,
+   including `index.html: toc.html`. Both versions accepted the complete site before removal. The original standalone
+   reproducer also passed against the fix. Results are retained in
+   `tmp/project-review-2026-09-04/iframe-rendered-verification.txt`.
+
+   `nix flake check --print-build-logs` passed both package and rendered-documentation checks, including all six
+   checker tests, installed Markdown and HTML link validation, and SEO validation for 18 pages.
+   `nix develop --command composer validate --strict` also passed.
+
+   Verification is local to x86_64 Linux. Other platforms remain unverified. Subsequent reviews found no actionable
+   regressions, and the user approved this slice for commit.
 
 7. **P3: The Heliogenesis cancellation test exceeds CI's timeout through forced software rendering**
 
