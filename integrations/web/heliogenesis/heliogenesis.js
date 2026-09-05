@@ -95,6 +95,7 @@ export class Heliogenesis extends EventTarget {
     this.state = "idle";
     this.scene = null;
     this.preparing = null;
+    this.activation = null;
     this.layer = null;
     this.canvas = null;
     this.abortController = null;
@@ -135,12 +136,13 @@ export class Heliogenesis extends EventTarget {
     this.trigger.dataset.heliogenesisTrigger = "";
     this.trigger.setAttribute("aria-pressed", "false");
     this.trigger.addEventListener("click", () => void this.activate(), { signal });
-    this.trigger.addEventListener("pointerenter", () => {
-      if (!this.failed) void this.prepare().catch((error) => this.fail(error));
-    }, { signal });
-    this.trigger.addEventListener("focus", () => {
-      if (!this.failed) void this.prepare().catch((error) => this.fail(error));
-    }, { signal });
+    const prewarm = () => {
+      if (!this.failed) void this.prepare().catch((error) => {
+        if (!signal.aborted) this.fail(error);
+      });
+    };
+    this.trigger.addEventListener("pointerenter", prewarm, { signal });
+    this.trigger.addEventListener("focus", prewarm, { signal });
     this.document.defaultView.addEventListener("resize", () => this.queueResize(), { signal });
     this.document.defaultView.addEventListener("scroll", () => this.queueDocumentSync(), {
       signal,
@@ -166,9 +168,10 @@ export class Heliogenesis extends EventTarget {
     if (this.scene) return this.scene;
     if (this.preparing) return this.preparing;
 
-    this.preparing = import("./heliogenesis-scene.js")
+    const { signal } = this.abortController;
+    const preparing = import("./heliogenesis-scene.js")
       .then(({ createHeliogenesisScene }) => {
-        if (!this.mounted) return null;
+        if (signal.aborted) return null;
         this.scene = createHeliogenesisScene({
           canvas: this.canvas,
           reducedMotion: () => this.motionQuery.matches,
@@ -181,16 +184,19 @@ export class Heliogenesis extends EventTarget {
         return this.scene;
       })
       .finally(() => {
-        this.preparing = null;
+        if (this.preparing === preparing) this.preparing = null;
       });
 
-    return this.preparing;
+    this.preparing = preparing;
+    return preparing;
   }
 
   async activate() {
     if (!this.mounted || this.state !== "idle" || this.failed || this.trigger.disabled) return false;
     const reduced = this.motionQuery.matches;
     const timing = reduced ? this.timings.reduced : this.timings.standard;
+    const activation = Symbol();
+    this.activation = activation;
 
     this.clearTimers();
     this.setTimingStyle(timing);
@@ -200,12 +206,13 @@ export class Heliogenesis extends EventTarget {
 
     try {
       const scene = await this.prepare();
-      if (!scene || !this.mounted || this.state !== "dawning") return false;
+      // A replacement event can also be dawning when the shared preparation completes.
+      if (!scene || this.activation !== activation || !this.mounted || this.state !== "dawning") return false;
       this.setIgnition(true);
       if (reduced) scene.showReduced();
       else scene.start({ rise: timing.rise });
     } catch (error) {
-      this.fail(error);
+      if (this.activation === activation) this.fail(error);
       return false;
     }
 
@@ -219,6 +226,7 @@ export class Heliogenesis extends EventTarget {
   }
 
   reset({ announce = true } = {}) {
+    this.activation = null;
     this.clearTimers();
     this.clearDebouncedTimers();
     this.setIgnition(false);
@@ -237,6 +245,7 @@ export class Heliogenesis extends EventTarget {
 
   destroy() {
     if (!this.mounted) return;
+    this.activation = null;
     this.clearTimers();
     this.clearDebouncedTimers();
     this.abortController.abort();
@@ -282,6 +291,7 @@ export class Heliogenesis extends EventTarget {
     if (!this.hadUnavailableHook) this.trigger.removeAttribute("data-heliogenesis-unavailable");
 
     this.scene = null;
+    this.preparing = null;
     this.layer = null;
     this.canvas = null;
     this.mounted = false;
@@ -365,6 +375,7 @@ export class Heliogenesis extends EventTarget {
 
   fail(error) {
     if (this.failed) return;
+    this.activation = null;
     this.failed = true;
     this.failure = error instanceof Error ? error : new Error(String(error));
     this.clearTimers();

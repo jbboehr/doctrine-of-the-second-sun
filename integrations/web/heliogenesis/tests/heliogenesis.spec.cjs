@@ -41,6 +41,163 @@ async function configureShortEvent(page, motion = "standard") {
   }, motion);
 }
 
+async function holdSceneRequest(page) {
+  let resolve;
+  const request = new Promise((done) => { resolve = done; });
+  await page.route("**/heliogenesis-scene.js", (route) => { resolve(route); });
+  return { request };
+}
+
+test("reset cancels a pending activation without cancelling its replacement", async ({ page }) => {
+  await page.clock.install({ time: new Date("2026-01-01T00:00:00Z") });
+  const diagnostics = await openExample(page);
+  await page.clock.pauseAt(new Date("2026-01-01T01:00:00Z"));
+  const { request } = await holdSceneRequest(page);
+
+  await page.evaluate(() => {
+    const controller = globalThis.heliogenesis;
+    globalThis.lifecycleEvents = [];
+    for (const name of ["radiant", "receding", "idle"]) {
+      controller.addEventListener(`heliogenesis:${name}`, () => globalThis.lifecycleEvents.push(name));
+    }
+    controller.timings.standard = { rise: 250, hold: 150, return: 150 };
+    globalThis.cancelledActivation = controller.activate();
+  });
+  const route = await request;
+  await page.evaluate(() => {
+    const controller = globalThis.heliogenesis;
+    controller.reset();
+    globalThis.lifecycleEvents.length = 0;
+    controller.timings.standard = { rise: 1500, hold: 500, return: 500 };
+    globalThis.currentActivation = controller.activate();
+  });
+  await route.continue();
+
+  expect(await page.evaluate(() => Promise.all([
+    globalThis.cancelledActivation,
+    globalThis.currentActivation,
+  ]))).toEqual([false, true]);
+  await page.clock.runFor(600);
+  expect(await page.evaluate(() => globalThis.heliogenesis.state)).toBe("dawning");
+  expect(await page.evaluate(() => globalThis.lifecycleEvents)).toEqual([]);
+  await page.clock.runFor(1900);
+  expect(await page.evaluate(() => globalThis.lifecycleEvents)).toEqual(["radiant", "receding", "idle"]);
+  await expect(page.locator("#secondSun")).toBeEnabled();
+  expect(diagnostics.pageErrors).toEqual([]);
+  expect(diagnostics.consoleErrors).toEqual([]);
+});
+
+test("replacement activation reports its shared preparation failure", async ({ page }) => {
+  const diagnostics = await openExample(page);
+  const { request } = await holdSceneRequest(page);
+
+  await page.evaluate(() => {
+    const controller = globalThis.heliogenesis;
+    globalThis.pendingActivation = controller.activate();
+  });
+  const route = await request;
+  await page.evaluate(() => {
+    const controller = globalThis.heliogenesis;
+    controller.reset();
+    globalThis.lifecycleEvents = [];
+    for (const name of ["dawning", "idle", "unavailable"]) {
+      controller.addEventListener(`heliogenesis:${name}`, () => globalThis.lifecycleEvents.push(name));
+    }
+    globalThis.currentActivation = controller.activate();
+  });
+  await route.abort("failed");
+
+  expect(await page.evaluate(() => Promise.all([
+    globalThis.pendingActivation,
+    globalThis.currentActivation,
+  ]))).toEqual([false, false]);
+  expect(await page.evaluate(() => globalThis.lifecycleEvents)).toEqual(["dawning", "idle", "unavailable"]);
+  await expect(page.locator("#secondSun")).toBeDisabled();
+  await expect(page.locator("#secondSun")).toHaveAttribute("data-heliogenesis-unavailable", "");
+  await expect(page.locator("[data-heliogenesis-status]"))
+    .toHaveText("The visual event could not initialize in this browser.");
+  expect(diagnostics.pageErrors).toEqual([]);
+});
+
+test("reset ignores a pending activation failure", async ({ page }) => {
+  const diagnostics = await openExample(page);
+  const { request } = await holdSceneRequest(page);
+  await page.evaluate(() => {
+    globalThis.pendingActivation = globalThis.heliogenesis.activate();
+  });
+  const route = await request;
+  await page.evaluate(() => globalThis.heliogenesis.reset());
+  await route.abort("failed");
+
+  expect(await page.evaluate(() => globalThis.pendingActivation)).toBe(false);
+  await expect(page.locator("#secondSun")).toBeEnabled();
+  await expect(page.locator("#secondSun")).not.toHaveAttribute("data-heliogenesis-unavailable", "");
+  expect(await page.evaluate(() => globalThis.heliogenesis.state)).toBe("idle");
+  expect(diagnostics.pageErrors).toEqual([]);
+});
+
+for (const source of ["activate", "pointerenter", "focus"]) {
+  test(`destroy ignores pending ${source} preparation failure`, async ({ page }) => {
+    const diagnostics = await openExample(page);
+    const { request } = await holdSceneRequest(page);
+    await page.evaluate((preparationSource) => {
+      const controller = globalThis.heliogenesis;
+      globalThis.unavailableEvents = 0;
+      controller.addEventListener("heliogenesis:unavailable", () => globalThis.unavailableEvents++);
+      if (preparationSource === "activate") {
+        globalThis.pendingOperation = controller.activate();
+      } else {
+        controller.trigger.dispatchEvent(new Event(preparationSource));
+        globalThis.pendingOperation = controller.prepare().catch(() => null);
+      }
+    }, source);
+    const route = await request;
+    await page.evaluate(() => globalThis.heliogenesis.destroy());
+    await route.abort("failed");
+    await page.evaluate(() => globalThis.pendingOperation);
+
+    await expect(page.locator("#secondSun")).toBeEnabled();
+    await expect(page.locator("#secondSun")).not.toHaveAttribute("data-heliogenesis-unavailable", "");
+    await expect(page.locator("html")).not.toHaveAttribute("data-heliogenesis-state");
+    await expect(page.locator("[data-heliogenesis-environment]")).toHaveCount(0);
+    await expect(page.locator("[data-heliogenesis-status]")).toHaveCount(0);
+    expect(await page.evaluate(() => globalThis.unavailableEvents)).toBe(0);
+    expect(diagnostics.pageErrors).toEqual([]);
+  });
+}
+
+test("remount isolates pending preparation from the destroyed mount", async ({ page }) => {
+  const diagnostics = await openExample(page);
+  const { request } = await holdSceneRequest(page);
+  await page.evaluate(() => {
+    globalThis.oldPreparation = globalThis.heliogenesis.prepare();
+  });
+  const route = await request;
+  await page.evaluate(() => {
+    const controller = globalThis.heliogenesis;
+    controller.destroy();
+    controller.mount();
+    globalThis.newPreparation = controller.prepare();
+  });
+  await route.continue();
+
+  const prepared = await page.evaluate(async () => {
+    const oldScene = await globalThis.oldPreparation;
+    const newScene = await globalThis.newPreparation;
+    const controller = globalThis.heliogenesis;
+    return {
+      oldPreparationCancelled: oldScene === null,
+      newSceneReady: newScene !== null && newScene === controller.scene,
+      activated: await controller.activate(),
+    };
+  });
+  expect(prepared).toEqual({ oldPreparationCancelled: true, newSceneReady: true, activated: true });
+  await expect(page.locator("[data-heliogenesis-environment]")).toHaveCount(1);
+  await page.evaluate(() => globalThis.heliogenesis.destroy());
+  expect(diagnostics.pageErrors).toEqual([]);
+  expect(diagnostics.consoleErrors).toEqual([]);
+});
+
 for (const pageScale of [1, 1.5]) {
   test(`renders and resets the complete event at ${pageScale}x page scale`, async ({ page }) => {
     const diagnostics = await openExample(page, pageScale);
