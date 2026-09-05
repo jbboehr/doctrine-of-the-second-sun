@@ -115,6 +115,8 @@
               pkgs.mdbook
               pkgs.python3
               pkgs.watchexec
+              pkgs.php
+              pkgs.php.packages.composer
             ]
             ++ pkgs.lib.optionals pkgs.stdenv.isLinux [ akashi.packages.${system}.agent-badge ];
           };
