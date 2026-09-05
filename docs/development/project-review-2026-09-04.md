@@ -200,6 +200,31 @@ does not depend on those temporary files.
    satisfy the passage expression. Preserve the existing citation, allowed-book, and tag-count checks. Add tests for
    empty and whitespace-only passages in single-line and multiline comments, alongside valid single-line passages.
 
+   Implementation follow-up: the second slice removes the closing delimiter from the captured first passage line,
+   then rejects empty or whitespace-only content. The whitespace check recognizes Unicode spaces in UTF-8 text.
+   Citation matching remains byte-oriented, and only a positive whitespace match rejects the passage, preserving the
+   existing acceptance of nonempty non-UTF-8 bytes. Tag-count, citation-number, and allowed-book checks remain intact.
+
+   The [parser tests](../../integrations/phpstan/tests/LogionParserTest.php) cover nineteen cases. They check empty and
+   whitespace-only passages, both closing-delimiter layouts, text starting only on a later line, and valid single-line
+   and multiline passages. Three closing-delimiter cases returned `valid` before the fix and now return `malformed`.
+   Adversarial testing also exposed three Unicode whitespace cases: U+00A0 before the delimiter, with and without an
+   intervening ASCII space, and U+3000 on a multiline comment's citation line. All three failed before the whitespace
+   fix and now pass. Controls preserve passages consisting of a single `*` or `/`, text after Unicode whitespace,
+   and a nonempty non-UTF-8 byte string.
+
+   A new case in the
+   [extension integration test](../../integrations/phpstan/tests/ExtensionIntegrationTest.php) runs complete PHPStan
+   analysis against an empty command header and an empty declaration passage. Before the fix it exited successfully
+   with zero diagnostics. Afterward it exits with status `1` and reports `doctrine.logion.commandMalformed` and
+   `doctrine.logion.malformed`.
+
+   Verification used the updated dev shell with PHP 8.4.24 and PHPUnit 11.5.56. The focused parser and extension tests
+   passed 21 cases with 42 assertions. `composer test` passed 33 tests with 64 assertions and all four additional
+   PHPStan analyses. `composer cs`, `composer analyse`, `composer validate --strict`, and `nix flake check` also passed
+   on x86_64 Linux. Independent correctness review of the final fix found no additional defects. PHP 8.1 was not run
+   locally. The subsequent reviews found no actionable regressions, and the user approved this slice for commit.
+
 3. **P2: The coding guide contradicts the generation workflow**
 
    Sources: [coding guide, agent workflow](../../DOCTRINE-CODING-GUIDE.md#18-agent-workflow), especially steps 8-13,

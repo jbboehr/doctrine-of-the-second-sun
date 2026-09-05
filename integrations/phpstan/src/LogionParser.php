@@ -29,6 +29,7 @@ use PhpParser\Comment\Doc;
 use function array_fill_keys;
 use function array_keys;
 use function count;
+use function explode;
 use function preg_match;
 use function preg_match_all;
 use function sprintf;
@@ -69,6 +70,13 @@ final class LogionParser
         );
 
         if ($matched !== 1) {
+            return LogionInspection::malformed();
+        }
+
+        // The closing delimiter cannot serve as passage text on the citation line.
+        $passage = explode('*/', $parts[4], 2)[0];
+        // Reject Unicode blanks without requiring other passage text to be valid UTF-8.
+        if (preg_match('~(*UCP)\A\s*\z~u', $passage) === 1) {
             return LogionInspection::malformed();
         }
 

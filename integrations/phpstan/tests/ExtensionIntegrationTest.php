@@ -25,6 +25,7 @@ declare(strict_types=1);
 namespace DoctrineOfTheSecondSun\PHPStan\Tests;
 
 use JsonException;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 use function dirname;
@@ -39,15 +40,19 @@ use function stream_get_contents;
 
 final class ExtensionIntegrationTest extends TestCase
 {
-    /** @throws JsonException */
-    public function testExtensionWiringReportsDuplicateReferences(): void
+    /**
+     * @param list<string> $expectedIdentifiers
+     * @throws JsonException
+     */
+    #[DataProvider('integrationCases')]
+    public function testExtensionWiringReportsViolations(string $configuration, array $expectedIdentifiers): void
     {
         $root = dirname(__DIR__, 3);
         $command = [
             PHP_BINARY,
             $root . '/vendor/bin/phpstan',
             'analyse',
-            '--configuration=' . __DIR__ . '/duplicate-integration.neon',
+            '--configuration=' . __DIR__ . '/' . $configuration,
             '--error-format=json',
             '--no-progress',
         ];
@@ -82,10 +87,22 @@ final class ExtensionIntegrationTest extends TestCase
 
         self::assertSame(1, $exitCode, $stderr !== '' ? $stderr : $stdout);
 
-        self::assertSame([
-            'doctrine.logion.duplicate',
-            'doctrine.logion.duplicate',
-        ], self::decodeIdentifiers($stdout));
+        self::assertSame($expectedIdentifiers, self::decodeIdentifiers($stdout));
+    }
+
+    /** @return array<string, array{string, list<string>}> */
+    public static function integrationCases(): array
+    {
+        return [
+            'duplicate references' => [
+                'duplicate-integration.neon',
+                ['doctrine.logion.duplicate', 'doctrine.logion.duplicate'],
+            ],
+            'empty passages' => [
+                'empty-passage-integration.neon',
+                ['doctrine.logion.commandMalformed', 'doctrine.logion.malformed'],
+            ],
+        ];
     }
 
     /**
