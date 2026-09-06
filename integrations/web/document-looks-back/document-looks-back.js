@@ -565,7 +565,17 @@ export class DocumentLooksBack {
     }, delay);
   }
 
-  visibleBounds(element) {
+  computedStyle(element, measurements) {
+    if (!measurements) return this.window.getComputedStyle(element);
+    if (!measurements.styles.has(element)) {
+      measurements.styles.set(element, this.window.getComputedStyle(element));
+    }
+    return measurements.styles.get(element);
+  }
+
+  visibleBounds(element, measurements) {
+    const cached = measurements?.bounds.get(element);
+    if (cached) return cached;
     const viewport = this.window.visualViewport;
     const bounds = {
       bottom: viewport ? viewport.offsetTop + viewport.height : this.window.innerHeight,
@@ -575,11 +585,15 @@ export class DocumentLooksBack {
     };
     let ancestor = element;
     while (ancestor) {
-      const overflow = this.window.getComputedStyle(ancestor);
+      const overflow = this.computedStyle(ancestor, measurements);
       if ([overflow.overflow, overflow.overflowX, overflow.overflowY].some(value =>
         ["auto", "clip", "hidden", "scroll"].includes(value)
       )) {
-        const rect = ancestor.getBoundingClientRect();
+        let rect = measurements?.rects.get(ancestor);
+        if (!rect) {
+          rect = ancestor.getBoundingClientRect();
+          measurements?.rects.set(ancestor, rect);
+        }
         bounds.left = Math.max(bounds.left, rect.left);
         bounds.top = Math.max(bounds.top, rect.top);
         bounds.right = Math.min(bounds.right, rect.right);
@@ -587,35 +601,42 @@ export class DocumentLooksBack {
       }
       ancestor = ancestor.parentElement;
     }
+    measurements?.bounds.set(element, bounds);
     return bounds;
   }
 
-  hasVisiblePaint(element) {
+  hasVisiblePaint(element, measurements) {
+    const cached = measurements?.paint.get(element);
+    if (cached !== undefined) return cached;
     let ancestor = element;
     while (ancestor) {
-      const computed = this.window.getComputedStyle(ancestor);
+      const computed = this.computedStyle(ancestor, measurements);
       if (
         computed.display === "none" ||
         computed.visibility === "hidden" ||
         computed.visibility === "collapse" ||
         computed.contentVisibility === "hidden" ||
         Number.parseFloat(computed.opacity) <= 0
-      ) return false;
+      ) {
+        measurements?.paint.set(element, false);
+        return false;
+      }
       ancestor = ancestor.parentElement;
     }
+    measurements?.paint.set(element, true);
     return true;
   }
 
-  intersectsVisibleBounds(rect, element) {
-    if (rect.width <= 0 || rect.height <= 0 || !element || !this.hasVisiblePaint(element)) return false;
-    const bounds = this.visibleBounds(element);
+  intersectsVisibleBounds(rect, element, measurements) {
+    if (rect.width <= 0 || rect.height <= 0 || !element || !this.hasVisiblePaint(element, measurements)) return false;
+    const bounds = this.visibleBounds(element, measurements);
     return Math.min(rect.right, bounds.right) > Math.max(rect.left, bounds.left) &&
       Math.min(rect.bottom, bounds.bottom) > Math.max(rect.top, bounds.top);
   }
 
-  isVisible(rect, element, minimumCoverage = 0.82) {
-    if (!this.intersectsVisibleBounds(rect, element)) return false;
-    const bounds = this.visibleBounds(element);
+  isVisible(rect, element, minimumCoverage = 0.82, measurements) {
+    if (!this.intersectsVisibleBounds(rect, element, measurements)) return false;
+    const bounds = this.visibleBounds(element, measurements);
     const width = Math.max(0, Math.min(rect.right, bounds.right) - Math.max(rect.left, bounds.left));
     const height = Math.max(0, Math.min(rect.bottom, bounds.bottom) - Math.max(rect.top, bounds.top));
     if (width * height / (rect.width * rect.height) < minimumCoverage) return false;
@@ -638,11 +659,11 @@ export class DocumentLooksBack {
     return Boolean(this.excludeSelector && element?.closest(this.excludeSelector));
   }
 
-  transformedGlyph(node, index) {
+  transformedGlyph(node, index, measurements) {
     const element = node.parentElement;
     if (!element) return null;
     const source = node.data[index];
-    const transform = this.window.getComputedStyle(element).textTransform;
+    const transform = this.computedStyle(element, measurements).textTransform;
     const locale = element.closest("[lang]")?.lang || this.document.documentElement.lang || undefined;
     let glyph = source;
 
@@ -654,7 +675,7 @@ export class DocumentLooksBack {
       let scope = element;
       while (
         scope.parentElement &&
-        this.window.getComputedStyle(scope.parentElement).textTransform === transform
+        this.computedStyle(scope.parentElement, measurements).textTransform === transform
       ) scope = scope.parentElement;
 
       const prefix = this.document.createRange();
@@ -676,11 +697,15 @@ export class DocumentLooksBack {
 
   findCandidates() {
     const candidates = [];
+    // Reuse measurements only within this synchronous scan.
+    const measurements = { styles: new Map(), rects: new Map(), bounds: new Map(), paint: new Map() };
     const occupied = new Set([...this.activeEyes].map(active =>
       `${this.nodeIds.get(active.candidate.node)}:${active.candidate.index}`
     ));
     for (const element of this.watchableElements()) {
-      if (!this.intersectsVisibleBounds(element.getBoundingClientRect(), element)) continue;
+      const rect = element.getBoundingClientRect();
+      measurements.rects.set(element, rect);
+      if (!this.intersectsVisibleBounds(rect, element, measurements)) continue;
       const walker = this.document.createTreeWalker(element, this.window.NodeFilter.SHOW_TEXT);
       let node;
       while ((node = walker.nextNode())) {
@@ -689,14 +714,17 @@ export class DocumentLooksBack {
         GLYPH_PATTERN.lastIndex = 0;
         let match;
         while ((match = GLYPH_PATTERN.exec(node.data))) {
-          const glyph = this.transformedGlyph(node, match.index);
+          const glyph = this.transformedGlyph(node, match.index, measurements);
           if (!glyph) continue;
           const range = this.document.createRange();
           range.setStart(node, match.index);
           range.setEnd(node, match.index + 1);
           const rect = range.getBoundingClientRect();
           const key = `${this.nodeIds.get(node)}:${match.index}`;
-          if (!occupied.has(key) && this.isVisible(rect, node.parentElement) && rect.width >= 4 && rect.height >= 8) {
+          if (
+            !occupied.has(key) && this.isVisible(rect, node.parentElement, undefined, measurements) &&
+            rect.width >= 4 && rect.height >= 8
+          ) {
             candidates.push({ glyph, node, index: match.index, rect });
           }
           range.detach();

@@ -297,6 +297,128 @@ test("reuses one discovery pass when a glyph fails on a long document", async ({
   expect(diagnostics).toEqual({ consoleErrors: [], pageErrors: [], externalRequests: [] });
 });
 
+test("bounds style and clipping measurements within one discovery pass", async ({ page }) => {
+  await openExample(page);
+  await page.evaluate(() => {
+    const clip = document.createElement("div");
+    clip.id = "measurement-clip";
+    clip.style.cssText = [
+      "position:fixed", "left:20px", "top:160px", "width:1000px", "height:80px",
+      "overflow:hidden", "font:20px monospace", "white-space:nowrap", "z-index:1000",
+    ].join(";");
+    clip.innerHTML = `<div id="measurement-target"><span>${"o".repeat(40)}</span><span>${"o".repeat(40)}</span></div>`;
+    document.body.append(clip);
+  });
+  await configure(page, { frequency: 0, selector: "#measurement-target" });
+
+  const result = await page.evaluate(() => {
+    const styles = new Map();
+    const clip = document.getElementById("measurement-clip");
+    const computedStyle = window.getComputedStyle;
+    const boundingRect = Element.prototype.getBoundingClientRect;
+    let clipReads = 0;
+    window.getComputedStyle = function (element, ...args) {
+      styles.set(element, (styles.get(element) || 0) + 1);
+      return computedStyle.call(this, element, ...args);
+    };
+    Element.prototype.getBoundingClientRect = function (...args) {
+      if (this === clip) clipReads += 1;
+      return boundingRect.apply(this, args);
+    };
+    try {
+      const candidates = globalThis.documentLooksBack.findCandidates();
+      return {
+        glyphs: candidates.map(candidate => candidate.glyph).join(""),
+        maximumStyleReads: Math.max(...styles.values()),
+        clipReads,
+      };
+    } finally {
+      window.getComputedStyle = computedStyle;
+      Element.prototype.getBoundingClientRect = boundingRect;
+    }
+  });
+
+  expect(result.glyphs).toBe("o".repeat(80));
+  expect(result.maximumStyleReads).toBe(1);
+  expect(result.clipReads).toBe(1);
+});
+
+test("measures a clipping watchable element once per discovery pass", async ({ page }) => {
+  await openExample(page);
+  await page.evaluate(() => {
+    const target = document.createElement("div");
+    target.id = "self-clipping-target";
+    target.style.cssText = [
+      "position:fixed", "left:20px", "top:160px", "width:1000px", "height:80px",
+      "overflow:hidden", "font:20px monospace", "white-space:nowrap", "z-index:1000",
+    ].join(";");
+    target.textContent = "o".repeat(80);
+    document.body.append(target);
+  });
+  await configure(page, { frequency: 0, selector: "#self-clipping-target" });
+
+  const result = await page.evaluate(() => {
+    const target = document.getElementById("self-clipping-target");
+    const boundingRect = Element.prototype.getBoundingClientRect;
+    let targetReads = 0;
+    Element.prototype.getBoundingClientRect = function (...args) {
+      if (this === target) targetReads += 1;
+      return boundingRect.apply(this, args);
+    };
+    try {
+      const candidates = globalThis.documentLooksBack.findCandidates();
+      return {
+        glyphs: candidates.map(candidate => candidate.glyph).join(""),
+        targetReads,
+      };
+    } finally {
+      Element.prototype.getBoundingClientRect = boundingRect;
+    }
+  });
+
+  expect(result.glyphs).toBe("o".repeat(80));
+  expect(result.targetReads).toBe(1);
+});
+
+test("refreshes style and clipping measurements between discovery passes", async ({ page }) => {
+  await openExample(page);
+  await page.evaluate(() => {
+    const clip = document.createElement("div");
+    clip.id = "changing-clip";
+    clip.style.cssText = [
+      "position:fixed", "left:200px", "top:160px", "width:200px", "height:100px",
+      "overflow:hidden", "font:48px Georgia", "z-index:1000",
+    ].join(";");
+    clip.innerHTML = '<span id="measured-glyph">o</span>';
+    document.body.append(clip);
+  });
+  await configure(page, { frequency: 0, selector: "#measured-glyph" });
+
+  const observations = await page.evaluate(() => {
+    const controller = globalThis.documentLooksBack;
+    const clip = document.getElementById("changing-clip");
+    const target = document.getElementById("measured-glyph");
+    const scan = () => controller.findCandidates().map(candidate => candidate.glyph);
+    const results = [scan()];
+    clip.style.opacity = "0";
+    results.push(scan());
+    clip.style.opacity = "1";
+    target.style.textTransform = "uppercase";
+    results.push(scan());
+    clip.style.width = "1px";
+    results.push(scan());
+    clip.style.width = "200px";
+    clip.style.left = "-300px";
+    results.push(scan());
+    clip.style.left = "200px";
+    target.style.textTransform = "none";
+    results.push(scan());
+    return results;
+  });
+
+  expect(observations).toEqual([["o"], [], ["O"], [], [], ["o"]]);
+});
+
 test("allows the fourteenth distinct glyph signature after thirteen preparation failures", async ({ page }) => {
   await openExample(page);
   await addRetryCandidates(page);

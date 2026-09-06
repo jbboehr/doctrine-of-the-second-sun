@@ -391,6 +391,57 @@ does not depend on those temporary files.
    after the fix. Per-character traversal, repeated style reads within that pass, and earlier offscreen pruning remain
    opportunities for a separate optimization slice.
 
+   **Ninth remediation slice, 2026-09-05:** `findCandidates()` now keeps computed styles, clipping rectangles,
+   visibility bounds, and paint checks in maps local to that synchronous call. Later scans start with fresh maps.
+   Per-glyph range measurements and occlusion checks continue to run for each candidate, and final placement checks
+   read current styles and geometry without using the discovery maps.
+
+   A profile of the same 75,000-character, 200-span workload counted 202,978 computed-style reads and 23,245 element
+   rectangle reads before this change. The corresponding profile after the change counted 203 style reads and one
+   element rectangle read. Both performed 22,000 glyph-range measurements and 1,221 hit tests.
+
+   The new measurement-budget regression found 242 reads of a shared element's style before the change, against
+   a budget of one read per element in a scan. It now passes, along with a control that changes ancestor opacity,
+   text transformation, clipping width, and position between successive scans. Existing coverage also checks final
+   visibility after appending a canvas, occupied glyphs, later summons, and scrolling.
+
+   The independent correctness review found no actionable defects. The adversarial test review demonstrated one
+   missed optimization: a watched element that also clips its text had its rectangle measured twice. A retained
+   regression preserved all 80 expected candidates but failed its one-read budget. Recording the initial watchable
+   rectangle in the scan's map fixed the duplicate read, and the regression now passes. No static findings remain
+   open in this slice.
+
+   The comparison used captured before/after sources from revision `26b29c9` and the working tree. Three paired
+   trials per browser mode alternated their order and used fresh pages at 1280 × 800. Every trial returned the same
+   1,221 candidates. Hashes of the complete ordered node IDs, text offsets, glyphs, and rectangles matched in all
+   twelve trials. Each summon still performed one discovery pass and one preparation attempt.
+
+   | Browser mode | Scan before | Scan after | Queued callback before | Queued callback after |
+   | --- | --- | --- | --- | --- |
+   | Chromium software WebGL | 244.0-271.8 ms | 68.6-89.6 ms | 281.2-307.5 ms | 107.8-128.8 ms |
+   | Chromium with WebGL disabled | 242.1-258.3 ms | 67.8-78.9 ms | 249.1-265.8 ms | 74.8-87.1 ms |
+
+   These measurements show a 70-72% reduction in median scan time for this workload. An earlier unpaired baseline
+   ranged from 386.9 to 438.5 ms; a paired run before the review fix measured 222.3-231.6 ms before and 62.8-66.2 ms
+   after optimization. The table records the final paired run, including the review fix, to account for that timing
+   variation.
+   The scripts, captured sources, profiles, and raw results are retained as `slice-9-*` under
+   `tmp/project-review-2026-09-04/`. Timing is not asserted as a machine-dependent CI threshold.
+
+   The three focused cases and all 25 Document Looks Back browser tests passed with `CI=1` and retries disabled:
+   `CI=1 nix run .#test-document-looks-back -- --retries=0`.
+   JavaScript syntax checks, `nix develop --command composer validate --strict`,
+   `nix develop --command bash docs/build.sh`, and `nix flake check --print-build-logs` also passed, including six
+   link-checker tests and installed-package and rendered-documentation link checks. All 18 relative report links and
+   anchors resolve; added prose was checked for stale terminology and the complete diff was reviewed.
+
+   Verification used Chromium 151.0.7922.75 with software WebGL and the suite's Firefox fallback case on x86_64 Linux.
+   Hardware GPUs, WebKit, and discovery in other browsers and platforms remain unverified. A scan still takes about
+   68-90 ms in this workload, and reducing per-character traversal remains a possible later slice. The reliability
+   verdict is **PASS_WITH_RESIDUAL_RISK** for those verification limits.
+   Subsequent review found no actionable regressions and passed an additional before/after cache-isolation check.
+   The user approved this slice for commit.
+
 5. **P3: The Nix package contains a broken documentation link**
 
    Sources: [flake.nix](../../flake.nix), default package installation at lines 41-51, and the
