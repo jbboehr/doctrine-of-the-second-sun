@@ -613,7 +613,36 @@ invocations:
 | 5 | Unset | 0 | 0 | Cache invalidated because `metaExtensions` differed |
 | 6 | Unset | 0 | 0 | Cache restored, zero files reanalysed |
 
-This experiment confirmed correct cache invalidation for the tested sequence. Retaining it as an integration test
-would address a coverage gap, not a reproduced cache defect. The current
-[runtime-switch test](../../integrations/phpstan/tests/RuntimeSwitchTest.php) checks the switch and metadata hash
-directly, so the committed suite does not yet preserve this stronger verification.
+This experiment confirmed correct cache invalidation for the tested sequence and identified a coverage gap. At the
+reviewed revision, the
+[runtime-switch test](../../integrations/phpstan/tests/RuntimeSwitchTest.php) checked the switch and metadata hash
+directly without running cached analyses.
+
+**Eighth remediation slice, 2026-09-05:** The
+[extension integration test](../../integrations/phpstan/tests/ExtensionIntegrationTest.php) now retains the six-run
+cache experiment. It copies the existing duplicate-reference fixture into a temporary source directory and uses one
+unchanged configuration and cache directory across all six PHPStan processes. Each enforcement state is analysed
+twice before changing to the next state: disabled, enabled, then disabled again. The assertions check exit codes,
+duplicate diagnostic identifiers, invalidation after each change, and cache restoration with zero files reanalysed
+on repeated runs. Cache reuse is observed through PHPStan's verbose diagnostics.
+
+The test supplies the enforcement variable in each child process's environment without changing the parent process.
+Its temporary source and cache files are removed in `finally`. The existing process runner and diagnostic decoder
+are shared with the other extension integration cases.
+
+The focused test passed with 22 assertions. Two isolated mutation experiments confirmed that it detects broken
+invalidation and missing cache reuse. Removing the extension's `phpstan.resultCacheMetaExtension` registration caused
+the enabled run to restore disabled results and return status `0` instead of `1`. Clearing the cache before every
+analysis failed the cache-restoration assertion on the second run. The unchanged control passed, and temporary
+directories were empty after both passing and failing tests. The probe and outputs are retained as
+`tmp/project-review-2026-09-04/cache-integration-controls.py` and `cache-integration-controls.json`.
+
+Two concurrent focused runs also passed with the parent enforcement variable set to `on` and `off`, confirming that
+the test controls its own environment and uses independent cache directories. `composer test` passed 34 tests with
+86 assertions and all four additional PHPStan analyses. `composer cs` and `composer analyse` passed.
+`composer validate --strict` and `nix flake check --print-build-logs` also passed, including the package and
+rendered-documentation link checks.
+
+Verification used PHP 8.4.24, PHPStan 2.2.8, and PHPUnit 11.5.56 on x86_64 Linux. PHP 8.1 and other platforms remain
+unverified. This slice changes test coverage only. Subsequent review found no actionable regressions, and the user
+approved this slice for commit.

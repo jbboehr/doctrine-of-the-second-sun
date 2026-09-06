@@ -24,19 +24,30 @@ declare(strict_types=1);
 
 namespace DoctrineOfTheSecondSun\PHPStan\Tests;
 
+use DirectoryIterator;
 use JsonException;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
+use function bin2hex;
+use function copy;
 use function dirname;
 use function fclose;
+use function file_put_contents;
+use function getenv;
 use function is_array;
 use function is_resource;
 use function is_string;
 use function json_decode;
+use function json_encode;
+use function mkdir;
 use function proc_close;
 use function proc_open;
+use function random_bytes;
+use function rmdir;
 use function stream_get_contents;
+use function sys_get_temp_dir;
+use function unlink;
 
 final class ExtensionIntegrationTest extends TestCase
 {
@@ -47,14 +58,73 @@ final class ExtensionIntegrationTest extends TestCase
     #[DataProvider('integrationCases')]
     public function testExtensionWiringReportsViolations(string $configuration, array $expectedIdentifiers): void
     {
+        [$exitCode, $stdout, $stderr] = self::runAnalysis(__DIR__ . '/' . $configuration);
+
+        self::assertSame(1, $exitCode, $stderr !== '' ? $stderr : $stdout);
+        self::assertSame($expectedIdentifiers, self::decodeIdentifiers($stdout));
+    }
+
+    /** @throws JsonException */
+    public function testResultCacheTracksEnvironmentEnforcement(): void
+    {
+        $temporary = sys_get_temp_dir() . '/doctrine-result-cache-' . bin2hex(random_bytes(8));
+        self::assertTrue(mkdir($temporary, 0700));
+
+        try {
+            self::assertTrue(mkdir($temporary . '/sources'));
+            self::assertTrue(copy(__DIR__ . '/data/duplicate-references.php', $temporary . '/sources/fixture.php'));
+            // NEON accepts JSON, whose encoding preserves quotes and backslashes in absolute paths.
+            $configuration = json_encode([
+                'includes' => [dirname(__DIR__) . '/extension.neon'],
+                'parameters' => [
+                    'level' => 0,
+                    'paths' => [$temporary . '/sources'],
+                    'tmpDir' => $temporary . '/cache',
+                ],
+            ], JSON_THROW_ON_ERROR);
+            self::assertNotFalse(file_put_contents($temporary . '/phpstan.neon', $configuration));
+
+            $environment = getenv();
+            foreach ([false, true, false] as $enabled) {
+                unset($environment['DOCTRINE_LOGION']);
+                if ($enabled) {
+                    $environment['DOCTRINE_LOGION'] = '1';
+                }
+
+                foreach ([false, true] as $reuse) {
+                    [$exitCode, $stdout, $stderr] = self::runAnalysis($temporary . '/phpstan.neon', $environment);
+                    self::assertSame($enabled ? 1 : 0, $exitCode, $stderr !== '' ? $stderr : $stdout);
+                    self::assertSame(
+                        $enabled ? ['doctrine.logion.duplicate', 'doctrine.logion.duplicate'] : [],
+                        self::decodeIdentifiers($stdout),
+                    );
+                    self::assertStringContainsString(
+                        $reuse ? 'Result cache restored. 0 files will be reanalysed.' : 'Result cache not used',
+                        $stderr,
+                    );
+                }
+            }
+        } finally {
+            self::removeDirectory($temporary);
+        }
+    }
+
+    /**
+     * @param array<string, string>|null $environment
+     * @return array{int, string, string}
+     */
+    private static function runAnalysis(string $configuration, ?array $environment = null): array
+    {
         $root = dirname(__DIR__, 3);
         $command = [
             PHP_BINARY,
             $root . '/vendor/bin/phpstan',
             'analyse',
-            '--configuration=' . __DIR__ . '/' . $configuration,
+            '--configuration=' . $configuration,
             '--error-format=json',
             '--no-progress',
+            '--no-ansi',
+            '-vv',
         ];
         $descriptorSpec = [
             0 => ['pipe', 'r'],
@@ -62,7 +132,7 @@ final class ExtensionIntegrationTest extends TestCase
             2 => ['pipe', 'w'],
         ];
         $pipes = [];
-        $process = proc_open($command, $descriptorSpec, $pipes, $root);
+        $process = proc_open($command, $descriptorSpec, $pipes, $root, $environment);
         if (!is_resource($process)) {
             self::fail('Could not start PHPStan for the extension integration test.');
         }
@@ -85,9 +155,24 @@ final class ExtensionIntegrationTest extends TestCase
             self::fail('Could not read PHPStan output for the extension integration test.');
         }
 
-        self::assertSame(1, $exitCode, $stderr !== '' ? $stderr : $stdout);
+        return [$exitCode, $stdout, $stderr];
+    }
 
-        self::assertSame($expectedIdentifiers, self::decodeIdentifiers($stdout));
+    private static function removeDirectory(string $directory): void
+    {
+        foreach (new DirectoryIterator($directory) as $file) {
+            if ($file->isDot()) {
+                continue;
+            }
+
+            if ($file->isDir() && !$file->isLink()) {
+                self::removeDirectory($file->getPathname());
+            } else {
+                unlink($file->getPathname());
+            }
+        }
+
+        rmdir($directory);
     }
 
     /** @return array<string, array{string, list<string>}> */
