@@ -442,6 +442,61 @@ does not depend on those temporary files.
    Subsequent review found no actionable regressions and passed an additional before/after cache-isolation check.
    The user approved this slice for commit.
 
+   **Tenth remediation slice, 2026-09-05:** Discovery now checks the complete range of text nodes with eligible glyphs
+   before enumerating individual glyphs. Nodes outside the effective viewport or ancestor clipping bounds are skipped.
+   Partly visible nodes retain the existing per-glyph checks. The prefilter uses text geometry, allowing visible text
+   to overflow an intermediate parent with no area. It retains the existing node IDs and measures text on every scan.
+
+   Two regression cases each performed 2,000 unnecessary individual glyph measurements before the change: one for
+   text beyond the viewport and one for text inside the viewport but outside its clipping ancestor. Both now perform
+   zero individual measurements for that text while preserving the four visible candidates. Two characterization
+   cases passed before and after the change: a partly visible multiline node responds to scrolling, resizing, and
+   movement, and text overflowing a zero-area parent remains discoverable.
+
+   Additional profiling caught unnecessary geometry reads for text without eligible glyphs. A 200-span workload
+   containing only `x` increased from zero to 200 range measurements in the initial implementation. A cheap glyph
+   eligibility check now runs before geometry, restoring zero range measurements and three computed-style reads.
+   Its regression first failed with one unnecessary measurement, then passed while retaining all four glyphs in a
+   following text node. Resetting the shared regular expression before both checks preserves the first match.
+
+   A profile of the 75,000-character, 200-span workload counted 22,000 range measurements before and 1,520 after,
+   including the new whole-text measurements. Both profiles found 1,221 candidates and performed 1,221 hit tests,
+   203 computed-style reads, and one element-rectangle read.
+
+   Three paired trials per browser mode alternated before/after order on fresh 1280 × 800 pages. The sources were
+   captured from revision `36638ac` and the working tree. The complete ordered candidate IDs, text offsets, glyphs,
+   and rectangles produced identical hashes in all twelve trials. Each summon used one scan and one preparation
+   attempt.
+
+   | Browser mode | Scan before | Scan after | Queued callback before | Queued callback after |
+   | --- | --- | --- | --- | --- |
+   | Chromium software WebGL | 63.7-67.2 ms | 20.0-23.4 ms | 93.3-99.2 ms | 39.8-60.0 ms |
+   | Chromium with WebGL disabled | 67.1-68.9 ms | 20.2-23.6 ms | 73.7-75.0 ms | 25.4-30.1 ms |
+
+   Median scan time fell by about 66% for this workload. A separate twelve-trial control placed all 75,000 characters
+   in one text node. Its 1,539 candidates matched before and after, but scan time remained similar: 115.2-129.7 ms
+   before and 114.9-120.8 ms after across both browser modes. Whole-node pruning does not avoid scanning the offscreen
+   portion of a node that intersects the viewport. That remains a limit of this optimization.
+
+   The scripts, captured sources, profiles, and raw results are retained as `slice-10-*` under
+   `tmp/project-review-2026-09-04/`. Timing remains experimental evidence rather than a CI threshold.
+
+   Independent correctness and adversarial test reviews found no candidate-selection defects. A differential layout
+   probe rerun against the final source found the same 114 candidates, in the same order, across layouts with
+   transforms, vertical or bidirectional text, multiple columns, ruby, SVG text paths, and overflowing text.
+   No static findings remain open. The five focused cases and all 30 browser tests passed with retries disabled:
+   `CI=1 nix run .#test-document-looks-back -- --retries=0`.
+   JavaScript syntax checks, `nix develop --command composer validate --strict`,
+   `nix develop --command bash docs/build.sh`, and `nix flake check --print-build-logs` also passed, including six
+   checker tests and package and rendered-documentation link checks. The report's 18 relative links and anchors,
+   added terminology, and complete diff were checked.
+
+   Verification used Chromium 151.0.7922.75 with software WebGL and the Firefox fallback case on x86_64 Linux.
+   Hardware GPUs, WebKit, and discovery in other browsers and platforms remain unverified. The reliability verdict
+   is **PASS_WITH_RESIDUAL_RISK** for these limits and the remaining cost of partly visible long text nodes.
+   Subsequent review found no actionable regressions and passed 209 before/after discovery comparisons alongside
+   the full browser suite and repository checks. The user approved this slice for commit.
+
 5. **P3: The Nix package contains a broken documentation link**
 
    Sources: [flake.nix](../../flake.nix), default package installation at lines 41-51, and the

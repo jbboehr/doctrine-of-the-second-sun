@@ -246,6 +246,133 @@ test("scans visible glyphs in containers much taller than the viewport", async (
   expect(await page.evaluate(() => globalThis.documentLooksBack.summon())).toBe(true);
 });
 
+for (const [boundary, top, overflow] of [["viewport", 1200, "visible"], ["clipping ancestor", 200, "hidden"]]) {
+  test(`skips individual glyph measurements for text outside the ${boundary}`, async ({ page }) => {
+    await openExample(page);
+    await page.evaluate(({ top, overflow }) => {
+      const target = document.createElement("div");
+      target.id = "pruned-text";
+      target.style.cssText = [
+        "position:fixed", "left:20px", "top:160px", "width:1000px", "height:120px",
+        "font:20px monospace", "white-space:nowrap", "z-index:1000", `overflow:${overflow}`,
+      ].join(";");
+      target.innerHTML = '<span>oooo</span><span id="offscreen-text"></span>';
+      const offscreen = target.lastElementChild;
+      offscreen.style.cssText = `position:absolute;left:0;top:${top}px`;
+      offscreen.textContent = "o".repeat(2000);
+      document.body.append(target);
+    }, { top, overflow });
+    await configure(page, { frequency: 0, selector: "#pruned-text" });
+
+    const result = await page.evaluate(() => {
+      const offscreen = document.getElementById("offscreen-text").firstChild;
+      const boundingRect = Range.prototype.getBoundingClientRect;
+      let offscreenGlyphReads = 0;
+      Range.prototype.getBoundingClientRect = function (...args) {
+        if (
+          this.startContainer === offscreen && this.endContainer === offscreen &&
+          this.endOffset - this.startOffset === 1
+        ) offscreenGlyphReads += 1;
+        return boundingRect.apply(this, args);
+      };
+      try {
+        const candidates = globalThis.documentLooksBack.findCandidates();
+        return { glyphs: candidates.map(candidate => candidate.glyph).join(""), offscreenGlyphReads };
+      } finally {
+        Range.prototype.getBoundingClientRect = boundingRect;
+      }
+    });
+
+    expect(result.glyphs).toBe("oooo");
+    expect(result.offscreenGlyphReads).toBe(0);
+  });
+}
+
+test("skips geometry for counter-free text before eligible glyphs", async ({ page }) => {
+  await openExample(page);
+  await page.evaluate(() => {
+    const target = document.createElement("div");
+    target.id = "counter-free-text";
+    target.style.cssText = [
+      "position:fixed", "left:120px", "top:160px", "width:200px", "height:80px",
+      "overflow:hidden", "font:20px/40px monospace", "white-space:nowrap", "z-index:1000",
+    ].join(";");
+    target.innerHTML = '<span style="display:block"></span><span>oab8</span>';
+    target.firstElementChild.textContent = "xyz".repeat(125);
+    document.body.append(target);
+  });
+  await configure(page, { frequency: 0, selector: "#counter-free-text" });
+
+  const result = await page.evaluate(() => {
+    const counterFree = document.getElementById("counter-free-text").firstElementChild.firstChild;
+    const boundingRect = Range.prototype.getBoundingClientRect;
+    let counterFreeReads = 0;
+    Range.prototype.getBoundingClientRect = function (...args) {
+      if (this.startContainer === counterFree && this.endContainer === counterFree) counterFreeReads += 1;
+      return boundingRect.apply(this, args);
+    };
+    try {
+      const candidates = globalThis.documentLooksBack.findCandidates();
+      return { indexes: candidates.map(candidate => candidate.index), counterFreeReads };
+    } finally {
+      Range.prototype.getBoundingClientRect = boundingRect;
+    }
+  });
+
+  expect(result).toEqual({ indexes: [0, 1, 2, 3], counterFreeReads: 0 });
+});
+
+test("keeps the visible portion of a text node as clipping and scroll change", async ({ page }) => {
+  await openExample(page);
+  await page.evaluate(() => {
+    const target = document.createElement("div");
+    target.id = "partly-visible-text";
+    target.style.cssText = [
+      "position:fixed", "left:120px", "top:160px", "width:200px", "height:80px",
+      "overflow:hidden", "font:20px/40px monospace", "white-space:pre", "z-index:1000",
+    ].join(";");
+    target.textContent = "o\n".repeat(30);
+    document.body.append(target);
+  });
+  await configure(page, { frequency: 0, selector: "#partly-visible-text" });
+
+  const observations = await page.evaluate(() => {
+    const target = document.getElementById("partly-visible-text");
+    const scan = () => globalThis.documentLooksBack.findCandidates().map(candidate => candidate.index);
+    const results = [scan()];
+    target.scrollTop = 40;
+    results.push(scan());
+    target.style.height = "40px";
+    results.push(scan());
+    target.style.top = "1200px";
+    results.push(scan());
+    target.style.top = "160px";
+    target.scrollTop = 0;
+    results.push(scan());
+    return results;
+  });
+
+  expect(observations).toEqual([[0, 2], [2, 4], [2], [], [0]]);
+});
+
+test("keeps visible text overflowing a parent with no area", async ({ page }) => {
+  await openExample(page);
+  await page.evaluate(() => {
+    const target = document.createElement("div");
+    target.id = "overflowing-text";
+    target.style.cssText = [
+      "position:fixed", "left:120px", "top:160px", "width:200px", "height:80px",
+      "font:20px monospace", "z-index:1000",
+    ].join(";");
+    target.innerHTML = '<span style="display:block;width:0;height:0;white-space:nowrap">oooo</span>';
+    document.body.append(target);
+  });
+  await configure(page, { frequency: 0, selector: "#overflowing-text" });
+
+  expect(await page.evaluate(() => globalThis.documentLooksBack.findCandidates().map(candidate => candidate.index)))
+    .toEqual([0, 1, 2, 3]);
+});
+
 test("reuses one discovery pass when a glyph fails on a long document", async ({ page }) => {
   const diagnostics = await openExample(page);
   await page.evaluate(() => {

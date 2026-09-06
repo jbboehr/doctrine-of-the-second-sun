@@ -712,6 +712,14 @@ export class DocumentLooksBack {
         if (this.isExcluded(node.parentElement)) continue;
         if (!this.nodeIds.has(node)) this.nodeIds.set(node, this.nextNodeId++);
         GLYPH_PATTERN.lastIndex = 0;
+        if (!GLYPH_PATTERN.test(node.data)) continue;
+        // Text can be offscreen even when its matching container intersects the viewport.
+        const textRange = this.document.createRange();
+        textRange.selectNodeContents(node);
+        const textRect = textRange.getBoundingClientRect();
+        textRange.detach();
+        if (!this.intersectsVisibleBounds(textRect, node.parentElement, measurements)) continue;
+        GLYPH_PATTERN.lastIndex = 0;
         let match;
         while ((match = GLYPH_PATTERN.exec(node.data))) {
           const glyph = this.transformedGlyph(node, match.index, measurements);
